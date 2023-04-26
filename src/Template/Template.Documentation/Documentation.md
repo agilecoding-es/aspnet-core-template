@@ -1,20 +1,21 @@
 # Creación del proyecto
 
-Creo los 4 proyectos principales:
+Creo los proyectos principales:
 
 - Folder Presentation:
--- Proyecto Template.MvcWebApp
+    - Proyecto Template.MvcWebApp
 
 - Folder Application:
--- Proyecto Template.Application
--- Proyecto Template.Domain
+    - Proyecto Template.Application.Contracts
+    - Proyecto Template.Application
+    - Proyecto Template.Domain
 
--Folder Infrastructure
--- Proyecto Template.DataAccess
--- Proyecto Template.ConnectedServices
+- Folder Infrastructure
+    - Proyecto Template.DataAccess
+    - Proyecto Template.ConnectedServices
 
 - Folder Cross Cutting
--- Proyecto Template.Common (o proyectos separados por utilidades)
+    - Proyecto Template.Common (o proyectos separados por utilidades)
 
 Agrego referencias entre proyectos.
 
@@ -101,14 +102,50 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 ```
 
-o puedo agregar la configuración en el `appsettings.json` y luego simplificar el archivo `Program.cs`
+Si como password utilizo un length distinto al default, debo modificar el modelo para el Register.
+Para eso tengo que hacer scaffold de los componentes de Identity (seguir guía: [Scaffold Identity](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-6.0&tabs=visual-studio#scaffold-identity-into-an-mvc-project-with-authorization).
 
-```json
-
-```
+Luego editar `RegisterModel`:
 
 ```cs
-
+/// <summary>
+///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+///     directly from your code. This API may change or be removed in future releases.
+/// </summary>
+[Required]
+[StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+[DataType(DataType.Password)]
+[Display(Name = "Password")]
+public string Password { get; set; }
 ```
 
 Desde `Package Manager Console` creo la migración inicial y aplico la migración en base de datos.
+
+## Login con proveedores externos
+
+Para hacer Login con Google o Microsoft hay que seguir las guías:
+
+- [Login con Google](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-6.0)
+- [Login con Microsoft](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/microsoft-logins?view=aspnetcore-6.0)
+
+### Habilitar la generación de códigos QR para 2FA
+
+Para habilitar la generación de códigos QR, seguir esta guía:
+
+- [Generación de códigos QR] (https://learn.microsoft.com/es-mx/aspnet/core/security/authentication/identity-enable-qrcodes?view=aspnetcore-6.0)
+
+## Configurar el envío de mails
+
+Establecer las variables en `appsettings.json`:
+
+```json
+"MailSettings": {
+    "Host": "127.0.0.1",
+    "Port": 25,
+    "EnableSSL": false,
+    "UserName": "account@sample.com",
+    "Password": "Y0urP4ssw0rd!!!",
+    "FromEmail": "fromemail@sample.com",
+    "DisplayName": "Sample Name"
+  },
+```

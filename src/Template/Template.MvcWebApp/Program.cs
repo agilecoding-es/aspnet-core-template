@@ -1,54 +1,30 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+using Template.Configuration;
 using Template.DataAccess.Database;
+using Template.MvcWebApp.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-// Add services to the container.
 builder.Services
-        .AddDbContext<Context>(options =>
-            options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    .ConfigureSettings(config)
+    .ConfigureDB(connectionString);
 
-var identityOptions = new IdentityOptions();
-config.GetSection(nameof(IdentityOptions)).Bind(identityOptions);
-
-builder.Services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<Context>();
+builder.Services
+    .AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<Context>();
 
 builder.Services.AddControllersWithViews();
 
-//builder.Services.Configure<IdentityOptions>(config.GetSection(nameof(IdentityOptions)));
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = true;
-    options.SignIn.RequireConfirmedEmail = true;
-
-    // Password settings.
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 3;
-    options.Password.RequiredUniqueChars = 1;
-
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings.
-    options.User.AllowedUserNameCharacters =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
-});
-
-builder.Services.AddAuthentication()
+builder.Services
+    .Configure<IdentityOptions>(options =>
+    {
+        config.GetSection(nameof(IdentityOptions)).Bind(options);
+    })
+    .AddAuthentication()
     .AddGoogle(options =>
     {
         IConfigurationSection googleAuthentication = config.GetSection("Authentication:Google");
@@ -61,6 +37,8 @@ builder.Services.AddAuthentication()
         microsoftOptions.ClientId = microsoftAuthentication["ClientId"];
         microsoftOptions.ClientSecret = microsoftAuthentication["ClientSecret"];
     });
+
+builder.Services.ConfigureDependencies(config.Get<AppSettings>());
 
 var app = builder.Build();
 
