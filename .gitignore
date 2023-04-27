@@ -348,3 +348,18 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#****************************************#
+# Custom Settings						 #
+#****************************************#
+
+# General
+#-----------------------------------------
+.env
+*.env
+/src/content/dist
+/artifact
+
+# Proyecto Templete.MvcWebApp
+#-----------------------------------------
+src/Template/Template.MvcWebApp/wwwroot/**/*

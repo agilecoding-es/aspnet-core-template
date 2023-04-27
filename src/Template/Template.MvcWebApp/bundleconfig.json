@@ -1,0 +1,9 @@
+[
+  {
+    "outputFileName": "wwwroot/bundles/identity/account/manage/enable-authenticator.js",
+    "inputFiles": [
+      "Content/lib/qrcode/qrcode.js",
+      "Content/js/qr.js"
+    ]
+  }
+]

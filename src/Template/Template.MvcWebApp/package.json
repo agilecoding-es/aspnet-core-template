@@ -1,0 +1,51 @@
+{
+  "name": "aspnet-core-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3panas/aspnet-core-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/3panas/aspnet-core-template/issues"
+  },
+  "homepage": "https://github.com/3panas/aspnet-core-template#readme",
+  "devDependencies": {
+    "browserify": "16.2.3",
+    "browser-sync": "^2.27.11",
+    "event-stream": "4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "8.0.0",
+    "gulp-beautify": "^3.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-debug": "^4.0.0",
+    "gulp-env": "^0.4.0",
+    "gulp-filter": "^7.0.0",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "gulp-xml": "^1.0.5",
+    "jquery": "3.6.4",
+    "jquery-confirm": "3.3.4",
+    "jquery-validation": "1.19.5",
+    "jquery-validation-unobtrusive": "3.2.12",
+    "merge-stream": "2.0.0",
+    "path": "^0.12.7",
+    "sass": "^1.58.0",
+    "tsify": "4.0.1",
+    "vinyl-source-stream": "2.0.0",
+    "yargs": "^17.6.2"
+  }
+}

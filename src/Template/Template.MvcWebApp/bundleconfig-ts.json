@@ -1,0 +1,11 @@
+[
+  {
+    "area": "Sample",
+    "baseDir": "./Areas/Sample/Content/ts",
+    "outputDir": "wwwroot/bundlests/sample",
+    "entries": [
+      "./sample-item.ts",
+      "./sample-list.ts"
+    ]
+  }
+]

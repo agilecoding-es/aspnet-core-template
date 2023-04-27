@@ -24,19 +24,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.Documentation", "00.Docu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.DataAccess", "Template.DataAccess\Template.DataAccess.csproj", "{8B745FC1-C1C9-4BF4-9D73-1DB65EC3FAED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.ConnectedServices", "Template.ConnectedServices\Template.ConnectedServices.csproj", "{ACF50E19-B248-4D82-BE14-C1673FE0C600}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.ConnectedServices", "Template.ConnectedServices\Template.ConnectedServices.csproj", "{ACF50E19-B248-4D82-BE14-C1673FE0C600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Application.Contracts", "Template.Application.Contracts\Template.Application.Contracts.csproj", "{05AEA3CF-5B1C-424A-98D7-4D7AED9B91DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Application.Contracts", "Template.Application.Contracts\Template.Application.Contracts.csproj", "{05AEA3CF-5B1C-424A-98D7-4D7AED9B91DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.MailSender", "Template.MailSender\Template.MailSender.csproj", "{F28D02E3-B2E7-4916-8D49-E4B979BCFAAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.MailSender", "Template.MailSender\Template.MailSender.csproj", "{F28D02E3-B2E7-4916-8D49-E4B979BCFAAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Tests", "05.Tests", "{42CC1D31-059C-4C14-9E5C-919145186EB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.MvcWebApp.UnitTests", "Template.MvcWebApp.UnitTests\Template.MvcWebApp.UnitTests.csproj", "{87C46D9A-7DEE-4097-AFFD-FE078B45B6D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.MvcWebApp.UnitTests", "Template.MvcWebApp.UnitTests\Template.MvcWebApp.UnitTests.csproj", "{87C46D9A-7DEE-4097-AFFD-FE078B45B6D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.MvcWebApp.IntegrationTests", "Template.MvcWebApp.IntegrationTests\Template.MvcWebApp.IntegrationTests.csproj", "{0E05F3AC-94B6-490D-AD51-356F0822CA87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.MvcWebApp.IntegrationTests", "Template.MvcWebApp.IntegrationTests\Template.MvcWebApp.IntegrationTests.csproj", "{0E05F3AC-94B6-490D-AD51-356F0822CA87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Application.UnitTests", "Template.Application.UnitTests\Template.Application.UnitTests.csproj", "{8CD262BE-CB8B-4AB7-82E1-881209D70461}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Application.UnitTests", "Template.Application.UnitTests\Template.Application.UnitTests.csproj", "{8CD262BE-CB8B-4AB7-82E1-881209D70461}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Presentation", "01.Presentation", "{C520877E-6AFD-4A0B-9364-8D111D3C7270}"
 EndProject
@@ -44,9 +44,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Application", "02.Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.CrossCutting", "04.CrossCutting", "{5DAEE080-71FA-4532-B885-A1FF033DCD3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.MailSender.UnitTests", "Template.MailSender.UnitTests\Template.MailSender.UnitTests.csproj", "{3C9C5E84-6669-47C5-898A-23DFB03C5C2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.MailSender.UnitTests", "Template.MailSender.UnitTests\Template.MailSender.UnitTests.csproj", "{3C9C5E84-6669-47C5-898A-23DFB03C5C2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Configuration", "Template.Configuration\Template.Configuration.csproj", "{E0C83E4B-3E83-4B8E-A78E-89D2D61EF9AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Configuration", "Template.Configuration\Template.Configuration.csproj", "{E0C83E4B-3E83-4B8E-A78E-89D2D61EF9AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{92F1EDB1-05E3-4698-A942-7107070F939C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.gitignore = ..\..\.gitignore
+		..\..\README.md = ..\..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
