@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    {
+      "group": [
+        "bootstrap",
+      ],
+      "ourputName": "wwwroot/vendors/css/main-vendors.css"
+    }
+  ]
+}
