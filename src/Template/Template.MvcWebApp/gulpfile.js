@@ -12,7 +12,7 @@ const
     beautify = require('gulp-beautify'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
-    clean = require('gulp-clean'),
+    rm = require('gulp-rm'),
     //NODE DEPENDENCIES
     //browserSync = require("browser-sync").create(),
     babelify = require("babelify"),
@@ -25,38 +25,20 @@ const
     xml = require('gulp-xml'),
     argv = require('yargs').argv,
     vendorsconfig = require("./bundleconfig-vendors.json"),
-    bundleconfig = require("./bundleconfig.json"),
-    bundleconfigTs = require("./bundleconfig-ts.json"),
     glob = require('glob'),
     es = require('event-stream'),
     nodeResolve = require('resolve'),
     mode = gulpmode();
 
-const Bundles = function (configFile) {
-    const
-        regex = {
-            css: /\.css$/,
-            js: /\.js$/
-        },
-        _getBundles = (pattern) => configFile.filter((bundle) => pattern.test(bundle.outputFileName)),
-        _cssBundles = _getBundles(regex.css),
-        _jsBundles = _getBundles(regex.js);
-
-    return {
-        css: _cssBundles,
-        js: _jsBundles,
-    }
-};
-
 let registerVendors = [];
 
 function clean_up() {
     return src(['wwwroot/**/*', "!wwwroot/favicon.ico"], { read: false })
-        .pipe(clean());
+        .pipe(rm());
 }
 
 function theme_scss() {
-    return src('./Content/theme/**/styles.scss')
+    return src('./Content/theme/site.scss')
         .pipe(mode.development(sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
         .pipe(mode.development(sourcemaps.write({ includeContent: false })))
@@ -73,7 +55,7 @@ const theme = series(theme_scss);
 
 function vendors_js(done) {
     var tasks = vendorsconfig.js.map(function (config) {
-        const b = browserify({ debug: false });
+        const b = browserify({ debug: mode.development() });
 
         config.vendors.forEach(function (vendor) {
             b.require(nodeResolve.sync(vendor), { expose: vendor });
@@ -82,7 +64,6 @@ function vendors_js(done) {
 
         return b.bundle()
             .pipe(source(config.outputFileName))
-            .pipe(dest('./wwwroot/vendors/js'))
             .pipe(buffer())
             .pipe(mode.production(uglify()))
             .pipe(mode.production(rename({ extname: '.min.js' })))
@@ -97,14 +78,16 @@ function vendors_js(done) {
 
 const vendors = series(vendors_js);
 
-function js(done) {
-    glob('./Content/js/**/*.js', function (err, files) {
+const js = series(shared_js, areas_js);
+
+function shared_js(done) {
+    return glob('./Content/js/**/*.js', function (err, files) {
         if (err) done(err);
 
         var tasks = files.map(function (entry) {
             const b = browserify({
                 entries: [entry],
-                debug: false
+                debug: mode.development()
             });
 
             registerVendors.forEach(function (vendor) {
@@ -120,62 +103,138 @@ function js(done) {
                     this.emit('end');
                 })
                 .pipe(source(entry))
-                .pipe(rename({ extname: '.bundle.js' }))
+                .pipe(buffer())
+                .pipe(mode.production(uglify()))
+                .pipe(rename({ extname: ".bundle.js" }))
                 .pipe(mode.production(rename({ suffix: '.min' })))
-                .pipe(dest('./wwwroot/bundles/js'));
+                .pipe(dest('./wwwroot'));
+        });
+        es.merge(tasks).on('end', done);
+    });
+}
+
+function areas_js(done) {
+    return glob('./Areas/**/*.js', function (err, files) {
+        if (err) done(err);
+
+        var tasks = files.map(function (entry) {
+            const b = browserify({
+                entries: [entry],
+                debug: mode.development()
+            });
+
+            registerVendors.forEach(function (vendor) {
+                b.external(vendor);
+            });
+
+
+            return b
+                .transform(babelify)
+                .bundle()
+                .on('error', function (e) {
+                    console.log(e.message);
+                    this.emit('end');
+                })
+                .pipe(source(entry))
+                .pipe(buffer())
+                .pipe(mode.production(uglify()))
+                .pipe(rename(
+                    function (file) {
+                        const parts = file.dirname.split(path.sep);
+                        const newParts = parts.filter(part => part !== 'Content' && part !== 'js');
+                        const newDirname = newParts.join(path.sep);
+
+                        file.dirname = newDirname;
+                        file.extname = ".bundle.js";
+                    }))
+                .pipe(mode.production(rename({ suffix: '.min' })))
+                .pipe(dest('./wwwroot'));
+        });
+        es.merge(tasks).on('end', done);
+    });
+}
+
+const ts = series(shared_ts, areas_ts);
+
+function shared_ts(done) {
+    return glob('./Content/ts/**/*.ts', function (err, files) {
+        if (err) done(err);
+
+        var tasks = files.map(function (entry) {
+            const b = browserify({
+                entries: [entry],
+                debug: mode.development()
+            });
+
+            registerVendors.forEach(function (vendor) {
+                b.external(vendor);
+            });
+
+            return b
+                .plugin(tsify, { noImplicitAny: true })
+                .transform(babelify)
+                .bundle()
+                .on('error', function (e) {
+                    console.log(e.message);
+                    this.emit('end');
+                })
+                .pipe(source(entry))
+                .pipe(buffer())
+                .pipe(mode.production(uglify()))
+                .pipe(rename(
+                    function (file) {
+                        file.dirname = file.dirname.replace(/ts/, 'js');
+                        file.extname = ".bundle.js";
+                    }))
+                .pipe(mode.production(rename({ suffix: '.min' })))
+                .pipe(dest('./wwwroot'));
         });
         es.merge(tasks).on('end', done);
     })
 }
 
-function ts(done) {
-    const buildTypescript = function (file) {
+function areas_ts(done) {
+    return glob('./Areas/**/*.ts', function (err, files) {
+        if (err) done(err);
 
-        // map them to our stream function
-        var tasks = file.entries.map(function (entry) {
-            try {
-                process.chdir("./");
-            }
-            catch (ex) {
-                console.log(ex);
-            }
+        var tasks = files.map(function (entry) {
+            const b = browserify({
+                entries: [entry],
+                debug: mode.development()
+            });
 
-            return browserify(
-                {
-                    basedir: file.baseDir,
-                    entries: [entry],
-                    debug: mode.development(),
-                    cache: {},
-                    packageCache: {}
-                })
+            registerVendors.forEach(function (vendor) {
+                b.external(vendor);
+            });
+
+            return b
                 .plugin(tsify, { noImplicitAny: true })
+                .transform(babelify)
                 .bundle()
+                .on('error', function (e) {
+                    console.log(e.message);
+                    this.emit('end');
+                })
                 .pipe(source(entry))
-                .pipe(rename({ extname: '.bundle.js' }))
-                .pipe(dest(file.outputDir.toLowerCase()))
-                //.pipe(browserSync.stream())
-                .on('end', () => console.log(`[${new Date().toLocaleTimeString()}] ${entry}`));
+                .pipe(buffer())
+                .pipe(mode.production(uglify()))
+                .pipe(rename(
+                    function (file) {
+                        const parts = file.dirname.split(path.sep);
+                        const newParts = parts.filter(part => part !== 'Content' && part !== 'ts');
+                        const newDirname = newParts.join(path.sep);
+
+                        file.dirname = newDirname;
+                        file.extname = ".bundle.js";
+                    }))
+                .pipe(mode.production(rename({ suffix: '.min' })))
+                .pipe(dest('./wwwroot'));
         });
-
-        // create a merged stream
-        tasks = [].concat(...tasks);
-
-        return es.merge.apply(null, tasks);
-    }
-
-    console.log(`[Typescript build - ${mode.development() ? 'Development' : 'Production'}]`);
-
-    var files = bundleconfigTs;
-
-    files.forEach(f => {
-        buildTypescript(f);
-    });
-    done();
+        es.merge(tasks).on('end', done);
+    })
 }
 
 function settings() {
-    console.log(`[${mode.development() ? 'Development' : 'Production'} Settings]`);
-
     return src(`deployment/${mode.development() ? 'development' : 'production'}/*.*`)
         .pipe(dest("."));
 }
@@ -210,4 +269,4 @@ const dev = series(build, keep_watching);
 
 exports.dev = dev;
 exports.default = build;
-exports.prueba = series(clean_up, theme_scss);
+exports.prueba = series(clean_up, ts);

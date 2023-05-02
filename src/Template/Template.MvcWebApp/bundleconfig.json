@@ -1,8 +1,0 @@
-[
-  {
-    "inputFiles": [
-      "Content/js/shared/qr.js"
-    ],
-    "outputFileName": "wwwroot/bundles/identity/account/manage/enable-authenticator.js"
-  }
-]
