@@ -1,11 +1,8 @@
 [
   {
-    "vendor": [
-      "node_modules/jquery.qrcode/jquery.qrcode.min.js"
-    ],
     "inputFiles": [
-      "Content/js/qr.js"
+      "Content/js/shared/qr.js"
     ],
-    "outputFileName": "wwwroot/bundles/identity/account/manage/enable-authenticator.js",
+    "outputFileName": "wwwroot/bundles/identity/account/manage/enable-authenticator.js"
   }
 ]

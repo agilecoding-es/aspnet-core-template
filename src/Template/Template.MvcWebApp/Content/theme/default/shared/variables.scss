@@ -1,0 +1,9 @@
+﻿@import "../bootstrap-customization/bootstrap-variables.scss";
+
+$red-intense: #ff2200;
+
+$custom-colors: ( 
+    red-intense: $red-intense
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);

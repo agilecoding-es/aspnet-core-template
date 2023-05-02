@@ -1,10 +1,17 @@
 {
-  "dependencies": [
+  "js": [
     {
-      "group": [
+      "vendors": [
         "bootstrap",
+        "lodash"
       ],
-      "ourputName": "wwwroot/vendors/css/main-vendors.css"
+      "outputFileName": "vendors.js"
+    },
+    {
+      "vendors": [
+        "davidshimjs-qrcodejs"
+      ],
+      "outputFileName": "qrcode.js"
     }
   ]
 }
