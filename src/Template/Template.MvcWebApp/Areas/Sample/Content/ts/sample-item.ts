@@ -1,6 +1,4 @@
-﻿import 'lodash'
-
-export class SampleItem {
+﻿export class SampleItem {
     public ItemName: string;
 
     constructor(itemName: string) {

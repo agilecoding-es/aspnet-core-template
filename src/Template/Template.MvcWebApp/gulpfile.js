@@ -54,6 +54,22 @@ function theme_scss() {
 const theme = series(theme_scss);
 
 function vendors_js(done) {
+    return src('./Content/vendors/js/**/*')
+        .pipe(rename(
+            function (file) {
+                //const parts = file.dirname.split(path.sep);
+                //const newParts = parts.filter(part => part !== 'Content' && part !== 'js');
+                //const newDirname = newParts.join(path.sep);
+
+                //file.dirname = newDirname;
+                //file.extname = ".bundle.js";
+                console.log(file);
+            }))
+        .pipe(dest('./wwwroot/vendors/js'));
+}
+
+
+function vendors_modules_js(done) {
     var tasks = vendorsconfig.js.map(function (config) {
         const b = browserify({ debug: mode.development() });
 
@@ -76,7 +92,7 @@ function vendors_js(done) {
     done();
 }
 
-const vendors = series(vendors_js);
+const vendors = series(vendors_js, vendors_modules_js);
 
 const js = series(shared_js, areas_js);
 
@@ -248,8 +264,8 @@ const keep_watching = series(function (done) {
         //    https: true
         //});
 
-        watch("Content/theme/**/*.*", series(theme));
-        watch(["Content/js/*.js", 'Areas/**/*.js'], series(js));
+        watch("./Content/theme/**/*.*", series(theme));
+        watch(["./Content/js/**/*.js", './Areas/**/*.js'], series(js));
         //watch("Content/css/*.css", series("css"));
         //watch("**/*.html").on("change", browserSync.reload);
         //watch("**/*.asp").on("change", browserSync.reload);

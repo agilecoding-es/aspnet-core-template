@@ -22,9 +22,7 @@
   "homepage": "https://github.com/3panas/aspnet-core-template#readme",
   "dependencies": {
     "bootstrap": "5.2.3",
-    "davidshimjs-qrcodejs": "0.0.2",
-    "axios": "1.4.0",
-    "lodash": "4.17.21"
+    "davidshimjs-qrcodejs": "0.0.2"
   },
   "devDependencies": {
     "babel-core": "6.26.3",

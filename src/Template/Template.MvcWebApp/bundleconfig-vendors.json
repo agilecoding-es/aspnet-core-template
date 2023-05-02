@@ -6,12 +6,6 @@
         "lodash"
       ],
       "outputFileName": "vendors.js"
-    },
-    {
-      "vendors": [
-        "davidshimjs-qrcodejs"
-      ],
-      "outputFileName": "qrcode.js"
     }
   ]
 }
