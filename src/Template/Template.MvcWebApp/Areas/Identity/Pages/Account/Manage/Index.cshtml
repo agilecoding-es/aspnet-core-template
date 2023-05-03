@@ -1,7 +1,11 @@
 ﻿@page
+@using Microsoft.Extensions.Localization;
 @model IndexModel
+
+@inject IStringLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = @Localizer["Identity_Account_Manage_Index_Title"];
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
@@ -20,7 +24,7 @@
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">@Localizer["Identity_Account_Manage_Index_Submit"]</button>
         </form>
     </div>
 </div>

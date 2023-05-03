@@ -1,7 +1,11 @@
 ﻿@page
+@using Microsoft.Extensions.Localization;
 @model PersonalDataModel
+
+@inject IStringLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = @Localizer["Identity_Account_Manage_PersonalData_Title"];
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
@@ -9,15 +13,12 @@
 
 <div class="row">
     <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
-        <p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-        </p>
+        @Html.Raw(Localizer["Identity_Account_Manage_PersonalData_Description"])
         <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Download</button>
+            <button class="btn btn-primary" type="submit">@Localizer["Identity_Account_Manage_PersonalData_Submit"]</button>
         </form>
         <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">@Localizer["Identity_Account_Manage_PersonalData_Delete"]</a>
         </p>
     </div>
 </div>

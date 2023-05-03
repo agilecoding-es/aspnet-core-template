@@ -271,6 +271,211 @@
   <data name="Identity_Account_Logout_Title" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Identity_Account_Manage_ChangePassword_Submit" xml:space="preserve">
+    <value>Update password</value>
+  </data>
+  <data name="Identity_Account_Manage_ChangePassword_Title" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Identity_Account_Manage_DeletePersonalData_Description" xml:space="preserve">
+    <value>Deleting this data will permanently remove your account, and this cannot be recovered.</value>
+  </data>
+  <data name="Identity_Account_Manage_DeletePersonalData_Submit" xml:space="preserve">
+    <value>Delete data and close my account</value>
+  </data>
+  <data name="Identity_Account_Manage_DeletePersonalData_Title" xml:space="preserve">
+    <value>Delete Personal Data</value>
+  </data>
+  <data name="Identity_Account_Manage_Disable2fa_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+        &lt;strong&gt;This action only disables 2FA.&lt;/strong&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key
+        used in an authenticator app you should &lt;a asp-page="./ResetAuthenticator"&gt;reset your authenticator keys.&lt;/a&gt;
+    &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_Disable2fa_Submit" xml:space="preserve">
+    <value>Disable 2FA</value>
+  </data>
+  <data name="Identity_Account_Manage_Disable2fa_Title" xml:space="preserve">
+    <value>Disable two-factor authentication(2FA)</value>
+  </data>
+  <data name="Identity_Account_Manage_DownloadPersonalData_Title" xml:space="preserve">
+    <value>Download Your Data</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_Change" xml:space="preserve">
+    <value>Change email</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_Send" xml:space="preserve">
+    <value>Send verification email</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_Title" xml:space="preserve">
+    <value>Manage Email</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Step1" xml:space="preserve">
+    <value>Download a two-factor authenticator app like Microsoft Authenticator for
+                &lt;a href="https://go.microsoft.com/fwlink/?Linkid=825072"&gt;Android&lt;/a&gt; and
+                &lt;a href="https://go.microsoft.com/fwlink/?Linkid=825073"&gt;iOS&lt;/a&gt; or
+                Google Authenticator for
+                &lt;a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;amp;hl=en"&gt;Android&lt;/a&gt; and
+                &lt;a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8"&gt;iOS&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Step2" xml:space="preserve">
+    <value>Scan the QR Code or enter this key &lt;kbd&gt;{0}&lt;/kbd&gt; into your two factor authenticator app. Spaces and casing do not matter.</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Step3" xml:space="preserve">
+    <value>Once you have scanned the QR code or input the key above, your two factor authentication app will provide you with a unique code. Enter the code in the confirmation box below.</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Steps" xml:space="preserve">
+    <value>To use an authenticator app go through the following steps:</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Submit" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Title" xml:space="preserve">
+    <value>Configure authenticator app</value>
+  </data>
+  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+        &lt;span class="glyphicon glyphicon-warning-sign"&gt;&lt;/span&gt;
+        &lt;strong&gt;Put these codes in a safe place.&lt;/strong&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        If you lose your device and don't have the recovery codes you will lose access to your account.
+    &lt;/p&gt;
+    &lt;p&gt;
+        Generating new recovery codes does not change the keys used in authenticator apps. If you wish to change the key
+        used in an authenticator app you should &lt;a asp-page="./ResetAuthenticator"&gt;reset your authenticator keys.&lt;/a&gt;
+    &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Submit" xml:space="preserve">
+    <value>Generate Recovery Codes</value>
+  </data>
+  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Title" xml:space="preserve">
+    <value>Generate two-factor authentication(2FA) recovery codes</value>
+  </data>
+  <data name="Identity_Account_Manage_Index_Submit" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Identity_Account_Manage_Index_Title" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Identity_Account_Manage_Layout_Subtitle" xml:space="preserve">
+    <value>Change your account settings</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_2FA" xml:space="preserve">
+    <value>Two-factor authentication</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_ExternalLogins" xml:space="preserve">
+    <value>External logins</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_PersonalData" xml:space="preserve">
+    <value>Personal data</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Description" xml:space="preserve">
+    <value>&lt;p&gt;Your account contains personal data that you have given us. This page allows you to download or delete that data.&lt;/p&gt;
+        &lt;p&gt;
+            &lt;strong&gt;Deleting this data will permanently remove your account, and this cannot be recovered.&lt;/strong&gt;
+        &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Submit" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Title" xml:space="preserve">
+    <value>Personal Data</value>
+  </data>
+  <data name="Identity_Account_Manage_ResetAuthenticator_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+        &lt;span class="glyphicon glyphicon-warning-sign"&gt;&lt;/span&gt;
+        &lt;strong&gt;If you reset your authenticator key your authenticator app will not work until you reconfigure it.&lt;/strong&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        This process disables 2FA until you verify your authenticator app.
+        If you do not complete your authenticator app configuration you may lose access to your account.
+    &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_ResetAuthenticator_Submit" xml:space="preserve">
+    <value>Reset authenticator key</value>
+  </data>
+  <data name="Identity_Account_Manage_ResetAuthenticator_Title" xml:space="preserve">
+    <value>Reset authenticator key</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Description" xml:space="preserve">
+    <value>You do not have a local username/password for this site. Add a local account so you can log in without an external login.</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Submit" xml:space="preserve">
+    <value>Set password</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Subtitle" xml:space="preserve">
+    <value>Set your password</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Title" xml:space="preserve">
+    <value>Set password</value>
+  </data>
+  <data name="Identity_Account_Manage_ShowRecoveryCodes_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+        &lt;strong&gt;Put these codes in a safe place.&lt;/strong&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        If you lose your device and don't have the recovery codes you will lose access to your account.
+    &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_ShowRecoveryCodes_Title" xml:space="preserve">
+    <value>Recovery codes</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_AddApp" xml:space="preserve">
+    <value>Add authenticator app</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert0" xml:space="preserve">
+    <value>&lt;strong&gt;You have no recovery codes left.&lt;/strong&gt;
+&lt;p&gt;You must &lt;a asp-page="./GenerateRecoveryCodes"&gt;generate a new set of recovery codes&lt;/a&gt; before you can log in with a recovery code.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert1" xml:space="preserve">
+    <value>&lt;strong&gt;You have 1 recovery code left.&lt;/strong&gt;
+&lt;p&gt;You can &lt;a asp-page="./GenerateRecoveryCodes"&gt;generate a new set of recovery codes&lt;/a&gt;.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert2" xml:space="preserve">
+    <value>&lt;strong&gt;You have {0} recovery codes left.&lt;/strong&gt;
+&lt;p&gt;You should &lt;a asp-page="./GenerateRecoveryCodes"&gt;generate a new set of recovery codes&lt;/a&gt;.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_AuthenticatorTitle" xml:space="preserve">
+    <value>Authenticator app</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Disable" xml:space="preserve">
+    <value>Disable 2FA</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Forgot" xml:space="preserve">
+    <value>Forget this browser</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_PolicyNotAccepted" xml:space="preserve">
+    <value>&lt;strong&gt;Privacy and cookie policy have not been accepted.&lt;/strong&gt;
+&lt;p&gt;You must accept the policy before you can enable two factor authentication.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_ResetApp" xml:space="preserve">
+    <value>Reset authenticator app</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_ResetRecoveryCodes" xml:space="preserve">
+    <value>Reset recovery codes</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_SetApp" xml:space="preserve">
+    <value>Set up authenticator app</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Title" xml:space="preserve">
+    <value>Two-factor authentication(2FA)</value>
+  </data>
   <data name="Identity_Account_RegisterConfirmation_Description" xml:space="preserve">
     <value>This app does not currently have a real email sender registered, see &lt;a href="https://aka.ms/aspaccountconf"&gt;these docs&lt;/a&gt; for how to configure a real email sender.
     Normally this would be emailed: &lt;a id="confirm-link" href="@Model.EmailConfirmationUrl"&gt;Click here to confirm your account&lt;/a&gt;</value>

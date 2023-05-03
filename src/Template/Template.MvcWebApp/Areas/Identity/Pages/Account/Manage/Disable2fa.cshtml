@@ -1,7 +1,11 @@
 ﻿@page
+@using Microsoft.Extensions.Localization;
 @model Disable2faModel
+
+@inject IStringLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Disable two-factor authentication (2FA)";
+    ViewData["Title"] = @Localizer["Identity_Account_Manage_Disable2fa_Title"];
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
@@ -9,17 +13,11 @@
 <h3>@ViewData["Title"]</h3>
 
 <div class="alert alert-warning" role="alert">
-    <p>
-        <strong>This action only disables 2FA.</strong>
-    </p>
-    <p>
-        Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key
-        used in an authenticator app you should <a asp-page="./ResetAuthenticator">reset your authenticator keys.</a>
-    </p>
+    @Html.Raw(Localizer["Identity_Account_Manage_Disable2fa_Description"])
 </div>
 
 <div>
     <form method="post">
-        <button class="btn btn-danger" type="submit">Disable 2FA</button>
+        <button class="btn btn-danger" type="submit">@Localizer["Identity_Account_Manage_Disable2fa_Submit"]</button>
     </form>
 </div>

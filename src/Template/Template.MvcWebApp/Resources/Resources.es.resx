@@ -271,6 +271,210 @@
   <data name="Identity_Account_Logout_Title" xml:space="preserve">
     <value>Cerrar sesión</value>
   </data>
+  <data name="Identity_Account_Manage_ChangePassword_Submit" xml:space="preserve">
+    <value>Actualizar contraseña</value>
+  </data>
+  <data name="Identity_Account_Manage_ChangePassword_Title" xml:space="preserve">
+    <value>Cambio de contraseña</value>
+  </data>
+  <data name="Identity_Account_Manage_DeletePersonalData_Description" xml:space="preserve">
+    <value>Eliminar estos datos eliminará permanentemente su cuenta y no se podrá recuperar.</value>
+  </data>
+  <data name="Identity_Account_Manage_DeletePersonalData_Submit" xml:space="preserve">
+    <value>Eliminar datos y cerrar mi cuenta</value>
+  </data>
+  <data name="Identity_Account_Manage_DeletePersonalData_Title" xml:space="preserve">
+    <value>Eliminar datos personales</value>
+  </data>
+  <data name="Identity_Account_Manage_Disable2fa_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+         &lt;strong&gt;Esta acción solo deshabilita 2FA.&lt;/strong&gt;
+     &lt;/p&gt;
+     &lt;p&gt;
+         Deshabilitar 2FA no cambia las claves utilizadas en las aplicaciones de autenticación. Si desea cambiar la clave
+         utilizado en una aplicación de autenticación, debe &lt;a asp-page="./ResetAuthenticator"&gt;restablecer sus claves de autenticación.&lt;/a&gt;
+     &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_Disable2fa_Submit" xml:space="preserve">
+    <value>Deshabilitar 2FA</value>
+  </data>
+  <data name="Identity_Account_Manage_Disable2fa_Title" xml:space="preserve">
+    <value>Deshabilitar la autenticación de dos factores (2FA)</value>
+  </data>
+  <data name="Identity_Account_Manage_DownloadPersonalData_Title" xml:space="preserve">
+    <value>Descargar datos personales</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_Change" xml:space="preserve">
+    <value>Cambiar correo electrónico</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_Send" xml:space="preserve">
+    <value>Envia un correo electrónico de verificación</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_Title" xml:space="preserve">
+    <value>Administrar correo electrónico</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Step1" xml:space="preserve">
+    <value>Descargue una aplicación de autenticación de dos factores como Microsoft Authenticator para
+                 &lt;a href="https://go.microsoft.com/fwlink/?Linkid=825072"&gt;Android&lt;/a&gt; y
+                 &lt;a href="https://go.microsoft.com/fwlink/?Linkid=825073"&gt;iOS&lt;/a&gt; o
+                 Autenticador de Google para
+                 &lt;a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;amp;hl=en"&gt;Android&lt;/a&gt; y
+                 &lt;a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8"&gt;iOS&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Step2" xml:space="preserve">
+    <value>Escanee el código QR o ingrese esta clave &lt;kbd&gt;{0}&lt;/kbd&gt; en su aplicación de autenticación de dos factores. No importan los espacios, ni mayúsculas/minúsculas.</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Step3" xml:space="preserve">
+    <value>Una vez que haya escaneado el código QR o ingresado la clave anterior, su aplicación de autenticación de dos factores le proporcionará un código único. Introduzca el código en el cuadro de confirmación a continuación.</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Steps" xml:space="preserve">
+    <value>Para usar una aplicación de autenticación, siga los siguientes pasos:</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Submit" xml:space="preserve">
+    <value>Verificar</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_Title" xml:space="preserve">
+    <value>Configurar la aplicación de autenticación</value>
+  </data>
+  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+         &lt;span class="glyphicon glyphicon-warning-sign"&gt;&lt;/span&gt;
+         &lt;strong&gt;Guarde estos códigos en un lugar seguro.&lt;/strong&gt;
+     &lt;/p&gt;
+     &lt;p&gt;
+         Si pierde su dispositivo y no tiene los códigos de recuperación, perderá el acceso a su cuenta.
+     &lt;/p&gt;
+     &lt;p&gt;
+         La generación de nuevos códigos de recuperación no cambia las claves utilizadas en las aplicaciones de autenticación. Si desea cambiar la clave utilizado en una aplicación de autenticación, debe &lt;a asp-page="./ResetAuthenticator"&gt;restablecer sus claves de autenticación.&lt;/a&gt;
+     &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Submit" xml:space="preserve">
+    <value>Generar códigos de recuperación</value>
+  </data>
+  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Title" xml:space="preserve">
+    <value>Genere códigos de recuperación de autenticación de dos factores (2FA)</value>
+  </data>
+  <data name="Identity_Account_Manage_Index_Submit" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Identity_Account_Manage_Index_Title" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="Identity_Account_Manage_Layout_Subtitle" xml:space="preserve">
+    <value>Cambie la configuración de su cuenta</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_2FA" xml:space="preserve">
+    <value>Doble factor de autenticación</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_ExternalLogins" xml:space="preserve">
+    <value>Servicios de autenticación externos</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_PersonalData" xml:space="preserve">
+    <value>Datos personales</value>
+  </data>
+  <data name="Identity_Account_Manage_ManageNav_Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Description" xml:space="preserve">
+    <value>&lt;p&gt;Su cuenta contiene datos personales que nos ha proporcionado. Esta página le permite descargar o eliminar esos datos.&lt;/p&gt;
+         &lt;p&gt;
+             &lt;strong&gt;Al eliminar estos datos, su cuenta se eliminará de forma permanente y no se podrá recuperar.&lt;/strong&gt;
+         &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Submit" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="Identity_Account_Manage_PersonalData_Title" xml:space="preserve">
+    <value>Datos personales</value>
+  </data>
+  <data name="Identity_Account_Manage_ResetAuthenticator_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+         &lt;span class="glyphicon glyphicon-warning-sign"&gt;&lt;/span&gt;
+         &lt;strong&gt;Si restablece su clave de autenticación, su aplicación de autenticación no funcionará hasta que la reconfigure.&lt;/strong&gt;
+     &lt;/p&gt;
+     &lt;p&gt;
+         Este proceso deshabilita 2FA hasta que verifique su aplicación de autenticación.
+         Si no completa la configuración de su aplicación de autenticación, puede perder el acceso a su cuenta.
+     &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_ResetAuthenticator_Submit" xml:space="preserve">
+    <value>Restablecer clave de autenticador</value>
+  </data>
+  <data name="Identity_Account_Manage_ResetAuthenticator_Title" xml:space="preserve">
+    <value>Restablecimiento de clave de autenticador</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Description" xml:space="preserve">
+    <value>No tiene un nombre de usuario/contraseña local para este sitio. Agregue una cuenta local para que pueda iniciar sesión sin un inicio de sesión externo.</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Submit" xml:space="preserve">
+    <value>Establecer contraseña</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Subtitle" xml:space="preserve">
+    <value>Establezca su contraseña</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_Title" xml:space="preserve">
+    <value>Configuración de contraseña</value>
+  </data>
+  <data name="Identity_Account_Manage_ShowRecoveryCodes_Description" xml:space="preserve">
+    <value>&lt;p&gt;
+         &lt;strong&gt;Guarde estos códigos en un lugar seguro.&lt;/strong&gt;
+     &lt;/p&gt;
+     &lt;p&gt;
+         Si pierde su dispositivo y no tiene los códigos de recuperación, perderá el acceso a su cuenta.
+     &lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_ShowRecoveryCodes_Title" xml:space="preserve">
+    <value>Códigos de recuperación</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_AddApp" xml:space="preserve">
+    <value>Agregar aplicación de autenticación</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert0" xml:space="preserve">
+    <value>&lt;strong&gt;No te quedan códigos de recuperación.&lt;/strong&gt;
+&lt;p&gt;Debe &lt;a asp-page="./GenerateRecoveryCodes"&gt;generar un nuevo conjunto de códigos de recuperación&lt;/a&gt; antes de poder iniciar sesión con un código de recuperación.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert1" xml:space="preserve">
+    <value>&lt;strong&gt;Te queda 1 código de recuperación.&lt;/strong&gt;
+&lt;p&gt;Puede &lt;a asp-page="./GenerateRecoveryCodes"&gt;generar un nuevo conjunto de códigos de recuperación&lt;/a&gt;.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert2" xml:space="preserve">
+    <value>&lt;strong&gt;Te quedan {0} códigos de recuperación.&lt;/strong&gt;
+&lt;p&gt;Debe &lt;a asp-page="./GenerateRecoveryCodes"&gt;generar un nuevo conjunto de códigos de recuperación&lt;/a&gt;.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_AuthenticatorTitle" xml:space="preserve">
+    <value>aplicación de autenticación</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Disable" xml:space="preserve">
+    <value>Deshabilitar 2FA</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Forgot" xml:space="preserve">
+    <value>Olvidar este navegador</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_PolicyNotAccepted" xml:space="preserve">
+    <value>&lt;strong&gt;No se han aceptado las políticas de privacidad y cookies.&lt;/strong&gt;
+&lt;p&gt;Debe aceptar la política antes de poder habilitar la autenticación de dos factores.&lt;/p&gt;</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_ResetApp" xml:space="preserve">
+    <value>Restablecer aplicación de autenticación</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_ResetRecoveryCodes" xml:space="preserve">
+    <value>Restablecer códigos de recuperación</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_SetApp" xml:space="preserve">
+    <value>Configurar la aplicación de autenticación</value>
+  </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_Title" xml:space="preserve">
+    <value>Autenticación de dos factores (2FA)</value>
+  </data>
   <data name="Identity_Account_RegisterConfirmation_Description" xml:space="preserve">
     <value>Esta aplicación actualmente no tiene un remitente de correo electrónico real registrado, consulte &lt;a href="https://aka.ms/aspaccountconf"&gt;estos documentos&lt;/a&gt; para saber cómo configurar un remitente de correo electrónico real.
      Normalmente, esto se enviaría por correo electrónico: &lt;a id="confirm-link" href="@Model.EmailConfirmationUrl"&gt;Haga clic aquí para confirmar su cuenta&lt;/a&gt;</value>

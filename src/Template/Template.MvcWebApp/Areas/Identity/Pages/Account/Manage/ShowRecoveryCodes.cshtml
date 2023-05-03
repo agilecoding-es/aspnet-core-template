@@ -1,19 +1,18 @@
 ﻿@page
+@using Microsoft.Extensions.Localization;
 @model ShowRecoveryCodesModel
+
+@inject IStringLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Recovery codes";
+    ViewData["Title"] = @Localizer["Identity_Account_Manage_ShowRecoveryCodes_Title"];
     ViewData["ActivePage"] = "TwoFactorAuthentication";
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
 <h3>@ViewData["Title"]</h3>
 <div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Put these codes in a safe place.</strong>
-    </p>
-    <p>
-        If you lose your device and don't have the recovery codes you will lose access to your account.
-    </p>
+    @Html.Raw(Localizer["Identity_Account_Manage_ShowRecoveryCodes_Description"])
 </div>
 <div class="row">
     <div class="col-md-12">
