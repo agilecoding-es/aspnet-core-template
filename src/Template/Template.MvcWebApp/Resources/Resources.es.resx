@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Home_Index_Title_Welcome" xml:space="preserve">
+    <value>Bienvenido</value>
+  </data>
+  <data name="Identity_Account_Manage_Layout_Title" xml:space="preserve">
+    <value>Administra tu cuenta</value>
+  </data>
+  <data name="Layout_Navbar_Register" xml:space="preserve">
+    <value>Registrarse</value>
+  </data>
+  <data name="Layout_Navbar_Privacy" xml:space="preserve">
+    <value>Privacidad</value>
+  </data>
+  <data name="Layout_Navbar_Logout" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+  <data name="Layout_Navbar_Login" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="Layout_Navbar_Home" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Layout_Navbar_LoggedUser" xml:space="preserve">
+    <value>Hola {0}!</value>
+  </data>
+  <data name="Layout_Footer_Privacy" xml:space="preserve">
+    <value>Privacidad</value>
+  </data>
+  <data name="Home_Index_Title" xml:space="preserve">
+    <value>Página de Inicio</value>
+  </data>
+  <data name="Home_Privacy_Title" xml:space="preserve">
+    <value>Políticas de privacidad</value>
+  </data>
+  <data name="Layout_Navbar_LoggedUser_Title" xml:space="preserve">
+    <value>Administra tu cuenta</value>
+  </data>
+  <data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
+    <value>Confirmación de restablecimiento de contraseña</value>
+  </data>
+  <data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
+    <value>Se ha restablecido su contraseña. Por favor, haga click aquí para &lt;a asp-page="./Login"&gt;Iniciar sesión&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_AccessDenied_Title" xml:space="preserve">
+    <value>Acceso denegado</value>
+  </data>
+  <data name="Identity_Account_AccessDenied_Content" xml:space="preserve">
+    <value>No tienes acceso a este recurso.</value>
+  </data>
+  <data name="Identity_Account_ConfirmEmailChange_Title" xml:space="preserve">
+    <value>Confirmar cambio de correo electrónico</value>
+  </data>
+  <data name="Identity_Account_ConfirmEmail_Title" xml:space="preserve">
+    <value>Confirmar correo electrónico</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Submit" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Description" xml:space="preserve">
+    <value>Te has registrado correctamente con &lt;strong&gt;@Model.ProviderDisplayName&lt;/strong&gt;.
+    Ingrese una dirección de correo electrónico para este sitio a continuación y haga clic en el botón Registrarse para finalizar
+    el inicio de sesión.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Subtitle" xml:space="preserve">
+    <value>Asocia tu cuenta {0}.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Title" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Title" xml:space="preserve">
+    <value>Administra tus proveedores de inicio de sesión externos</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Subitle" xml:space="preserve">
+    <value>Servicios registrados</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_AddAnother" xml:space="preserve">
+    <value>Agregar otro servicio de autenticación.</value>
+  </data>
+  <data name="Identity_Account_ForgotPasswordConfirmation_Message" xml:space="preserve">
+    <value>Por favor revise su correo electrónico para restablecer su contraseña.</value>
+  </data>
+  <data name="Identity_Account_ForgotPasswordConfirmation_Title" xml:space="preserve">
+    <value>Confirmación de contraseña olvidada</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_Submit" xml:space="preserve">
+    <value>Reestablecer contraseña</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_Subtitle" xml:space="preserve">
+    <value>Ingrese su correo electrónico</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_Title" xml:space="preserve">
+    <value>¿Olvidaste tu contraseña?</value>
+  </data>
+  <data name="Identity_Account_Lockout_Message" xml:space="preserve">
+    <value>Esta cuenta ha sido bloqueada, inténtalo de nuevo más tarde.</value>
+  </data>
+  <data name="Identity_Account_Lockout_Title" xml:space="preserve">
+    <value>Bloqueado</value>
+  </data>
+  <data name="Identity_Account_Login2FA_Description" xml:space="preserve">
+    <value>Su inicio de sesión está protegido con una aplicación de autenticación. Ingrese su código de autenticación a continuación.</value>
+  </data>
+  <data name="Identity_Account_Login2FA_RecoverCodeMessage" xml:space="preserve">
+    <value>¿No tiene acceso a su dispositivo de autenticación? Puede
+ &lt;a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl"&gt;iniciar sesión con un código de recuperación&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_Login2FA_Submit" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="Identity_Account_Login2FA_Title" xml:space="preserve">
+    <value>Doble factor de autenticación</value>
+  </data>
+  <data name="Identity_Account_LoginRecoveryCode_Description" xml:space="preserve">
+    <value>Ha solicitado iniciar sesión con un código de recuperación. Este inicio de sesión no se recordará hasta que proporcione
+     un código de aplicación de autenticación al iniciar sesión o deshabilitar 2FA e iniciar sesión nuevamente.</value>
+  </data>
+  <data name="Identity_Account_LoginRecoveryCode_Submit" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="Identity_Account_LoginRecoveryCode_Title" xml:space="preserve">
+    <value>Verificación del código de recuperación</value>
+  </data>
+  <data name="Identity_Account_Login_ForgotPassword" xml:space="preserve">
+    <value>¿Olvidaste tu contraseña?</value>
+  </data>
+  <data name="Identity_Account_Login_LoginServices" xml:space="preserve">
+    <value>Utilice otro servicio para iniciar sesión.</value>
+  </data>
+  <data name="Identity_Account_Login_RegisterNewUser" xml:space="preserve">
+    <value>Registrarse como nuevo usuario</value>
+  </data>
+  <data name="Identity_Account_Login_ReserndConfirmation" xml:space="preserve">
+    <value>Reenviar correo electrónico de confirmación</value>
+  </data>
+  <data name="Identity_Account_Login_Submit" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="Identity_Account_Login_Subtitle" xml:space="preserve">
+    <value>Utilice una cuenta local para iniciar sesión.</value>
+  </data>
+  <data name="Identity_Account_Login_Title" xml:space="preserve">
+    <value>Ingresar</value>
+  </data>
+  <data name="Identity_Account_Logout_Confirmation" xml:space="preserve">
+    <value>Ha cerrado correctamente la sesión.</value>
+  </data>
+  <data name="Identity_Account_Logout_Submit" xml:space="preserve">
+    <value>Click aqui para salir</value>
+  </data>
+  <data name="Identity_Account_Logout_Title" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+  <data name="Identity_Account_RegisterConfirmation_Description" xml:space="preserve">
+    <value>Esta aplicación actualmente no tiene un remitente de correo electrónico real registrado, consulte &lt;a href="https://aka.ms/aspaccountconf"&gt;estos documentos&lt;/a&gt; para saber cómo configurar un remitente de correo electrónico real.
+     Normalmente, esto se enviaría por correo electrónico: &lt;a id="confirm-link" href="@Model.EmailConfirmationUrl"&gt;Haga clic aquí para confirmar su cuenta&lt;/a&gt;</value>
+  </data>
+  <data name="Identity_Account_RegisterConfirmation_Message" xml:space="preserve">
+    <value>Por favor revise su correo electrónico para confirmar su cuenta.</value>
+  </data>
+  <data name="Identity_Account_RegisterConfirmation_Title" xml:space="preserve">
+    <value>Confirmación de registro</value>
+  </data>
+  <data name="Identity_Account_Register_LoginServices" xml:space="preserve">
+    <value>Utilice otro servicio para registrarse.</value>
+  </data>
+  <data name="Identity_Account_Register_Submit" xml:space="preserve">
+    <value>Registrarse</value>
+  </data>
+  <data name="Identity_Account_Register_Subtitle" xml:space="preserve">
+    <value>Crea una cuenta nueva.</value>
+  </data>
+  <data name="Identity_Account_Register_Title" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="Identity_Account_ResendEmailConfirmation_Subitle" xml:space="preserve">
+    <value>Ingrese su correo electrónico.</value>
+  </data>
+  <data name="Identity_Account_ResendEmailConfirmation_Submit" xml:space="preserve">
+    <value>Reenviar</value>
+  </data>
+  <data name="Identity_Account_ResendEmailConfirmation_Title" xml:space="preserve">
+    <value>Reenviar correo electrónico de confirmación</value>
+  </data>
+  <data name="Identity_Account_RestPassword_Submit" xml:space="preserve">
+    <value>Restablecer</value>
+  </data>
+  <data name="Identity_Account_RestPassword_Subtitle" xml:space="preserve">
+    <value>Restablecer su contraseña.</value>
+  </data>
+  <data name="Identity_Account_RestPassword_Title" xml:space="preserve">
+    <value>Restablecimiento su contraseña.</value>
+  </data>
+</root>

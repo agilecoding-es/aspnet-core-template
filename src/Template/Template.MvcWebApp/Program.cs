@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Template.Configuration;
 using Template.DataAccess.Database;
 using Template.MvcWebApp.Configuration;
@@ -17,30 +19,15 @@ builder.Services
     .AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<Context>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
-builder.Services
-    .Configure<IdentityOptions>(options =>
-    {
-        config.GetSection(nameof(IdentityOptions)).Bind(options);
-    })
-    .AddAuthentication()
-    .AddGoogle(options =>
-    {
-        IConfigurationSection googleAuthentication = config.GetSection("Authentication:Google");
-        options.ClientId = googleAuthentication["ClientId"];
-        options.ClientSecret = googleAuthentication["ClientSecret"];
-    })
-    .AddMicrosoftAccount(microsoftOptions =>
-    {
-        IConfigurationSection microsoftAuthentication = config.GetSection("Authentication:Microsoft");
-        microsoftOptions.ClientId = microsoftAuthentication["ClientId"];
-        microsoftOptions.ClientSecret = microsoftAuthentication["ClientSecret"];
-    });
-
-builder.Services.ConfigureDependencies(config.Get<AppSettings>());
+builder.Services.ConfigureIdentity(config)
+                .ConfigureDependencies(config.Get<AppSettings>())
+                .ConfigureResources(config.Get<AppSettings>());
 
 var app = builder.Build();
+var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -57,6 +44,8 @@ else
 app.UseHttpsRedirection();
 app.UseResponseCaching();
 //app.UseResponseCompression();
+
+app.UseRequestLocalization(locOptions.Value);
 app.UseStaticFiles();
 app.UseCookiePolicy();
 
@@ -70,9 +59,9 @@ app.UseAuthorization();
 // app.UseResponseCompression();
 // app.UseResponseCaching();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute("areaexists", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default",
+                       pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

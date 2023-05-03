@@ -1,11 +1,15 @@
 ﻿@page
+@using Microsoft.Extensions.Localization;
 @model ResendEmailConfirmationModel
+
+@inject IStringLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Resend email confirmation";
+    ViewData["Title"] = @Localizer["Identity_Account_ResendEmailConfirmation_Title"];
 }
 
 <h1>@ViewData["Title"]</h1>
-<h2>Enter your email.</h2>
+<h2>@Localizer["Identity_Account_ResendEmailConfirmation_Subitle"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,7 +20,7 @@
                 <label asp-for="Input.Email" class="form-label"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Resend</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">@Localizer["Identity_Account_ResendEmailConfirmation_Submit"]</button>
         </form>
     </div>
 </div>

@@ -1,14 +1,35 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@using Microsoft.Extensions.Options;
+@using System.Globalization;
+@using Template.MvcWebApp.Extensions;
+
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+@inject IStringLocalizer Localizer
+
+
+@{
+    string returnUrl = ViewContext.HttpContext.Request.GetEncodedPathAndQuery();
+    var requestCultureFeature = Context.GetRequestCultureFeature();
+    var requestCulture = requestCultureFeature.RequestCulture.UICulture.Name.Length == 2 ? requestCultureFeature.RequestCulture.UICulture.Name : requestCultureFeature.RequestCulture.UICulture.Parent.Name;
+    var cultureItems = LocalizationOptions.Value.SupportedUICultures
+                        .Where(c => c.ToString().Length == 2)
+                        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName.ToUpper() })
+                        .ToList();
+    var currentLang = cultureItems.Find(x => x.Value == CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Template.MvcWebApp</title>
     <environment include="Development">
-        <link rel="stylesheet" href="~/theme/site.css" />
+        <link rel="stylesheet" href="~/content/theme/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/theme/site.min.css" />
+        <link rel="stylesheet" href="~/content/theme/site.min.css" />
     </environment>
 </head>
 <body>
@@ -23,12 +44,40 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Layout_Navbar_Home"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Layout_Navbar_Privacy"]</a>
                         </li>
+
+                        @*<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>*@
                     </ul>
+
+                    <div class="dropdown language-selector">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="c-gray-520 mr-05 font-sm text-uppercase">@currentLang.Value</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            @foreach (var language in cultureItems.FindAll(x => x != currentLang))
+                            {
+                                <li>
+                                    <a class="d-flex align-items-center mb-20 pr-15" asp-area="" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="@language.Value" asp-route-returnUrl="@returnUrl">
+                                        <img width="43" height="32" src="~/content/images/flags/@(language.Value).svg" alt="@language.Text">
+                                        <span class="c-md ms-4 text-capitalize">@language.Text</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -42,17 +91,19 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Template.MvcWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Template.MvcWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Layout_Footer_Privacy"]</a>
         </div>
     </footer>
+
     <environment include="Development">
-        <script src="~/vendors/js/vendors.js"></script>
+        <script src="~/content/vendors/popper.js"></script>
+        <script src="~/content/vendors/bootstrap.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/vendors/js/vendors.min.js"></script>
+        <script src="~/content/vendors/popper.min.js"></script>
+        <script src="~/content/vendors/bootstrap.min.js"></script>
     </environment>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

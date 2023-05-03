@@ -1,11 +1,10 @@
-{
-  "js": [
+[
     {
-      "vendors": [
-        "bootstrap",
-        "lodash"
-      ],
-      "outputFileName": "vendors.js"
+      "file": "./node_modules/@popperjs/core/dist/cjs/popper.js",
+      "expose": "@popperjs/core"
+    },
+    {
+      "file": "./node_modules/bootstrap/dist/js/bootstrap.js",
+      "expose": "bootstrap"
     }
-  ]
-}
+]

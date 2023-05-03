@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Home_Index_Title_Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Identity_Account_Manage_Layout_Title" xml:space="preserve">
+    <value>Manage your account</value>
+  </data>
+  <data name="Layout_Navbar_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Layout_Navbar_Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="Layout_Navbar_LoggedUser" xml:space="preserve">
+    <value>Hello {0}!</value>
+  </data>
+  <data name="Layout_Navbar_Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Layout_Navbar_Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Layout_Navbar_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Layout_Footer_Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="Home_Index_Title" xml:space="preserve">
+    <value>Home page</value>
+  </data>
+  <data name="Home_Privacy_Title" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="Layout_Navbar_LoggedUser_Title" xml:space="preserve">
+    <value>Manage your account</value>
+  </data>
+  <data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
+    <value>Reset password confirmation</value>
+  </data>
+  <data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
+    <value>Your password has been reset. Please &lt;a asp-page="./Login"&gt;click here to log in&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_AccessDenied_Title" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="Identity_Account_AccessDenied_Content" xml:space="preserve">
+    <value>You do not have access to this resource.</value>
+  </data>
+  <data name="Identity_Account_ConfirmEmail_Title" xml:space="preserve">
+    <value>Confirm email</value>
+  </data>
+  <data name="Identity_Account_ConfirmEmailChange_Title" xml:space="preserve">
+    <value>Confirm email change</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Title" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Subtitle" xml:space="preserve">
+    <value>Associate your {0} account.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Description" xml:space="preserve">
+    <value>You've successfully authenticated with &lt;strong&gt;@Model.ProviderDisplayName&lt;/strong&gt;.
+    Please enter an email address for this site below and click the Register button to finish
+    logging in.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Submit" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Title" xml:space="preserve">
+    <value>Manage your external logins</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Subitle" xml:space="preserve">
+    <value>Registered Logins</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_AddAnother" xml:space="preserve">
+    <value>Add another service to log in.</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_Title" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_Subtitle" xml:space="preserve">
+    <value>Enter your email.</value>
+  </data>
+  <data name="Identity_Account_ForgotPasswordConfirmation_Message" xml:space="preserve">
+    <value>Please check your email to reset your password.</value>
+  </data>
+  <data name="Identity_Account_ForgotPasswordConfirmation_Title" xml:space="preserve">
+    <value>Forgot password confirmation</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_Submit" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="Identity_Account_Lockout_Message" xml:space="preserve">
+    <value>This account has been locked out, please try again later.</value>
+  </data>
+  <data name="Identity_Account_Lockout_Title" xml:space="preserve">
+    <value>Locked out</value>
+  </data>
+  <data name="Identity_Account_Login2FA_Description" xml:space="preserve">
+    <value>Your login is protected with an authenticator app. Enter your authenticator code below.</value>
+  </data>
+  <data name="Identity_Account_Login2FA_RecoverCodeMessage" xml:space="preserve">
+    <value>Don't have access to your authenticator device? You can
+    &lt;a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl"&gt;log in with a recovery code&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_Login2FA_Submit" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Identity_Account_Login2FA_Title" xml:space="preserve">
+    <value>Two-factor authentication</value>
+  </data>
+  <data name="Identity_Account_LoginRecoveryCode_Description" xml:space="preserve">
+    <value>You have requested to log in with a recovery code. This login will not be remembered until you provide
+    an authenticator app code at log in or disable 2FA and log in again.</value>
+  </data>
+  <data name="Identity_Account_LoginRecoveryCode_Submit" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Identity_Account_LoginRecoveryCode_Title" xml:space="preserve">
+    <value>Recovery code verification</value>
+  </data>
+  <data name="Identity_Account_Login_ForgotPassword" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="Identity_Account_Login_LoginServices" xml:space="preserve">
+    <value>Use another service to log in.</value>
+  </data>
+  <data name="Identity_Account_Login_RegisterNewUser" xml:space="preserve">
+    <value>Register as a new user</value>
+  </data>
+  <data name="Identity_Account_Login_ReserndConfirmation" xml:space="preserve">
+    <value>Resend email confirmation</value>
+  </data>
+  <data name="Identity_Account_Login_Submit" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Identity_Account_Login_Subtitle" xml:space="preserve">
+    <value>Use a local account to log in.</value>
+  </data>
+  <data name="Identity_Account_Login_Title" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Identity_Account_Logout_Confirmation" xml:space="preserve">
+    <value>You have successfully logged out of the application.</value>
+  </data>
+  <data name="Identity_Account_Logout_Submit" xml:space="preserve">
+    <value>Click here to Logout</value>
+  </data>
+  <data name="Identity_Account_Logout_Title" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="Identity_Account_RegisterConfirmation_Description" xml:space="preserve">
+    <value>This app does not currently have a real email sender registered, see &lt;a href="https://aka.ms/aspaccountconf"&gt;these docs&lt;/a&gt; for how to configure a real email sender.
+    Normally this would be emailed: &lt;a id="confirm-link" href="@Model.EmailConfirmationUrl"&gt;Click here to confirm your account&lt;/a&gt;</value>
+  </data>
+  <data name="Identity_Account_RegisterConfirmation_Message" xml:space="preserve">
+    <value>Please check your email to confirm your account.</value>
+  </data>
+  <data name="Identity_Account_RegisterConfirmation_Title" xml:space="preserve">
+    <value>Register confirmation</value>
+  </data>
+  <data name="Identity_Account_Register_LoginServices" xml:space="preserve">
+    <value>Use another service to register.</value>
+  </data>
+  <data name="Identity_Account_Register_Submit" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Identity_Account_Register_Subtitle" xml:space="preserve">
+    <value>Create a new account.</value>
+  </data>
+  <data name="Identity_Account_Register_Title" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Identity_Account_ResendEmailConfirmation_Subitle" xml:space="preserve">
+    <value>Enter your email.</value>
+  </data>
+  <data name="Identity_Account_ResendEmailConfirmation_Submit" xml:space="preserve">
+    <value>Resend</value>
+  </data>
+  <data name="Identity_Account_ResendEmailConfirmation_Title" xml:space="preserve">
+    <value>Resend email confirmation</value>
+  </data>
+  <data name="Identity_Account_RestPassword_Submit" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Identity_Account_RestPassword_Subtitle" xml:space="preserve">
+    <value>Reset your password.</value>
+  </data>
+  <data name="Identity_Account_RestPassword_Title" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+</root>

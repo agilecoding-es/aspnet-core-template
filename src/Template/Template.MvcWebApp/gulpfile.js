@@ -12,6 +12,7 @@ const
     beautify = require('gulp-beautify'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
+    imagemin = require('gulp-imagemin'),
     rm = require('gulp-rm'),
     //NODE DEPENDENCIES
     //browserSync = require("browser-sync").create(),
@@ -33,9 +34,11 @@ const
 let registerVendors = [];
 
 function clean_up() {
-    return src(['wwwroot/**/*', "!wwwroot/favicon.ico"], { read: false })
+    return src(['wwwroot/**/*', "!wwwroot/images/**/*", "!wwwroot/favicon.ico"], { read: false })
         .pipe(rm());
 }
+
+const theme = series(theme_scss);
 
 function theme_scss() {
     return src('./Content/theme/site.scss')
@@ -47,43 +50,48 @@ function theme_scss() {
         .pipe(mode.production(cssmin()))
         .pipe(mode.development(sourcemaps.write(".")))
         .pipe(mode.production(rename({ suffix: '.min' })))
-        .pipe(dest('./wwwroot/theme/'));
+        .pipe(dest('./wwwroot/content/theme/'));
     //.pipe(browserSync.stream());
 }
 
-const theme = series(theme_scss);
+//IMAGES 
+const images = series(images_clean, images_copy);
 
-function vendors_js(done) {
-    return src('./Content/vendors/js/**/*')
-        .pipe(rename(
-            function (file) {
-                //const parts = file.dirname.split(path.sep);
-                //const newParts = parts.filter(part => part !== 'Content' && part !== 'js');
-                //const newDirname = newParts.join(path.sep);
-
-                //file.dirname = newDirname;
-                //file.extname = ".bundle.js";
-                console.log(file);
-            }))
-        .pipe(dest('./wwwroot/vendors/js'));
+function images_clean() {
+    return src(["wwwroot/images/**/*"], { read: false })
+        .pipe(rm());
 }
 
+function images_copy() {
+    return src('Content/images/**/*.*')
+        .pipe(imagemin([
+            imagemin.jpegtran({ progressive: true }),
+            imagemin.optipng({ optimizationLevel: 5 }),
+            imagemin.svgo({ plugins: [{ removeViewBox: true }] }),
+        ], {
+            verbose: true
+        }))
+        .pipe(dest('wwwroot/content/images'))
+    //.pipe(browserSync.stream());
+}
+
+const vendors = series(vendors_js, vendors_modules_js);
+
+function vendors_js() {
+    return src('./Content/vendors/**/*')
+        .pipe(dest('./wwwroot/content/vendors/'));
+}
 
 function vendors_modules_js(done) {
-    var tasks = vendorsconfig.js.map(function (config) {
-        const b = browserify({ debug: mode.development() });
+    var tasks = vendorsconfig.map(function (vendor) {
+        const b = browserify({ insertGlobals: true, debug: mode.development() });
 
-        config.vendors.forEach(function (vendor) {
-            b.require(nodeResolve.sync(vendor), { expose: vendor });
-            registerVendors.push(vendor);
-        });
+        registerVendors.push(vendor.expose);
 
-        return b.bundle()
-            .pipe(source(config.outputFileName))
-            .pipe(buffer())
+        return src(vendor.file)
             .pipe(mode.production(uglify()))
             .pipe(mode.production(rename({ extname: '.min.js' })))
-            .pipe(dest('./wwwroot/vendors/js'));
+            .pipe(dest('./wwwroot/content/vendors/'));
     });
 
     if (tasks.length == 0) return done();
@@ -91,8 +99,6 @@ function vendors_modules_js(done) {
     merge(tasks);
     done();
 }
-
-const vendors = series(vendors_js, vendors_modules_js);
 
 const js = series(shared_js, areas_js);
 
@@ -109,7 +115,6 @@ function shared_js(done) {
             registerVendors.forEach(function (vendor) {
                 b.external(vendor);
             });
-
 
             return b
                 .transform(babelify)
@@ -143,7 +148,6 @@ function areas_js(done) {
                 b.external(vendor);
             });
 
-
             return b
                 .transform(babelify)
                 .bundle()
@@ -164,7 +168,7 @@ function areas_js(done) {
                         file.extname = ".bundle.js";
                     }))
                 .pipe(mode.production(rename({ suffix: '.min' })))
-                .pipe(dest('./wwwroot'));
+                .pipe(dest('./wwwroot/content/js'));
         });
         es.merge(tasks).on('end', done);
     });
@@ -244,7 +248,7 @@ function areas_ts(done) {
                         file.extname = ".bundle.js";
                     }))
                 .pipe(mode.production(rename({ suffix: '.min' })))
-                .pipe(dest('./wwwroot'));
+                .pipe(dest('./wwwroot/content/js'));
         });
         es.merge(tasks).on('end', done);
     })
@@ -266,6 +270,9 @@ const keep_watching = series(function (done) {
 
         watch("./Content/theme/**/*.*", series(theme));
         watch(["./Content/js/**/*.js", './Areas/**/*.js'], series(js));
+        watch(["./Content/ts/**/*.ts", './Areas/**/*.ts'], series(ts));
+        watch(["./Content/vendors/js/**/*", './bundleconfig-vendors.json'], series(vendors));
+
         //watch("Content/css/*.css", series("css"));
         //watch("**/*.html").on("change", browserSync.reload);
         //watch("**/*.asp").on("change", browserSync.reload);
@@ -273,11 +280,13 @@ const keep_watching = series(function (done) {
     done();
 });
 
-const build = series(clean_up,
+const build = series(
+    clean_up,
+    vendors,
     parallel(
-        vendors,
         series(theme, ts, js),
-        settings
+        settings,
+        images_copy
     )
 )
 
@@ -285,4 +294,5 @@ const dev = series(build, keep_watching);
 
 exports.dev = dev;
 exports.default = build;
-exports.prueba = series(clean_up, ts);
+exports.images = images;
+exports.prueba = series(clean_up, areas_ts);

@@ -1,10 +1,14 @@
 ﻿@page
+@using Microsoft.Extensions.Localization;
 @model AccessDeniedModel
+
+@inject IStringLocalizer Localizer
+
 @{
-    ViewData["Title"] = "Access denied";
+    ViewData["Title"] = @Localizer["Identity_Account_AccessDenied_Title"];
 }
 
 <header>
     <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
+    <p class="text-danger">@Localizer["Identity_Account_AccessDenied_Content"]</p>
 </header>
