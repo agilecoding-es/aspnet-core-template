@@ -54,7 +54,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = "Identity_Account_Manage_ChangePasswordModel_OldPassword", ResourceType = typeof(Resources.Resources))]
             public string OldPassword { get; set; }
 
             /// <summary>
