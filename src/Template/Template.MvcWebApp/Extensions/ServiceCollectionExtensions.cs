@@ -77,8 +77,8 @@ namespace Template.MvcWebApp.Configuration
                 .AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>()
                 .AddSingleton<IStringLocalizer>(provider =>
                 {
-                    var localizerFactory = provider.GetService<IStringLocalizerFactory>();
-                    return localizerFactory.Create("Resources", typeof(Program).Assembly.FullName);
+                    var factory = provider.GetService<IStringLocalizerFactory>();
+                    return factory.Create("AppResources", typeof(Program).Assembly.FullName);
                 });
 
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
@@ -54,7 +55,8 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Identity_Account_Manage_ChangePasswordModel_OldPassword", ResourceType = typeof(Resources.Resources))]
+            //[Display(Name = "Identity_Account_Manage_ChangePasswordModel_OldPassword", ResourceType = typeof(AppResources))]
+            [Display(Name = "Current password")]
             public string OldPassword { get; set; }
 
             /// <summary>

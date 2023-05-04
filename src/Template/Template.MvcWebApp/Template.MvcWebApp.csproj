@@ -43,7 +43,6 @@
 
   <ItemGroup>
     <Folder Include="Content\ts\shared\" />
-    <Folder Include="Resources\Areas\Identity\Pages\Account\Manage\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,21 +56,6 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Areas\Sample\Content\ts\sample-list.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

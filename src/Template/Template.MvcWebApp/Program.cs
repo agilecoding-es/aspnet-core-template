@@ -20,7 +20,11 @@ builder.Services
     .AddEntityFrameworkStores<Context>();
 
 builder.Services.AddControllersWithViews()
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization( options=> {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create("DataAnnotationResources", typeof(Program).Assembly.FullName);
+                });
 
 builder.Services.ConfigureIdentity(config)
                 .ConfigureDependencies(config.Get<AppSettings>())
