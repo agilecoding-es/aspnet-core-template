@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,234 +59,234 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Home_Index_Title_Welcome" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Home_Index_Title_Welcome" xml:space="preserve">
     <value>Bienvenido</value>
   </data>
-  <data name="Identity_Account_Manage_Layout_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_Layout_Title" xml:space="preserve">
     <value>Administra tu cuenta</value>
   </data>
-  <data name="Layout_Navbar_Register" xml:space="preserve">
+	<data name="Layout_Navbar_Register" xml:space="preserve">
     <value>Registrarse</value>
   </data>
-  <data name="Layout_Navbar_Privacy" xml:space="preserve">
+	<data name="Layout_Navbar_Privacy" xml:space="preserve">
     <value>Privacidad</value>
   </data>
-  <data name="Layout_Navbar_Logout" xml:space="preserve">
+	<data name="Layout_Navbar_Logout" xml:space="preserve">
     <value>Cerrar sesión</value>
   </data>
-  <data name="Layout_Navbar_Login" xml:space="preserve">
+	<data name="Layout_Navbar_Login" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>
-  <data name="Layout_Navbar_Home" xml:space="preserve">
+	<data name="Layout_Navbar_Home" xml:space="preserve">
     <value>Inicio</value>
   </data>
-  <data name="Layout_Navbar_LoggedUser" xml:space="preserve">
+	<data name="Layout_Navbar_LoggedUser" xml:space="preserve">
     <value>Hola {0}!</value>
   </data>
-  <data name="Layout_Footer_Privacy" xml:space="preserve">
+	<data name="Layout_Footer_Privacy" xml:space="preserve">
     <value>Privacidad</value>
   </data>
-  <data name="Home_Index_Title" xml:space="preserve">
+	<data name="Home_Index_Title" xml:space="preserve">
     <value>Página de Inicio</value>
   </data>
-  <data name="Home_Privacy_Title" xml:space="preserve">
+	<data name="Home_Privacy_Title" xml:space="preserve">
     <value>Políticas de privacidad</value>
   </data>
-  <data name="Layout_Navbar_LoggedUser_Title" xml:space="preserve">
+	<data name="Layout_Navbar_LoggedUser_Title" xml:space="preserve">
     <value>Administra tu cuenta</value>
   </data>
-  <data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
+	<data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
     <value>Confirmación de restablecimiento de contraseña</value>
   </data>
-  <data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
+	<data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
     <value>Se ha restablecido su contraseña. Por favor, haga click aquí para &lt;a asp-page="./Login"&gt;Iniciar sesión&lt;/a&gt;.</value>
   </data>
-  <data name="Identity_Account_AccessDenied_Title" xml:space="preserve">
+	<data name="Identity_Account_AccessDenied_Title" xml:space="preserve">
     <value>Acceso denegado</value>
   </data>
-  <data name="Identity_Account_AccessDenied_Content" xml:space="preserve">
+	<data name="Identity_Account_AccessDenied_Content" xml:space="preserve">
     <value>No tienes acceso a este recurso.</value>
   </data>
-  <data name="Identity_Account_ConfirmEmailChange_Title" xml:space="preserve">
+	<data name="Identity_Account_ConfirmEmailChange_Title" xml:space="preserve">
     <value>Confirmar cambio de correo electrónico</value>
   </data>
-  <data name="Identity_Account_ConfirmEmail_Title" xml:space="preserve">
+	<data name="Identity_Account_ConfirmEmail_Title" xml:space="preserve">
     <value>Confirmar correo electrónico</value>
   </data>
-  <data name="Identity_Account_ExternalLogin_Submit" xml:space="preserve">
+	<data name="Identity_Account_ExternalLogin_Submit" xml:space="preserve">
     <value>Registrar</value>
   </data>
-  <data name="Identity_Account_ExternalLogin_Description" xml:space="preserve">
+	<data name="Identity_Account_ExternalLogin_Description" xml:space="preserve">
     <value>Te has registrado correctamente con &lt;strong&gt;@Model.ProviderDisplayName&lt;/strong&gt;.
     Ingrese una dirección de correo electrónico para este sitio a continuación y haga clic en el botón Registrarse para finalizar
     el inicio de sesión.</value>
   </data>
-  <data name="Identity_Account_ExternalLogin_Subtitle" xml:space="preserve">
+	<data name="Identity_Account_ExternalLogin_Subtitle" xml:space="preserve">
     <value>Asocia tu cuenta {0}.</value>
   </data>
-  <data name="Identity_Account_ExternalLogin_Title" xml:space="preserve">
+	<data name="Identity_Account_ExternalLogin_Title" xml:space="preserve">
     <value>Registro</value>
   </data>
-  <data name="Identity_Account_Manage_ExternalLogins_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_ExternalLogins_Title" xml:space="preserve">
     <value>Administra tus proveedores de inicio de sesión externos</value>
   </data>
-  <data name="Identity_Account_Manage_ExternalLogins_Subitle" xml:space="preserve">
+	<data name="Identity_Account_Manage_ExternalLogins_Subitle" xml:space="preserve">
     <value>Servicios registrados</value>
   </data>
-  <data name="Identity_Account_Manage_ExternalLogins_Remove" xml:space="preserve">
+	<data name="Identity_Account_Manage_ExternalLogins_Remove" xml:space="preserve">
     <value>Eliminar</value>
   </data>
-  <data name="Identity_Account_Manage_ExternalLogins_AddAnother" xml:space="preserve">
+	<data name="Identity_Account_Manage_ExternalLogins_AddAnother" xml:space="preserve">
     <value>Agregar otro servicio de autenticación.</value>
   </data>
-  <data name="Identity_Account_ForgotPasswordConfirmation_Message" xml:space="preserve">
+	<data name="Identity_Account_ForgotPasswordConfirmation_Message" xml:space="preserve">
     <value>Por favor revise su correo electrónico para restablecer su contraseña.</value>
   </data>
-  <data name="Identity_Account_ForgotPasswordConfirmation_Title" xml:space="preserve">
+	<data name="Identity_Account_ForgotPasswordConfirmation_Title" xml:space="preserve">
     <value>Confirmación de contraseña olvidada</value>
   </data>
-  <data name="Identity_Account_ForgotPassword_Submit" xml:space="preserve">
+	<data name="Identity_Account_ForgotPassword_Submit" xml:space="preserve">
     <value>Reestablecer contraseña</value>
   </data>
-  <data name="Identity_Account_ForgotPassword_Subtitle" xml:space="preserve">
+	<data name="Identity_Account_ForgotPassword_Subtitle" xml:space="preserve">
     <value>Ingrese su correo electrónico</value>
   </data>
-  <data name="Identity_Account_ForgotPassword_Title" xml:space="preserve">
+	<data name="Identity_Account_ForgotPassword_Title" xml:space="preserve">
     <value>¿Olvidaste tu contraseña?</value>
   </data>
-  <data name="Identity_Account_Lockout_Message" xml:space="preserve">
+	<data name="Identity_Account_Lockout_Message" xml:space="preserve">
     <value>Esta cuenta ha sido bloqueada, inténtalo de nuevo más tarde.</value>
   </data>
-  <data name="Identity_Account_Lockout_Title" xml:space="preserve">
+	<data name="Identity_Account_Lockout_Title" xml:space="preserve">
     <value>Bloqueado</value>
   </data>
-  <data name="Identity_Account_Login2FA_Description" xml:space="preserve">
+	<data name="Identity_Account_Login2FA_Description" xml:space="preserve">
     <value>Su inicio de sesión está protegido con una aplicación de autenticación. Ingrese su código de autenticación a continuación.</value>
   </data>
-  <data name="Identity_Account_Login2FA_RecoverCodeMessage" xml:space="preserve">
+	<data name="Identity_Account_Login2FA_RecoverCodeMessage" xml:space="preserve">
     <value>¿No tiene acceso a su dispositivo de autenticación? Puede
  &lt;a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl"&gt;iniciar sesión con un código de recuperación&lt;/a&gt;.</value>
   </data>
-  <data name="Identity_Account_Login2FA_Submit" xml:space="preserve">
+	<data name="Identity_Account_Login2FA_Submit" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>
-  <data name="Identity_Account_Login2FA_Title" xml:space="preserve">
+	<data name="Identity_Account_Login2FA_Title" xml:space="preserve">
     <value>Doble factor de autenticación</value>
   </data>
-  <data name="Identity_Account_LoginRecoveryCode_Description" xml:space="preserve">
+	<data name="Identity_Account_LoginRecoveryCode_Description" xml:space="preserve">
     <value>Ha solicitado iniciar sesión con un código de recuperación. Este inicio de sesión no se recordará hasta que proporcione
      un código de aplicación de autenticación al iniciar sesión o deshabilitar 2FA e iniciar sesión nuevamente.</value>
   </data>
-  <data name="Identity_Account_LoginRecoveryCode_Submit" xml:space="preserve">
+	<data name="Identity_Account_LoginRecoveryCode_Submit" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>
-  <data name="Identity_Account_LoginRecoveryCode_Title" xml:space="preserve">
+	<data name="Identity_Account_LoginRecoveryCode_Title" xml:space="preserve">
     <value>Verificación del código de recuperación</value>
   </data>
-  <data name="Identity_Account_Login_ForgotPassword" xml:space="preserve">
+	<data name="Identity_Account_Login_ForgotPassword" xml:space="preserve">
     <value>¿Olvidaste tu contraseña?</value>
   </data>
-  <data name="Identity_Account_Login_LoginServices" xml:space="preserve">
+	<data name="Identity_Account_Login_LoginServices" xml:space="preserve">
     <value>Utilice otro servicio para iniciar sesión.</value>
   </data>
-  <data name="Identity_Account_Login_RegisterNewUser" xml:space="preserve">
+	<data name="Identity_Account_Login_RegisterNewUser" xml:space="preserve">
     <value>Registrarse como nuevo usuario</value>
   </data>
-  <data name="Identity_Account_Login_ReserndConfirmation" xml:space="preserve">
+	<data name="Identity_Account_Login_ReserndConfirmation" xml:space="preserve">
     <value>Reenviar correo electrónico de confirmación</value>
   </data>
-  <data name="Identity_Account_Login_Submit" xml:space="preserve">
+	<data name="Identity_Account_Login_Submit" xml:space="preserve">
     <value>Iniciar sesión</value>
   </data>
-  <data name="Identity_Account_Login_Subtitle" xml:space="preserve">
+	<data name="Identity_Account_Login_Subtitle" xml:space="preserve">
     <value>Utilice una cuenta local para iniciar sesión.</value>
   </data>
-  <data name="Identity_Account_Login_Title" xml:space="preserve">
+	<data name="Identity_Account_Login_Title" xml:space="preserve">
     <value>Ingresar</value>
   </data>
-  <data name="Identity_Account_Logout_Confirmation" xml:space="preserve">
+	<data name="Identity_Account_Logout_Confirmation" xml:space="preserve">
     <value>Ha cerrado correctamente la sesión.</value>
   </data>
-  <data name="Identity_Account_Logout_Submit" xml:space="preserve">
+	<data name="Identity_Account_Logout_Submit" xml:space="preserve">
     <value>Click aqui para salir</value>
   </data>
-  <data name="Identity_Account_Logout_Title" xml:space="preserve">
+	<data name="Identity_Account_Logout_Title" xml:space="preserve">
     <value>Cerrar sesión</value>
   </data>
-  <data name="Identity_Account_Manage_ChangePassword_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_ChangePassword_Submit" xml:space="preserve">
     <value>Actualizar contraseña</value>
   </data>
-  <data name="Identity_Account_Manage_ChangePassword_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_ChangePassword_Title" xml:space="preserve">
     <value>Cambio de contraseña</value>
   </data>
-  <data name="Identity_Account_Manage_DeletePersonalData_Description" xml:space="preserve">
+	<data name="Identity_Account_Manage_DeletePersonalData_Description" xml:space="preserve">
     <value>Eliminar estos datos eliminará permanentemente su cuenta y no se podrá recuperar.</value>
   </data>
-  <data name="Identity_Account_Manage_DeletePersonalData_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_DeletePersonalData_Submit" xml:space="preserve">
     <value>Eliminar datos y cerrar mi cuenta</value>
   </data>
-  <data name="Identity_Account_Manage_DeletePersonalData_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_DeletePersonalData_Title" xml:space="preserve">
     <value>Eliminar datos personales</value>
   </data>
-  <data name="Identity_Account_Manage_Disable2fa_Description" xml:space="preserve">
+	<data name="Identity_Account_Manage_Disable2fa_Description" xml:space="preserve">
     <value>&lt;p&gt;
          &lt;strong&gt;Esta acción solo deshabilita 2FA.&lt;/strong&gt;
      &lt;/p&gt;
@@ -295,25 +295,25 @@
          utilizado en una aplicación de autenticación, debe &lt;a asp-page="./ResetAuthenticator"&gt;restablecer sus claves de autenticación.&lt;/a&gt;
      &lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_Disable2fa_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_Disable2fa_Submit" xml:space="preserve">
     <value>Deshabilitar 2FA</value>
   </data>
-  <data name="Identity_Account_Manage_Disable2fa_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_Disable2fa_Title" xml:space="preserve">
     <value>Deshabilitar la autenticación de dos factores (2FA)</value>
   </data>
-  <data name="Identity_Account_Manage_DownloadPersonalData_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_DownloadPersonalData_Title" xml:space="preserve">
     <value>Descargar datos personales</value>
   </data>
-  <data name="Identity_Account_Manage_Email_Change" xml:space="preserve">
+	<data name="Identity_Account_Manage_Email_Change" xml:space="preserve">
     <value>Cambiar correo electrónico</value>
   </data>
-  <data name="Identity_Account_Manage_Email_Send" xml:space="preserve">
+	<data name="Identity_Account_Manage_Email_Send" xml:space="preserve">
     <value>Envia un correo electrónico de verificación</value>
   </data>
-  <data name="Identity_Account_Manage_Email_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_Email_Title" xml:space="preserve">
     <value>Administrar correo electrónico</value>
   </data>
-  <data name="Identity_Account_Manage_EnableAuthenticator_Step1" xml:space="preserve">
+	<data name="Identity_Account_Manage_EnableAuthenticator_Step1" xml:space="preserve">
     <value>Descargue una aplicación de autenticación de dos factores como Microsoft Authenticator para
                  &lt;a href="https://go.microsoft.com/fwlink/?Linkid=825072"&gt;Android&lt;/a&gt; y
                  &lt;a href="https://go.microsoft.com/fwlink/?Linkid=825073"&gt;iOS&lt;/a&gt; o
@@ -321,22 +321,22 @@
                  &lt;a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;amp;hl=en"&gt;Android&lt;/a&gt; y
                  &lt;a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8"&gt;iOS&lt;/a&gt;.</value>
   </data>
-  <data name="Identity_Account_Manage_EnableAuthenticator_Step2" xml:space="preserve">
+	<data name="Identity_Account_Manage_EnableAuthenticator_Step2" xml:space="preserve">
     <value>Escanee el código QR o ingrese esta clave &lt;kbd&gt;{0}&lt;/kbd&gt; en su aplicación de autenticación de dos factores. No importan los espacios, ni mayúsculas/minúsculas.</value>
   </data>
-  <data name="Identity_Account_Manage_EnableAuthenticator_Step3" xml:space="preserve">
+	<data name="Identity_Account_Manage_EnableAuthenticator_Step3" xml:space="preserve">
     <value>Una vez que haya escaneado el código QR o ingresado la clave anterior, su aplicación de autenticación de dos factores le proporcionará un código único. Introduzca el código en el cuadro de confirmación a continuación.</value>
   </data>
-  <data name="Identity_Account_Manage_EnableAuthenticator_Steps" xml:space="preserve">
+	<data name="Identity_Account_Manage_EnableAuthenticator_Steps" xml:space="preserve">
     <value>Para usar una aplicación de autenticación, siga los siguientes pasos:</value>
   </data>
-  <data name="Identity_Account_Manage_EnableAuthenticator_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_EnableAuthenticator_Submit" xml:space="preserve">
     <value>Verificar</value>
   </data>
-  <data name="Identity_Account_Manage_EnableAuthenticator_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_EnableAuthenticator_Title" xml:space="preserve">
     <value>Configurar la aplicación de autenticación</value>
   </data>
-  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Description" xml:space="preserve">
+	<data name="Identity_Account_Manage_GenerateRecoveryCodes_Description" xml:space="preserve">
     <value>&lt;p&gt;
          &lt;span class="glyphicon glyphicon-warning-sign"&gt;&lt;/span&gt;
          &lt;strong&gt;Guarde estos códigos en un lugar seguro.&lt;/strong&gt;
@@ -348,55 +348,55 @@
          La generación de nuevos códigos de recuperación no cambia las claves utilizadas en las aplicaciones de autenticación. Si desea cambiar la clave utilizado en una aplicación de autenticación, debe &lt;a asp-page="./ResetAuthenticator"&gt;restablecer sus claves de autenticación.&lt;/a&gt;
      &lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_GenerateRecoveryCodes_Submit" xml:space="preserve">
     <value>Generar códigos de recuperación</value>
   </data>
-  <data name="Identity_Account_Manage_GenerateRecoveryCodes_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_GenerateRecoveryCodes_Title" xml:space="preserve">
     <value>Genere códigos de recuperación de autenticación de dos factores (2FA)</value>
   </data>
-  <data name="Identity_Account_Manage_Index_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_Index_Submit" xml:space="preserve">
     <value>Guardar</value>
   </data>
-  <data name="Identity_Account_Manage_Index_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_Index_Title" xml:space="preserve">
     <value>Perfil</value>
   </data>
-  <data name="Identity_Account_Manage_Layout_Subtitle" xml:space="preserve">
+	<data name="Identity_Account_Manage_Layout_Subtitle" xml:space="preserve">
     <value>Cambie la configuración de su cuenta</value>
   </data>
-  <data name="Identity_Account_Manage_ManageNav_2FA" xml:space="preserve">
+	<data name="Identity_Account_Manage_ManageNav_2FA" xml:space="preserve">
     <value>Doble factor de autenticación</value>
   </data>
-  <data name="Identity_Account_Manage_ManageNav_Email" xml:space="preserve">
+	<data name="Identity_Account_Manage_ManageNav_Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Identity_Account_Manage_ManageNav_ExternalLogins" xml:space="preserve">
+	<data name="Identity_Account_Manage_ManageNav_ExternalLogins" xml:space="preserve">
     <value>Servicios de autenticación externos</value>
   </data>
-  <data name="Identity_Account_Manage_ManageNav_Password" xml:space="preserve">
+	<data name="Identity_Account_Manage_ManageNav_Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
-  <data name="Identity_Account_Manage_ManageNav_PersonalData" xml:space="preserve">
+	<data name="Identity_Account_Manage_ManageNav_PersonalData" xml:space="preserve">
     <value>Datos personales</value>
   </data>
-  <data name="Identity_Account_Manage_ManageNav_Profile" xml:space="preserve">
+	<data name="Identity_Account_Manage_ManageNav_Profile" xml:space="preserve">
     <value>Perfil</value>
   </data>
-  <data name="Identity_Account_Manage_PersonalData_Delete" xml:space="preserve">
+	<data name="Identity_Account_Manage_PersonalData_Delete" xml:space="preserve">
     <value>Eliminar</value>
   </data>
-  <data name="Identity_Account_Manage_PersonalData_Description" xml:space="preserve">
+	<data name="Identity_Account_Manage_PersonalData_Description" xml:space="preserve">
     <value>&lt;p&gt;Su cuenta contiene datos personales que nos ha proporcionado. Esta página le permite descargar o eliminar esos datos.&lt;/p&gt;
          &lt;p&gt;
              &lt;strong&gt;Al eliminar estos datos, su cuenta se eliminará de forma permanente y no se podrá recuperar.&lt;/strong&gt;
          &lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_PersonalData_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_PersonalData_Submit" xml:space="preserve">
     <value>Descargar</value>
   </data>
-  <data name="Identity_Account_Manage_PersonalData_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_PersonalData_Title" xml:space="preserve">
     <value>Datos personales</value>
   </data>
-  <data name="Identity_Account_Manage_ResetAuthenticator_Description" xml:space="preserve">
+	<data name="Identity_Account_Manage_ResetAuthenticator_Description" xml:space="preserve">
     <value>&lt;p&gt;
          &lt;span class="glyphicon glyphicon-warning-sign"&gt;&lt;/span&gt;
          &lt;strong&gt;Si restablece su clave de autenticación, su aplicación de autenticación no funcionará hasta que la reconfigure.&lt;/strong&gt;
@@ -406,25 +406,25 @@
          Si no completa la configuración de su aplicación de autenticación, puede perder el acceso a su cuenta.
      &lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_ResetAuthenticator_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_ResetAuthenticator_Submit" xml:space="preserve">
     <value>Restablecer clave de autenticador</value>
   </data>
-  <data name="Identity_Account_Manage_ResetAuthenticator_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_ResetAuthenticator_Title" xml:space="preserve">
     <value>Restablecimiento de clave de autenticador</value>
   </data>
-  <data name="Identity_Account_Manage_SetPassword_Description" xml:space="preserve">
+	<data name="Identity_Account_Manage_SetPassword_Description" xml:space="preserve">
     <value>No tiene un nombre de usuario/contraseña local para este sitio. Agregue una cuenta local para que pueda iniciar sesión sin un inicio de sesión externo.</value>
   </data>
-  <data name="Identity_Account_Manage_SetPassword_Submit" xml:space="preserve">
+	<data name="Identity_Account_Manage_SetPassword_Submit" xml:space="preserve">
     <value>Establecer contraseña</value>
   </data>
-  <data name="Identity_Account_Manage_SetPassword_Subtitle" xml:space="preserve">
+	<data name="Identity_Account_Manage_SetPassword_Subtitle" xml:space="preserve">
     <value>Establezca su contraseña</value>
   </data>
-  <data name="Identity_Account_Manage_SetPassword_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_SetPassword_Title" xml:space="preserve">
     <value>Configuración de contraseña</value>
   </data>
-  <data name="Identity_Account_Manage_ShowRecoveryCodes_Description" xml:space="preserve">
+	<data name="Identity_Account_Manage_ShowRecoveryCodes_Description" xml:space="preserve">
     <value>&lt;p&gt;
          &lt;strong&gt;Guarde estos códigos en un lugar seguro.&lt;/strong&gt;
      &lt;/p&gt;
@@ -432,90 +432,186 @@
          Si pierde su dispositivo y no tiene los códigos de recuperación, perderá el acceso a su cuenta.
      &lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_ShowRecoveryCodes_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_ShowRecoveryCodes_Title" xml:space="preserve">
     <value>Códigos de recuperación</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_AddApp" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_AddApp" xml:space="preserve">
     <value>Agregar aplicación de autenticación</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert0" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_Alert0" xml:space="preserve">
     <value>&lt;strong&gt;No te quedan códigos de recuperación.&lt;/strong&gt;
 &lt;p&gt;Debe &lt;a asp-page="./GenerateRecoveryCodes"&gt;generar un nuevo conjunto de códigos de recuperación&lt;/a&gt; antes de poder iniciar sesión con un código de recuperación.&lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert1" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_Alert1" xml:space="preserve">
     <value>&lt;strong&gt;Te queda 1 código de recuperación.&lt;/strong&gt;
 &lt;p&gt;Puede &lt;a asp-page="./GenerateRecoveryCodes"&gt;generar un nuevo conjunto de códigos de recuperación&lt;/a&gt;.&lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_Alert2" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_Alert2" xml:space="preserve">
     <value>&lt;strong&gt;Te quedan {0} códigos de recuperación.&lt;/strong&gt;
 &lt;p&gt;Debe &lt;a asp-page="./GenerateRecoveryCodes"&gt;generar un nuevo conjunto de códigos de recuperación&lt;/a&gt;.&lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_AuthenticatorTitle" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_AuthenticatorTitle" xml:space="preserve">
     <value>aplicación de autenticación</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_Disable" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_Disable" xml:space="preserve">
     <value>Deshabilitar 2FA</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_Forgot" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_Forgot" xml:space="preserve">
     <value>Olvidar este navegador</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_PolicyNotAccepted" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_PolicyNotAccepted" xml:space="preserve">
     <value>&lt;strong&gt;No se han aceptado las políticas de privacidad y cookies.&lt;/strong&gt;
 &lt;p&gt;Debe aceptar la política antes de poder habilitar la autenticación de dos factores.&lt;/p&gt;</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_ResetApp" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_ResetApp" xml:space="preserve">
     <value>Restablecer aplicación de autenticación</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_ResetRecoveryCodes" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_ResetRecoveryCodes" xml:space="preserve">
     <value>Restablecer códigos de recuperación</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_SetApp" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_SetApp" xml:space="preserve">
     <value>Configurar la aplicación de autenticación</value>
   </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_Title" xml:space="preserve">
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_Title" xml:space="preserve">
     <value>Autenticación de dos factores (2FA)</value>
   </data>
-  <data name="Identity_Account_RegisterConfirmation_Description" xml:space="preserve">
+	<data name="Identity_Account_RegisterConfirmation_Description" xml:space="preserve">
     <value>Esta aplicación actualmente no tiene un remitente de correo electrónico real registrado, consulte &lt;a href="https://aka.ms/aspaccountconf"&gt;estos documentos&lt;/a&gt; para saber cómo configurar un remitente de correo electrónico real.
      Normalmente, esto se enviaría por correo electrónico: &lt;a id="confirm-link" href="@Model.EmailConfirmationUrl"&gt;Haga clic aquí para confirmar su cuenta&lt;/a&gt;</value>
   </data>
-  <data name="Identity_Account_RegisterConfirmation_Message" xml:space="preserve">
+	<data name="Identity_Account_RegisterConfirmation_Message" xml:space="preserve">
     <value>Por favor revise su correo electrónico para confirmar su cuenta.</value>
   </data>
-  <data name="Identity_Account_RegisterConfirmation_Title" xml:space="preserve">
+	<data name="Identity_Account_RegisterConfirmation_Title" xml:space="preserve">
     <value>Confirmación de registro</value>
   </data>
-  <data name="Identity_Account_Register_LoginServices" xml:space="preserve">
+	<data name="Identity_Account_Register_LoginServices" xml:space="preserve">
     <value>Utilice otro servicio para registrarse.</value>
   </data>
-  <data name="Identity_Account_Register_Submit" xml:space="preserve">
+	<data name="Identity_Account_Register_Submit" xml:space="preserve">
     <value>Registrarse</value>
   </data>
-  <data name="Identity_Account_Register_Subtitle" xml:space="preserve">
+	<data name="Identity_Account_Register_Subtitle" xml:space="preserve">
     <value>Crea una cuenta nueva.</value>
   </data>
-  <data name="Identity_Account_Register_Title" xml:space="preserve">
+	<data name="Identity_Account_Register_Title" xml:space="preserve">
     <value>Registro</value>
   </data>
-  <data name="Identity_Account_ResendEmailConfirmation_Subitle" xml:space="preserve">
+	<data name="Identity_Account_ResendEmailConfirmation_Subitle" xml:space="preserve">
     <value>Ingrese su correo electrónico.</value>
   </data>
-  <data name="Identity_Account_ResendEmailConfirmation_Submit" xml:space="preserve">
+	<data name="Identity_Account_ResendEmailConfirmation_Submit" xml:space="preserve">
     <value>Reenviar</value>
   </data>
-  <data name="Identity_Account_ResendEmailConfirmation_Title" xml:space="preserve">
+	<data name="Identity_Account_ResendEmailConfirmation_Title" xml:space="preserve">
     <value>Reenviar correo electrónico de confirmación</value>
   </data>
-  <data name="Identity_Account_RestPassword_Submit" xml:space="preserve">
+	<data name="Identity_Account_RestPassword_Submit" xml:space="preserve">
     <value>Restablecer</value>
   </data>
-  <data name="Identity_Account_RestPassword_Subtitle" xml:space="preserve">
+	<data name="Identity_Account_RestPassword_Subtitle" xml:space="preserve">
     <value>Restablecer su contraseña.</value>
   </data>
-  <data name="Identity_Account_RestPassword_Title" xml:space="preserve">
+	<data name="Identity_Account_RestPassword_Title" xml:space="preserve">
     <value>Restablecimiento su contraseña.</value>
   </data>
-  <data name="Identity_Account_Manage_ChangePasswordModel_OldPassword" xml:space="preserve">
+	<data name="Identity_Account_Manage_ChangePasswordModel_OldPassword" xml:space="preserve">
     <value>Contraseña actual</value>
   </data>
+	<data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorEmail" xml:space="preserve">
+    <value>Error al cambiar el correo electrónico.</value>
+</data>
+	<data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorUserName" xml:space="preserve">
+    <value>Error al cambiar el nombre de usuario.</value>
+</data>
+	<data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_Ok" xml:space="preserve">
+    <value>Gracias por confirmar el cambio de su correo electrónico.</value>
+</data>
+	<data name="Identity_Account_Manage_ChangePassword_StatusMessage_Ok" xml:space="preserve">
+    <value>Su contraseña ha sido cambiada.</value>
+</data>
+	<data name="Identity_Account_Manage_Disable2fa_StatusMessage_Ok" xml:space="preserve">
+    <value>Se ha desactivado 2FA. Puede volver a activar 2FA cuando configure una aplicación de autenticación.</value>
+</data>
+	<data name="Identity_Account_Manage_Email_StatusMessage_ConfirmationSent" xml:space="preserve">
+    <value>Se ha enviado el enlace de confirmación para cambiar el correo electrónico. Por favor, revise su correo electrónico.</value>
+</data>
+	<data name="Identity_Account_Manage_Email_StatusMessage_VerificationSent" xml:space="preserve">
+    <value>Se ha enviado el correo electrónico de verificación. Por favor, revise su correo electrónico.</value>
+</data>
+	<data name="Identity_Account_Manage_Email_StatusMessage_EmailUnchanged" xml:space="preserve">
+    <value>Su correo electrónico no ha sido cambiado.</value>
+</data>
+	<data name="Identity_Account_Manage_EnableAuthenticator_StatusMessage_AuthenticatorAppVerified" xml:space="preserve">
+    <value>Su aplicación de autenticación ha sido verificada.</value>
+</data>
+	<data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginAdded" xml:space="preserve">
+    <value>Se ha agregado el inicio de sesión externo.</value>
+</data>
+	<data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotAdded" xml:space="preserve">
+    <value>No se agregó el inicio de sesión externo. Los inicios de sesión externos solo pueden asociarse con una cuenta.</value>
+</data>
+	<data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotRemoved" xml:space="preserve">
+    <value>No se eliminó el inicio de sesión externo.</value>
+</data>
+	<data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginRemoved" xml:space="preserve">
+    <value>Se eliminó el inicio de sesión externo.</value>
+</data>
+	<data name="Identity_Account_Manage_GenerateRecoveryCodes_StatusMessage_Advice" xml:space="preserve">
+    <value>Ha generado nuevos códigos de recuperación.</value>
+</data>
+	<data name="Identity_Account_Manage_Index_StatusMessage_Error" xml:space="preserve">
+    <value>Error inesperado al intentar establecer el número de teléfono.</value>
+</data>
+	<data name="Identity_Account_Manage_Index_StatusMessage_Ok" xml:space="preserve">
+    <value>Se ha actualizado su perfil.</value>
+</data>
+	<data name="Identity_Account_Manage_ResetAuthenticator_StatusMessage_AuthenticatorAppReset" xml:space="preserve">
+    <value>Se ha restablecido su clave de la aplicación de autenticación. Deberá configurar su aplicación de autenticación utilizando la nueva clave.</value>
+</data>
+	<data name="Identity_Account_Manage_SetPassword_StatusMessage_PasswordSet" xml:space="preserve">
+    <value>Tu contraseña ha sido establecida.</value>
+</data>
+	<data name="Identity_Account_Manage_TwoFactorAuthentication_StatusMessage_BrowserForgotten" xml:space="preserve">
+    <value>El navegador actual ha sido olvidado. Cuando vuelvas a iniciar sesión desde este navegador, se te solicitará el código 2FA.</value>
+</data>
+	<data name="Identity_Account_ConfirmEmail_StatusMessage_Ok" xml:space="preserve">
+    <value>Gracias por confirmar su correo electrónico.</value>
+</data>
+	<data name="Identity_Account_ConfirmEmail_StatusMessage_Error" xml:space="preserve">
+    <value>Error al confirmar su correo electrónico.</value>
+</data>
+	<data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_RemoteError" xml:space="preserve">
+    <value>Error del proveedor externo: {0}</value>
+</data>
+	<data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_InfoError" xml:space="preserve">
+    <value>Error al cargar la información del inicio de sesión externo.</value>
+</data>
+	<data name="Identity_Account_ExternalLogin_StatusMessage_OnPostConfirmation_InfoError" xml:space="preserve">
+    <value>Error al cargar la información del inicio de sesión externo durante la confirmación.</value>
+</data>
+	<data name="Identity_Account_ExternalLogin_ConfirmEmailSubject" xml:space="preserve">
+    <value>Confirme su correo electrónico</value>
+</data>
+	<data name="Identity_Account_ExternalLogin_ConfirmEmailBody" xml:space="preserve">
+    <value>Confirme su cuenta haciendo <a href='{0}'>clic aquí</a>.</value>
+</data>
+	<data name="Identity_Account_ForgotPassword_ConfirmEmailSubject" xml:space="preserve">
+    <value>Restablecer contraseña</value>
+</data>
+	<data name="Identity_Account_ForgotPassword_ConfirmEmailBody" xml:space="preserve">
+    <value>Restablezca su contraseña haciendo <a href='{0}'>clic aquí</a>.</value>
+</data>
+	<data name="Identity_Account_Login_ModelState" xml:space="preserve">
+    <value>Intento de inicio de sesión no válido.</value>
+</data>
+	<data name="Identity_Account_LoginWith2fa_ModelState" xml:space="preserve">
+    <value>Código de autenticación no válido.</value>
+</data>
+	<data name="Identity_Account_LoginWithRecoveryCode_ModelState" xml:space="preserve">
+    <value>Código de recuperación no válido ingresado.</value>
+</data>
+	<data name="Identity_Account_Manage_DeletePersonalData_ModelState" xml:space="preserve">
+    <value>Contraseña incorrecta.</value>
+</data>
 </root>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
@@ -15,18 +16,20 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<Disable2faModel> _logger;
+        private readonly IStringLocalizer _localizer;
 
         public Disable2faModel(
             UserManager<IdentityUser> userManager,
-            ILogger<Disable2faModel> logger)
+            ILogger<Disable2faModel> logger, IStringLocalizer localizer)
         {
             _userManager = userManager;
             _logger = logger;
+            _localizer = localizer;
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        ///
+        ///
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
@@ -36,11 +39,13 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                //TODO: Localize
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
+                //TODO: Localize
                 throw new InvalidOperationException($"Cannot disable 2FA for user as it's not currently enabled.");
             }
 
@@ -52,17 +57,19 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
+                //TODO: Localize
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
             var disable2faResult = await _userManager.SetTwoFactorEnabledAsync(user, false);
             if (!disable2faResult.Succeeded)
             {
+                //TODO: Localize
                 throw new InvalidOperationException($"Unexpected error occurred disabling 2FA.");
             }
 
             _logger.LogInformation("User with ID '{UserId}' has disabled 2fa.", _userManager.GetUserId(User));
-            StatusMessage = "2fa has been disabled. You can reenable 2fa when you setup an authenticator app";
+            StatusMessage = _localizer.GetString("Identity_Account_Manage_Disable2fa_StatusMessage_Ok");
             return RedirectToPage("./TwoFactorAuthentication");
         }
     }

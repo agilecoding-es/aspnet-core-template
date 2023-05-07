@@ -3,6 +3,7 @@
 #nullable disable
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -27,20 +28,21 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
         }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        ///
+        ///
         /// </summary>
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        ///
+        ///
         /// </summary>
         public bool DisplayConfirmAccountLink { get; set; }
 
         /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
+        ///
+        ///
         /// </summary>
         public string EmailConfirmationUrl { get; set; }
 
@@ -55,10 +57,12 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
+                //TODO: Localize
                 return NotFound($"Unable to load user with email '{email}'.");
             }
 
             Email = email;
+#if DEBUG
             // Once you add a real email sender, you should remove this code that lets you confirm the account
             DisplayConfirmAccountLink = true;
             if (DisplayConfirmAccountLink)
@@ -72,6 +76,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
                     values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                     protocol: Request.Scheme);
             }
+#endif
 
             return Page();
         }
