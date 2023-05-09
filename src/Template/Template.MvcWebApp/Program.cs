@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Template.Application.Identity;
 using Template.Configuration;
-using Template.DataAccess.Database;
+using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.Configuration;
+using Template.Persistence.Database;
+using Template.Persistence.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +19,11 @@ builder.Services
     .ConfigureDB(connectionString);
 
 builder.Services
-    .AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<Context>();
+       .AddDefaultIdentity<User>()
+       .AddUserManager<UserManager>()
+       .AddSignInManager<SignInManager>()
+       .AddUserStore<UserStore>()
+       .AddEntityFrameworkStores<Context>();
 
 builder.Services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)

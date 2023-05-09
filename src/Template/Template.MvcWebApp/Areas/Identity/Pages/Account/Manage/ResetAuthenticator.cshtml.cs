@@ -4,7 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using Template.Application.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Localization;
@@ -14,14 +14,14 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager _userManager;
+        private readonly SignInManager _signInManager;
         private readonly ILogger<ResetAuthenticatorModel> _logger;
         private readonly IStringLocalizer _localizer;
 
         public ResetAuthenticatorModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager userManager,
+            SignInManager signInManager,
             ILogger<ResetAuthenticatorModel> logger, IStringLocalizer localizer)
         {
             _userManager = userManager;

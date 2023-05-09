@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Template.Application.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,11 +20,11 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager _userManager;
         private readonly IEmailSender _emailSender;
         private readonly IStringLocalizer _localizer;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender, IStringLocalizer localizer)
+        public ForgotPasswordModel(UserManager userManager, IEmailSender emailSender, IStringLocalizer localizer)
         {
             _userManager = userManager;
             _emailSender = emailSender;

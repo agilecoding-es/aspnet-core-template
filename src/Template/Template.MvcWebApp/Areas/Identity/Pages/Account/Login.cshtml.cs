@@ -9,23 +9,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
+using Template.Application.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Template.MvcWebApp.Localization;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager _signInManager;
         private readonly IStringLocalizer _localizer;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, IStringLocalizer localizer, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager signInManager, IStringLocalizer localizer, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _localizer = localizer;

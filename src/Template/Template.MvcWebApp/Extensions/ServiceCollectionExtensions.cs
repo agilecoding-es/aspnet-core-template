@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Template.Configuration;
-using Template.DataAccess.Database;
 using Template.MailSender;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Services;
+using Template.Persistence.Database;
 using static Template.Configuration.Constants;
 
 namespace Template.MvcWebApp.Configuration

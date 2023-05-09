@@ -5,36 +5,26 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 
 namespace Template.Configuration
 {
     public class AppSettings
     {
         public string ApplicationName { get; set; }
-
-        public Authentication Authentication { get; set; }
-
-        public Mailsettings Mailsettings { get; set; }
-
         public SupportedCultures SupportedCultures { get; set; }
 
-    }
-    public class Authentication
-    {
-        public Google Google { get; set; }
-        public Microsoft Microsoft { get; set; }
-    }
+        public Mailsettings Mailsettings { get; set; }
+        
+        public AuthenticationProviders AuthenticationProviders { get; set; }
 
-    public class Google
-    {
-        public string ClientId { get; set; }
-        public string ClientSecret { get; set; }
-    }
 
-    public class Microsoft
+    }
+    public class AuthenticationProviders
     {
-        public string ClientId { get; set; }
-        public string ClientSecret { get; set; }
+        public GoogleOptions GoogleOptions { get; set; }
+        public MicrosoftAccountOptions MicrosoftAccountOptions { get; set; }
     }
 
     public class Mailsettings

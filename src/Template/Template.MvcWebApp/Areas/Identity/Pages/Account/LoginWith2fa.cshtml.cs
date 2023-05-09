@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
+using Template.Application.Identity;
 using Microsoft.Extensions.Logging;
 using Template.MvcWebApp.Localization;
 using Microsoft.Extensions.Localization;
@@ -18,14 +18,14 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {
     public class LoginWith2faModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager _signInManager;
+        private readonly UserManager _userManager;
         private readonly ILogger<LoginWith2faModel> _logger;
         private readonly IStringLocalizer _localizer;
 
         public LoginWith2faModel(
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager,
+            SignInManager signInManager,
+            UserManager userManager,
             ILogger<LoginWith2faModel> logger,
             IStringLocalizer localizer)
         {
