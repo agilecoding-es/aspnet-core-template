@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Localization;
 using Template.Configuration;
 using Template.MailSender;
+using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Services;
 using Template.Persistence.Database;
@@ -102,6 +104,27 @@ namespace Template.MvcWebApp.Configuration
                     options.SupportedUICultures = supportedCultures;
                     options.RequestCultureProviders.Insert(0, cookieProvider);
                 });
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureHelthChecks(this IServiceCollection services)
+        {
+            services.AddSingleton<LatencyHealthCheck>();
+            //services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(redisSettings.ConnectionString));
+
+            services.AddHealthChecks()
+                    .AddCheck<LatencyHealthCheck>("CustomHealthCheck", tags: new[] { "mvc" })
+                    //.AddCheck<RedisHelthCheck>("Redis")
+                    .AddCheck("MvcApp", () =>
+                        HealthCheckResult.Healthy("App is working as expected."),
+                        new[] { "mvc" }
+                    )
+                    .AddDbContextCheck<Context>("Database", tags:
+                        new[] { "database", "sql server" }
+                    );
+
+            services.AddHealthChecksUI().AddInMemoryStorage();
 
             return services;
         }

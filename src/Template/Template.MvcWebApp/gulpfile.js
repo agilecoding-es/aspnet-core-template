@@ -268,6 +268,7 @@ const keep_watching = series(function (done) {
         //    https: true
         //});
 
+        watch("./deployment/**/*.json", series(settings));
         watch("./Content/theme/**/*.*", series(theme));
         watch(["./Content/js/**/*.js", './Areas/**/*.js'], series(js));
         watch(["./Content/ts/**/*.ts", './Areas/**/*.ts'], series(ts));
