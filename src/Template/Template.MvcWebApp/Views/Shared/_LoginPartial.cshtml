@@ -5,25 +5,38 @@
 @inject UserManager UserManager
 @inject IStringLocalizer Localizer
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@Localizer["Layout_Navbar_LoggedUser",@User.Identity?.Name]</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">@Localizer["Layout_Navbar_Logout"]</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
+<ul class="navbar-nav d-flex flex-row">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item me-3 me-lg-0 dropdown">
+            <a class="nav-link dropdown-toggle"
+               href="#"
+               id="navbarDropdown"
+               role="button"
+               data-mdb-toggle="dropdown"
+               aria-expanded="false">
+                <i class="bi bi-person-fill fs-3 text-primary"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@Localizer["Layout_Navbar_LoggedUser",@User.Identity?.Name!]</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="dropdown-item">@Localizer["Layout_Navbar_Logout"]</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">@Localizer["Layout_Navbar_Register"]</a>
-    </li>
-    <li class="nav-item">
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">@Localizer["Layout_Navbar_Login"]</a>
-    </li>
-}
+        </li>
+    }
 </ul>

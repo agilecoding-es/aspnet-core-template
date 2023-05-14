@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Template.Domain.Entities.Abastractions;
 using Template.Domain.Entities.Identity;
 
 namespace Template.Domain.Entities.Sample
 {
-    public class SampleList
+    public record SampleListKey(Guid Value) : Key(Value);
+
+    public class SampleList : Entity<SampleListKey>
     {
-        private readonly HashSet<SampleItem> _items = new HashSet<SampleItem>();
 
-        private SampleList()
-        {
+        public SampleList(SampleListKey id) : base(id) { }
 
-        }
-
-        public SampleListKey Id { get; set; }
         public string Name { get; set; }
-        public IReadOnlyList<SampleItem> Items => _items.ToList();
+        public IList<SampleItem> Items { get; init; } = new List<SampleItem>();
 
         public string UserId { get; set; }
         public User User { get; set; }
@@ -22,9 +20,8 @@ namespace Template.Domain.Entities.Sample
 
         public static SampleList Create(User user, string name)
         {
-            var sampleList = new SampleList()
+            var sampleList = new SampleList(new SampleListKey(Guid.NewGuid()))
             {
-                Id = new SampleListKey(Guid.NewGuid()),
                 UserId = user.Id,
                 Name = name
             };
@@ -34,22 +31,22 @@ namespace Template.Domain.Entities.Sample
 
         public void Add(SampleItem item)
         {
-            _items.Add(item);
+            Items.Add(item);
         }
 
         public void Remove(SampleItem item)
         {
-            _items.Remove(item);
+            Items.Remove(item);
         }
 
         public void Clear()
         {
-            _items.Clear();
+            Items.Clear();
         }
 
         public bool Contains(SampleItem item)
         {
-            return _items.Contains(item);
+            return Items.Contains(item);
         }
     }
 }

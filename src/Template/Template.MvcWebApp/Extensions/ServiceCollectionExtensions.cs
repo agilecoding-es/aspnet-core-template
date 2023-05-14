@@ -1,19 +1,25 @@
 ﻿using System.Globalization;
 using System.Net;
 using System.Net.Mail;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Localization;
+using Template.Application;
+using Template.Application.Behaviours;
+using Template.Application.Contracts.Repositories.Sample;
 using Template.Configuration;
 using Template.MailSender;
 using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Services;
 using Template.Persistence.Database;
+using Template.Persistence.Respositories;
 using static Template.Configuration.Constants;
 
 namespace Template.MvcWebApp.Configuration
@@ -33,12 +39,13 @@ namespace Template.MvcWebApp.Configuration
 
         public static IServiceCollection ConfigureDB(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
+            services.AddDbContextFactory<Context>(options => options.UseSqlServer(connectionString), lifetime: ServiceLifetime.Scoped);
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             return services;
         }
+
         public static IServiceCollection ConfigureIdentity(this IServiceCollection services, ConfigurationManager config)
         {
             services
@@ -73,8 +80,13 @@ namespace Template.MvcWebApp.Configuration
                 })
                 .AddTransient<ISmtpClientWrapper, SmtpClientWrapper>()
                 .AddTransient<IEmailService, EmailSender>()
-                .AddTransient<IEmailSender, EmailSender>()
+                .AddTransient<IEmailSender, EmailSender>();
+
+            services.TryAddScoped(typeof(IHtmlLocalizer<>), typeof(Localizer<>));
+
+            services
                 .AddScoped<ICultureHelper, CultureHelper>()
+                .AddSingleton<IHtmlLocalizer, Localizer>()
                 .AddSingleton<IViewLocalizer, ViewLocalizer>()
                 .AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>()
                 .AddSingleton<IStringLocalizer>(provider =>
@@ -82,6 +94,11 @@ namespace Template.MvcWebApp.Configuration
                     var factory = provider.GetService<IStringLocalizerFactory>();
                     return factory.Create("AppResources", typeof(Program).Assembly.FullName);
                 });
+
+            services
+                .AddTransient<ISampleItemRepository, SampleItemRepository>()
+                .AddTransient<ISampleListRepository, SampleListRepository>();
+
 
 
             return services;
@@ -104,6 +121,23 @@ namespace Template.MvcWebApp.Configuration
                     options.SupportedUICultures = supportedCultures;
                     options.RequestCultureProviders.Insert(0, cookieProvider);
                 });
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureCache(this IServiceCollection services)
+        {
+            services.AddMemoryCache();
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureMediatr(this IServiceCollection services)
+        {
+            services.AddMediatR(configuration =>
+                    configuration.RegisterServicesFromAssembly(ApplicationAssembly.Assembly))
+                .AddTransient(typeof(IPipelineBehavior<,>), typeof(LogginBehavior<,>))
+                .AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
             return services;
         }

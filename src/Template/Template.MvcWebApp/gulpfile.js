@@ -13,6 +13,7 @@ const
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     imagemin = require('gulp-imagemin'),
+    gulpif = require('gulp-if'),
     rm = require('gulp-rm'),
     //NODE DEPENDENCIES
     //browserSync = require("browser-sync").create(),
@@ -87,10 +88,11 @@ function vendors_modules_js(done) {
         const b = browserify({ insertGlobals: true, debug: mode.development() });
 
         registerVendors.push(vendor.expose);
-
+        const filename = path.basename(vendor.file);
+        const minified = filename.endsWith('.min.js');
         return src(vendor.file)
-            .pipe(mode.production(uglify()))
-            .pipe(mode.production(rename({ extname: '.min.js' })))
+            .pipe(gulpif(!minified, mode.production(uglify())))
+            .pipe(gulpif(!minified, mode.production(rename({ extname: '.min.js' }))))
             .pipe(dest('./wwwroot/content/vendors/'));
     });
 
@@ -296,4 +298,4 @@ const dev = series(build, keep_watching);
 exports.dev = dev;
 exports.default = build;
 exports.images = images;
-exports.prueba = series(clean_up, areas_ts);
+exports.prueba = series(clean_up, shared_ts);

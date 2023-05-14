@@ -1,10 +1,14 @@
 [
-    {
-      "file": "./node_modules/@popperjs/core/dist/cjs/popper.js",
-      "expose": "@popperjs/core"
-    },
-    {
-      "file": "./node_modules/bootstrap/dist/js/bootstrap.js",
-      "expose": "bootstrap"
-    }
+  {
+    "file": "./Content/vendors/@popperjs/core/dist/umd/popper.js",
+    "expose": "@popperjs/core"
+  },
+  {
+    "file": "./node_modules/bootstrap/dist/js/bootstrap.js",
+    "expose": "bootstrap"
+  },
+  {
+    "file": "./Content/vendors/mdb-ui-kit/src/js/mdb.free.js",
+    "expose": "mdb5"
+  }
 ]

@@ -30,7 +30,8 @@ builder.Services
 
 builder.Services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization( options=> {
+                .AddDataAnnotationsLocalization(options =>
+                {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
                         factory.Create("DataAnnotationResources", typeof(Program).Assembly.FullName);
                 });
@@ -38,6 +39,8 @@ builder.Services.AddControllersWithViews()
 builder.Services.ConfigureIdentity(config)
                 .ConfigureDependencies(config.Get<AppSettings>())
                 .ConfigureResources(config.Get<AppSettings>())
+                .ConfigureCache()
+                .ConfigureMediatr()
                 .ConfigureHelthChecks();
 
 builder.Host.UseSerilog((context, configuration) =>
@@ -47,14 +50,18 @@ builder.Host.UseSerilog((context, configuration) =>
 var app = builder.Build();
 var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error")
+                   .UseWhen(context => !context.Request.Path.StartsWithSegments("/api"),
+                   appBuilder => appBuilder.UseStatusCodePagesWithReExecute("/Home/error/{0}"));
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -79,9 +86,8 @@ app.UseAuthorization();
 // app.UseResponseCompression();
 // app.UseResponseCaching();
 
-app.MapControllerRoute("areaexists", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-app.MapControllerRoute(name: "default",
-                       pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute("default-for-areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapHealthChecksUI();
 app.MapHealthChecks("/health", new HealthCheckOptions()

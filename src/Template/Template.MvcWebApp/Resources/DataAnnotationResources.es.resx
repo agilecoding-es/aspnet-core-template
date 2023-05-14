@@ -171,4 +171,10 @@
   <data name="Verification Code" xml:space="preserve">
     <value>Código de verificación</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Items count" xml:space="preserve">
+    <value>Cantidad de items</value>
+  </data>
 </root>

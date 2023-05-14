@@ -1,8 +1,9 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
 @model EnableAuthenticatorModel
 
-@inject IStringLocalizer Localizer
+@inject IHtmlLocalizer Localizer
 
 @{
     ViewData["Title"] = @Localizer["Identity_Account_Manage_EnableAuthenticator_Title"];
@@ -16,11 +17,11 @@
     <ol class="list">
         <li>
             <p>
-                @Html.Raw(Localizer["Identity_Account_Manage_EnableAuthenticator_Step1"])
+                @Localizer["Identity_Account_Manage_EnableAuthenticator_Step1"]
             </p>
         </li>
         <li>
-            <p>@Html.Raw(Localizer["Identity_Account_Manage_EnableAuthenticator_Step2",@Model.SharedKey])</p>
+            <p>@Localizer["Identity_Account_Manage_EnableAuthenticator_Step2",@Model.SharedKey]</p>
             <div id="qrCode"></div>
             <div id="qrCodeData" data-url="@Model.AuthenticatorUri"></div>
         </li>

@@ -31,6 +31,7 @@
     <environment exclude="Development">
         <link rel="stylesheet" href="~/content/theme/site.min.css" />
     </environment>
+    <link rel="stylesheet" href="~/content/vendors/bootstrap-icons/font/bootstrap-icons.min.css" />
 </head>
 <body>
     <header>
@@ -49,6 +50,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Layout_Navbar_Privacy"]</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Sample" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList"]</a>
+                        </li>
 
                         @*<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,22 +66,29 @@
                         </li>*@
                     </ul>
 
-                    <div class="dropdown language-selector">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="c-gray-520 mr-05 font-sm text-uppercase">@currentLang.Value</span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            @foreach (var language in cultureItems.FindAll(x => x != currentLang))
-                            {
-                                <li>
-                                    <a class="d-flex align-items-center mb-20 pr-15" asp-area="" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="@language.Value" asp-route-returnUrl="@returnUrl">
-                                        <img width="43" height="32" src="~/content/images/flags/@(language.Value).svg" alt="@language.Text">
-                                        <span class="c-md ms-4 text-capitalize">@language.Text</span>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+                    <ul class="navbar-nav d-flex flex-row">
+                        <li class="nav-item me-3 me-lg-0 dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               href="#"
+                               id="navbarDropdown"
+                               role="button"
+                               data-mdb-toggle="dropdown"
+                               aria-expanded="false">
+                                <span class="c-gray-520 mr-05 font-sm text-uppercase">@currentLang.Value</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var language in cultureItems.FindAll(x => x != currentLang))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="@language.Value" asp-route-returnUrl="@returnUrl">
+                                            <img width="43" height="32" src="~/content/images/flags/@(language.Value).svg" alt="@language.Text">
+                                            <span class="c-md ms-4 text-capitalize">@language.Text</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -96,14 +107,16 @@
     </footer>
 
     <environment include="Development">
-        <script src="~/content/vendors/popper.js"></script>
+        <script src="~/content/vendors/@@popperjs/core/dist/umd/popper.js"></script>
         <script src="~/content/vendors/bootstrap.js"></script>
+        <script src="~/content/vendors/mdb-ui-kit/js/mdb.min.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/content/vendors/popper.min.js"></script>
         <script src="~/content/vendors/bootstrap.min.js"></script>
+        <script src="~/content/vendors/mdb-ui-kit/js/mdb.min.js"></script>
     </environment>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>

@@ -1,9 +1,10 @@
 ﻿@page
 @using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
 @model TwoFactorAuthenticationModel
 
-@inject IStringLocalizer Localizer
+@inject IHtmlLocalizer Localizer
 
 @{
     ViewData["Title"] = @Localizer["Identity_Account_Manage_TwoFactorAuthentication_Title"];
@@ -21,19 +22,19 @@
             if (Model.RecoveryCodesLeft == 0)
             {
                 <div class="alert alert-danger">
-                    @Html.Raw(Localizer["Identity_Account_Manage_TwoFactorAuthentication_Alert0"])
+                    @Localizer["Identity_Account_Manage_TwoFactorAuthentication_Alert0"]
                 </div>
             }
             else if (Model.RecoveryCodesLeft == 1)
             {
                 <div class="alert alert-danger">
-                    @Html.Raw(Localizer["Identity_Account_Manage_TwoFactorAuthentication_Alert1"])
+                    @Localizer["Identity_Account_Manage_TwoFactorAuthentication_Alert1"]
                 </div>
             }
             else if (Model.RecoveryCodesLeft <= 3)
             {
                 <div class="alert alert-warning">
-                    @Html.Raw(Localizer["Identity_Account_Manage_TwoFactorAuthentication_Alert2",@Model.RecoveryCodesLeft])
+                    @Localizer["Identity_Account_Manage_TwoFactorAuthentication_Alert2",@Model.RecoveryCodesLeft]
                 </div>
             }
 
@@ -61,7 +62,7 @@
     else
     {
         <div class="alert alert-danger">
-            @Html.Raw(Localizer["Identity_Account_Manage_TwoFactorAuthentication_PolicyNotAccepted"])
+            @Localizer["Identity_Account_Manage_TwoFactorAuthentication_PolicyNotAccepted"]
         </div>
     }
 }

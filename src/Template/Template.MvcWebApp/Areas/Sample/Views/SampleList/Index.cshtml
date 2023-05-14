@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@using Template.MvcWebApp.Areas.Sample.Models.SampleList;
+@model IEnumerable<SampleListViewModel>
+
+@inject IHtmlLocalizer Localizer;
+
+@{
+    ViewData["Title"] = @Localizer["Sample_SampleList_Index_Title"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">@Localizer["Sample_SampleList_Index_CreateNew"]</a>
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemsCount)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="list-results">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemsCount)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="~/content/js/Areas/Sample/views/sample-list/index.bundle.js"></script>
+}

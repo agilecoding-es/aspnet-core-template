@@ -1,8 +1,9 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
 @model GenerateRecoveryCodesModel
 
-@inject IStringLocalizer Localizer
+@inject IHtmlLocalizer Localizer
 
 @{
     ViewData["Title"] = @Localizer["Identity_Account_Manage_GenerateRecoveryCodes_Title"];
@@ -12,7 +13,7 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 <h3>@ViewData["Title"]</h3>
 <div class="alert alert-warning" role="alert">
-    @Html.Raw(Localizer["Identity_Account_Manage_GenerateRecoveryCodes_Description"])
+    @Localizer["Identity_Account_Manage_GenerateRecoveryCodes_Description"]
 </div>
 <div>
     <form method="post">

@@ -26,12 +26,15 @@
   <ItemGroup>
     <None Remove="Areas\Sample\Content\ts\sample-item.ts" />
     <None Remove="Areas\Sample\Content\ts\sample-list.ts" />
+    <None Remove="Areas\Sample\Content\ts\services\sample-list-controller-services.ts" />
+    <None Remove="Areas\Sample\Content\ts\views\sample-list\index.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.5" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
@@ -50,6 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Content\ts\services\" />
     <Folder Include="Content\ts\shared\" />
   </ItemGroup>
 
@@ -62,10 +66,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="Areas\Sample\Content\ts\sample-item.ts">
+    <TypeScriptCompile Include="Areas\Sample\Content\ts\services\sample-list-controller-services.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Areas\Sample\Content\ts\sample-list.ts" />
+    <TypeScriptCompile Include="Areas\Sample\Content\ts\views\sample-list\index.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Areas\Sample\Content\ts\models\sample-item.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Areas\Sample\Content\ts\models\sample-list.ts" />
   </ItemGroup>
 
 </Project>
