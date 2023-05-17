@@ -623,4 +623,13 @@
   <data name="Sample_SampleList_Index_Title" xml:space="preserve">
     <value>Listas de ejemplo</value>
   </data>
+  <data name="Shared_Message_ErrorOccured" xml:space="preserve">
+    <value>Disculpe, ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde. Si el problema continúa, póngase en contacto con el administrador del sistema.</value>
+  </data>
+  <data name="Sample_SampleList_Create_Success" xml:space="preserve">
+    <value>La lista de ejemplo fue creada correctamente.</value>
+  </data>
+  <data name="Sample_SampleList_Edit_Success" xml:space="preserve">
+    <value>La lista de ejemplo fue modificada correctamente.</value>
+  </data>
 </root>

@@ -12,7 +12,7 @@ using Template.Persistence.Database;
 namespace Template.Persistence.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230509012320_Initial")]
+    [Migration("20230516165943_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,7 +236,7 @@ namespace Template.Persistence.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid>("ListId")
+                    b.Property<Guid?>("ListId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -324,8 +324,7 @@ namespace Template.Persistence.Migrations
                     b.HasOne("Template.Domain.Entities.Sample.SampleList", null)
                         .WithMany("Items")
                         .HasForeignKey("ListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Template.Domain.Entities.Sample.SampleList", b =>

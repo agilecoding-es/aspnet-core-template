@@ -1,16 +1,19 @@
 ﻿using Template.Domain.Entities.Abastractions;
+using Template.Domain.Exceptions;
 
 namespace Template.Domain.Entities.Sample
 {
     public record SampleItemKey(Guid Value) : Key(Value);
 
-    public class SampleItem : Entity<SampleItemKey>
+    public class SampleItem : Entity<SampleItemKey>, ISoftDelete
     {
+        public SampleItem() : base(default) { }
+
         private SampleItem(SampleItemKey id) : base(id) { }
 
-        public SampleItemKey Id { get; set; }
-        public SampleListKey ListId { get; set; }
-        public string Description { get; set; }
+        public SampleItemKey Id { get; private set; }
+        public SampleListKey ListId { get; private set; }
+        public string Description { get; private set; }
 
         public static SampleItem Create(string description)
         {
@@ -22,5 +25,9 @@ namespace Template.Domain.Entities.Sample
             return sampleList;
         }
 
+        public void Delete()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

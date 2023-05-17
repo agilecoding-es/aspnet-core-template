@@ -1,12 +1,14 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Template.Application.Contracts.Repositories;
+using Template.Domain.Entities.Abastractions;
 using Template.Persistence.Database;
 
 namespace Template.Persistence.Respositories
 {
-    public abstract class Repository<TEntity, TKey> : IRepository<TEntity,TKey>
-        where TEntity : class
+    public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
+        where TEntity : Entity<TKey>
+        where TKey : Key
     {
 
         protected readonly Context context;
@@ -43,7 +45,7 @@ namespace Template.Persistence.Respositories
         public virtual void Delete(TEntity entity) =>
             context.Set<TEntity>().Remove(entity);
 
-        public virtual  TEntity FirstOrDefault() =>
+        public virtual TEntity FirstOrDefault() =>
              context.Set<TEntity>().FirstOrDefault();
 
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression) =>
@@ -58,8 +60,14 @@ namespace Template.Persistence.Respositories
         public virtual TEntity GetById(TKey id) =>
             context.Set<TEntity>().Find(id);
 
+        public virtual TEntity GetByIdNoTraking(TKey id) =>
+            context.Set<TEntity>().AsNoTracking().FirstOrDefault(e => e.Id == id);
+
         public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken) =>
             await context.Set<TEntity>().FindAsync(id, cancellationToken);
+
+        public virtual async Task<TEntity> GetByIdNoTrackingAsync(TKey id, CancellationToken cancellationToken) =>
+            await context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
 
         public virtual List<TEntity> List() =>
             context.Set<TEntity>().ToList();
@@ -76,13 +84,14 @@ namespace Template.Persistence.Respositories
         public virtual int Count() =>
              context.Set<TEntity>().Count();
 
-        public virtual  int Count(Expression<Func<TEntity, bool>> expression) =>
+        public virtual int Count(Expression<Func<TEntity, bool>> expression) =>
              context.Set<TEntity>().Where(expression).Count();
-        
+
         public virtual async Task<int> CountAsync(CancellationToken cancellationToken) =>
              await context.Set<TEntity>().CountAsync(cancellationToken);
 
         public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken) =>
             await context.Set<TEntity>().Where(expression).CountAsync(cancellationToken);
+
     }
 }

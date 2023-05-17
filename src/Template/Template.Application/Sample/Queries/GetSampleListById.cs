@@ -5,36 +5,36 @@ using Template.Domain.Entities.Shared;
 using Template.Application.Errors;
 using Template.Application.Exceptions;
 using Template.Application.Contracts.Repositories.Sample;
+using Template.Application.Contracts.DTOs.Sample;
+using Template.Common.Extensions;
 
 namespace Template.Application.Sample.Queries
 {
     public static class GetSampleListById
     {
-        public sealed record Query(SampleListKey id) : IRequest<Result<Response>>, ICacheable
+        public sealed record Query(SampleListKey Id, bool NoTracking = false) : IRequest<Result<SampleListWithItemsDto>>, ICacheable
         {
-            public string CacheKey => $"GetSampleListById-{id.Value}";
+            public string CacheKey => $"GetSampleListById-{Id.Value}";
         }
 
-        public class Handler : IRequestHandler<Query, Result<Response>>
+        public class Handler : IRequestHandler<Query, Result<SampleListWithItemsDto>>
         {
-            private readonly ISampleListRepository sampleListRepository;
+            private readonly ISampleListQueryRepository sampleListRepository;
 
-            public Handler(ISampleListRepository sampleListRepository)
+            public Handler(ISampleListQueryRepository sampleListRepository)
             {
                 this.sampleListRepository = sampleListRepository;
             }
 
-            public async Task<Result<Response>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<SampleListWithItemsDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var result = await sampleListRepository.GetByIdAsync(request.id, cancellationToken);
+                var result = await sampleListRepository.GetByIdWithItemsAsync(request.Id, cancellationToken);
 
                 return result == null ?
-                    Result<Response>.Failure(new ValidationException(ValidationErrors.Shared.EntityNotFound(nameof(SampleList)))) :
-                    Result<Response>.Success(new Response(result.Name, result.Items.Count()));
+                    Result<SampleListWithItemsDto>.Failure(new ValidationException(ValidationErrors.Shared.EntityNotFound(typeof(SampleList).GetDisplayNameOrTypeName()))) :
+                    Result<SampleListWithItemsDto>.Success(result);
             }
         }
-
-        public sealed record Response(string Name, int ItemsCount);
     }
 }
 

@@ -4,11 +4,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Template.Domain.Entities.Abastractions;
 
 namespace Template.Application.Contracts.Repositories
 {
-    public interface IRepository<TEntity, TKey>
-        where TEntity : class
+    public interface IRepository { }
+
+    public interface IRepository<TEntity, TKey> : IRepository
+        where TEntity : Entity<TKey>
+        where TKey : Key
     {
         void Add(TEntity entity);
         Task AddAsync(TEntity entity, CancellationToken cancellationToken);
@@ -24,7 +28,9 @@ namespace Template.Application.Contracts.Repositories
         Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken);
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken);
         TEntity GetById(TKey id);
+        TEntity GetByIdNoTraking(TKey id);
         Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken);
+        Task<TEntity> GetByIdNoTrackingAsync(TKey id, CancellationToken cancellationToken);
         List<TEntity> List();
         List<TEntity> List(Expression<Func<TEntity, bool>> expression);
         Task<List<TEntity>> ListAsync(CancellationToken cancellationToken);

@@ -1,8 +1,8 @@
-﻿using System.Globalization;
-using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 using Template.Configuration;
-using static Template.Configuration.Constants;
+using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.Localization
 {

@@ -1,11 +1,9 @@
-﻿using System.Net.Mail;
-using System.Net;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Template.MailSender;
-using Template.Configuration;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
+using System.Net.Mail;
+using Template.Configuration;
 
-namespace Template.MvcWebApp.Services
+namespace Template.MailSender
 {
     public class EmailSender : IEmailSender, IEmailService
     {

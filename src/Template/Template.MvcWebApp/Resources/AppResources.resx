@@ -624,4 +624,13 @@
   <data name="Sample_SampleList_Index_Title" xml:space="preserve">
     <value>Sample Lists</value>
   </data>
+  <data name="Shared_Message_ErrorOccured" xml:space="preserve">
+    <value>Sorry, an unexpected error occurred. Please try again later. If the problem continues, contact with the system administrator.</value>
+  </data>
+  <data name="Sample_SampleList_Edit_Success" xml:space="preserve">
+    <value>The sample list was successfully modified.</value>
+  </data>
+  <data name="Sample_SampleList_Create_Success" xml:space="preserve">
+    <value>The sample list was successfully created.</value>
+  </data>
 </root>

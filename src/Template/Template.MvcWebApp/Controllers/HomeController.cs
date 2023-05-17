@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Mvc;
 using Template.Configuration;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Models;
-using static Template.Configuration.Constants;
+using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.Controllers
 {

@@ -1,0 +1,8 @@
+﻿@if (ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
+{
+    ResponseMessageViewModel responseMessage = ViewBag.ResponseMessage;
+    <div class="alert alert-@responseMessage.MessageType.ToString() alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        @ViewBag.ResponseMessage.Content
+    </div>
+}

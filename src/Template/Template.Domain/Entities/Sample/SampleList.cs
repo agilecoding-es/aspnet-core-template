@@ -1,21 +1,28 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
 using Template.Domain.Entities.Abastractions;
+using Template.Domain.Entities.Extensions;
 using Template.Domain.Entities.Identity;
+using Template.Domain.Exceptions;
 
 namespace Template.Domain.Entities.Sample
 {
     public record SampleListKey(Guid Value) : Key(Value);
 
+    [DisplayName("Sample list")]
     public class SampleList : Entity<SampleListKey>
     {
+        public SampleList() : base(default) { }
 
         public SampleList(SampleListKey id) : base(id) { }
 
-        public string Name { get; set; }
-        public IList<SampleItem> Items { get; init; } = new List<SampleItem>();
+        public string Name { get; private set; }
+        public List<SampleItem> Items { get; private set; } = new List<SampleItem>();
 
-        public string UserId { get; set; }
-        public User User { get; set; }
+        public string UserId { get; private set; }
+        public User User { get; private set; }
 
 
         public static SampleList Create(User user, string name)
@@ -27,6 +34,11 @@ namespace Template.Domain.Entities.Sample
             };
 
             return sampleList;
+        }
+
+        public void UpdateName(string name)
+        {
+            Name = name;
         }
 
         public void Add(SampleItem item)
@@ -47,6 +59,24 @@ namespace Template.Domain.Entities.Sample
         public bool Contains(SampleItem item)
         {
             return Items.Contains(item);
+        }
+
+        public void UpdateItems(List<SampleItem> items)
+        {
+            //TODO: Traducir error
+            if (items == null)
+                throw new DomainException("Cannot update Items with a null List of Items");
+
+            Items = Items ?? new List<SampleItem>();
+            Items.RecreateList<SampleItemKey, SampleItem>(items);
+
+            Items.UpdateList<SampleItemKey, SampleItem>(items);
+
+        }
+
+        public void Delete()
+        {
+            throw new NotImplementedException();
         }
     }
 }

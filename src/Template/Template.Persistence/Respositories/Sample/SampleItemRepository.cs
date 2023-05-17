@@ -7,7 +7,7 @@ using Template.Application.Contracts.Repositories.Sample;
 using Template.Domain.Entities.Sample;
 using Template.Persistence.Database;
 
-namespace Template.Persistence.Respositories
+namespace Template.Persistence.Respositories.Sample
 {
     public class SampleItemRepository : Repository<SampleItem, SampleItemKey>, ISampleItemRepository
     {

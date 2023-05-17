@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.Net;
-using System.Net.Mail;
+﻿using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -10,17 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
+using System.Net;
+using System.Net.Mail;
+using System.Reflection;
 using Template.Application;
 using Template.Application.Behaviours;
+using Template.Application.Contracts;
 using Template.Application.Contracts.Repositories.Sample;
 using Template.Configuration;
 using Template.MailSender;
 using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
-using Template.MvcWebApp.Services;
+using Template.Persistence;
 using Template.Persistence.Database;
-using Template.Persistence.Respositories;
-using static Template.Configuration.Constants;
+using Template.Persistence.Respositories.Sample;
+using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.Configuration
 {
@@ -39,7 +42,8 @@ namespace Template.MvcWebApp.Configuration
 
         public static IServiceCollection ConfigureDB(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContextFactory<Context>(options => options.UseSqlServer(connectionString), lifetime: ServiceLifetime.Scoped);
+            //services.AddDbContextFactory<Context>(options => options.UseSqlServer(connectionString), lifetime: ServiceLifetime.Scoped);
+            services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -89,17 +93,17 @@ namespace Template.MvcWebApp.Configuration
                 .AddSingleton<IHtmlLocalizer, Localizer>()
                 .AddSingleton<IViewLocalizer, ViewLocalizer>()
                 .AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>()
-                .AddSingleton<IStringLocalizer>(provider =>
+                .AddSingleton(provider =>
                 {
                     var factory = provider.GetService<IStringLocalizerFactory>();
-                    return factory.Create("AppResources", typeof(Program).Assembly.FullName);
+                    return factory.Create(Constants.Configuration.Resources.DEFAULT, typeof(Program).Assembly.FullName);
                 });
 
             services
+                .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<ISampleItemRepository, SampleItemRepository>()
-                .AddTransient<ISampleListRepository, SampleListRepository>();
-
-
+                .AddTransient<ISampleListRepository, SampleListRepository>()
+                .AddTransient<ISampleListQueryRepository, SampleListQueryRepository>();
 
             return services;
         }
@@ -138,6 +142,13 @@ namespace Template.MvcWebApp.Configuration
                     configuration.RegisterServicesFromAssembly(ApplicationAssembly.Assembly))
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(LogginBehavior<,>))
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureMapster(this IServiceCollection services)
+        {
+            TypeAdapterConfig.GlobalSettings.Scan(new[] { PresentationAssembly.Assembly, ApplicationAssembly.Assembly });
 
             return services;
         }

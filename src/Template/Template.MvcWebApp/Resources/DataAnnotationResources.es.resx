@@ -177,4 +177,7 @@
   <data name="Items count" xml:space="preserve">
     <value>Cantidad de items</value>
   </data>
+  <data name="Sample list" xml:space="preserve">
+    <value>Lista de ejemplo</value>
+  </data>
 </root>

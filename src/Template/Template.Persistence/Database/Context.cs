@@ -13,8 +13,8 @@ namespace Template.Persistence.Database
             sample
         }
 
-        public DbSet<SampleList>? SampleLists { get; set; }
-        public DbSet<SampleItem>? SampleItems { get; set; }
+        public DbSet<SampleList> SampleLists { get; set; }
+        public DbSet<SampleItem> SampleItems { get; set; }
 
         public Context() { }
 

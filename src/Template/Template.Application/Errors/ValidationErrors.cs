@@ -11,6 +11,7 @@ namespace Template.Application.Errors
     {
         public static class Shared
         {
+            public static string EmptyList(string entityName) => $"The {entityName} is empty.";
             public static string EntityNotFound(string entityName) => $"The {entityName} could not be found.";
         }
 

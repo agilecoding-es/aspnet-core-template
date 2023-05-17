@@ -9,13 +9,14 @@ using Template.Application.Identity;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.Configuration;
+using Template.MvcWebApp.Setup;
 using Template.Persistence.Database;
 using Template.Persistence.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DEFAULT_CONNECTION}' not found.");
 
 builder.Services
     .ConfigureSettings(config)
@@ -33,7 +34,7 @@ builder.Services.AddControllersWithViews()
                 .AddDataAnnotationsLocalization(options =>
                 {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
-                        factory.Create("DataAnnotationResources", typeof(Program).Assembly.FullName);
+                        factory.Create(Constants.Configuration.Resources.DATANNOTATION, typeof(Program).Assembly.FullName);
                 });
 
 builder.Services.ConfigureIdentity(config)
@@ -41,6 +42,7 @@ builder.Services.ConfigureIdentity(config)
                 .ConfigureResources(config.Get<AppSettings>())
                 .ConfigureCache()
                 .ConfigureMediatr()
+                .ConfigureMapster()
                 .ConfigureHelthChecks();
 
 builder.Host.UseSerilog((context, configuration) =>

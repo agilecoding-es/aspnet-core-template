@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
     <UserSecretsId>aspnet-Template.MvcWebApp-52390d4a-e4a6-4a64-8c89-a5ba6d0e83cf</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
@@ -59,6 +59,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Template.Application\Template.Application.csproj" />
+    <ProjectReference Include="..\Template.Common\Template.Common.csproj" />
     <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
     <ProjectReference Include="..\Template.MailSender\Template.MailSender.csproj" />
     <ProjectReference Include="..\Template.Persistence.Identity\Template.Persistence.Identity.csproj" />

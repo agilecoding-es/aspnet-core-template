@@ -1,9 +1,8 @@
-using System.Net.Mail;
 using Microsoft.Extensions.Options;
 using Moq;
+using System.Net.Mail;
 using Template.Configuration;
 using Template.MailSender.UnitTests.Stubs;
-using Template.MvcWebApp.Services;
 
 namespace Template.MailSender.UnitTests
 {

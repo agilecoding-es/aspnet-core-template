@@ -234,7 +234,7 @@ namespace Template.Persistence.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid>("ListId")
+                    b.Property<Guid?>("ListId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -322,8 +322,7 @@ namespace Template.Persistence.Migrations
                     b.HasOne("Template.Domain.Entities.Sample.SampleList", null)
                         .WithMany("Items")
                         .HasForeignKey("ListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Template.Domain.Entities.Sample.SampleList", b =>

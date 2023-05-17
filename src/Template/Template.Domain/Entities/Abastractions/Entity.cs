@@ -52,6 +52,8 @@ namespace Template.Domain.Entities.Abastractions
         {
             return Id.GetHashCode();
         }
+
+        public virtual void Update(Entity<T> newValues) { }
     }
 
 }
