@@ -19,16 +19,23 @@ namespace Template.MvcWebApp.Controllers
             this.localizer = localizer;
         }
 
-        public IActionResult HandleErrorResult(Result result)
+        public IActionResult HandleErrorResult(Result result, string id = null)
+        {
+            _ = result ?? throw new ArgumentNullException(nameof(result));
+
+            return HandleErrorResult(result, ResponseMessageViewModel.Error(result.Exception.Message), id);
+        }
+
+        public IActionResult HandleErrorResult(Result result, ResponseMessageViewModel validationResponse, string id = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
 
             if (Request.IsAjaxRequest())
             {
                 if (result.Exception is ValidationException || result.Exception is DomainException)
-                {   
+                {
                     //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                    return Json(ResponseMessageViewModel.Error(result.Exception.Message));
+                    return Json(validationResponse);
                 }
                 else
                 {
@@ -41,12 +48,12 @@ namespace Template.MvcWebApp.Controllers
                 if (result.Exception is ValidationException || result.Exception is DomainException)
                 {
                     //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                    ViewBag.ResponseMessage = ResponseMessageViewModel.Error(result.Exception.Message);
+                    ViewBag.ResponseMessage = validationResponse.SetId(id);
                 }
                 else
                 {
                     //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                    ViewBag.ResponseMessage = ResponseMessageViewModel.Error(localizer["Shared_Message_ErrorOccured"].Value);
+                    ViewBag.ResponseMessage = ResponseMessageViewModel.Error(localizer["Shared_Message_ErrorOccured"].Value).SetId(id);
                 }
             }
 

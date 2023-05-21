@@ -1,9 +1,10 @@
-﻿@import "../bootstrap-customization/bootstrap-variables.scss";
+﻿
+$timberwolk: #D6D3CC;
+$silver: #BCBFC1;
+$ecru: #D8B373;
+$isabelline: #F6F4EF;
+$red-intense: #bd3925;
 
-$red-intense: #ff2200;
-
-$custom-colors: ( 
-    red-intense: $red-intense
-);
+$custom-colors: ( "timberwolk":$timberwolk, "silver": $silver, "ecru": $ecru, "isabelline": $isabelline, "red-intense": $red-intense );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);

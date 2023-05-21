@@ -35,10 +35,10 @@
                         <div class="form-floating">
                             <input asp-for="Input.Code" class="form-control" autocomplete="off" />
                             <label asp-for="Input.Code" class="control-label form-label"></label>
-                            <span asp-validation-for="Input.Code" class="text-danger"></span>
+                            <span asp-validation-for="Input.Code" class="text-red-intense"></span>
                         </div>
                         <button type="submit" class="w-100 btn btn-lg btn-primary">@Localizer["Identity_Account_Manage_EnableAuthenticator_Submit"]</button>
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
                     </form>
                 </div>
             </div>

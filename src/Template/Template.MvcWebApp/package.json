@@ -58,7 +58,7 @@
     "imagemin-optipng": "5.2.1",
     "merge-stream": "2.0.0",
     "path": "^0.12.7",
-    "sass": "^1.58.0",
+    "sass": "1.62.1",
     "tsify": "4.0.1",
     "vinyl-buffer": "1.0.1",
     "vinyl-source-stream": "2.0.0"

@@ -7,11 +7,12 @@ namespace Template.Domain.Entities.Sample
 
     public class SampleItem : Entity<SampleItemKey>, ISoftDelete
     {
-        public SampleItem() : base(default) { }
-
+        public SampleItem() : base()
+        {
+            Id = new SampleItemKey(Guid.NewGuid());
+        }
         private SampleItem(SampleItemKey id) : base(id) { }
 
-        public SampleItemKey Id { get; private set; }
         public SampleListKey ListId { get; private set; }
         public string Description { get; private set; }
 

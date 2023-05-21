@@ -33,7 +33,7 @@ namespace Template.Application.Sample.Commands
             {
                 try
                 {
-                    var sampleList = await sampleListRepository.GetWithItemsAsync(s=>s.Id == request.SampleListKey, cancellationToken);
+                    var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListKey, cancellationToken);
 
                     sampleList.Items.AddRange(request.Items.Adapt<List<SampleItem>>());
 

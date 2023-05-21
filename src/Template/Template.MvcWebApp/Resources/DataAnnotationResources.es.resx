@@ -180,4 +180,10 @@
   <data name="Sample list" xml:space="preserve">
     <value>Lista de ejemplo</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="List Name" xml:space="preserve">
+    <value>Nombre de lista</value>
+  </data>
 </root>

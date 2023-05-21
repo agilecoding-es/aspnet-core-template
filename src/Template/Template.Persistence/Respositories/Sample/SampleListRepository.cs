@@ -14,21 +14,21 @@ namespace Template.Persistence.Respositories.Sample
         {
         }
 
-        public async Task<SampleList> GetWithItemsAsync(Expression<Func<SampleList, bool>> expression, CancellationToken cancellationToken)
+        public async Task<SampleList> GetWithItemsAsync(SampleListKey id, CancellationToken cancellationToken)
         {
             var result = await context.SampleLists!
                          .Include(s => s.Items)
-                         .FirstOrDefaultAsync(expression, cancellationToken);
+                         .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
 
             return result;
         }
 
-        public async Task<SampleList> GetWithItemsAndUserAsync(Expression<Func<SampleList, bool>> expression, CancellationToken cancellationToken)
+        public async Task<SampleList> GetWithItemsAndUserAsync(SampleListKey id, CancellationToken cancellationToken)
         {
             var result = await context.SampleLists!
                          .Include(s => s.Items)
                          .Include(s => s.User)
-                         .FirstOrDefaultAsync(expression, cancellationToken);
+                         .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
 
             return result;
         }

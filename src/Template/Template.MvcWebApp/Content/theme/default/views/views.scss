@@ -1,1 +1,3 @@
-﻿@import "shared/layout/navbar.scss";
+﻿@import "../shared/imports.scss";
+@import "components/shared/navbar.scss";
+@import "components/shared/section-bar.scss";

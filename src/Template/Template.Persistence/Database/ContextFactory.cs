@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
+using Template.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace Template.Persistence.Database
 {
@@ -12,8 +14,15 @@ namespace Template.Persistence.Database
     {
         public Context CreateDbContext(string[] args)
         {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION);
+
             var optionsBuilder = new DbContextOptionsBuilder<Context>();
-            optionsBuilder.UseSqlServer("DefaultConnection");
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new Context(optionsBuilder.Options);
         }

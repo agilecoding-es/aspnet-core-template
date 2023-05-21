@@ -20,7 +20,7 @@ namespace Template.Persistence.Respositories.Sample
                WHERE l.Id = @SampleListId";
 
         const string SampleListWithItemsCountByUserQuery =
-            $@"SELECT l.Id, l.Name, COUNT(i.Id)
+            $@"SELECT l.Id, l.Name, COUNT(i.Id) ItemsCount
                  FROM sample.SampleLists l (nolock) 
             LEFT JOIN sample.SampleItems i (nolock) ON l.Id = i.ListId
                WHERE l.UserId = @UserId

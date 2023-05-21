@@ -521,104 +521,104 @@
   </data>
   <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorEmail" xml:space="preserve">
     <value>Error changing email.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorUserName" xml:space="preserve">
     <value>Error changing user name.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_Ok" xml:space="preserve">
     <value>Thank you for confirming your email change.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ChangePassword_StatusMessage_Ok" xml:space="preserve">
     <value>Your password has been changed.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Disable2fa_StatusMessage_Ok" xml:space="preserve">
     <value>2fa has been disabled. You can reenable 2fa when you setup an authenticator app</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Email_StatusMessage_ConfirmationSent" xml:space="preserve">
     <value>Confirmation link to change email sent. Please check your email.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Email_StatusMessage_VerificationSent" xml:space="preserve">
     <value>Verification email sent. Please check your email.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Email_StatusMessage_EmailUnchanged" xml:space="preserve">
     <value>Your email is unchanged.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_EnableAuthenticator_StatusMessage_AuthenticatorAppVerified" xml:space="preserve">
     <value>Your authenticator app has been verified.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginAdded" xml:space="preserve">
     <value>The external login was added.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotAdded" xml:space="preserve">
     <value>The external login was not added. External logins can only be associated with one account.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotRemoved" xml:space="preserve">
     <value>The external login was not removed.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginRemoved" xml:space="preserve">
     <value>The external login was removed.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_GenerateRecoveryCodes_StatusMessage_Advice" xml:space="preserve">
     <value>You have generated new recovery codes.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Index_StatusMessage_Error" xml:space="preserve">
     <value>Unexpected error when trying to set phone number.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Index_StatusMessage_Ok" xml:space="preserve">
     <value>Your profile has been updated</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ResetAuthenticator_StatusMessage_AuthenticatorAppReset" xml:space="preserve">
     <value>Your authenticator app key has been reset, you will need to configure your authenticator app using the new key.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_SetPassword_StatusMessage_PasswordSet" xml:space="preserve">
-        <value>Your password has been set.</value>
-    </data>
+    <value>Your password has been set.</value>
+  </data>
   <data name="Identity_Account_Manage_TwoFactorAuthentication_StatusMessage_BrowserForgotten" xml:space="preserve">
-        <value>The current browser has been forgotten. When you login again from this browser you will be prompted for your 2fa code.</value>
-    </data>
+    <value>The current browser has been forgotten. When you login again from this browser you will be prompted for your 2fa code.</value>
+  </data>
   <data name="Identity_Account_ConfirmEmail_StatusMessage_Ok" xml:space="preserve">
     <value>Thank you for confirming your email.</value>
-</data>
+  </data>
   <data name="Identity_Account_ConfirmEmail_StatusMessage_Error" xml:space="preserve">
     <value>Error confirming your email.</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_RemoteError" xml:space="preserve">
     <value>Error from external provider: {0}</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_InfoError" xml:space="preserve">
     <value>Error loading external login information.</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_StatusMessage_OnPostConfirmation_InfoError" xml:space="preserve">
     <value>Error loading external login information during confirmation.</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_ConfirmEmailSubject" xml:space="preserve">
     <value>Confirm your email</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_ConfirmEmailBody" xml:space="preserve">
-    <value>Please confirm your account by <a href="{0}">clicking here</a>.</value>
-</data>
+    <value>Please confirm your account by &lt;a href="{0}"&gt;clicking here&lt;/a&gt;.</value>
+  </data>
   <data name="Identity_Account_ForgotPassword_ConfirmEmailSubject" xml:space="preserve">
     <value>Reset Password</value>
-</data>
+  </data>
   <data name="Identity_Account_ForgotPassword_ConfirmEmailBody" xml:space="preserve">
-    <value>Please reset your password by <a href="{0}">clicking here</a>.</value>
-</data>
+    <value>Please reset your password by &lt;a href="{0}"&gt;clicking here&lt;/a&gt;.</value>
+  </data>
   <data name="Identity_Account_Login_ModelState" xml:space="preserve">
     <value>Invalid login attempt.</value>
-</data>
+  </data>
   <data name="Identity_Account_LoginWith2fa_ModelState" xml:space="preserve">
     <value>Invalid authenticator code.</value>
-</data>
+  </data>
   <data name="Identity_Account_LoginWithRecoveryCode_ModelState" xml:space="preserve">
     <value>Invalid recovery code entered.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_DeletePersonalData_ModelState" xml:space="preserve">
     <value>Incorrect password.</value>
-</data>
+  </data>
   <data name="Layout_Navbar_SampleList" xml:space="preserve">
     <value>Sample Lists</value>
   </data>
-  <data name="Sample_SampleList_Index_CreateNew" xml:space="preserve">
+  <data name="Shared_Buttons_CreateNew" xml:space="preserve">
     <value>Create new</value>
   </data>
   <data name="Sample_SampleList_Index_Title" xml:space="preserve">
@@ -632,5 +632,35 @@
   </data>
   <data name="Sample_SampleList_Create_Success" xml:space="preserve">
     <value>The sample list was successfully created.</value>
+  </data>
+  <data name="Sample_SampleList_Create_Title" xml:space="preserve">
+    <value>Create sample list</value>
+  </data>
+  <data name="Sample_SampleList_Edit_Title" xml:space="preserve">
+    <value>Edit sample list</value>
+  </data>
+  <data name="Sample_SampleList_Delete_Description" xml:space="preserve">
+    <value>Are you sure you want to delete this sample list?</value>
+  </data>
+  <data name="Sample_SampleList_Delete_Title" xml:space="preserve">
+    <value>Delete sample list</value>
+  </data>
+  <data name="Shared_Buttons_AddItem" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="Shared_Buttons_BackToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="Shared_Buttons_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Shared_Buttons_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Shared_Buttons_DeleteAndConfirm" xml:space="preserve">
+    <value>Delete and confirm</value>
+  </data>
+  <data name="Shared_Buttons_Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
 </root>

@@ -1,14 +1,13 @@
 [
   {
-    "file": "./Content/vendors/@popperjs/core/dist/umd/popper.js",
-    "expose": "@popperjs/core"
-  },
-  {
-    "file": "./node_modules/bootstrap/dist/js/bootstrap.js",
+    "prod": [
+      "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    ],
+    "dev": [
+      "./node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+      "./node_modules/bootstrap/dist/js/bootstrap.bundle.js.map"
+    ],
     "expose": "bootstrap"
-  },
-  {
-    "file": "./Content/vendors/mdb-ui-kit/src/js/mdb.free.js",
-    "expose": "mdb5"
   }
 ]

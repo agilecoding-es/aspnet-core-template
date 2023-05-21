@@ -9,7 +9,6 @@ using Template.Application.Identity;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.Configuration;
-using Template.MvcWebApp.Setup;
 using Template.Persistence.Database;
 using Template.Persistence.Identity;
 

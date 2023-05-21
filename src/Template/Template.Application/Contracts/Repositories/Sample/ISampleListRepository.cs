@@ -6,7 +6,7 @@ namespace Template.Application.Contracts.Repositories.Sample
 {
     public interface ISampleListRepository : IRepository<SampleList, SampleListKey>
     {
-        Task<SampleList> GetWithItemsAsync(Expression<Func<SampleList, bool>> expression, CancellationToken cancellationToken);
-        Task<SampleList> GetWithItemsAndUserAsync(Expression<Func<SampleList, bool>> expression, CancellationToken cancellationToken);
+        Task<SampleList> GetWithItemsAsync(SampleListKey id, CancellationToken cancellationToken);
+        Task<SampleList> GetWithItemsAndUserAsync(SampleListKey id, CancellationToken cancellationToken);
     }
 }

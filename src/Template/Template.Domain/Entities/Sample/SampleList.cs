@@ -14,7 +14,9 @@ namespace Template.Domain.Entities.Sample
     [DisplayName("Sample list")]
     public class SampleList : Entity<SampleListKey>
     {
-        public SampleList() : base(default) { }
+        public SampleList() : base() {
+            Id = new SampleListKey(Guid.NewGuid());
+        }
 
         public SampleList(SampleListKey id) : base(id) { }
 

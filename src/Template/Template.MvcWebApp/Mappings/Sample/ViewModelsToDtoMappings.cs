@@ -9,9 +9,11 @@ namespace Template.MvcWebApp.Mappings.Sample
     {
         public void Register(TypeAdapterConfig config)
         {
-            //config
-            //    .NewConfig<SampleListViewModel, SampleListWithItemsDto>()
-            //    .Map(dest => dest.i, src => src.);
+            config
+                .NewConfig<SampleItemViewModel, SampleItemDto>()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.ListId, src => src.ListId)
+                .Map(dest => dest.Description, src => src.Description);
         }
     }
 }

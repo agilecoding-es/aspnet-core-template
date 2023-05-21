@@ -8,7 +8,7 @@ namespace Template.MvcWebApp.Areas.Sample.Models.SampleList
         public Guid Id { get; set; }
 
         [Display(Name = "Name")]
-        [Required()]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
         public string UserId { get; set; }

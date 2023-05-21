@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template.Domain.Entities.Sample;
 
 namespace Template.Domain.Entities.Abastractions
 {
@@ -11,12 +12,16 @@ namespace Template.Domain.Entities.Abastractions
     public abstract class Entity<T> : IEquatable<Entity<T>>
         where T : Key
     {
+        public Entity()
+        {
+        }
+
         public Entity(T id)
         {
             Id = id;
         }
 
-        public T Id { get; private init; }
+        public T Id { get; protected init; }
 
         public static bool operator ==(Entity<T> left, Entity<T> right)
         {

@@ -1,5 +1,6 @@
-﻿$primary: #ca8e27;
+﻿$enable-cssgrid: true;
 
-$theme-colors: ( 
-    primary: $primary
-)
+$primary: #ca8e27;
+$theme-colors: map-merge($theme-colors, ( "primary": $primary ));
+
+$link-color: $primary;

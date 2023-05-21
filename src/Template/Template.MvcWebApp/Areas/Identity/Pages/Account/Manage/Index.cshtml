@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-6">
         <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
             <div class="form-floating">
                 <input asp-for="Username" class="form-control" disabled />
                 <label asp-for="Username" class="form-label"></label>
@@ -22,7 +22,7 @@
             <div class="form-floating">
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                <span asp-validation-for="Input.PhoneNumber" class="text-red-intense"></span>
             </div>
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">@Localizer["Identity_Account_Manage_Index_Submit"]</button>
         </form>

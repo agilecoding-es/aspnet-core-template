@@ -8,16 +8,11 @@
 <ul class="navbar-nav d-flex flex-row">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item me-3 me-lg-0 dropdown">
-            <a class="nav-link dropdown-toggle"
-               href="#"
-               id="navbarDropdown"
-               role="button"
-               data-mdb-toggle="dropdown"
-               aria-expanded="false">
-                <i class="bi bi-person-fill fs-3 text-primary"></i>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-fill fs-5 text-white"></i>
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li>
                     <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@Localizer["Layout_Navbar_LoggedUser",@User.Identity?.Name!]</a>
                 </li>

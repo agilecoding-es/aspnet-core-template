@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-6">
         <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-red-intense"></div>
             @if (Model.IsEmailConfirmed)
             {
                 <div class="form-floating input-group">
@@ -36,7 +36,7 @@
             <div class="form-floating">
                 <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" />
                 <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+                <span asp-validation-for="Input.NewEmail" class="text-red-intense"></span>
             </div>
             <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">@Localizer["Identity_Account_Manage_Email_Change"]</button>
         </form>

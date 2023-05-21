@@ -76,23 +76,23 @@ function images_copy() {
     //.pipe(browserSync.stream());
 }
 
-const vendors = series(vendors_js, vendors_modules_js);
+const vendors = series(vendors_folders, vendors_modules_js);
 
-function vendors_js() {
+function vendors_folders() {
     return src('./Content/vendors/**/*')
         .pipe(dest('./wwwroot/content/vendors/'));
 }
 
 function vendors_modules_js(done) {
     var tasks = vendorsconfig.map(function (vendor) {
-        const b = browserify({ insertGlobals: true, debug: mode.development() });
 
         registerVendors.push(vendor.expose);
-        const filename = path.basename(vendor.file);
-        const minified = filename.endsWith('.min.js');
-        return src(vendor.file)
-            .pipe(gulpif(!minified, mode.production(uglify())))
-            .pipe(gulpif(!minified, mode.production(rename({ extname: '.min.js' }))))
+
+        let filename = vendor.prod;
+        if (mode.development()) {
+            filename = vendor.dev;
+        }
+        return src(filename)
             .pipe(dest('./wwwroot/content/vendors/'));
     });
 

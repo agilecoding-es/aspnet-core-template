@@ -64,7 +64,7 @@ namespace Template.Persistence.Respositories
             context.Set<TEntity>().AsNoTracking().FirstOrDefault(e => e.Id == id);
 
         public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken) =>
-            await context.Set<TEntity>().FindAsync(id, cancellationToken);
+            await context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
 
         public virtual async Task<TEntity> GetByIdNoTrackingAsync(TKey id, CancellationToken cancellationToken) =>
             await context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id, cancellationToken);

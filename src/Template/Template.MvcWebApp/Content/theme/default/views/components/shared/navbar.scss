@@ -1,0 +1,99 @@
+﻿/*@import "../../../shared/imports.scss";*/
+
+$navbar-dropdown-bg-percentage: -80%;
+$navbar-dropdown-bg: shift-color($primary, $navbar-dropdown-bg-percentage);
+
+.language-selector .btn,
+.language-selector .btn.show {
+    border: none;
+}
+
+.language-selector .dropdown-menu li {
+    padding: 8px;
+}
+
+.navbar {
+    a.nav-link, a.nav-link.dropdown-toggle {
+        position: relative;
+
+        &:after {
+            border-top: 0.3em solid white;
+        }
+    }
+
+    .dropdown-menu {
+        background-color: $navbar-dropdown-bg;
+    }
+
+
+    ul.navbar-nav.d-flex.flex-row {
+        li.nav-item.dropdown {
+            flex-grow: 1;
+        }
+    }
+
+    .dropdown-menu {
+        border: 0;
+        border-radius: 0;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .navbar {
+        a.nav-link, a.nav-link.dropdown-toggle {
+            position: relative;
+
+            &:before {
+                content: " ";
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                border: 0px solid $white;
+                transition: ease-in 0.175s;
+            }
+
+            &:hover {
+                &:before {
+                    content: " ";
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    border: 1px solid $white;
+                }
+            }
+
+            &:after {
+                border-top: 0.3em solid white;
+            }
+        }
+
+        ul.navbar-nav.d-flex.flex-row {
+            li.nav-item.dropdown {
+                flex-grow: unset;
+            }
+        }
+
+        .dropdown-menu {
+            border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+            border-radius: var(--bs-dropdown-border-radius);
+        }
+    }
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1400px) {
+}
+
+@media print {
+}

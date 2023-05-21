@@ -21,6 +21,10 @@ namespace Template.Application.Errors
             {
                 public static readonly string ListWithSameNameAlreadyExists = "The name of the list already exist.";
             }
+            public static class DeleteSampleList
+            {
+                public static readonly string ListWithItems = "The list {0} contains {1}.";
+            }
         }
     }
 }

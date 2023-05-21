@@ -1,5 +1,7 @@
-﻿@import "variables.scss";
-@import "../../../vendors/bootstrap/scss/bootstrap.scss";
-$bootstrap-icons-font-src: url("../../../vendors/bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"), url("../../../vendors/bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
-@import "../../../vendors/bootstrap-icons/font/bootstrap-icons.scss";
+﻿@import "../../../vendors/bootstrap/scss/_functions.scss";
+@import "../../../vendors/bootstrap/scss/_variables.scss";
+@import "../../../vendors/bootstrap/scss/_mixins.scss";
+@import "../bootstrap-customization/bootstrap-variables.scss";
+@import "variables.scss";
 /*@import "../../../vendors/mdb-ui-kit/src/scss/mdb.free.scss";*/
+@import "../../../vendors/bootstrap/scss/bootstrap.scss";

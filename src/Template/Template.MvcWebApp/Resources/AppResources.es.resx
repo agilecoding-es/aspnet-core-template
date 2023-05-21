@@ -520,104 +520,104 @@
   </data>
   <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorEmail" xml:space="preserve">
     <value>Error al cambiar el correo electrónico.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorUserName" xml:space="preserve">
     <value>Error al cambiar el nombre de usuario.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_Ok" xml:space="preserve">
     <value>Gracias por confirmar el cambio de su correo electrónico.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ChangePassword_StatusMessage_Ok" xml:space="preserve">
     <value>Su contraseña ha sido cambiada.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Disable2fa_StatusMessage_Ok" xml:space="preserve">
     <value>Se ha desactivado 2FA. Puede volver a activar 2FA cuando configure una aplicación de autenticación.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Email_StatusMessage_ConfirmationSent" xml:space="preserve">
     <value>Se ha enviado el enlace de confirmación para cambiar el correo electrónico. Por favor, revise su correo electrónico.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Email_StatusMessage_VerificationSent" xml:space="preserve">
     <value>Se ha enviado el correo electrónico de verificación. Por favor, revise su correo electrónico.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Email_StatusMessage_EmailUnchanged" xml:space="preserve">
     <value>Su correo electrónico no ha sido cambiado.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_EnableAuthenticator_StatusMessage_AuthenticatorAppVerified" xml:space="preserve">
     <value>Su aplicación de autenticación ha sido verificada.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginAdded" xml:space="preserve">
     <value>Se ha agregado el inicio de sesión externo.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotAdded" xml:space="preserve">
     <value>No se agregó el inicio de sesión externo. Los inicios de sesión externos solo pueden asociarse con una cuenta.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotRemoved" xml:space="preserve">
     <value>No se eliminó el inicio de sesión externo.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginRemoved" xml:space="preserve">
     <value>Se eliminó el inicio de sesión externo.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_GenerateRecoveryCodes_StatusMessage_Advice" xml:space="preserve">
     <value>Ha generado nuevos códigos de recuperación.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Index_StatusMessage_Error" xml:space="preserve">
     <value>Error inesperado al intentar establecer el número de teléfono.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_Index_StatusMessage_Ok" xml:space="preserve">
     <value>Se ha actualizado su perfil.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_ResetAuthenticator_StatusMessage_AuthenticatorAppReset" xml:space="preserve">
     <value>Se ha restablecido su clave de la aplicación de autenticación. Deberá configurar su aplicación de autenticación utilizando la nueva clave.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_SetPassword_StatusMessage_PasswordSet" xml:space="preserve">
     <value>Tu contraseña ha sido establecida.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_TwoFactorAuthentication_StatusMessage_BrowserForgotten" xml:space="preserve">
     <value>El navegador actual ha sido olvidado. Cuando vuelvas a iniciar sesión desde este navegador, se te solicitará el código 2FA.</value>
-</data>
+  </data>
   <data name="Identity_Account_ConfirmEmail_StatusMessage_Ok" xml:space="preserve">
     <value>Gracias por confirmar su correo electrónico.</value>
-</data>
+  </data>
   <data name="Identity_Account_ConfirmEmail_StatusMessage_Error" xml:space="preserve">
     <value>Error al confirmar su correo electrónico.</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_RemoteError" xml:space="preserve">
     <value>Error del proveedor externo: {0}</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_InfoError" xml:space="preserve">
     <value>Error al cargar la información del inicio de sesión externo.</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_StatusMessage_OnPostConfirmation_InfoError" xml:space="preserve">
     <value>Error al cargar la información del inicio de sesión externo durante la confirmación.</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_ConfirmEmailSubject" xml:space="preserve">
     <value>Confirme su correo electrónico</value>
-</data>
+  </data>
   <data name="Identity_Account_ExternalLogin_ConfirmEmailBody" xml:space="preserve">
-    <value>Confirme su cuenta haciendo <a href="{0}">clic aquí</a>.</value>
-</data>
+    <value>Confirme su cuenta haciendo &lt;a href="{0}"&gt;clic aquí&lt;/a&gt;.</value>
+  </data>
   <data name="Identity_Account_ForgotPassword_ConfirmEmailSubject" xml:space="preserve">
     <value>Restablecer contraseña</value>
-</data>
+  </data>
   <data name="Identity_Account_ForgotPassword_ConfirmEmailBody" xml:space="preserve">
-    <value>Restablezca su contraseña haciendo <a href="{0}">clic aquí</a>.</value>
-</data>
+    <value>Restablezca su contraseña haciendo &lt;a href="{0}"&gt;clic aquí&lt;/a&gt;.</value>
+  </data>
   <data name="Identity_Account_Login_ModelState" xml:space="preserve">
     <value>Intento de inicio de sesión no válido.</value>
-</data>
+  </data>
   <data name="Identity_Account_LoginWith2fa_ModelState" xml:space="preserve">
     <value>Código de autenticación no válido.</value>
-</data>
+  </data>
   <data name="Identity_Account_LoginWithRecoveryCode_ModelState" xml:space="preserve">
     <value>Código de recuperación no válido ingresado.</value>
-</data>
+  </data>
   <data name="Identity_Account_Manage_DeletePersonalData_ModelState" xml:space="preserve">
     <value>Contraseña incorrecta.</value>
-</data>
+  </data>
   <data name="Layout_Navbar_SampleList" xml:space="preserve">
     <value>Listas de Ejemplo</value>
   </data>
-  <data name="Sample_SampleList_Index_CreateNew" xml:space="preserve">
+  <data name="Shared_Buttons_CreateNew" xml:space="preserve">
     <value>Crear nuevo</value>
   </data>
   <data name="Sample_SampleList_Index_Title" xml:space="preserve">
@@ -631,5 +631,35 @@
   </data>
   <data name="Sample_SampleList_Edit_Success" xml:space="preserve">
     <value>La lista de ejemplo fue modificada correctamente.</value>
+  </data>
+  <data name="Sample_SampleList_Create_Title" xml:space="preserve">
+    <value>Crear lista de ejemplo</value>
+  </data>
+  <data name="Sample_SampleList_Delete_Description" xml:space="preserve">
+    <value>Estas seguro de querer eliminar las siguiente lista de ejemplo?</value>
+  </data>
+  <data name="Sample_SampleList_Delete_Title" xml:space="preserve">
+    <value>Eliminar lista de ejemplo</value>
+  </data>
+  <data name="Sample_SampleList_Edit_Title" xml:space="preserve">
+    <value>Editar lista de ejemplo</value>
+  </data>
+  <data name="Shared_Buttons_AddItem" xml:space="preserve">
+    <value>Agregar Item</value>
+  </data>
+  <data name="Shared_Buttons_BackToList" xml:space="preserve">
+    <value>Volver al listado</value>
+  </data>
+  <data name="Shared_Buttons_Create" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="Shared_Buttons_Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Shared_Buttons_DeleteAndConfirm" xml:space="preserve">
+    <value>Eliminar y confirmar</value>
+  </data>
+  <data name="Shared_Buttons_Edit" xml:space="preserve">
+    <value>Editar</value>
   </data>
 </root>
