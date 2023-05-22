@@ -208,7 +208,7 @@ namespace Template.MvcWebApp.Areas.Sample.Controllers
                 }
                 else
                 {
-                    ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value)
+                    ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_AddItem_Success"].Value)
                                                                       .SetId("Items");
                 }
             }
@@ -223,6 +223,36 @@ namespace Template.MvcWebApp.Areas.Sample.Controllers
             if (addItemResult != null && addItemResult.IsFailure)
             {
                 model.NewItem = sampleItemViewModel;
+            }
+
+            return View("Edit", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveItem(Guid listId, Guid itemId, CancellationToken cancellationToken)
+        {
+            var removeResult= await mediator.Send(
+                new RemoveSampleItemFromList.Command(
+                    new SampleListKey(listId),
+                    new SampleItemKey(itemId)), cancellationToken: cancellationToken);
+
+
+            if (removeResult.IsFailure)
+            {
+                HandleErrorResult(removeResult, id: "Items");
+            }
+            else
+            {
+                ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_RemoveItem_Success"].Value)
+                                                                  .SetId("Items");
+            }
+
+
+            var result = await GetSamplelistAsync(listId, "Edit", cancellationToken);
+            var model = result.Value.Adapt<EditSampleListViewModel>();
+            if (result.IsSuccess)
+            {
+                model.NewItem = new SampleItemViewModel() { ListId = model.Id };
             }
 
             return View("Edit", model);

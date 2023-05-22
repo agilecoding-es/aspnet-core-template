@@ -24,7 +24,7 @@ namespace Template.Persistence.Respositories.Sample
                  FROM sample.SampleLists l (nolock) 
             LEFT JOIN sample.SampleItems i (nolock) ON l.Id = i.ListId
                WHERE l.UserId = @UserId
-            GROUP BY l.Id, l.Name, i.Id";
+            GROUP BY l.Id, l.Name";
 
         const string SampleItemByListIdQuery =
             $@"SELECT i.Id, i.Description, i.ListId

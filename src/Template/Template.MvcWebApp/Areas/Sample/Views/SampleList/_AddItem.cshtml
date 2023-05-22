@@ -20,7 +20,7 @@
     }
     <div class="d-flex justify-content-between">
         <div class="flex-grow-1">
-            <input asp-for="Description" class="form-control" />
+            <input asp-for="Description" value="@Model.Description" class="form-control" />
         </div>
         <div>
             <input type="submit" value="@Localizer["Shared_Buttons_AddItem"].Value" class="btn btn-primary" />

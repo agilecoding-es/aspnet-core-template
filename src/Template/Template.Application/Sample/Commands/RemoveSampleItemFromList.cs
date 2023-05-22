@@ -13,7 +13,7 @@ namespace Template.Application.Sample.Commands
 {
     public static class RemoveSampleItemFromList
     {
-        public sealed record Command(SampleListKey SampleListKey, SampleItemDto Item) : IRequest<Result>;
+        public sealed record Command(SampleListKey SampleListKey, SampleItemKey SampleItemKey) : IRequest<Result>;
 
         public class Handler : IRequestHandler<Command, Result>
         {
@@ -32,7 +32,7 @@ namespace Template.Application.Sample.Commands
                 {
                     var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListKey, cancellationToken);
 
-                    var sampleItem = sampleList.Items.FirstOrDefault(x => x.Id == new SampleItemKey(request.Item.Id));
+                    var sampleItem = sampleList.Items.FirstOrDefault(x => x.Id == request.SampleItemKey);
                     sampleList.Items.Remove(sampleItem);
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);

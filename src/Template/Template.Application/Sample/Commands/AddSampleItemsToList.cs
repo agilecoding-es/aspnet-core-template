@@ -35,7 +35,14 @@ namespace Template.Application.Sample.Commands
                 {
                     var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListKey, cancellationToken);
 
-                    sampleList.Items.AddRange(request.Items.Adapt<List<SampleItem>>());
+
+                    var newItems = new List<SampleItem>();
+                    foreach (var item in request.Items)
+                    {
+                        var newItem = SampleItem.Create(item.Description);
+                        newItems.Add(newItem);
+                    }
+                    sampleList.Items.AddRange(newItems);
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
