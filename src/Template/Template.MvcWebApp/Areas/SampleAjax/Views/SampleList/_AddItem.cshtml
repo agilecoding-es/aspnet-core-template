@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@model Template.MvcWebApp.Areas.SampleAjax.Models.SampleList.SampleItemViewModel
+@inject IHtmlLocalizer Localizer;
+
+@{
+
+    ResponseMessageViewModel responseMessage = null;
+    if (ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
+    {
+        responseMessage = ViewBag.ResponseMessage;
+    }
+}
+<form name="AddItemForm">
+    <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="ListId" value="@Model.ListId" />
+    @if (responseMessage != null && responseMessage.Id == "Items")
+    {
+        <partial name="_ResponseMessage" />
+    }
+    <div class="input-group mb-3">
+        <input asp-for="Description" value="@Model.Description" class="form-control" />
+        <button type="submit" class="btn btn-primary">@Localizer["Shared_Buttons_AddItem"].Value</button>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <span asp-validation-for="Description" class="text-red-intense"></span>
+        </div>
+    </div>
+    <hr class="silver" />
+</form>

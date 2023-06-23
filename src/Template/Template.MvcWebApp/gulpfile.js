@@ -91,6 +91,7 @@ function vendors_modules_js(done) {
         let filename = vendor.prod;
         if (mode.development()) {
             filename = vendor.dev;
+            console.log(filename);
         }
         return src(filename)
             .pipe(dest('./wwwroot/content/vendors/'));

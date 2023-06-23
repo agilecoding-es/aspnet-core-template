@@ -20,6 +20,7 @@ using Template.Configuration;
 using Template.MailSender;
 using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
+using Template.MvcWebApp.Services.Rendering;
 using Template.Persistence;
 using Template.Persistence.Database;
 using Template.Persistence.Respositories.Sample;
@@ -76,6 +77,9 @@ namespace Template.MvcWebApp.Configuration
 
         public static IServiceCollection ConfigureDependencies(this IServiceCollection services, AppSettings appSettings)
         {
+
+            services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
+
             services
                 .AddTransient(provider => new SmtpClient(appSettings.Mailsettings.Host, appSettings.Mailsettings.Port)
                 {
@@ -102,6 +106,7 @@ namespace Template.MvcWebApp.Configuration
             services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<ISampleItemRepository, SampleItemRepository>()
+                .AddTransient<ISampleItemQueryRepository, SampleItemQueryRepository>()
                 .AddTransient<ISampleListRepository, SampleListRepository>()
                 .AddTransient<ISampleListQueryRepository, SampleListQueryRepository>();
 

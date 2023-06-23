@@ -532,7 +532,7 @@
     <value>Your password has been changed.</value>
   </data>
   <data name="Identity_Account_Manage_Disable2fa_StatusMessage_Ok" xml:space="preserve">
-    <value>2fa has been disabled. You can reenable 2fa when you setup an authenticator app</value>
+    <value>2fa has been disabled. You can reenable 2fa when you setup an authenticator app.</value>
   </data>
   <data name="Identity_Account_Manage_Email_StatusMessage_ConfirmationSent" xml:space="preserve">
     <value>Confirmation link to change email sent. Please check your email.</value>
@@ -565,7 +565,7 @@
     <value>Unexpected error when trying to set phone number.</value>
   </data>
   <data name="Identity_Account_Manage_Index_StatusMessage_Ok" xml:space="preserve">
-    <value>Your profile has been updated</value>
+    <value>Your profile has been updated.</value>
   </data>
   <data name="Identity_Account_Manage_ResetAuthenticator_StatusMessage_AuthenticatorAppReset" xml:space="preserve">
     <value>Your authenticator app key has been reset, you will need to configure your authenticator app using the new key.</value>
@@ -615,8 +615,8 @@
   <data name="Identity_Account_Manage_DeletePersonalData_ModelState" xml:space="preserve">
     <value>Incorrect password.</value>
   </data>
-  <data name="Layout_Navbar_SampleList" xml:space="preserve">
-    <value>Sample Lists</value>
+  <data name="Layout_Navbar_SampleList_MVC" xml:space="preserve">
+    <value>Sample Lists (MVC)</value>
   </data>
   <data name="Shared_Buttons_CreateNew" xml:space="preserve">
     <value>Create new</value>
@@ -668,5 +668,8 @@
   </data>
   <data name="Shared_Buttons_Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="Layout_Navbar_SampleList_Ajax" xml:space="preserve">
+    <value>Sample Lists (Ajax)</value>
   </data>
 </root>

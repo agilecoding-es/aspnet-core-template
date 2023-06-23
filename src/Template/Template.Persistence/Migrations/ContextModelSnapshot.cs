@@ -222,16 +222,19 @@ namespace Template.Persistence.Migrations
 
             modelBuilder.Entity("Template.Domain.Entities.Sample.SampleItem", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid?>("ListId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ListId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -242,8 +245,11 @@ namespace Template.Persistence.Migrations
 
             modelBuilder.Entity("Template.Domain.Entities.Sample.SampleList", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -318,7 +324,8 @@ namespace Template.Persistence.Migrations
                     b.HasOne("Template.Domain.Entities.Sample.SampleList", null)
                         .WithMany("Items")
                         .HasForeignKey("ListId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Template.Domain.Entities.Sample.SampleList", b =>

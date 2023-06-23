@@ -9,6 +9,6 @@ namespace Template.Domain.Contracts
 {
     public interface ISampleRepository
     {
-        Task<SampleList?> GetByIdAsync(SampleListKey id);
+        Task<SampleList?> GetByIdAsync(int sampleListId);
     }
 }

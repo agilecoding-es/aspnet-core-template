@@ -12,9 +12,9 @@ namespace Template.Application.Sample.Queries
 {
     public static class GetSampleListById
     {
-        public sealed record Query(SampleListKey Id, bool NoTracking = false) : IRequest<Result<SampleListWithItemsDto>>, ICacheable
+        public sealed record Query(int ListId, bool NoTracking = false) : IRequest<Result<SampleListWithItemsDto>>, ICacheable
         {
-            public string CacheKey => $"GetSampleListById-{Id.Value}";
+            public string CacheKey => $"GetSampleListById-{ListId}";
         }
 
         public class Handler : IRequestHandler<Query, Result<SampleListWithItemsDto>>
@@ -28,7 +28,7 @@ namespace Template.Application.Sample.Queries
 
             public async Task<Result<SampleListWithItemsDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var result = await sampleListRepository.GetByIdWithItemsAsync(request.Id, cancellationToken);
+                var result = await sampleListRepository.GetByIdWithItemsAsync(request.ListId, cancellationToken);
 
                 return result == null ?
                     Result<SampleListWithItemsDto>.Failure(new ValidationException(ValidationErrors.Shared.EntityNotFound(typeof(SampleList).GetDisplayNameOrTypeName()))) :

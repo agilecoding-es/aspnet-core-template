@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@using Template.MvcWebApp.Areas.SampleMvc.Models.SampleList;
+@model Template.MvcWebApp.Areas.SampleMvc.Models.SampleList.EditSampleListViewModel
+@inject IHtmlLocalizer Localizer;
+
+@{
+    var title = @Localizer["Sample_SampleList_Edit_Title"].Value;
+    ViewData["Title"] = title;
+
+    ResponseMessageViewModel responseMessage = null;
+    if(ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
+    {
+        responseMessage = ViewBag.ResponseMessage;
+    }
+}
+
+@section SectionBar{
+    <partial name="_SectionBar" model="@title" />
+}
+<div class="row">
+    <div class="col-12">
+        @if (responseMessage != null && responseMessage.Id == "Edit")
+        {
+            <partial name="_ResponseMessage" />
+        }
+    </div>
+    <div class="col-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+            <div class="d-flex align-items-start flex-column flex-grow-1">
+
+                <div class="form-group w-100">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" value="@Model.Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-red-intense"></span>
+                </div>
+                <div class="w-100">
+                    <hr class="silver" />
+                    <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+                    <input type="submit" value="@Localizer["Shared_Buttons_Edit"].Value" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+                <partial name="_AddItem" model="Model.NewItem" />
+                <ul class="list-group mt-4">
+                    @foreach (var item in Model.Items)
+                    {
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>@item.Description</span>
+                            <form method="post" asp-action="RemoveItem" asp-route-listId="@Model.Id" asp-route-itemId="@item.Id">
+                                <button type="submit" class="btn btn-link">
+                                    <i class="bi bi-trash3 fs-5 text-red-intense"></i>
+                                </button>
+                            </form>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

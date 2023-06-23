@@ -1,0 +1,9 @@
+﻿@using Template.MvcWebApp.Areas.SampleAjax.Models.SampleList;
+@model List<SampleItemViewModel>;
+
+<ul class="list-group mt-4">
+    @foreach (var item in Model)
+    {
+        <partial name="_Item" model="item" />
+    }
+</ul>

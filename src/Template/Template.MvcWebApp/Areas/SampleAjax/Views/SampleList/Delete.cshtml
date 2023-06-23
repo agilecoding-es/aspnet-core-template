@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@using Template.MvcWebApp.Areas.SampleAjax.Models.SampleList;
+@model DeleteSampleListViewModel
+@inject IHtmlLocalizer Localizer;
+
+@{
+    var title = @Localizer["Sample_SampleList_Delete_Title"].Value;
+    ViewData["Title"] = title;
+}
+
+@section SectionBar{
+    <partial name="_SectionBar" model="@title" />
+}
+<h3>@Localizer["Sample_SampleList_Delete_Description"].Value</h3>
+<div>
+    <div class="card col-8">
+        <div class="card-body position-relative">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SampleList.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SampleList.Name)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <br />
+    <partial name="_ResponseMessage" />
+    <hr class="silver"/>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="SampleList.Id" />
+        <input type="hidden" asp-for="SampleList.Name" />
+        <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+        @if (!@Model.NeedsConfirmation)
+        {
+            <button type="submit" class="btn btn-danger">@Localizer["Shared_Buttons_Delete"].Value</button>
+        }
+        else
+        {
+            <input type="hidden" asp-for="NeedsConfirmation" value="true" />
+            <input type="hidden" asp-for="Confirmed" value="true" />
+            <button type="submit" class="btn btn-danger">@Localizer["Shared_Buttons_DeleteAndConfirm"].Value</button>
+        }
+    </form>
+</div>

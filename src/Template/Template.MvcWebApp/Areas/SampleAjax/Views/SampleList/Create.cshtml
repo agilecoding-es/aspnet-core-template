@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@model Template.MvcWebApp.Areas.SampleAjax.Models.SampleList.SampleListViewModel
+@inject IHtmlLocalizer Localizer;
+
+@{
+    var title = @Localizer["Sample_SampleList_Create_Title"].Value;
+    ViewData["Title"] = title;
+}
+
+@section SectionBar{
+    <partial name="_SectionBar" model="@title" />
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
+            <partial name="_ResponseMessage"/>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-red-intense"></span>
+            </div>
+            <br />
+            <hr class="silver" />
+            <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+            <button type="submit" class="btn btn-primary">@Localizer["Shared_Buttons_Create"].Value</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

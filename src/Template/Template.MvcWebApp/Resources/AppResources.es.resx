@@ -207,7 +207,7 @@
     <value>Reestablecer contraseña</value>
   </data>
   <data name="Identity_Account_ForgotPassword_Subtitle" xml:space="preserve">
-    <value>Ingrese su correo electrónico</value>
+    <value>Ingrese su correo electrónico.</value>
   </data>
   <data name="Identity_Account_ForgotPassword_Title" xml:space="preserve">
     <value>¿Olvidaste tu contraseña?</value>
@@ -513,7 +513,7 @@
     <value>Restablecer su contraseña.</value>
   </data>
   <data name="Identity_Account_RestPassword_Title" xml:space="preserve">
-    <value>Restablecimiento su contraseña.</value>
+    <value>Restablecimiento su contraseña</value>
   </data>
   <data name="Identity_Account_Manage_ChangePasswordModel_OldPassword" xml:space="preserve">
     <value>Contraseña actual</value>
@@ -614,8 +614,8 @@
   <data name="Identity_Account_Manage_DeletePersonalData_ModelState" xml:space="preserve">
     <value>Contraseña incorrecta.</value>
   </data>
-  <data name="Layout_Navbar_SampleList" xml:space="preserve">
-    <value>Listas de Ejemplo</value>
+  <data name="Layout_Navbar_SampleList_MVC" xml:space="preserve">
+    <value>Listas de Ejemplo (MVC)</value>
   </data>
   <data name="Shared_Buttons_CreateNew" xml:space="preserve">
     <value>Crear nuevo</value>
@@ -667,5 +667,8 @@
   </data>
   <data name="Shared_Buttons_Edit" xml:space="preserve">
     <value>Editar</value>
+  </data>
+  <data name="Layout_Navbar_SampleList_Ajax" xml:space="preserve">
+    <value>Listas de Ejemplo (Ajax)</value>
   </data>
 </root>

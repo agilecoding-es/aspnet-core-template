@@ -5,7 +5,7 @@ namespace Template.Application.Contracts.Repositories.Sample
 {
     public interface ISampleListQueryRepository : IRepository
     {
-        Task<SampleListWithItemsDto> GetByIdWithItemsAsync(SampleListKey id, CancellationToken cancellationToken);
+        Task<SampleListWithItemsDto> GetByIdWithItemsAsync(int sampleListId, CancellationToken cancellationToken);
 
         Task<List<SampleListWithItemsCountDto>> ListWithItemsCountByUserAsync(string userId, CancellationToken cancellationToken);
     }

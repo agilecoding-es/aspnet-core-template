@@ -9,32 +9,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\SampleMVC - Copy\**" />
     <Compile Remove="Content\theme\default\css\**" />
+    <Compile Remove="Content\ts\**" />
     <Compile Remove="wwwroot\css\**" />
     <Compile Remove="wwwroot\js\**" />
+    <Content Remove="Areas\SampleMVC - Copy\**" />
     <Content Remove="Content\theme\default\css\**" />
+    <Content Remove="Content\ts\**" />
     <Content Remove="wwwroot\css\**" />
     <Content Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="Areas\SampleMVC - Copy\**" />
     <EmbeddedResource Remove="Content\theme\default\css\**" />
+    <EmbeddedResource Remove="Content\ts\**" />
     <EmbeddedResource Remove="wwwroot\css\**" />
     <EmbeddedResource Remove="wwwroot\js\**" />
+    <None Remove="Areas\SampleMVC - Copy\**" />
     <None Remove="Content\theme\default\css\**" />
+    <None Remove="Content\ts\**" />
     <None Remove="wwwroot\css\**" />
     <None Remove="wwwroot\js\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Areas\Sample\Content\ts\sample-item.ts" />
-    <None Remove="Areas\Sample\Content\ts\sample-list.ts" />
-    <None Remove="Areas\Sample\Content\ts\services\sample-list-controller-services.ts" />
-    <None Remove="Areas\Sample\Content\ts\views\sample-list\index.ts" />
+    <None Remove="Areas\SampleMVC\Content\ts\sample-item.ts" />
+    <None Remove="Areas\SampleMVC\Content\ts\sample-list.ts" />
+    <None Remove="Areas\SampleMVC\Content\ts\services\sample-list-controller-services.ts" />
+    <None Remove="Areas\SampleMVC\Content\ts\views\sample-list\index.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.5" />
-    <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
@@ -48,13 +55,9 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.16" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Content\ts\services\" />
-    <Folder Include="Content\ts\shared\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,16 +70,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="Areas\Sample\Content\ts\services\sample-list-controller-services.ts">
+    <TypeScriptCompile Include="Areas\SampleMVC\Content\ts\services\sample-list-controller-services.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Areas\Sample\Content\ts\views\sample-list\index.ts">
+    <TypeScriptCompile Include="Areas\SampleMVC\Content\ts\views\sample-list\index.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Areas\Sample\Content\ts\models\sample-item.ts">
+    <TypeScriptCompile Include="Areas\SampleMVC\Content\ts\models\sample-item.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Areas\Sample\Content\ts\models\sample-list.ts" />
+    <TypeScriptCompile Include="Areas\SampleMVC\Content\ts\models\sample-list.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\theme\default\areas\sampleajax\" />
   </ItemGroup>
 
 </Project>

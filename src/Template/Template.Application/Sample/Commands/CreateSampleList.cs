@@ -11,9 +11,9 @@ namespace Template.Application.Sample.Commands
 {
     public static class CreateSampleList
     {
-        public sealed record Command(User User, string Name) : IRequest<Result<SampleListKey>>;
+        public sealed record Command(User User, string Name) : IRequest<Result<int>>;
 
-        public class Handler : IRequestHandler<Command, Result<SampleListKey>>
+        public class Handler : IRequestHandler<Command, Result<int>>
         {
             private readonly ISampleListRepository sampleListRepository;
             private readonly IUnitOfWork unitOfWork;
@@ -24,7 +24,7 @@ namespace Template.Application.Sample.Commands
                 this.unitOfWork = unitOfWork;
             }
 
-            public async Task<Result<SampleListKey>> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -33,7 +33,7 @@ namespace Template.Application.Sample.Commands
                                                                                                      cancellationToken);
                     if (alreadyExists)
                     {
-                        return Result<SampleListKey>.Failure(new ValidationException(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists));
+                        return Result<int>.Failure(new ValidationException(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists));
                     }
 
                     var newSampleList = SampleList.Create(request.User, request.Name);
@@ -41,11 +41,11 @@ namespace Template.Application.Sample.Commands
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 
-                    return Result<SampleListKey>.Success(newSampleList.Id);
+                    return Result<int>.Success(newSampleList.Id);
                 }
                 catch (Exception ex)
                 {
-                    return Result<SampleListKey>.Failure(ex);
+                    return Result<int>.Failure(ex);
                 }
             }
         }
