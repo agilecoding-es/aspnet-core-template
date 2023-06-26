@@ -1,5 +1,7 @@
-﻿import { SampleItem } from "../models/sample-item";
+﻿import { DoFetch } from "../../../../../Content/js/fetch-ajax";
+import { SampleItem } from "../models/sample-item";
 import { SampleList } from "../models/sample-list";
+
 
 export class SampleListServices {
     
@@ -18,43 +20,49 @@ export class SampleListServices {
     async getLists() {
         const url = `/${this.AreaAndController}/${this.Actions.List}`;
 
-        return await fetch(url, {
+        return DoFetch(url, {
             method: 'GET'
-        }).then(response => response.json());
+        });
     }
 
-    async getItems(listId) {
-        const url = `/${this.AreaAndController}/${this.Actions.Items}/${listId}`;
-
-        return await fetch(url, {
-            method: 'GET',
-        }).then(response => response.text());
+    async removeList(url) {
+        return DoFetch(url, {
+            method: 'GET'
+        });
     }
 
     async submitEditForm(formData) {
         const url = `/${this.AreaAndController}/${this.Actions.Edit}`;
 
-        fetch(url, {
+        return DoFetch(url, {
             method: 'POST',
             body: formData
-        }).then(response => response.text());
+        });
+    }
+
+    async getItems(listId) {
+        const url = `/${this.AreaAndController}/${this.Actions.Items}/${listId}`;
+
+        return DoFetch(url, {
+            method: 'GET',
+        });
     }
 
     async submitAddItemForm(formData) {
         const url = `/${this.AreaAndController}/${this.Actions.AddItem}`;
 
-        return fetch(url, {
+        return DoFetch(url, {
             method: 'POST',
             body: formData
-        }).then(response => response.json());
+        });
     }
 
     async submitRemoveItemForm(formData) {
         const url = `/${this.AreaAndController}/${this.Actions.RemoveItem}`;
 
-        return fetch(url, {
+        return DoFetch(url, {
             method: 'POST',
             body: formData
-        }).then(response => response.json());
+        });
     }
 }

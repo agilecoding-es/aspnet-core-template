@@ -4,8 +4,8 @@
 <li class="list-group-item d-flex justify-content-between">
     <span>@Model.Description</span>
     <form name="RemoveItemForm">
-        <input type="hidden" value="@Model.Id" />
-        <input type="hidden" value="@Model.ListId" />
+        <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+        <input type="hidden" asp-for="@Model.ListId" value="@Model.ListId" />
         <button type="submit" class="btn btn-link">
             <i class="bi bi-trash3 fs-5 text-red-intense"></i>
         </button>

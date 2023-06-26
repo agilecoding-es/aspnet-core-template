@@ -1,47 +1,93 @@
-﻿import { SampleList } from "../../models/sample-list";
+﻿import { Enums } from "../../../../../../Content/js/enums";
+import { Loader } from "../../../../../../Content/js/loader";
 import { SampleListServices } from "../../services/sample-list-controller-services";
 
 export class Index {
 
     constructor(sampleListServices) {
+        this.elements = {
+            editList: ".js_EditList",
+            removeList: ".js_RemoveList",
+            deleteContent: ".js_deleteContent",
+            submitDeleteFormButton: "form[name=EditForm] button[type=submit]",
+        };
         this.sampleListServices = sampleListServices;
         this.Lists = [];
-        this.init();
+        this.bindEvents();
     }
 
-    loadSampleLists() {
-        this.sampleListServices.get()
-            .then(lists => {
-                const tbody = document.querySelector('.list-results');
+    removeList(event) {
+        event.preventDefault();
 
-                if (lists.length > 0) {
-                    lists.forEach((list, i) => {
-                        const tr = document.createElement('tr');
-                        const td = document.createElement('td');
+        const $removeListButton = $(event.currentTarget);
+        const loader = new Loader($removeListButton, Enums.LoadingType.Button).startLoading();
 
-                        td.textContent = list.ListName
-                        tr.appendChild(td);
-                        tbody.appendChild(tr);
-                    });
-                }
-                else {
-                    const tr = document.createElement('tr');
-                    const td = document.createElement('td');
-                    td.textContent = "No items";
-                    tr.appendChild(td);
-                    tbody.appendChild(tr);
-                }
+        const url = $removeListButton.attr('formaction');
+        const $deleteContent = $(this.elements.deleteContent);
 
-                const listResults = document.querySelector('.list-results');
-                listResults.innerHTML = tbody.outerHTML
+        this.sampleListServices
+            .removeList(url)
+            .then((data) => {
+                if (data)
+                    $deleteContent.html(data);
             })
+            .catch(console.error)
+            .finally(() => {
+                loader.endLoading();
+            });;
     }
 
-    init() {
-        //this.loadSampleLists();
+    confirmRemoveList(event) {
+        event.preventDefault();
+
+        const $removeListButton = $(event.currentTarget);
+        const loader = new Loader($removeListButton, Enums.LoadingType.Button).startLoading();
+
+        const url = $removeListButton.attr('formaction');
+
+        this.sampleListServices
+            .removeList(url)
+            .catch(console.error)
+            .finally(() => {
+                loader.endLoading();
+            });;
+    }
+
+    submitAddItemForm(event) {
+        event.preventDefault();
+
+        const $submitAddItemForm = $(this.elements.submitAddItemForm);
+        const loader = new Loader($submitAddItemForm, Enums.LoadingType.Button).startLoading();
+
+        const form = $(this.elements.addItemForm).get(0);
+        const formData = new FormData(form);
+
+        this.sampleListServices
+            .submitAddItemForm(formData)
+            .then(data => {
+                if (data) {
+                    const $items = $(this.elements.items);
+                    $items.append(data.content);
+
+                    const $descriptionItem = $(this.elements.descriptionItem);
+                    $descriptionItem.val('');
+                    $descriptionItem.trigger("focus");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            })
+            .finally(() => {
+                loader.endLoading();
+            });
+    }
+
+    bindEvents() {
+        $(document)
+            .on('click', this.elements.removeList, this.removeList.bind(this))
+            .on('click', this.elements.submitDeleteFormButton, this.confirmRemoveList.bind(this));
+
     }
 }
 
-new Index(
-    new SampleListServices()
-);
+new Index(new SampleListServices());

@@ -47,7 +47,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             return Json(result.Adapt<List<SampleListViewModel>>());
         }
 
-        public async Task<IActionResult> Details(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Detail(int id, CancellationToken cancellationToken)
         {
             var result = await GetSamplelistAsync(id, cancellationToken);
 

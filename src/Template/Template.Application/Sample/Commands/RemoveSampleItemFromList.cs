@@ -32,7 +32,7 @@ namespace Template.Application.Sample.Commands
                 {
                     var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListId, cancellationToken);
 
-                    var sampleItem = sampleList.Items.FirstOrDefault(x => x.Id == request.SampleListId);
+                    var sampleItem = sampleList.Items.FirstOrDefault(x => x.Id == request.SampleItemId);
                     sampleList.Items.Remove(sampleItem);
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);

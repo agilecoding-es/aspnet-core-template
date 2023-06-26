@@ -672,4 +672,7 @@
   <data name="Layout_Navbar_SampleList_Ajax" xml:space="preserve">
     <value>Sample Lists (Ajax)</value>
   </data>
+  <data name="Shared_Buttons_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>

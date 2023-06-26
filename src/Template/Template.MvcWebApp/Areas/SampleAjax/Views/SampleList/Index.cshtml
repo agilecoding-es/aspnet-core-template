@@ -25,7 +25,7 @@
             <div class="g-col-3">
                 <div class="card">
                     <div class="card-body position-relative">
-                        @*<a asp-action="Details" asp-route-id="@item.Id">*@
+                        @*<a asp-action="Detail" asp-route-id="@item.Id">*@
                         <h5 class="card-title">
                             @Html.DisplayFor(modelItem => item.Name)
                         </h5>
@@ -34,8 +34,8 @@
 
                         <div class="row">
                             <div class="col text-end">
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                <a class="btn btn-outline-red-intense" asp-action="Delete" asp-route-id="@item.Id">@Localizer["Shared_Buttons_Delete"].Value</a>
+                                <button class="btn btn-primary js_EditList" asp-action="Edit" asp-route-id="@item.Id">Edit</button>
+                                <button type="button" class="btn btn-outline-red-intense js_RemoveList" asp-action="Delete" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#RemoveConfirmation">@Localizer["Shared_Buttons_Delete"].Value</button>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,19 @@
             </div>
         }
     </div>
-
+    <div class="modal fade" id="RemoveConfirmation" tabindex="-1" aria-labelledby="RemoveConfirmationLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="RemoveConfirmationLabel">@Localizer["Layout_Navbar_SampleList_Ajax"]</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body js_deleteContent">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts{

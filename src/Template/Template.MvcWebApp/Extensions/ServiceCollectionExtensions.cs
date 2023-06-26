@@ -30,7 +30,7 @@ namespace Template.MvcWebApp.Configuration
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureSettings(this IServiceCollection services, ConfigurationManager config)
+        public static IServiceCollection ConfigureSettings(this IServiceCollection services, IConfiguration config)
         {
             services.Configure<AppSettings>(config)
                     .Configure<Mailsettings>(options =>
@@ -51,7 +51,7 @@ namespace Template.MvcWebApp.Configuration
             return services;
         }
 
-        public static IServiceCollection ConfigureIdentity(this IServiceCollection services, ConfigurationManager config)
+        public static IServiceCollection ConfigureIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
                 .Configure<IdentityOptions>(options =>

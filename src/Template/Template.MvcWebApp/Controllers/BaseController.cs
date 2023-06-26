@@ -19,45 +19,33 @@ namespace Template.MvcWebApp.Controllers
             this.localizer = localizer;
         }
 
-        public IActionResult HandleErrorResult(Result result, string id = null)
+        public ResponseMessageViewModel HandleErrorResult(Result result, string id = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
 
             return HandleErrorResult(result, ResponseMessageViewModel.Error(result.Exception.Message), id);
         }
 
-        public IActionResult HandleErrorResult(Result result, ResponseMessageViewModel validationResponse, string id = null)
+        public ResponseMessageViewModel HandleErrorResult(Result result, ResponseMessageViewModel validationResponse, string id = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
-
-            if (Request.IsAjaxRequest())
+            ResponseMessageViewModel response = validationResponse;
+            
+            if (!(result.Exception is ValidationException || result.Exception is DomainException))
             {
-                if (result.Exception is ValidationException || result.Exception is DomainException)
-                {
-                    //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                    return Json(validationResponse);
-                }
-                else
-                {
-                    //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                    return Json(ResponseMessageViewModel.Error(localizer["Shared_Message_ErrorOccured"].Value));
-                }
-            }
-            else
-            {
-                if (result.Exception is ValidationException || result.Exception is DomainException)
-                {
-                    //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                    ViewBag.ResponseMessage = validationResponse.SetId(id);
-                }
-                else
-                {
-                    //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                    ViewBag.ResponseMessage = ResponseMessageViewModel.Error(localizer["Shared_Message_ErrorOccured"].Value).SetId(id);
-                }
+                //TODO: Agregar severidad a ValidationException para poder emitir warnings
+                response = ResponseMessageViewModel.Error(localizer["Shared_Message_ErrorOccured"].Value);
             }
 
-            return null;
+            response.SetId(id);
+
+            if (!Request.IsAjaxRequest())
+            {
+                //TODO: Agregar severidad a ValidationException para poder emitir warnings
+                ViewBag.ResponseMessage = response;
+            }
+            
+            return response;
         }
 
     }

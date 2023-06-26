@@ -5,6 +5,7 @@ import { Loader } from '../../../../../../Content/js/loader'
 import { Enums } from "../../../../../../Content/js/enums";
 
 class Edit {
+
     constructor(sampleListServices) {
         this.elements = {
             listId: "#Id",
@@ -16,7 +17,6 @@ class Edit {
             submitAddItemForm: "form[name=AddItemForm] button[type=submit]",
             descriptionItem: "form[name=AddItemForm] #Description",
             removeItemForm: "form[name=RemoveItemForm]",
-            submitRemoveItemForm: "form[name=RemoveItemForm] button[type=submit]",
         };
         this.sampleListServices = sampleListServices;
         this.bindEvents();
@@ -51,8 +51,6 @@ class Edit {
 
         this.sampleListServices
             .submitEditForm(formData)
-            .then(response => {
-            })
             .catch(error => {
                 console.error(error);
             })
@@ -73,7 +71,7 @@ class Edit {
         this.sampleListServices
             .submitAddItemForm(formData)
             .then(data => {
-                if (data && data.content) {
+                if (data) {
                     const $items = $(this.elements.items);
                     $items.append(data.content);
 
@@ -93,17 +91,18 @@ class Edit {
     submitRemoveItemForm(event) {
         event.preventDefault();
 
-        const $submitRemoveItemForm = $(this.elements.submitRemoveItemForm);
-        const loader = new Loader($submitRemoveItemForm, Enums.LoadingType.Button).startLoading();
+        const $submitRemoveItemForm = $(event.currentTarget);
+        const $submitButton = $submitRemoveItemForm.find('button[type="submit"]');
+        const loader = new Loader($submitButton, Enums.LoadingType.Button).startLoading();
 
-        const form = $(this.elements.removeItemForm).get(0);
+        const form = $submitRemoveItemForm.get(0);
         const formData = new FormData(form);
 
         this.sampleListServices
             .submitRemoveItemForm(formData)
             .then(data => {
-                if (date & data.isSuccess) {
-                    const $itemContainer = $(this.elements.removeItemForm).parent();
+                if (data) {
+                    const $itemContainer = $submitRemoveItemForm.parent();
                     $itemContainer.remove();
                 }
             })

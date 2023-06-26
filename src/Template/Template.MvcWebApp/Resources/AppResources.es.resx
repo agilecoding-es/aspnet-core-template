@@ -639,7 +639,7 @@
     <value>Item agregado.</value>
   </data>
   <data name="Sample_SampleList_Delete_Description" xml:space="preserve">
-    <value>Estas seguro de querer eliminar las siguiente lista de ejemplo?</value>
+    <value>Estas seguro de querer eliminar la siguiente lista de ejemplo?</value>
   </data>
   <data name="Sample_SampleList_Delete_Title" xml:space="preserve">
     <value>Eliminar lista de ejemplo</value>
@@ -670,5 +670,8 @@
   </data>
   <data name="Layout_Navbar_SampleList_Ajax" xml:space="preserve">
     <value>Listas de Ejemplo (Ajax)</value>
+  </data>
+  <data name="Shared_Buttons_Close" xml:space="preserve">
+    <value>Cerrar</value>
   </data>
 </root>

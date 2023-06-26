@@ -11,5 +11,6 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Models.SampleList
 
         public bool Confirmed { get; set; }
 
+        public ResponseMessageViewModel Error { get; set; }
     }
 }

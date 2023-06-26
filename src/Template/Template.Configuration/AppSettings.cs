@@ -13,6 +13,7 @@ namespace Template.Configuration
     public class AppSettings
     {
         public string ApplicationName { get; set; }
+
         public SupportedCultures SupportedCultures { get; set; }
 
         public Mailsettings Mailsettings { get; set; }

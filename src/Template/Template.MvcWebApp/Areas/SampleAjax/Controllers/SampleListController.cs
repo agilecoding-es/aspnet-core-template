@@ -1,25 +1,19 @@
-﻿using System.Security.Claims;
-using IdentityModel.OidcClient;
-using Mapster;
+﻿using Mapster;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.MSIdentity.Shared;
+using Microsoft.AspNetCore.Mvc.Localization;
+using System.Security.Claims;
 using Template.Application.Contracts.DTOs.Sample;
+using Template.Application.Exceptions;
 using Template.Application.Identity;
 using Template.Application.Sample.Commands;
 using Template.Application.Sample.Queries;
-using Template.Domain.Entities.Sample;
-using Template.Domain.Entities.Shared;
 using Template.Common.Extensions;
+using Template.Domain.Entities.Shared;
 using Template.MvcWebApp.Areas.SampleAjax.Models.SampleList;
 using Template.MvcWebApp.Models;
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Result = Template.Domain.Entities.Shared.Result;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Template.MvcWebApp.Services.Rendering;
+using Result = Template.Domain.Entities.Shared.Result;
 
 namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 {
@@ -53,7 +47,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
             return Json(result.Adapt<List<SampleListViewModel>>());
         }
 
-        public async Task<IActionResult> Details(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Detail(int id, CancellationToken cancellationToken)
         {
             var result = await GetSamplelistAsync(id, cancellationToken);
 
@@ -163,7 +157,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
                 };
             }
 
-            return View(model);
+            return PartialView("_Delete",model);
         }
 
         [HttpPost]
@@ -176,21 +170,24 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
                                                         DeleteWithItems: deleteSampleListViewModel.NeedsConfirmation && deleteSampleListViewModel.Confirmed),
                     cancellationToken);
 
-                if (result.IsFailure)
+                if (result.IsFailure && result.Exception is ValidationException)
                 {
                     //TODO: Traducir mensaje
-                    HandleErrorResult(result,
-                                      ResponseMessageViewModel.Error(result.Exception.Message, "Do you want to delete anyway?"));
+                    var responseError = HandleErrorResult(
+                                    result,
+                                    ResponseMessageViewModel.Error(result.Exception.Message, "Do you want to delete anyway?"));
+                    
                     deleteSampleListViewModel.NeedsConfirmation = true;
+                    deleteSampleListViewModel.Error = responseError;
 
-                    return View(deleteSampleListViewModel);
+                    return Json(deleteSampleListViewModel);
                 }
 
                 //TODO: Cambiar mensaje
                 ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value);
             }
-
-            return RedirectToAction(nameof(Index));
+            Url.Action(nameof(Index));
+            return  RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Items(int id, CancellationToken cancellationToken)
@@ -213,7 +210,8 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
                 if (addItemResult.IsFailure)
                 {
-                    HandleErrorResult(addItemResult, id: "Items");
+                    var responseError = HandleErrorResult(addItemResult, id: "Items");
+                    return Json(responseError );
                 }
                 else
                 {
@@ -246,7 +244,8 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
             if (removeResult.IsFailure)
             {
-                HandleErrorResult(removeResult, id: "Items");
+                var responseError = HandleErrorResult(removeResult, id: "Items");
+                return Json(responseError);
             }
             else
             {
