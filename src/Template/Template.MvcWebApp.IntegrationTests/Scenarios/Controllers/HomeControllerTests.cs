@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Template.MvcWebApp.IntegrationTests.Attributes;
 
 namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
 {
     [Collection("WebApp")]
-    public class HomeControllerTests : IAsyncLifetime
+    public class HomeControllerTests 
     {
         private readonly HttpClient client;
-        private readonly Func<Task> resetDatabase;
 
-        public HomeControllerTests(WebAppFactory factory)
+        public HomeControllerTests()
         {
-            client = factory.HttpClient;
-            resetDatabase = factory.ResetDatabase;
+            var factory = WebAppFactory.FactoryInstance;
+            client = factory.SharedHttpClient;
         }
 
         [Theory]
@@ -19,6 +18,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
         [InlineData("/Index")]
         [InlineData("/Privacy")]
         [InlineData("/Error")]
+        [ResetDatabase()]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange
@@ -32,8 +32,5 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
             Assert.Equal("text/html; charset=utf-8",
                 response.Content.Headers.ContentType.ToString());
         }
-
-        public Task InitializeAsync() => Task.CompletedTask;
-        public Task DisposeAsync() => resetDatabase();
     }
 }

@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.MvcWebApp.IntegrationTests.Attributes;
+﻿using Template.MvcWebApp.IntegrationTests.Attributes;
 
 namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
 {
@@ -13,12 +6,11 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
     public class SampleListControllerTests
     {
         private readonly HttpClient client;
-        private readonly Func<Task> resetDatabase;
 
-        public SampleListControllerTests(WebAppFactory factory)
+        public SampleListControllerTests()
         {
-            client = factory.HttpClient;
-            resetDatabase = factory.ResetDatabase;
+            var factory = WebAppFactory.FactoryInstance;
+            client = factory.SharedHttpClient;
         }
 
         [Theory]
@@ -27,6 +19,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
         [InlineData("/Create")]
         [InlineData("/Edit")]
         [InlineData("/Delete")]
+        [ResetDatabase()]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange
@@ -42,7 +35,5 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
                 response.Content.Headers.ContentType.ToString());
         }
 
-        public Task InitializeAsync() => Task.CompletedTask;
-        public Task DisposeAsync() => resetDatabase();
     }
 }

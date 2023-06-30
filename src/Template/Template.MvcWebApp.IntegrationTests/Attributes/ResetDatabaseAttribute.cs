@@ -8,15 +8,6 @@ namespace Template.MvcWebApp.IntegrationTests.Attributes
 {
     internal class ResetDatabaseAttribute : BeforeAfterTestAttribute
     {
-        private readonly IServiceCollection services;
-        private readonly IConfiguration configuration;
-
-        public ResetDatabaseAttribute(WebAppFactory factory)
-        {
-            this.services = services;
-            this.configuration = configuration;
-        }
-
-        public override void Before(MethodInfo methodUnderTest) => services.ResetDatabase(configuration).GetAwaiter().GetResult();
+        public override void Before(MethodInfo methodUnderTest) => WebAppFactory.ResetDatabaseAsync().GetAwaiter().GetResult();
     }
 }

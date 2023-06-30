@@ -1,21 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using System.Security.Policy;
-using Template.MvcWebApp.IntegrationTests.Attributes;
-using Xunit;
+﻿using Template.MvcWebApp.IntegrationTests.Attributes;
 
 namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleMVC
 {
     [Collection("WebApp")]
-    public class SampleListControllerTests : IAsyncLifetime
+    public class SampleListControllerTests 
     {
         private readonly HttpClient client;
-        private readonly Func<Task> resetDatabase;
 
-        public SampleListControllerTests(WebAppFactory factory)
+        public SampleListControllerTests()
         {
-            client = factory.HttpClient;
-            resetDatabase = factory.ResetDatabase;
+            var factory = WebAppFactory.FactoryInstance;
+            client = factory.SharedHttpClient;
         }
 
 
@@ -25,7 +20,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleMVC
         [InlineData("/Create")]
         [InlineData("/Edit")]
         [InlineData("/Delete")]
-        //[ResetDatabase()]
+        [ResetDatabase()]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange
@@ -40,8 +35,5 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleMVC
             Assert.Equal("text/html; charset=utf-8",
                 response.Content.Headers.ContentType.ToString());
         }
-
-        public Task InitializeAsync() => Task.CompletedTask;
-        public Task DisposeAsync() => resetDatabase();
     }
 }

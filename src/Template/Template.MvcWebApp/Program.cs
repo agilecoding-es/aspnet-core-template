@@ -108,5 +108,3 @@ app.MapHealthChecks("/healthoverview", new HealthCheckOptions()
 app.MapRazorPages();
 
 app.Run();
-
-public partial class Program { }

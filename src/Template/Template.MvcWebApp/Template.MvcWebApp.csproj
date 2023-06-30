@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>disable</Nullable>
+		<Nullable>enable</Nullable>
 		<UserSecretsId>aspnet-Template.MvcWebApp-52390d4a-e4a6-4a64-8c89-a5ba6d0e83cf</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<AssemblyName>Template.MvcWebApp</AssemblyName>
