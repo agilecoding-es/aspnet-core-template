@@ -17,7 +17,9 @@ using Template.Application.Behaviours;
 using Template.Application.Contracts;
 using Template.Application.Contracts.Repositories.Sample;
 using Template.Configuration;
+using Template.Domain.Entities.Identity;
 using Template.MailSender;
+using Template.MvcWebApp.Enums;
 using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Services.Rendering;
@@ -71,6 +73,25 @@ namespace Template.MvcWebApp.Configuration
                     microsoftOptions.ClientId = microsoftAuthentication["ClientId"];
                     microsoftOptions.ClientSecret = microsoftAuthentication["ClientSecret"];
                 });
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureAuthorization(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    Policies.UserManager.ToString(), 
+                    policy => policy.RequireRole(Roles.AdminUser.ToString()));
+                options.AddPolicy(
+                    Policies.RolesManager.ToString(),
+                    policy => policy.RequireAssertion(
+                        context => 
+                        context.User.IsInRole(Roles.AdminUser.ToString()) || 
+                        context.User.HasClaim(x => x.Type == Claims.ManageRoles.ToString() && x.Value == bool.TrueString.ToLower())));
+
+            });
 
             return services;
         }

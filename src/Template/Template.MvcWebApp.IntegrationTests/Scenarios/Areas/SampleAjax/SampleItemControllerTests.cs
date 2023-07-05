@@ -3,12 +3,11 @@
     [Collection("WebApp")]
     public class SampleItemControllerTests
     {
-        private readonly HttpClient client;
+        private readonly WebAppFactory factory;
 
         public SampleItemControllerTests()
         {
-            var factory = WebAppFactory.FactoryInstance;
-            client = factory.SharedHttpClient;
+            factory = WebAppFactory.FactoryInstance;
         }
 
     }

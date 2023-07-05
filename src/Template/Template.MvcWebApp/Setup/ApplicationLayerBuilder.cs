@@ -3,15 +3,15 @@
     public class ApplicationLayerBuilder
     {
         private readonly IServiceCollection _services;
-        private readonly ConfigurationManager _configuration;
+        private readonly IConfiguration _configuration;
 
-        public ApplicationLayerBuilder(IServiceCollection services, ConfigurationManager configuration)
+        public ApplicationLayerBuilder(IServiceCollection services, IConfiguration configuration)
         {
             _services = services;
             _configuration = configuration;
         }
 
-        public ApplicationLayerBuilder AddDependencies(Action<IServiceCollection, ConfigurationManager> builder)
+        public ApplicationLayerBuilder AddDependencies(Action<IServiceCollection, IConfiguration> builder)
         {
             _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
@@ -20,35 +20,35 @@
             return this;
         }
 
-        public ApplicationLayerBuilder ConfigurePresentation(Action<IServiceCollection, ConfigurationManager> builder)
+        public ApplicationLayerBuilder ConfigurePresentation(Action<IServiceCollection, IConfiguration> builder)
         {
             builder.Invoke(_services, _configuration);
 
             return this;
         }
 
-        public ApplicationLayerBuilder ConfigureApplication(Action<IServiceCollection, ConfigurationManager> builder)
+        public ApplicationLayerBuilder ConfigureApplication(Action<IServiceCollection, IConfiguration> builder)
         {
             builder.Invoke(_services, _configuration);
 
             return this;
         }
 
-        public ApplicationLayerBuilder ConfigurePersistence(Action<IServiceCollection, ConfigurationManager> builder)
+        public ApplicationLayerBuilder ConfigurePersistence(Action<IServiceCollection, IConfiguration> builder)
         {
             builder.Invoke(_services, _configuration);
 
             return this;
         }
 
-        public ApplicationLayerBuilder ConfigureConnectedServices(Action<IServiceCollection, ConfigurationManager> builder)
+        public ApplicationLayerBuilder ConfigureConnectedServices(Action<IServiceCollection, IConfiguration> builder)
         {
             builder.Invoke(_services, _configuration);
 
             return this;
         }
 
-        public ApplicationLayerBuilder ConfigureInfrastructure(Action<IServiceCollection, ConfigurationManager> builder)
+        public ApplicationLayerBuilder ConfigureInfrastructure(Action<IServiceCollection, IConfiguration> builder)
         {
             builder.Invoke(_services, _configuration);
 

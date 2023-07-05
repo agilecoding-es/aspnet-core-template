@@ -7,7 +7,7 @@ namespace Template.MvcWebApp.Setup
 {
     public static class ApplicationSetup
     {
-        public static ApplicationLayerBuilder AddApplication(this IServiceCollection services, ConfigurationManager configuration,Action<IServiceCollection, ConfigurationManager> builder)
+        public static ApplicationLayerBuilder AddApplication(this IServiceCollection services, IConfiguration configuration,Action<IServiceCollection, IConfiguration> builder)
         {
             builder.Invoke(services, configuration);
 

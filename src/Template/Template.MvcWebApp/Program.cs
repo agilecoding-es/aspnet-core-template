@@ -9,6 +9,7 @@ using Template.Application.Identity;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.Configuration;
+using Template.MvcWebApp.Enums;
 using Template.Persistence.Database;
 using Template.Persistence.Identity;
 
@@ -37,6 +38,7 @@ builder.Services.AddControllersWithViews()
                 });
 
 builder.Services.ConfigureIdentity(config)
+                .ConfigureAuthorization()
                 .ConfigureDependencies(config.Get<AppSettings>())
                 .ConfigureResources(config.Get<AppSettings>())
                 .ConfigureCache()

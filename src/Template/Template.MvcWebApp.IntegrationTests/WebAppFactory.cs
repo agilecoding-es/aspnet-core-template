@@ -80,9 +80,9 @@ namespace Template.MvcWebApp.IntegrationTests
 
         #endregion
 
+        private IConfiguration Configuration = default!;
         private DbConnection Connection = default!;
         private Respawner Respawner = default!;
-        private IConfiguration Configuration = default!;
 
         public WebAppFactory() : base()
         {
@@ -92,11 +92,9 @@ namespace Template.MvcWebApp.IntegrationTests
                                 .AddEnvironmentVariables()
                                 .Build();
             Connection = new SqlConnection(Configuration.GetConnectionString(ConnectionString.DEFAULT_CONNECTION));
-            SharedHttpClient = CreateClient();
         }
 
-        public HttpClient SharedHttpClient { get; private set; } = default!;
-
+        public RequestBuilder CreateRequest(string path) => Server.CreateRequest(path);
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {

@@ -5,12 +5,11 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
     [Collection("WebApp")]
     public class HomeControllerTests 
     {
-        private readonly HttpClient client;
+        private readonly WebAppFactory factory;
 
         public HomeControllerTests()
         {
-            var factory = WebAppFactory.FactoryInstance;
-            client = factory.SharedHttpClient;
+            factory = WebAppFactory.FactoryInstance;
         }
 
         [Theory]
@@ -23,6 +22,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
         {
             // Arrange
             const string CONTROLLER = "Home";
+            var client = factory.CreateClient();
 
             // Act
             var response = await client.GetAsync($"{CONTROLLER}{url}");
