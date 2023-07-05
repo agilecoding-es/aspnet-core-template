@@ -1,59 +1,25 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Serilog;
-using Template.Application.Identity;
 using Template.Configuration;
-using Template.Domain.Entities.Identity;
-using Template.MvcWebApp.Configuration;
-using Template.MvcWebApp.Enums;
-using Template.Persistence.Database;
-using Template.Persistence.Identity;
+using Template.MvcWebApp.Setup;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DEFAULT_CONNECTION}' not found.");
 
-builder.Services
-    .ConfigureSettings(config)
-    .ConfigureDB(connectionString);
+var app = builder.DefaultServicesConfiguration().Build();
 
-builder.Services
-       .AddDefaultIdentity<User>()
-       .AddUserManager<UserManager>()
-       .AddSignInManager<SignInManager>()
-       .AddUserStore<UserStore>()
-       .AddEntityFrameworkStores<Context>();
-
-builder.Services.AddControllersWithViews()
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization(options =>
-                {
-                    options.DataAnnotationLocalizerProvider = (type, factory) =>
-                        factory.Create(Constants.Configuration.Resources.DATANNOTATION, typeof(Program).Assembly.FullName);
-                });
-
-builder.Services.ConfigureIdentity(config)
-                .ConfigureAuthorization()
-                .ConfigureDependencies(config.Get<AppSettings>())
-                .ConfigureResources(config.Get<AppSettings>())
-                .ConfigureCache()
-                .ConfigureMediatr()
-                .ConfigureMapster()
-                .ConfigureHelthChecks();
-
-builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration)
-);
-
-var app = builder.Build();
+//----------------------------------------------
+//Configure the HTTP request pipeline.
+//----------------------------------------------
 var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 
-//Configure the HTTP request pipeline.
+_ = locOptions ?? throw new ArgumentException(nameof(RequestLocalizationOptions));
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
