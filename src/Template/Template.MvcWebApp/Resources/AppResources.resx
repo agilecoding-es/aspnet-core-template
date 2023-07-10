@@ -675,4 +675,13 @@
   <data name="Shared_Buttons_Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Administration_Roles_Create_Title" xml:space="preserve">
+    <value>Create role</value>
+  </data>
+  <data name="Administration_Roles_Index_Title" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Layout_Navbar_Administration_Roles" xml:space="preserve">
+    <value>Manage roles</value>
+  </data>
 </root>

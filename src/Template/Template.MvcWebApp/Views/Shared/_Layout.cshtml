@@ -3,8 +3,11 @@
 @using Microsoft.Extensions.Localization;
 @using Microsoft.Extensions.Options;
 @using System.Globalization;
+@using Template.Application.Identity;
 @using Template.MvcWebApp.Extensions;
 
+@inject SignInManager SignInManager
+@inject UserManager UserManager
 @inject IOptions<RequestLocalizationOptions> LocalizationOptions
 @inject IStringLocalizer Localizer
 
@@ -50,12 +53,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Layout_Navbar_Privacy"]</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="SampleMvc" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_MVC"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="SampleAjax" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_Ajax"]</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="SampleMvc" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_MVC"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="SampleAjax" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_Ajax"]</a>
+                            </li>
+
+                            if (User.IsInRole("superadmin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Administration" asp-controller="Roles" asp-action="Index">@Localizer["Layout_Navbar_Administration_Roles"]</a>
+                                </li>
+                            }
+                        }
                     </ul>
                     <ul class="navbar-nav d-flex flex-row">
                         <li class="nav-item dropdown">

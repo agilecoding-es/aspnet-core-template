@@ -4,7 +4,6 @@
     {
         public struct Configuration
         {
-
             public struct ConnectionString
             {
                 public const string DEFAULT_CONNECTION = "DefaultConnection";
@@ -21,6 +20,12 @@
             {
                 public const string CULTURE_COOKIE = "TemplateCultureCookie";
             }
+        }
+
+        public struct KeyErrors
+        {
+            public const string VALIDATION_ERROR = "ValidationError";
+
         }
 
     }

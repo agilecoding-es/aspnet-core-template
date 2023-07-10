@@ -1,4 +1,8 @@
-﻿@using Template.Common.Extensions;
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding;
+@using Template.Configuration;
+@model ModelStateDictionary
+
+@*@using Template.Common.Extensions;
 
 @if (ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
 {
@@ -10,5 +14,20 @@
             <h4 class="alert-heading">@responseMessage.Title</h4>
         }
         @ViewBag.ResponseMessage.Content
+    </div>
+}*@
+
+
+
+@if (Model != null && !Model.IsValid)
+{
+    <div class="validation-summary-errors">
+        <ul>
+            @foreach (var modelError in
+           Model.Where(kv => kv.Key == Constants.KeyErrors.VALIDATION_ERROR).SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                <li>@modelError.ErrorMessage</li>
+            }
+        </ul>
     </div>
 }

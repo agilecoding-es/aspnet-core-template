@@ -39,11 +39,13 @@ namespace Template.MvcWebApp.Controllers
 
             response.SetId(id);
 
-            if (!Request.IsAjaxRequest())
-            {
-                //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                ViewBag.ResponseMessage = response;
-            }
+            //if (!Request.IsAjaxRequest())
+            //{
+            //    //TODO: Agregar severidad a ValidationException para poder emitir warnings
+            //    ViewBag.ResponseMessage = response;
+            //}
+
+            ModelState.AddModelError(Constants.KeyErrors.VALIDATION_ERROR, response.Content);
             
             return response;
         }

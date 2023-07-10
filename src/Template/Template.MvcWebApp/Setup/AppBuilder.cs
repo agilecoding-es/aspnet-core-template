@@ -82,6 +82,9 @@ namespace Template.MvcWebApp.Setup
                    .AddUserManager<UserManager>()
                    .AddSignInManager<SignInManager>()
                    .AddUserStore<UserStore>()
+                   .AddRoles<Role>()
+                   .AddRoleManager<RoleManager>()
+                   .AddRoleStore<RoleStore>()
                    .AddEntityFrameworkStores<Context>();
 
             return this;
@@ -113,20 +116,20 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureAuthorization()
         {
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy(
-            //        Policies.UserManager.ToString(),
-            //        policy => policy.RequireRole(Roles.AdminUser.ToString()));
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    Policies.UserManager.ToString(),
+                    policy => policy.RequireRole(Roles.AdminUser.ToString()));
 
-            //    options.AddPolicy(
-            //        Policies.RolesManager.ToString(),
-            //        policy => policy.RequireAssertion(
-            //            context =>
-            //            context.User.IsInRole(Roles.AdminUser.ToString()) ||
-            //            context.User.HasClaim(x => x.Type == Claims.ManageRoles.ToString() && x.Value == bool.TrueString.ToLower())));
+                options.AddPolicy(
+                    Policies.RolesManager.ToString(),
+                    policy => policy.RequireAssertion(
+                        context =>
+                        context.User.IsInRole(Roles.AdminUser.ToString()) ||
+                        context.User.HasClaim(x => x.Type == Claims.ManageRoles.ToString() && x.Value == bool.TrueString.ToLower())));
 
-            //});
+            });
 
             return this;
         }
