@@ -58,14 +58,14 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
                 factory.CreateRequest(url)
                        .WithIdentity(new List<Claim>
                        {
-                           new Claim(ClaimTypes.NameIdentifier.ToString(), UserSettings.UserId),
-                        new Claim(ClaimTypes.Name, UserSettings.Name),
-                        new Claim(ClaimTypes.Email, UserSettings.UserEmail),
+                           new Claim(ClaimTypes.NameIdentifier, ""), //UserSettings.UserId)
+                        new Claim(ClaimTypes.Name, ""), //UserSettings.Name),
+                        new Claim(ClaimTypes.Email, ""), //UserSettings.UserEmail),
                         new Claim(ClaimTypes.Role, "Admin")
                        });
 
             // Act
-            var response = request.wi;
+            var response = await request.GetAsync();
 
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299

@@ -1,33 +1,33 @@
 ﻿using Mapster;
 using MediatR;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Localization;
-using static Template.Configuration.Constants.Configuration;
 using System.Globalization;
-using System.Net.Mail;
 using System.Net;
-using Template.Application.Behaviours;
-using Template.Application.Contracts.Repositories.Sample;
-using Template.Application.Contracts;
+using System.Net.Mail;
 using Template.Application;
+using Template.Application.Behaviours;
+using Template.Application.Contracts;
+using Template.Application.Contracts.Repositories.Sample;
+using Template.Application.Identity;
 using Template.Configuration;
+using Template.Domain.Entities.Identity;
 using Template.MailSender;
 using Template.MvcWebApp.Enums;
 using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Services.Rendering;
-using Template.Persistence.Respositories.Sample;
 using Template.Persistence;
 using Template.Persistence.Database;
-using Template.Application.Identity;
-using Template.Domain.Entities.Identity;
 using Template.Persistence.Identity;
+using Template.Persistence.Respositories.Sample;
+using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.Setup
 {
@@ -113,19 +113,20 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureAuthorization()
         {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(
-                    Policies.UserManager.ToString(),
-                    policy => policy.RequireRole(Roles.AdminUser.ToString()));
-                options.AddPolicy(
-                    Policies.RolesManager.ToString(),
-                    policy => policy.RequireAssertion(
-                        context =>
-                        context.User.IsInRole(Roles.AdminUser.ToString()) ||
-                        context.User.HasClaim(x => x.Type == Claims.ManageRoles.ToString() && x.Value == bool.TrueString.ToLower())));
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(
+            //        Policies.UserManager.ToString(),
+            //        policy => policy.RequireRole(Roles.AdminUser.ToString()));
 
-            });
+            //    options.AddPolicy(
+            //        Policies.RolesManager.ToString(),
+            //        policy => policy.RequireAssertion(
+            //            context =>
+            //            context.User.IsInRole(Roles.AdminUser.ToString()) ||
+            //            context.User.HasClaim(x => x.Type == Claims.ManageRoles.ToString() && x.Value == bool.TrueString.ToLower())));
+
+            //});
 
             return this;
         }
@@ -133,7 +134,7 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureDependencies()
         {
             AppSettings appSettings = configuration.Get<AppSettings>();
-
+            
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
 
             services

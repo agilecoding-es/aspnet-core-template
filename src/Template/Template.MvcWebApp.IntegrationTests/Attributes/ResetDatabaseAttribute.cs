@@ -8,6 +8,6 @@ namespace Template.MvcWebApp.IntegrationTests.Attributes
 {
     internal class ResetDatabaseAttribute : BeforeAfterTestAttribute
     {
-        public override void Before(MethodInfo methodUnderTest) => WebAppFactory.ResetDatabaseAsync().GetAwaiter().GetResult();
+        public override void Before(MethodInfo methodUnderTest) => WebAppFactory.ResetDatabase();
     }
 }

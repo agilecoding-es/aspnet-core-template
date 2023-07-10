@@ -71,6 +71,14 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             ///
             /// </summary>
             [Required(ErrorMessage = "The {0} field is required.")]
+            [Display(Name = "Username")]
+            public string UserName { get; set; }
+
+            /// <summary>
+            ///
+            ///
+            /// </summary>
+            [Required(ErrorMessage = "The {0} field is required.")]
             [EmailAddress(ErrorMessage = "The {0} field is not a valid e-mail address.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -110,7 +118,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

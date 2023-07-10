@@ -5,12 +5,11 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleMVC
     [Collection("WebApp")]
     public class SampleListControllerTests 
     {
-        private readonly HttpClient client;
+        private readonly WebAppFactory factory;
 
         public SampleListControllerTests()
         {
-            var factory = WebAppFactory.FactoryInstance;
-            client = factory.SharedHttpClient;
+            factory = WebAppFactory.FactoryInstance;
         }
 
 
@@ -28,7 +27,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleMVC
             const string CONTROLLER = "SampleList";
             
             // Act
-            var response = await client.GetAsync($"{AREA}/{CONTROLLER}{url}");
+            var response = await factory.CreateClient().GetAsync($"{AREA}/{CONTROLLER}{url}");
 
             // Assert
             response.EnsureSuccessStatusCode(); // Status Code 200-299

@@ -1,4 +1,5 @@
-﻿const { series, parallel, src, dest, watch } = require("gulp");
+/// <binding />
+const { series, parallel, src, dest, watch } = require("gulp");
 
 const
     //GULP DEPENDENCIES

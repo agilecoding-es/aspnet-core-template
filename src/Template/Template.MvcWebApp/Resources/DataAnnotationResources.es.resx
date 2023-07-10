@@ -186,4 +186,7 @@
   <data name="List Name" xml:space="preserve">
     <value>Nombre de lista</value>
   </data>
+  <data name="Username or email" xml:space="preserve">
+    <value>Nombre de usuario o email</value>
+  </data>
 </root>

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.SqlClient;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,15 +9,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Respawn;
 using Respawn.Graph;
-using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Template.Configuration;
-using Template.MvcWebApp.IntegrationTests.Attributes;
+using Template.MvcWebApp.IntegrationTests.Fixtures;
+using Template.MvcWebApp.IntegrationTests.Queries;
 using Template.Persistence.Database;
 using static Template.Configuration.Constants.Configuration;
 
@@ -60,13 +54,17 @@ namespace Template.MvcWebApp.IntegrationTests
             return factory;
         }
 
-        public static async Task ResetDatabaseAsync()
+        public static void ResetDatabase()
         {
             if (IsNotLocalDb())
                 throw new Exception(NON_DEVELOPMENT_DB_EXCEPTION);
 
-            await FactoryInstance.Respawner.ResetAsync(FactoryConfiguration.ConnectionString);
+            FactoryInstance.Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
         }
+
+        public static int GetExceptionsCount() => ExceptionsQueries
+                                                    .CreateConnection(FactoryConfiguration.ConnectionString)
+                                                    .GetExceptionsCountAsync().GetAwaiter().GetResult();
 
         private static bool IsNotLocalDb() =>
            !FactoryConfiguration.ConnectionString.Contains("localhost") &&
@@ -96,22 +94,33 @@ namespace Template.MvcWebApp.IntegrationTests
 
         public RequestBuilder CreateRequest(string path) => Server.CreateRequest(path);
 
+        public T GetService<T>()
+        {
+            using var scope = Server.Services.CreateScope();
+            return scope.ServiceProvider.GetService<T>();
+        }
+
+        public async Task ExecuteInScopeAsync<T>(Func<T, Task> action)
+        {
+            using var scope = Server.Services.GetService<IServiceScopeFactory>().CreateScope();
+            await action(scope.ServiceProvider.GetService<T>());
+        }
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             string parentDirectories = string.Format("..{0}..{0}..{0}..{0}", Path.DirectorySeparatorChar);
             var contentRootPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), parentDirectories, PresentationAssembly.Assembly.GetName().Name));
-            
+
 
             builder.ConfigureServices(services =>
             {
+                ConfigureTestDependencies(services);
                 ConfigureMocks(services);
             })
             .UseConfiguration(Configuration)
             .UseContentRoot(contentRootPath)
             .UseEnvironment("Development");
         }
-
-        private void ConfigureMocks(IServiceCollection services) { }
 
         private async Task InitializeRespawner() =>
             Respawner = await Respawner.CreateAsync(
@@ -128,6 +137,14 @@ namespace Template.MvcWebApp.IntegrationTests
                                 "__EFMigrationsHistory"
                             }
                         });
+
+        private void ConfigureTestDependencies(IServiceCollection services)
+        {
+            services.AddScoped(typeof(UserFixture));
+            //services.AddScoped<IUserFixture, UserFixture>();
+        }
+
+        private void ConfigureMocks(IServiceCollection services) { }
 
     }
 }

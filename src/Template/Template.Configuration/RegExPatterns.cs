@@ -12,5 +12,10 @@ namespace Template.Configuration
         {
             public const string CULTURE_COOKIE = "(?:c=)(\\w{2}(?:-\\w{2})?)(?:\\|uic=)(\\w{2}(?:-\\w{2})?)";
         }
+
+        public struct Validators
+        {
+            public const string USERNAME_OR_EMAIL = "^\\w+([-+.'_]\\w+)*(?:@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)?$";
+        }
     }
 }
