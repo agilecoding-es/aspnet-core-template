@@ -30,14 +30,14 @@
                 <div class="w-100">
                     <hr class="silver" />
                     <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
-                    <input type="submit" value="@Localizer["Shared_Buttons_Edit"].Value" class="btn btn-primary" />
+                    <input type="submit" value="@Localizer["Shared_Buttons_Update"].Value" class="btn btn-primary" />
                 </div>
             </div>
         </div>
         <div class="col-8">
             <div class="card">
                 <div class="card-header">
-                    <h3>Users in this role</h3>
+                    <h3>@Localizer["Administration_Roles_Edit_UsersSection"]</h3>
                 </div>
                 <div class="card-body">
                     @if (Model.Users.Any())
@@ -49,12 +49,11 @@
                     }
                     else
                     {
-                        <h5 class="card-title">None user in this role</h5>
+                        <h5 class="card-title">@Localizer["Administration_Roles_Edit_UsersSection_Empty"]</h5>
                     }
                 </div>
                 <div class="card-footer text-muted">
-                    @*<button type="button" asp-action="UsersInRole" asp-route-id="@Model.Id" class="btn btn-primary">Add or remove users</button>*@
-                    <a class="btn btn-primary" asp-action="UsersInRole" asp-route-id="@Model.Id">Add or remove users</a>
+                    <a class="btn btn-primary" asp-action="UsersInRole" asp-route-id="@Model.Id">@Localizer["Administration_Roles_Edit_AddOrRemoveUsersButton"]</a>
                 </div>
             </div>
         </div>

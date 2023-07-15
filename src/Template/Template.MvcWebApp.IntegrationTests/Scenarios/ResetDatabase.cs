@@ -16,6 +16,8 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios
         }
 
         [Fact]
+        [CheckExceptions]
+        [ResetDatabase]
         public void Reset() => Assert.True(true);
 
         [Fact]

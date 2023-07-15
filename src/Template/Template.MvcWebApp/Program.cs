@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
+using Template.Common;
 using Template.Configuration;
 using Template.MvcWebApp.Setup;
 
@@ -19,9 +20,11 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     var config = builder.Configuration;
-    var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DEFAULT_CONNECTION}' not found.");
+    var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection.Value}' not found.");
 
     var app = builder.DefaultServicesConfiguration().Build();
+
+    await app.InitializeAsync(config);
 
     //----------------------------------------------
     //Configure the HTTP request pipeline.

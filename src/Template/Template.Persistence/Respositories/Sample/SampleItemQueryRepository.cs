@@ -1,16 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Template.Application.Contracts.DTOs.Sample;
 using Template.Application.Contracts.Repositories.Sample;
-using Template.Domain.Entities.Sample;
-using Template.Persistence.Database;
-using static Template.Configuration.Constants.Configuration;
 
 namespace Template.Persistence.Respositories.Sample
 {

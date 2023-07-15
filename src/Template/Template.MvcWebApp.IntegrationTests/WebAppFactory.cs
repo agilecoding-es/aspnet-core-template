@@ -10,11 +10,12 @@ using Microsoft.Extensions.Options;
 using Respawn;
 using Respawn.Graph;
 using System.Data.Common;
+using Template.Common;
+using Template.Common.Extensions;
 using Template.Configuration;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
 using Template.MvcWebApp.IntegrationTests.Queries;
 using Template.Persistence.Database;
-using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.IntegrationTests
 {
@@ -37,9 +38,9 @@ namespace Template.MvcWebApp.IntegrationTests
             }
         }
 
-        private static class FactoryConfiguration
+        internal static class FactoryConfiguration
         {
-            public static string ConnectionString => FactoryInstance.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION);
+            public static string ConnectionString => FactoryInstance.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value);
 
             public static AppSettings Settings => FactoryInstance.Services.GetService<IOptions<AppSettings>>().Value;
         }
@@ -89,7 +90,7 @@ namespace Template.MvcWebApp.IntegrationTests
                                 .AddJsonFile("appsettings.json")
                                 .AddEnvironmentVariables()
                                 .Build();
-            Connection = new SqlConnection(Configuration.GetConnectionString(ConnectionString.DEFAULT_CONNECTION));
+            Connection = new SqlConnection(Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value));
         }
 
         public RequestBuilder CreateRequest(string path) => Server.CreateRequest(path);
@@ -100,9 +101,17 @@ namespace Template.MvcWebApp.IntegrationTests
             return scope.ServiceProvider.GetService<T>();
         }
 
+        public async Task ExecuteInScopeAsync(Func<IServiceProvider, Task> action)
+        {
+            //using var scope = Server.Services.GetService<IServiceScopeFactory>().CreateScope();
+            using var scope = Server.Services.CreateScope();
+            await action(scope.ServiceProvider);
+        }
+
         public async Task ExecuteInScopeAsync<T>(Func<T, Task> action)
         {
-            using var scope = Server.Services.GetService<IServiceScopeFactory>().CreateScope();
+            //using var scope = Server.Services.GetService<IServiceScopeFactory>().CreateScope();
+            using var scope = Server.Services.CreateScope();
             await action(scope.ServiceProvider.GetService<T>());
         }
 

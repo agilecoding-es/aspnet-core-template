@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Localization;
 using System.Reflection.Metadata;
 using Template.Application.Exceptions;
+using Template.Common;
 using Template.Configuration;
 using Template.Domain.Entities.Shared;
 using Template.Domain.Exceptions;
@@ -45,7 +46,7 @@ namespace Template.MvcWebApp.Controllers
             //    ViewBag.ResponseMessage = response;
             //}
 
-            ModelState.AddModelError(Constants.KeyErrors.VALIDATION_ERROR, response.Content);
+            ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, response.Content);
             
             return response;
         }

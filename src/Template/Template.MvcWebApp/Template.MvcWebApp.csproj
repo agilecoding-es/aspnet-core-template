@@ -65,6 +65,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Template.Application\Template.Application.csproj" />
+		<ProjectReference Include="..\Template.Authorization\Template.Authorization.csproj" />
 		<ProjectReference Include="..\Template.Common\Template.Common.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
 		<ProjectReference Include="..\Template.MailSender\Template.MailSender.csproj" />

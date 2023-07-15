@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template.Common;
 using Template.Configuration;
 
 namespace Template.Persistence.Respositories
@@ -16,7 +17,7 @@ namespace Template.Persistence.Respositories
 
         public QueryRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION) ?? throw new ArgumentNullException(nameof(configuration));
+            _connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value) ?? throw new ArgumentNullException(nameof(configuration));
         }
     }
 }

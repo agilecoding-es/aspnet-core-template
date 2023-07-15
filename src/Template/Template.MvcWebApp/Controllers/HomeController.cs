@@ -2,10 +2,9 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Template.Configuration;
+using Template.Common;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Models;
-using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.Controllers
 {
@@ -45,10 +44,10 @@ namespace Template.MvcWebApp.Controllers
 
             CultureInfo cultureInfo = null;
             CultureInfo uiCultureInfo = null;
-            if (Request.Cookies.ContainsKey(Cookies.CULTURE_COOKIE))
+            if (Request.Cookies.ContainsKey(Constants.Configuration.Cookies.CultureCookieName.Value))
             {
-                var regex = new Regex(RegExPatterns.Culture.CULTURE_COOKIE);
-                var match = regex.Match(Request.Cookies[Cookies.CULTURE_COOKIE]);
+                var regex = new Regex(RegExPatterns.Culture.CultureCookie);
+                var match = regex.Match(Request.Cookies[Constants.Configuration.Cookies.CultureCookieName.Value]);
                 var currentCulture = match?.Groups[1]?.Value;
                 cultureInfo = _cultureHelper.GetCulture(currentCulture);
             }

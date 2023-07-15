@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
 using NLog.Web;
 using Template.Configuration;
+using Template.Common;
 
 namespace Template.MvcWebApp.Setup
 {
@@ -26,7 +27,7 @@ namespace Template.MvcWebApp.Setup
                             .AddDataAnnotationsLocalization(options =>
                             {
                                 options.DataAnnotationLocalizerProvider = (type, factory) =>
-                                    factory.Create(Constants.Configuration.Resources.DATANNOTATION, PresentationAssembly.AssemblyName);
+                                    factory.Create(Constants.Configuration.Resources.DataAnnotation.Value, PresentationAssembly.AssemblyName);
                             });
 
             // NLog: Setup NLog for Dependency injection

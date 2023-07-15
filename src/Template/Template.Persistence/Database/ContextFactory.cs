@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 using Template.Configuration;
 using Microsoft.Extensions.Configuration;
+using Template.Common;
 
 namespace Template.Persistence.Database
 {
@@ -19,7 +20,7 @@ namespace Template.Persistence.Database
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION);
+            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value);
 
             var optionsBuilder = new DbContextOptionsBuilder<Context>();
             optionsBuilder.UseSqlServer(connectionString);

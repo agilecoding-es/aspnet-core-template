@@ -19,6 +19,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Identity;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
+using Template.Common;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {
@@ -74,7 +75,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             ///
             /// </summary>
             [Required(ErrorMessage = "The {0} field is required.")]
-            [RegularExpression(pattern: RegExPatterns.Validators.USERNAME_OR_EMAIL ,ErrorMessage = "The {0} field is not a valid username or e-mail address.")]
+            [RegularExpression(pattern: RegExPatterns.Validators.UsernameOrEmail ,ErrorMessage = "The {0} field is not a valid username or e-mail address.")]
             [Display(Name = "Username or email")]
             public string UsernameOrEmail { get; set; }
 

@@ -117,67 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Home_Index_Title_Welcome" xml:space="preserve">
-    <value>Bienvenido</value>
+  <data name="Administration_Roles_Create_Title" xml:space="preserve">
+    <value>Crear rol</value>
   </data>
-  <data name="Identity_Account_Manage_Layout_Title" xml:space="preserve">
-    <value>Administra tu cuenta</value>
+  <data name="Administration_Roles_Edit_AddOrRemoveUsersButton" xml:space="preserve">
+    <value>Agregar o eliminar usuarios</value>
   </data>
-  <data name="Layout_Navbar_Register" xml:space="preserve">
-    <value>Registrarse</value>
+  <data name="Administration_Roles_Edit_UsersSection" xml:space="preserve">
+    <value>Usuarios con este rol</value>
   </data>
-  <data name="Layout_Navbar_Privacy" xml:space="preserve">
-    <value>Privacidad</value>
+  <data name="Administration_Roles_Edit_UsersSection_Empty" xml:space="preserve">
+    <value>Sin usuarios</value>
   </data>
-  <data name="Layout_Navbar_Logout" xml:space="preserve">
-    <value>Cerrar sesión</value>
+  <data name="Administration_Roles_Index_Title" xml:space="preserve">
+    <value>Roles</value>
   </data>
-  <data name="Layout_Navbar_Login" xml:space="preserve">
-    <value>Iniciar sesión</value>
+  <data name="Administration_Roles_UsersInRole_Title" xml:space="preserve">
+    <value>Agregar o eliminar usuarios a/de este rol</value>
   </data>
-  <data name="Layout_Navbar_Home" xml:space="preserve">
-    <value>Inicio</value>
+  <data name="Administration_Users_Index_Title" xml:space="preserve">
+    <value>Usuarios</value>
   </data>
-  <data name="Layout_Navbar_LoggedUser" xml:space="preserve">
-    <value>Hola {0}!</value>
+  <data name="Administration_User_Edit_AddOrRemoveClaimsButton" xml:space="preserve">
+    <value>Agregar o eliminar claims</value>
   </data>
-  <data name="Layout_Footer_Privacy" xml:space="preserve">
-    <value>Privacidad</value>
+  <data name="Administration_User_Edit_AddOrRemoveRolesButton" xml:space="preserve">
+    <value>Agregar o eliminar roles</value>
+  </data>
+  <data name="Administration_User_Edit_ClaimsSection" xml:space="preserve">
+    <value>Claims del usuario</value>
+  </data>
+  <data name="Administration_User_Edit_ClaimsSection_Empty" xml:space="preserve">
+    <value>Sin claims</value>
+  </data>
+  <data name="Administration_User_Edit_RolesSection" xml:space="preserve">
+    <value>Roles del usuario</value>
+  </data>
+  <data name="Administration_User_Edit_RolesSection_Empty" xml:space="preserve">
+    <value>Sin roles</value>
+  </data>
+  <data name="Administration_User_Edit_Title" xml:space="preserve">
+    <value>Editar usuario</value>
+  </data>
+  <data name="Administration_User_ManageClaims_Title" xml:space="preserve">
+    <value>Administrar claims del usuario</value>
+  </data>
+  <data name="Administration_User_ManageRoles_Title" xml:space="preserve">
+    <value>Administrar roles del usuario</value>
   </data>
   <data name="Home_Index_Title" xml:space="preserve">
     <value>Página de Inicio</value>
   </data>
+  <data name="Home_Index_Title_Welcome" xml:space="preserve">
+    <value>Bienvenido</value>
+  </data>
   <data name="Home_Privacy_Title" xml:space="preserve">
     <value>Políticas de privacidad</value>
-  </data>
-  <data name="Layout_Navbar_LoggedUser_Title" xml:space="preserve">
-    <value>Administra tu cuenta</value>
-  </data>
-  <data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
-    <value>Confirmación de restablecimiento de contraseña</value>
-  </data>
-  <data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
-    <value>Se ha restablecido su contraseña. Por favor, haga click aquí para &lt;a asp-page="./Login"&gt;Iniciar sesión&lt;/a&gt;.</value>
-  </data>
-  <data name="Identity_Account_AccessDenied_Title" xml:space="preserve">
-    <value>Acceso denegado</value>
   </data>
   <data name="Identity_Account_AccessDenied_Content" xml:space="preserve">
     <value>No tienes acceso a este recurso.</value>
   </data>
+  <data name="Identity_Account_AccessDenied_Title" xml:space="preserve">
+    <value>Acceso denegado</value>
+  </data>
   <data name="Identity_Account_ConfirmEmailChange_Title" xml:space="preserve">
     <value>Confirmar cambio de correo electrónico</value>
+  </data>
+  <data name="Identity_Account_ConfirmEmail_StatusMessage_Error" xml:space="preserve">
+    <value>Error al confirmar su correo electrónico.</value>
+  </data>
+  <data name="Identity_Account_ConfirmEmail_StatusMessage_Ok" xml:space="preserve">
+    <value>Gracias por confirmar su correo electrónico.</value>
   </data>
   <data name="Identity_Account_ConfirmEmail_Title" xml:space="preserve">
     <value>Confirmar correo electrónico</value>
   </data>
-  <data name="Identity_Account_ExternalLogin_Submit" xml:space="preserve">
-    <value>Registrar</value>
+  <data name="Identity_Account_ExternalLogin_ConfirmEmailBody" xml:space="preserve">
+    <value>Confirme su cuenta haciendo &lt;a href="{0}"&gt;clic aquí&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_ConfirmEmailSubject" xml:space="preserve">
+    <value>Confirme su correo electrónico</value>
   </data>
   <data name="Identity_Account_ExternalLogin_Description" xml:space="preserve">
     <value>Te has registrado correctamente con &lt;strong&gt;{0}&lt;/strong&gt;.
     Ingrese una dirección de correo electrónico para este sitio a continuación y haga clic en el botón Registrarse para finalizar
     el inicio de sesión.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_InfoError" xml:space="preserve">
+    <value>Error al cargar la información del inicio de sesión externo.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_RemoteError" xml:space="preserve">
+    <value>Error del proveedor externo: {0}</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_StatusMessage_OnPostConfirmation_InfoError" xml:space="preserve">
+    <value>Error al cargar la información del inicio de sesión externo durante la confirmación.</value>
+  </data>
+  <data name="Identity_Account_ExternalLogin_Submit" xml:space="preserve">
+    <value>Registrar</value>
   </data>
   <data name="Identity_Account_ExternalLogin_Subtitle" xml:space="preserve">
     <value>Asocia tu cuenta {0}.</value>
@@ -185,23 +221,17 @@
   <data name="Identity_Account_ExternalLogin_Title" xml:space="preserve">
     <value>Registro</value>
   </data>
-  <data name="Identity_Account_Manage_ExternalLogins_Title" xml:space="preserve">
-    <value>Administra tus proveedores de inicio de sesión externos</value>
-  </data>
-  <data name="Identity_Account_Manage_ExternalLogins_Subitle" xml:space="preserve">
-    <value>Servicios registrados</value>
-  </data>
-  <data name="Identity_Account_Manage_ExternalLogins_Remove" xml:space="preserve">
-    <value>Eliminar</value>
-  </data>
-  <data name="Identity_Account_Manage_ExternalLogins_AddAnother" xml:space="preserve">
-    <value>Agregar otro servicio de autenticación.</value>
-  </data>
   <data name="Identity_Account_ForgotPasswordConfirmation_Message" xml:space="preserve">
     <value>Por favor revise su correo electrónico para restablecer su contraseña.</value>
   </data>
   <data name="Identity_Account_ForgotPasswordConfirmation_Title" xml:space="preserve">
     <value>Confirmación de contraseña olvidada</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_ConfirmEmailBody" xml:space="preserve">
+    <value>Restablezca su contraseña haciendo &lt;a href="{0}"&gt;clic aquí&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_ForgotPassword_ConfirmEmailSubject" xml:space="preserve">
+    <value>Restablecer contraseña</value>
   </data>
   <data name="Identity_Account_ForgotPassword_Submit" xml:space="preserve">
     <value>Reestablecer contraseña</value>
@@ -241,11 +271,20 @@
   <data name="Identity_Account_LoginRecoveryCode_Title" xml:space="preserve">
     <value>Verificación del código de recuperación</value>
   </data>
+  <data name="Identity_Account_LoginWith2fa_ModelState" xml:space="preserve">
+    <value>Código de autenticación no válido.</value>
+  </data>
+  <data name="Identity_Account_LoginWithRecoveryCode_ModelState" xml:space="preserve">
+    <value>Código de recuperación no válido ingresado.</value>
+  </data>
   <data name="Identity_Account_Login_ForgotPassword" xml:space="preserve">
     <value>¿Olvidaste tu contraseña?</value>
   </data>
   <data name="Identity_Account_Login_LoginServices" xml:space="preserve">
     <value>Utilice otro servicio para iniciar sesión.</value>
+  </data>
+  <data name="Identity_Account_Login_ModelState" xml:space="preserve">
+    <value>Intento de inicio de sesión no válido.</value>
   </data>
   <data name="Identity_Account_Login_RegisterNewUser" xml:space="preserve">
     <value>Registrarse como nuevo usuario</value>
@@ -271,14 +310,32 @@
   <data name="Identity_Account_Logout_Title" xml:space="preserve">
     <value>Cerrar sesión</value>
   </data>
+  <data name="Identity_Account_Manage_ChangePasswordModel_OldPassword" xml:space="preserve">
+    <value>Contraseña actual</value>
+  </data>
+  <data name="Identity_Account_Manage_ChangePassword_StatusMessage_Ok" xml:space="preserve">
+    <value>Su contraseña ha sido cambiada.</value>
+  </data>
   <data name="Identity_Account_Manage_ChangePassword_Submit" xml:space="preserve">
     <value>Actualizar contraseña</value>
   </data>
   <data name="Identity_Account_Manage_ChangePassword_Title" xml:space="preserve">
     <value>Cambio de contraseña</value>
   </data>
+  <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorEmail" xml:space="preserve">
+    <value>Error al cambiar el correo electrónico.</value>
+  </data>
+  <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorUserName" xml:space="preserve">
+    <value>Error al cambiar el nombre de usuario.</value>
+  </data>
+  <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_Ok" xml:space="preserve">
+    <value>Gracias por confirmar el cambio de su correo electrónico.</value>
+  </data>
   <data name="Identity_Account_Manage_DeletePersonalData_Description" xml:space="preserve">
     <value>Eliminar estos datos eliminará permanentemente su cuenta y no se podrá recuperar.</value>
+  </data>
+  <data name="Identity_Account_Manage_DeletePersonalData_ModelState" xml:space="preserve">
+    <value>Contraseña incorrecta.</value>
   </data>
   <data name="Identity_Account_Manage_DeletePersonalData_Submit" xml:space="preserve">
     <value>Eliminar datos y cerrar mi cuenta</value>
@@ -295,6 +352,9 @@
          utilizado en una aplicación de autenticación, debe &lt;a asp-page="./ResetAuthenticator"&gt;restablecer sus claves de autenticación.&lt;/a&gt;
      &lt;/p&gt;</value>
   </data>
+  <data name="Identity_Account_Manage_Disable2fa_StatusMessage_Ok" xml:space="preserve">
+    <value>Se ha desactivado 2FA. Puede volver a activar 2FA cuando configure una aplicación de autenticación.</value>
+  </data>
   <data name="Identity_Account_Manage_Disable2fa_Submit" xml:space="preserve">
     <value>Deshabilitar 2FA</value>
   </data>
@@ -310,8 +370,20 @@
   <data name="Identity_Account_Manage_Email_Send" xml:space="preserve">
     <value>Envia un correo electrónico de verificación</value>
   </data>
+  <data name="Identity_Account_Manage_Email_StatusMessage_ConfirmationSent" xml:space="preserve">
+    <value>Se ha enviado el enlace de confirmación para cambiar el correo electrónico. Por favor, revise su correo electrónico.</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_StatusMessage_EmailUnchanged" xml:space="preserve">
+    <value>Su correo electrónico no ha sido cambiado.</value>
+  </data>
+  <data name="Identity_Account_Manage_Email_StatusMessage_VerificationSent" xml:space="preserve">
+    <value>Se ha enviado el correo electrónico de verificación. Por favor, revise su correo electrónico.</value>
+  </data>
   <data name="Identity_Account_Manage_Email_Title" xml:space="preserve">
     <value>Administrar correo electrónico</value>
+  </data>
+  <data name="Identity_Account_Manage_EnableAuthenticator_StatusMessage_AuthenticatorAppVerified" xml:space="preserve">
+    <value>Su aplicación de autenticación ha sido verificada.</value>
   </data>
   <data name="Identity_Account_Manage_EnableAuthenticator_Step1" xml:space="preserve">
     <value>Descargue una aplicación de autenticación de dos factores como Microsoft Authenticator para
@@ -336,6 +408,30 @@
   <data name="Identity_Account_Manage_EnableAuthenticator_Title" xml:space="preserve">
     <value>Configurar la aplicación de autenticación</value>
   </data>
+  <data name="Identity_Account_Manage_ExternalLogins_AddAnother" xml:space="preserve">
+    <value>Agregar otro servicio de autenticación.</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginAdded" xml:space="preserve">
+    <value>Se ha agregado el inicio de sesión externo.</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotAdded" xml:space="preserve">
+    <value>No se agregó el inicio de sesión externo. Los inicios de sesión externos solo pueden asociarse con una cuenta.</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotRemoved" xml:space="preserve">
+    <value>No se eliminó el inicio de sesión externo.</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginRemoved" xml:space="preserve">
+    <value>Se eliminó el inicio de sesión externo.</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Subitle" xml:space="preserve">
+    <value>Servicios registrados</value>
+  </data>
+  <data name="Identity_Account_Manage_ExternalLogins_Title" xml:space="preserve">
+    <value>Administra tus proveedores de inicio de sesión externos</value>
+  </data>
   <data name="Identity_Account_Manage_GenerateRecoveryCodes_Description" xml:space="preserve">
     <value>&lt;p&gt;
          &lt;span class="glyphicon glyphicon-warning-sign"&gt;&lt;/span&gt;
@@ -348,11 +444,20 @@
          La generación de nuevos códigos de recuperación no cambia las claves utilizadas en las aplicaciones de autenticación. Si desea cambiar la clave utilizado en una aplicación de autenticación, debe &lt;a asp-page="./ResetAuthenticator"&gt;restablecer sus claves de autenticación.&lt;/a&gt;
      &lt;/p&gt;</value>
   </data>
+  <data name="Identity_Account_Manage_GenerateRecoveryCodes_StatusMessage_Advice" xml:space="preserve">
+    <value>Ha generado nuevos códigos de recuperación.</value>
+  </data>
   <data name="Identity_Account_Manage_GenerateRecoveryCodes_Submit" xml:space="preserve">
     <value>Generar códigos de recuperación</value>
   </data>
   <data name="Identity_Account_Manage_GenerateRecoveryCodes_Title" xml:space="preserve">
     <value>Genere códigos de recuperación de autenticación de dos factores (2FA)</value>
+  </data>
+  <data name="Identity_Account_Manage_Index_StatusMessage_Error" xml:space="preserve">
+    <value>Error inesperado al intentar establecer el número de teléfono.</value>
+  </data>
+  <data name="Identity_Account_Manage_Index_StatusMessage_Ok" xml:space="preserve">
+    <value>Se ha actualizado su perfil.</value>
   </data>
   <data name="Identity_Account_Manage_Index_Submit" xml:space="preserve">
     <value>Guardar</value>
@@ -362,6 +467,9 @@
   </data>
   <data name="Identity_Account_Manage_Layout_Subtitle" xml:space="preserve">
     <value>Cambie la configuración de su cuenta</value>
+  </data>
+  <data name="Identity_Account_Manage_Layout_Title" xml:space="preserve">
+    <value>Administra tu cuenta</value>
   </data>
   <data name="Identity_Account_Manage_ManageNav_2FA" xml:space="preserve">
     <value>Doble factor de autenticación</value>
@@ -406,6 +514,9 @@
          Si no completa la configuración de su aplicación de autenticación, puede perder el acceso a su cuenta.
      &lt;/p&gt;</value>
   </data>
+  <data name="Identity_Account_Manage_ResetAuthenticator_StatusMessage_AuthenticatorAppReset" xml:space="preserve">
+    <value>Se ha restablecido su clave de la aplicación de autenticación. Deberá configurar su aplicación de autenticación utilizando la nueva clave.</value>
+  </data>
   <data name="Identity_Account_Manage_ResetAuthenticator_Submit" xml:space="preserve">
     <value>Restablecer clave de autenticador</value>
   </data>
@@ -414,6 +525,9 @@
   </data>
   <data name="Identity_Account_Manage_SetPassword_Description" xml:space="preserve">
     <value>No tiene un nombre de usuario/contraseña local para este sitio. Agregue una cuenta local para que pueda iniciar sesión sin un inicio de sesión externo.</value>
+  </data>
+  <data name="Identity_Account_Manage_SetPassword_StatusMessage_PasswordSet" xml:space="preserve">
+    <value>Tu contraseña ha sido establecida.</value>
   </data>
   <data name="Identity_Account_Manage_SetPassword_Submit" xml:space="preserve">
     <value>Establecer contraseña</value>
@@ -472,6 +586,9 @@
   <data name="Identity_Account_Manage_TwoFactorAuthentication_SetApp" xml:space="preserve">
     <value>Configurar la aplicación de autenticación</value>
   </data>
+  <data name="Identity_Account_Manage_TwoFactorAuthentication_StatusMessage_BrowserForgotten" xml:space="preserve">
+    <value>El navegador actual ha sido olvidado. Cuando vuelvas a iniciar sesión desde este navegador, se te solicitará el código 2FA.</value>
+  </data>
   <data name="Identity_Account_Manage_TwoFactorAuthentication_Title" xml:space="preserve">
     <value>Autenticación de dos factores (2FA)</value>
   </data>
@@ -506,6 +623,12 @@
   <data name="Identity_Account_ResendEmailConfirmation_Title" xml:space="preserve">
     <value>Reenviar correo electrónico de confirmación</value>
   </data>
+  <data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
+    <value>Se ha restablecido su contraseña. Por favor, haga click aquí para &lt;a asp-page="./Login"&gt;Iniciar sesión&lt;/a&gt;.</value>
+  </data>
+  <data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
+    <value>Confirmación de restablecimiento de contraseña</value>
+  </data>
   <data name="Identity_Account_RestPassword_Submit" xml:space="preserve">
     <value>Restablecer</value>
   </data>
@@ -515,128 +638,53 @@
   <data name="Identity_Account_RestPassword_Title" xml:space="preserve">
     <value>Restablecimiento su contraseña</value>
   </data>
-  <data name="Identity_Account_Manage_ChangePasswordModel_OldPassword" xml:space="preserve">
-    <value>Contraseña actual</value>
+  <data name="Layout_Footer_Privacy" xml:space="preserve">
+    <value>Privacidad</value>
   </data>
-  <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorEmail" xml:space="preserve">
-    <value>Error al cambiar el correo electrónico.</value>
+  <data name="Layout_Navbar_Administration_Manage" xml:space="preserve">
+    <value>Administrar</value>
   </data>
-  <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_ErrorUserName" xml:space="preserve">
-    <value>Error al cambiar el nombre de usuario.</value>
+  <data name="Layout_Navbar_Administration_Roles" xml:space="preserve">
+    <value>Administrar roles</value>
   </data>
-  <data name="Identity_Account_Manage_ConfirmEmailChange_StatusMessage_Ok" xml:space="preserve">
-    <value>Gracias por confirmar el cambio de su correo electrónico.</value>
+  <data name="Layout_Navbar_Administration_Users" xml:space="preserve">
+    <value>Usuarios</value>
   </data>
-  <data name="Identity_Account_Manage_ChangePassword_StatusMessage_Ok" xml:space="preserve">
-    <value>Su contraseña ha sido cambiada.</value>
+  <data name="Layout_Navbar_Home" xml:space="preserve">
+    <value>Inicio</value>
   </data>
-  <data name="Identity_Account_Manage_Disable2fa_StatusMessage_Ok" xml:space="preserve">
-    <value>Se ha desactivado 2FA. Puede volver a activar 2FA cuando configure una aplicación de autenticación.</value>
+  <data name="Layout_Navbar_LoggedUser" xml:space="preserve">
+    <value>Hola {0}!</value>
   </data>
-  <data name="Identity_Account_Manage_Email_StatusMessage_ConfirmationSent" xml:space="preserve">
-    <value>Se ha enviado el enlace de confirmación para cambiar el correo electrónico. Por favor, revise su correo electrónico.</value>
+  <data name="Layout_Navbar_LoggedUser_Title" xml:space="preserve">
+    <value>Administra tu cuenta</value>
   </data>
-  <data name="Identity_Account_Manage_Email_StatusMessage_VerificationSent" xml:space="preserve">
-    <value>Se ha enviado el correo electrónico de verificación. Por favor, revise su correo electrónico.</value>
+  <data name="Layout_Navbar_Login" xml:space="preserve">
+    <value>Iniciar sesión</value>
   </data>
-  <data name="Identity_Account_Manage_Email_StatusMessage_EmailUnchanged" xml:space="preserve">
-    <value>Su correo electrónico no ha sido cambiado.</value>
+  <data name="Layout_Navbar_Logout" xml:space="preserve">
+    <value>Cerrar sesión</value>
   </data>
-  <data name="Identity_Account_Manage_EnableAuthenticator_StatusMessage_AuthenticatorAppVerified" xml:space="preserve">
-    <value>Su aplicación de autenticación ha sido verificada.</value>
+  <data name="Layout_Navbar_Privacy" xml:space="preserve">
+    <value>Privacidad</value>
   </data>
-  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginAdded" xml:space="preserve">
-    <value>Se ha agregado el inicio de sesión externo.</value>
+  <data name="Layout_Navbar_Register" xml:space="preserve">
+    <value>Registrarse</value>
   </data>
-  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotAdded" xml:space="preserve">
-    <value>No se agregó el inicio de sesión externo. Los inicios de sesión externos solo pueden asociarse con una cuenta.</value>
-  </data>
-  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginNotRemoved" xml:space="preserve">
-    <value>No se eliminó el inicio de sesión externo.</value>
-  </data>
-  <data name="Identity_Account_Manage_ExternalLogins_StatusMessage_ExternalLoginRemoved" xml:space="preserve">
-    <value>Se eliminó el inicio de sesión externo.</value>
-  </data>
-  <data name="Identity_Account_Manage_GenerateRecoveryCodes_StatusMessage_Advice" xml:space="preserve">
-    <value>Ha generado nuevos códigos de recuperación.</value>
-  </data>
-  <data name="Identity_Account_Manage_Index_StatusMessage_Error" xml:space="preserve">
-    <value>Error inesperado al intentar establecer el número de teléfono.</value>
-  </data>
-  <data name="Identity_Account_Manage_Index_StatusMessage_Ok" xml:space="preserve">
-    <value>Se ha actualizado su perfil.</value>
-  </data>
-  <data name="Identity_Account_Manage_ResetAuthenticator_StatusMessage_AuthenticatorAppReset" xml:space="preserve">
-    <value>Se ha restablecido su clave de la aplicación de autenticación. Deberá configurar su aplicación de autenticación utilizando la nueva clave.</value>
-  </data>
-  <data name="Identity_Account_Manage_SetPassword_StatusMessage_PasswordSet" xml:space="preserve">
-    <value>Tu contraseña ha sido establecida.</value>
-  </data>
-  <data name="Identity_Account_Manage_TwoFactorAuthentication_StatusMessage_BrowserForgotten" xml:space="preserve">
-    <value>El navegador actual ha sido olvidado. Cuando vuelvas a iniciar sesión desde este navegador, se te solicitará el código 2FA.</value>
-  </data>
-  <data name="Identity_Account_ConfirmEmail_StatusMessage_Ok" xml:space="preserve">
-    <value>Gracias por confirmar su correo electrónico.</value>
-  </data>
-  <data name="Identity_Account_ConfirmEmail_StatusMessage_Error" xml:space="preserve">
-    <value>Error al confirmar su correo electrónico.</value>
-  </data>
-  <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_RemoteError" xml:space="preserve">
-    <value>Error del proveedor externo: {0}</value>
-  </data>
-  <data name="Identity_Account_ExternalLogin_StatusMessage_OnGetCallback_InfoError" xml:space="preserve">
-    <value>Error al cargar la información del inicio de sesión externo.</value>
-  </data>
-  <data name="Identity_Account_ExternalLogin_StatusMessage_OnPostConfirmation_InfoError" xml:space="preserve">
-    <value>Error al cargar la información del inicio de sesión externo durante la confirmación.</value>
-  </data>
-  <data name="Identity_Account_ExternalLogin_ConfirmEmailSubject" xml:space="preserve">
-    <value>Confirme su correo electrónico</value>
-  </data>
-  <data name="Identity_Account_ExternalLogin_ConfirmEmailBody" xml:space="preserve">
-    <value>Confirme su cuenta haciendo &lt;a href="{0}"&gt;clic aquí&lt;/a&gt;.</value>
-  </data>
-  <data name="Identity_Account_ForgotPassword_ConfirmEmailSubject" xml:space="preserve">
-    <value>Restablecer contraseña</value>
-  </data>
-  <data name="Identity_Account_ForgotPassword_ConfirmEmailBody" xml:space="preserve">
-    <value>Restablezca su contraseña haciendo &lt;a href="{0}"&gt;clic aquí&lt;/a&gt;.</value>
-  </data>
-  <data name="Identity_Account_Login_ModelState" xml:space="preserve">
-    <value>Intento de inicio de sesión no válido.</value>
-  </data>
-  <data name="Identity_Account_LoginWith2fa_ModelState" xml:space="preserve">
-    <value>Código de autenticación no válido.</value>
-  </data>
-  <data name="Identity_Account_LoginWithRecoveryCode_ModelState" xml:space="preserve">
-    <value>Código de recuperación no válido ingresado.</value>
-  </data>
-  <data name="Identity_Account_Manage_DeletePersonalData_ModelState" xml:space="preserve">
-    <value>Contraseña incorrecta.</value>
+  <data name="Layout_Navbar_SampleList_Ajax" xml:space="preserve">
+    <value>Listas de Ejemplo (Ajax)</value>
   </data>
   <data name="Layout_Navbar_SampleList_MVC" xml:space="preserve">
     <value>Listas de Ejemplo (MVC)</value>
   </data>
-  <data name="Shared_Buttons_CreateNew" xml:space="preserve">
-    <value>Crear nuevo</value>
-  </data>
-  <data name="Sample_SampleList_Index_Title" xml:space="preserve">
-    <value>Listas de ejemplo</value>
-  </data>
-  <data name="Shared_Message_ErrorOccured" xml:space="preserve">
-    <value>Disculpe, ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde. Si el problema continúa, póngase en contacto con el administrador del sistema.</value>
+  <data name="Sample_SampleList_AddItem_Success" xml:space="preserve">
+    <value>Item agregado.</value>
   </data>
   <data name="Sample_SampleList_Create_Success" xml:space="preserve">
     <value>La lista de ejemplo fue creada correctamente.</value>
   </data>
-  <data name="Sample_SampleList_Edit_Success" xml:space="preserve">
-    <value>La lista de ejemplo fue modificada correctamente.</value>
-  </data>
   <data name="Sample_SampleList_Create_Title" xml:space="preserve">
     <value>Crear lista de ejemplo</value>
-  </data>
-  <data name="Sample_SampleList_AddItem_Success" xml:space="preserve">
-    <value>Item agregado.</value>
   </data>
   <data name="Sample_SampleList_Delete_Description" xml:space="preserve">
     <value>Estas seguro de querer eliminar la siguiente lista de ejemplo?</value>
@@ -644,8 +692,14 @@
   <data name="Sample_SampleList_Delete_Title" xml:space="preserve">
     <value>Eliminar lista de ejemplo</value>
   </data>
+  <data name="Sample_SampleList_Edit_Success" xml:space="preserve">
+    <value>La lista de ejemplo fue modificada correctamente.</value>
+  </data>
   <data name="Sample_SampleList_Edit_Title" xml:space="preserve">
     <value>Editar lista de ejemplo</value>
+  </data>
+  <data name="Sample_SampleList_Index_Title" xml:space="preserve">
+    <value>Listas de ejemplo</value>
   </data>
   <data name="Sample_SampleList_RemoveItem_Success" xml:space="preserve">
     <value>Item eliminado.</value>
@@ -656,8 +710,17 @@
   <data name="Shared_Buttons_BackToList" xml:space="preserve">
     <value>Volver al listado</value>
   </data>
+  <data name="Shared_Buttons_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Shared_Buttons_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
   <data name="Shared_Buttons_Create" xml:space="preserve">
     <value>Crear</value>
+  </data>
+  <data name="Shared_Buttons_CreateNew" xml:space="preserve">
+    <value>Crear nuevo</value>
   </data>
   <data name="Shared_Buttons_Delete" xml:space="preserve">
     <value>Eliminar</value>
@@ -668,19 +731,10 @@
   <data name="Shared_Buttons_Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
-  <data name="Layout_Navbar_SampleList_Ajax" xml:space="preserve">
-    <value>Listas de Ejemplo (Ajax)</value>
+  <data name="Shared_Buttons_Update" xml:space="preserve">
+    <value>Actualizar</value>
   </data>
-  <data name="Shared_Buttons_Close" xml:space="preserve">
-    <value>Cerrar</value>
-  </data>
-  <data name="Administration_Roles_Create_Title" xml:space="preserve">
-    <value>Crear rol</value>
-  </data>
-  <data name="Administration_Roles_Index_Title" xml:space="preserve">
-    <value>Roles</value>
-  </data>
-  <data name="Layout_Navbar_Administration_Roles" xml:space="preserve">
-    <value>Administrar roles</value>
+  <data name="Shared_Message_ErrorOccured" xml:space="preserve">
+    <value>Disculpe, ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde. Si el problema continúa, póngase en contacto con el administrador del sistema.</value>
   </data>
 </root>

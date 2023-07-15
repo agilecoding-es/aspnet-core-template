@@ -16,10 +16,11 @@ using Template.Application.Behaviours;
 using Template.Application.Contracts;
 using Template.Application.Contracts.Repositories.Sample;
 using Template.Application.Identity;
+using Template.Authorization.Constants;
+using Template.Common;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 using Template.MailSender;
-using Template.MvcWebApp.Enums;
 using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Services.Rendering;
@@ -27,7 +28,6 @@ using Template.Persistence;
 using Template.Persistence.Database;
 using Template.Persistence.Identity;
 using Template.Persistence.Respositories.Sample;
-using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.Setup
 {
@@ -66,7 +66,7 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureDB()
         {
-            var connectionString = configuration.GetConnectionString(ConnectionString.DEFAULT_CONNECTION) ?? throw new InvalidOperationException($"Connection string '{ConnectionString.DEFAULT_CONNECTION}' not found.");
+            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection.Value}' not found.");
 
             //services.AddDbContextFactory<Context>(options => options.UseSqlServer(connectionString), lifetime: ServiceLifetime.Scoped);
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
@@ -111,6 +111,8 @@ namespace Template.MvcWebApp.Setup
                     microsoftOptions.ClientSecret = microsoftAuthentication["ClientSecret"];
                 });
 
+            
+
             return this;
         }
 
@@ -118,16 +120,65 @@ namespace Template.MvcWebApp.Setup
         {
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(
-                    Policies.UserManager.ToString(),
-                    policy => policy.RequireRole(Roles.AdminUser.ToString()));
+                #region User Policies
 
                 options.AddPolicy(
-                    Policies.RolesManager.ToString(),
+                    Policies.AdminUser,
                     policy => policy.RequireAssertion(
                         context =>
-                        context.User.IsInRole(Roles.AdminUser.ToString()) ||
-                        context.User.HasClaim(x => x.Type == Claims.ManageRoles.ToString() && x.Value == bool.TrueString.ToLower())));
+                        context.User.IsInRole(Roles.Superadmin) ||
+                        context.User.IsInRole(Roles.Admin) 
+                ));
+
+                options.AddPolicy(
+                    Policies.EditUser,
+                    policy => policy.RequireAssertion(
+                        context =>
+                        context.User.IsInRole(Roles.Superadmin) ||
+                        context.User.IsInRole(Roles.Admin) ||
+                        context.User.HasClaim(x => x.Type == ClaimTypes.EditUser && x.Value == bool.TrueString.ToLower())
+                ));
+
+                options.AddPolicy(
+                    Policies.DeleteUser,
+                    policy => policy.RequireAssertion(
+                        context =>
+                        context.User.IsInRole(Roles.Superadmin) ||
+                        context.User.IsInRole(Roles.Admin) ||
+                        context.User.HasClaim(x => x.Type == ClaimTypes.DeleteUser && x.Value == bool.TrueString.ToLower())
+                ));
+
+                #endregion
+
+                #region Role Policies
+
+                options.AddPolicy(
+                    Policies.AddRole,
+                    policy => policy.RequireAssertion(
+                        context =>
+                        context.User.IsInRole(Roles.Superadmin) ||
+                        context.User.HasClaim(x => x.Type == ClaimTypes.AddRole && x.Value == bool.TrueString.ToLower())
+                ));
+
+                options.AddPolicy(
+                    Policies.EditRole,
+                    policy => policy.RequireAssertion(
+                        context =>
+                        context.User.IsInRole(Roles.Superadmin) ||
+                        context.User.IsInRole(Roles.Admin) ||
+                        context.User.HasClaim(x => x.Type == ClaimTypes.EditRole && x.Value == bool.TrueString.ToLower())
+                ));
+
+                options.AddPolicy(
+                    Policies.DeleteRole,
+                    policy => policy.RequireAssertion(
+                        context =>
+                        context.User.IsInRole(Roles.Superadmin) ||
+                        context.User.IsInRole(Roles.Admin) ||
+                        context.User.HasClaim(x => x.Type == ClaimTypes.DeleteRole && x.Value == bool.TrueString.ToLower())
+                ));
+
+                #endregion
 
             });
 
@@ -137,7 +188,7 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureDependencies()
         {
             AppSettings appSettings = configuration.Get<AppSettings>();
-            
+
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
 
             services
@@ -160,7 +211,7 @@ namespace Template.MvcWebApp.Setup
                 .AddSingleton(provider =>
                 {
                     var factory = provider.GetService<IStringLocalizerFactory>()!;
-                    return factory.Create(Resources.DEFAULT, PresentationAssembly.AssemblyName);
+                    return factory.Create(Constants.Configuration.Resources.AppResources.Value, PresentationAssembly.AssemblyName);
                 });
 
             services
@@ -183,7 +234,7 @@ namespace Template.MvcWebApp.Setup
                 {
                     var cookieProvider = new CookieRequestCultureProvider
                     {
-                        CookieName = Cookies.CULTURE_COOKIE
+                        CookieName = Constants.Configuration.Cookies.CultureCookieName.Value
                     };
                     var supportedCultures = appSettings.SupportedCultures.GetSupportedCultures().Select(c => new CultureInfo(c)).ToList();
 

@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.ModelBinding;
+@using Template.Common;
 @using Template.Configuration;
 @model ModelStateDictionary
 
@@ -24,7 +25,7 @@
     <div class="validation-summary-errors">
         <ul>
             @foreach (var modelError in
-           Model.Where(kv => kv.Key == Constants.KeyErrors.VALIDATION_ERROR).SelectMany(keyValuePair => keyValuePair.Value.Errors))
+           Model.Where(kv => kv.Key == Constants.KeyErrors.ValidationError.Value).SelectMany(keyValuePair => keyValuePair.Value.Errors))
             {
                 <li>@modelError.ErrorMessage</li>
             }

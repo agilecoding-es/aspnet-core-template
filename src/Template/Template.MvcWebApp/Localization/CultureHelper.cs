@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using Template.Common;
 using Template.Configuration;
-using static Template.Configuration.Constants.Configuration;
 
 namespace Template.MvcWebApp.Localization
 {
@@ -67,7 +67,7 @@ namespace Template.MvcWebApp.Localization
             expires = expires ?? DateTimeOffset.UtcNow.AddDays(_settings.SupportedCultures.CookieLifeTimeDays);
 
             response.Cookies.Append(
-                Cookies.CULTURE_COOKIE ,
+                Constants.Configuration.Cookies.CultureCookieName.Value,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture, uiCulture)),
                     new CookieOptions
                     {

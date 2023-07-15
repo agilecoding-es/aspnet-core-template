@@ -1,13 +1,16 @@
-﻿@using Microsoft.AspNetCore.Http.Extensions;
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Http.Extensions;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
 @using Microsoft.Extensions.Options;
 @using System.Globalization;
 @using Template.Application.Identity;
+@using Template.Authorization.Constants;
 @using Template.MvcWebApp.Extensions;
 
 @inject SignInManager SignInManager
 @inject UserManager UserManager
+@inject IAuthorizationService AuthService;
 @inject IOptions<RequestLocalizationOptions> LocalizationOptions
 @inject IStringLocalizer Localizer
 
@@ -21,6 +24,8 @@
                         .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName.ToUpper() })
                         .ToList();
     var currentLang = cultureItems.Find(x => x.Value == CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+
+    var isAdmin = (await AuthService.AuthorizeAsync(User, Policies.AdminUser)).Succeeded;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -62,20 +67,24 @@
                                 <a class="nav-link text-white" asp-area="SampleAjax" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_Ajax"]</a>
                             </li>
 
-                            if (User.IsInRole("superadmin"))
+                            if (isAdmin)
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="Administration" asp-controller="Roles" asp-action="Index">@Localizer["Layout_Navbar_Administration_Roles"]</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownManage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Localizer["Layout_Navbar_Administration_Manage"]</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownManage">
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="Index">@Localizer["Layout_Navbar_Administration_Users"]</a>
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="Roles" asp-action="Index">@Localizer["Layout_Navbar_Administration_Roles"]</a>
+                                    </div>
                                 </li>
                             }
                         }
                     </ul>
                     <ul class="navbar-nav d-flex flex-row">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="c-gray-520 mr-05 font-sm text-white text-uppercase">@currentLang.Value</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLanguages">
                                 @foreach (var language in cultureItems.FindAll(x => x != currentLang))
                                 {
                                     <li>

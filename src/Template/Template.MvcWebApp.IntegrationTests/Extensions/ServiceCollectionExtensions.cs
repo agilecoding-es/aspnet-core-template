@@ -1,12 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Configuration;
-using static Template.Configuration.Constants.Configuration;
+using Template.Common;
 
 namespace Template.MvcWebApp.IntegrationTests.Extensions
 {
@@ -14,7 +8,7 @@ namespace Template.MvcWebApp.IntegrationTests.Extensions
     {
         public static async Task<IServiceCollection> ResetDatabase(this IServiceCollection services, IConfiguration config)
         {
-            var connectionString = config.GetConnectionString(Constants.Configuration.ConnectionString.DEFAULT_CONNECTION);
+            var connectionString = config.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value);
             if (
                 (
                 !connectionString.Contains("localhost") &&

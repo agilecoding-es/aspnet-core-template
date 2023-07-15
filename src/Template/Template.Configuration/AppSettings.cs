@@ -14,6 +14,8 @@ namespace Template.Configuration
     {
         public string ApplicationName { get; set; }
 
+        public string SuperadminPass { get; set; }
+        
         public SupportedCultures SupportedCultures { get; set; }
 
         public Mailsettings Mailsettings { get; set; }
