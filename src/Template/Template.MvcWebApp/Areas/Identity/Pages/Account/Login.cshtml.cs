@@ -29,13 +29,15 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
         private readonly SignInManager _signInManager;
         private readonly IStringLocalizer _localizer;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IWebHostEnvironment _environment;
 
-        public LoginModel(UserManager userManager, SignInManager signInManager, IStringLocalizer localizer, ILogger<LoginModel> logger)
+        public LoginModel(UserManager userManager, SignInManager signInManager, IStringLocalizer localizer, ILogger<LoginModel> logger, IWebHostEnvironment environment)
         {
-            this._userManager = userManager;
+            _userManager = userManager;
             _signInManager = signInManager;
             _localizer = localizer;
             _logger = logger;
+            _environment = environment;
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             ///
             /// </summary>
             [Required(ErrorMessage = "The {0} field is required.")]
-            [RegularExpression(pattern: RegExPatterns.Validators.UsernameOrEmail ,ErrorMessage = "The {0} field is not a valid username or e-mail address.")]
+            [RegularExpression(pattern: RegExPatterns.Validators.UsernameOrEmail, ErrorMessage = "The {0} field is not a valid username or e-mail address.")]
             [Display(Name = "Username or email")]
             public string UsernameOrEmail { get; set; }
 
@@ -125,11 +127,18 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 if (Input.UsernameOrEmail.Contains('@'))
-                   user = await _userManager.FindByEmailAsync(Input.UsernameOrEmail);
+                    user = await _userManager.FindByEmailAsync(Input.UsernameOrEmail);
                 else
                     user = await _userManager.FindByNameAsync(Input.UsernameOrEmail);
 
-                var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                if (user == null)
+                {
+                    //TODO: Crear constante y revisar modelo de manejo de errores
+                    ModelState.AddModelError(string.Empty, _localizer.GetString("Identity_Account_Login_ModelState"));
+                }
+
+                var isLockoutEnabled = true;//_environment.IsProduction();
+                var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: isLockoutEnabled);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

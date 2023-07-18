@@ -123,6 +123,9 @@
   <data name="Administration_Roles_Edit_AddOrRemoveUsersButton" xml:space="preserve">
     <value>Agregar o eliminar usuarios</value>
   </data>
+  <data name="Administration_Roles_Edit_Title" xml:space="preserve">
+    <value>Editar rol: {0}</value>
+  </data>
   <data name="Administration_Roles_Edit_UsersSection" xml:space="preserve">
     <value>Usuarios con este rol</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="Administration_User_Edit_ClaimsSection_Empty" xml:space="preserve">
     <value>Sin claims</value>
   </data>
+  <data name="Administration_User_Edit_ResetPassword" xml:space="preserve">
+    <value>Restablecer contraseña</value>
+  </data>
   <data name="Administration_User_Edit_RolesSection" xml:space="preserve">
     <value>Roles del usuario</value>
   </data>
@@ -158,6 +164,9 @@
   </data>
   <data name="Administration_User_Edit_Title" xml:space="preserve">
     <value>Editar usuario</value>
+  </data>
+  <data name="Administration_User_Edit_UserLockedOut" xml:space="preserve">
+    <value>Usuario bloqueado</value>
   </data>
   <data name="Administration_User_ManageClaims_Title" xml:space="preserve">
     <value>Administrar claims del usuario</value>
@@ -624,7 +633,7 @@
     <value>Reenviar correo electrónico de confirmación</value>
   </data>
   <data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
-    <value>Se ha restablecido su contraseña. Por favor, haga click aquí para &lt;a asp-page="./Login"&gt;Iniciar sesión&lt;/a&gt;.</value>
+    <value>Se ha restablecido su contraseña. Ya puedes hacer &lt;a href="{0}"&gt;click aquí Iniciar sesión&lt;/a&gt;.</value>
   </data>
   <data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
     <value>Confirmación de restablecimiento de contraseña</value>
@@ -645,7 +654,7 @@
     <value>Administrar</value>
   </data>
   <data name="Layout_Navbar_Administration_Roles" xml:space="preserve">
-    <value>Administrar roles</value>
+    <value>Roles</value>
   </data>
   <data name="Layout_Navbar_Administration_Users" xml:space="preserve">
     <value>Usuarios</value>

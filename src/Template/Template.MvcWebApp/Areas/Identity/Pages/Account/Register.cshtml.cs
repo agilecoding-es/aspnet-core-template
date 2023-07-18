@@ -12,8 +12,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using Template.Application.Identity;
-using Template.Authorization.Constants;
 using Template.Domain.Entities.Identity;
+using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {

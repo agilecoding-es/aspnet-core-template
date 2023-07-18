@@ -3,11 +3,11 @@ using Microsoft.Extensions.Localization;
 
 namespace Template.MvcWebApp.Localization
 {
-    public class Localizer : HtmlLocalizer
+    public class HtmlLoc : HtmlLocalizer
     {
-        private readonly ILogger<Localizer> _logger;
+        private readonly ILogger<HtmlLoc> _logger;
 
-        public Localizer(IStringLocalizer localizer, ILogger<Localizer> logger) : base(localizer)
+        public HtmlLoc(IStringLocalizer localizer, ILogger<HtmlLoc> logger) : base(localizer)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -45,11 +45,11 @@ namespace Template.MvcWebApp.Localization
         }
     }
 
-    public class Localizer<T> : HtmlLocalizer<T>
+    public class HtmlLoc<T> : HtmlLocalizer<T>
     {
         private readonly ILogger _logger;
 
-        public Localizer(IHtmlLocalizerFactory htmlLocalizerFactory, ILogger<Localizer<T>> logger) : base(htmlLocalizerFactory)
+        public HtmlLoc(IHtmlLocalizerFactory htmlLocalizerFactory, ILogger<HtmlLoc<T>> logger) : base(htmlLocalizerFactory)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }

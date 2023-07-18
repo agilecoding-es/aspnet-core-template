@@ -1,4 +1,4 @@
-﻿namespace Template.Authorization.Constants
+﻿namespace Template.Security.Authorization
 {
     public static class Roles
     {

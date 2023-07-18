@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
@@ -16,18 +17,22 @@ using Template.Application.Behaviours;
 using Template.Application.Contracts;
 using Template.Application.Contracts.Repositories.Sample;
 using Template.Application.Identity;
-using Template.Authorization.Constants;
+using Template.Security.Authorization.Requirements;
 using Template.Common;
+using Template.Common.Extensions;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 using Template.MailSender;
 using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
+using Template.MvcWebApp.Resources;
 using Template.MvcWebApp.Services.Rendering;
 using Template.Persistence;
 using Template.Persistence.Database;
 using Template.Persistence.Identity;
 using Template.Persistence.Respositories.Sample;
+using Template.Security.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Template.MvcWebApp.Setup
 {
@@ -136,7 +141,7 @@ namespace Template.MvcWebApp.Setup
                         context =>
                         context.User.IsInRole(Roles.Superadmin) ||
                         context.User.IsInRole(Roles.Admin) ||
-                        context.User.HasClaim(x => x.Type == ClaimTypes.EditUser && x.Value == bool.TrueString.ToLower())
+                        context.User.HasClaim(x => x.Type == ApplicationClaimTypes.EditUser && x.Value == true.AsString())
                 ));
 
                 options.AddPolicy(
@@ -145,7 +150,7 @@ namespace Template.MvcWebApp.Setup
                         context =>
                         context.User.IsInRole(Roles.Superadmin) ||
                         context.User.IsInRole(Roles.Admin) ||
-                        context.User.HasClaim(x => x.Type == ClaimTypes.DeleteUser && x.Value == bool.TrueString.ToLower())
+                        context.User.HasClaim(x => x.Type == ApplicationClaimTypes.DeleteUser && x.Value == true.AsString())
                 ));
 
                 #endregion
@@ -157,7 +162,7 @@ namespace Template.MvcWebApp.Setup
                     policy => policy.RequireAssertion(
                         context =>
                         context.User.IsInRole(Roles.Superadmin) ||
-                        context.User.HasClaim(x => x.Type == ClaimTypes.AddRole && x.Value == bool.TrueString.ToLower())
+                        context.User.HasClaim(x => x.Type == ApplicationClaimTypes.AddRole && x.Value == true.AsString())
                 ));
 
                 options.AddPolicy(
@@ -166,7 +171,7 @@ namespace Template.MvcWebApp.Setup
                         context =>
                         context.User.IsInRole(Roles.Superadmin) ||
                         context.User.IsInRole(Roles.Admin) ||
-                        context.User.HasClaim(x => x.Type == ClaimTypes.EditRole && x.Value == bool.TrueString.ToLower())
+                        context.User.HasClaim(x => x.Type == ApplicationClaimTypes.EditRole && x.Value == true.AsString())
                 ));
 
                 options.AddPolicy(
@@ -175,8 +180,13 @@ namespace Template.MvcWebApp.Setup
                         context =>
                         context.User.IsInRole(Roles.Superadmin) ||
                         context.User.IsInRole(Roles.Admin) ||
-                        context.User.HasClaim(x => x.Type == ClaimTypes.DeleteRole && x.Value == bool.TrueString.ToLower())
+                        context.User.HasClaim(x => x.Type == ApplicationClaimTypes.DeleteRole && x.Value == true.AsString())
                 ));
+
+
+                options.AddPolicy(
+                    Policies.EditAdminRole,
+                    policy => policy.AddRequirements(new ManageAdminRolesAndClaimsRequirement()));
 
                 #endregion
 
@@ -191,6 +201,8 @@ namespace Template.MvcWebApp.Setup
 
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
 
+            services.AddTransient<IAuthorizationHandler, CanEditOnlyOtherAdminRolesAndClaimsHandler>();
+
             services
                 .AddTransient(provider => new SmtpClient(appSettings.Mailsettings.Host, appSettings.Mailsettings.Port)
                 {
@@ -201,11 +213,11 @@ namespace Template.MvcWebApp.Setup
                 .AddTransient<IEmailService, EmailSender>()
                 .AddTransient<IEmailSender, EmailSender>();
 
-            services.TryAddScoped(typeof(IHtmlLocalizer<>), typeof(Localizer<>));
-
             services
                 .AddScoped<ICultureHelper, CultureHelper>()
-                .AddSingleton<IHtmlLocalizer, Localizer>()
+                .AddSingleton<IHtmlLocalizer, HtmlLoc>()
+                .AddSingleton<IHtmlLocalizer<AppResources>, HtmlLoc<AppResources>>()
+                .AddSingleton<IStringLocalizer, StringLoc<AppResources>>()
                 .AddSingleton<IViewLocalizer, ViewLocalizer>()
                 .AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>()
                 .AddSingleton(provider =>

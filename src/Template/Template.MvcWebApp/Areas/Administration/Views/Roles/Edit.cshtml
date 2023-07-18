@@ -1,9 +1,9 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization;
-@model EditRoleViewModel
-@inject IHtmlLocalizer Localizer;
+﻿@model EditRoleViewModel
+
+@inject IStringLocalizer Localizer;
 
 @{
-    var title = @Localizer["Administration_Roles_Create_Title"].Value;
+    var title = @Localizer["Administration_Roles_Edit_Title", Model.RoleName].Value;
     ViewData["Title"] = title;
 }
 
@@ -15,16 +15,15 @@
         <div class="col-12">
             <partial name="_ResponseMessage" model="ViewData.ModelState" />
         </div>
-
+@*
         <div class="col-4">
-
-            @*<div asp-validation-summary="ModelOnly" class="text-red-intense"></div>*@
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
 
                 <div class="form-group w-100">
                     <label asp-for="RoleName" class="control-label"></label>
-                    <input asp-for="RoleName" value="@Model.RoleName" class="form-control" />
+                    <input asp-for="RoleName" value="@Model.RoleName" class="form-control" disabled />
+
                     <span asp-validation-for="RoleName" class="text-red-intense"></span>
                 </div>
                 <div class="w-100">
@@ -33,7 +32,7 @@
                     <input type="submit" value="@Localizer["Shared_Buttons_Update"].Value" class="btn btn-primary" />
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="col-8">
             <div class="card">
                 <div class="card-header">

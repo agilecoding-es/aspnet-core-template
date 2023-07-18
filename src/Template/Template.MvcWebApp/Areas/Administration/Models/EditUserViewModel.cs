@@ -15,6 +15,7 @@ namespace Template.MvcWebApp.Areas.Administration.Models
         [Required]
         [RegularExpression(pattern: RegExPatterns.Validators.Email, ErrorMessage = "The {0} field is not a valid e-mail address.")]
         public string Email { get; set; }
+        public bool IsLockout { get; internal set; }
 
         public List<string> Claims { get; set; } = new List<string>();
         public List<string> Roles { get; set; } = new List<string>();

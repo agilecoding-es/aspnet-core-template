@@ -1,38 +1,52 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.EntityFrameworkCore;
 using Template.Application.Identity;
-using Template.Authorization.Constants;
 using Template.Common;
 using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.Areas.Administration.Models;
+using Template.Security.Authorization;
+using Template.Security.DataProtection;
 
 namespace Template.MvcWebApp.Areas.Administration.Controllers
 {
     [Authorize(Roles = Roles.SuperadminAndAdminRoles)]
     public class RolesController : BaseAdministrationController
     {
-        public RolesController(IMediator mediator, UserManager userManager, RoleManager roleManager, IHtmlLocalizer localizer) : base(mediator, userManager, roleManager, localizer)
-        {
+        private readonly IDataProtector protector;
 
+        public RolesController(IMediator mediator, UserManager userManager, RoleManager roleManager, IHtmlLocalizer localizer, IDataProtectionProvider dataProtectionProvider) : base(mediator, userManager, roleManager, localizer)
+        {
+            //TODO: Encrypt routvalues
+            this.protector = dataProtectionProvider.CreateProtector(ProtectionPurpose.RoleIdRouteValue);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var roles = roleManager.Roles.ToList();
+            var superadminRole = await roleManager.Roles.Where(r=> r.Name == Roles.Superadmin).ToListAsync();
+            var allRoles = await roleManager.Roles.ToListAsync();
+
+            var allRolesExceptSuperadmin = allRoles.Except(superadminRole).ToList();
+            
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            List<Role> roles = await userManager.IsInRoleAsync(user, Roles.Superadmin) ? allRoles : allRolesExceptSuperadmin;
 
             return View(roles);
         }
 
         [HttpGet]
+        [Authorize(Policy = Roles.Superadmin)]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Superadmin)]
         public async Task<IActionResult> Create(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
@@ -115,6 +129,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = Roles.Superadmin)]
         public async Task<IActionResult> Delete(string id)
         {
             //TODO: Agregar confirmación antes de eliminar un usuario
@@ -152,7 +167,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
         {
             ViewBag.RoleId = id;
             var role = await roleManager.FindByIdAsync(id);
-            var users = userManager.Users.ToList();
+            var loggedUser = await userManager.FindByNameAsync(User.Identity.Name);
 
             if (role == null)
             {
@@ -161,7 +176,15 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             }
 
             var model = new List<UserRoleViewModel>();
-            foreach (var user in userManager.Users)
+
+            var users = new List<User>();
+            var allUsers = await userManager.Users.Where(u=> u.Id != loggedUser.Id).ToListAsync();
+
+            var allUsersExceptLoggedUser = allUsers.Except(new List<User> { loggedUser}).ToList();
+            users = await userManager.IsInRoleAsync(loggedUser, Roles.Superadmin) ? allUsers : allUsersExceptLoggedUser;
+
+
+            foreach (var user in users)
             {
                 model.Add(new UserRoleViewModel()
                 {

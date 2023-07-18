@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using Template.Application.Identity;
-using Template.Authorization.Constants;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
+using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.Setup
 {

@@ -123,6 +123,9 @@
   <data name="Administration_Roles_Edit_AddOrRemoveUsersButton" xml:space="preserve">
     <value>Add or remove users</value>
   </data>
+  <data name="Administration_Roles_Edit_Title" xml:space="preserve">
+    <value>Edit role: {0}</value>
+  </data>
   <data name="Administration_Roles_Edit_UsersSection" xml:space="preserve">
     <value>Users in this role</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="Administration_User_Edit_ClaimsSection_Empty" xml:space="preserve">
     <value>No claims</value>
   </data>
+  <data name="Administration_User_Edit_ResetPassword" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
   <data name="Administration_User_Edit_RolesSection" xml:space="preserve">
     <value>Roles of the user</value>
   </data>
@@ -158,6 +164,9 @@
   </data>
   <data name="Administration_User_Edit_Title" xml:space="preserve">
     <value>Edit user</value>
+  </data>
+  <data name="Administration_User_Edit_UserLockedOut" xml:space="preserve">
+    <value>User locked out</value>
   </data>
   <data name="Administration_User_ManageClaims_Title" xml:space="preserve">
     <value>Manage user claims</value>
@@ -625,7 +634,7 @@
     <value>Resend email confirmation</value>
   </data>
   <data name="Identity_Account_ResetPasswordConfirmation_Content" xml:space="preserve">
-    <value>Your password has been reset. Please &lt;a asp-page="./Login"&gt;click here to log in&lt;/a&gt;.</value>
+    <value>Your password has been reset. You can now &lt;a href="{0}"&gt;click here to log in&lt;/a&gt;.</value>
   </data>
   <data name="Identity_Account_ResetPasswordConfirmation_Title" xml:space="preserve">
     <value>Reset password confirmation</value>
@@ -646,7 +655,7 @@
     <value>Manage</value>
   </data>
   <data name="Layout_Navbar_Administration_Roles" xml:space="preserve">
-    <value>Manage roles</value>
+    <value>Roles</value>
   </data>
   <data name="Layout_Navbar_Administration_Users" xml:space="preserve">
     <value>Users</value>

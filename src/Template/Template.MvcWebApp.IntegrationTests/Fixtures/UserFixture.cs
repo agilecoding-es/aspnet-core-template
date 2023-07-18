@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Template.Domain.Entities.Identity;
 using Template.Application.Identity;
-using Template.Authorization.Constants;
 using Microsoft.AspNetCore.Builder;
 using System.Reflection;
 using Template.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.IntegrationTests.Fixtures
 {

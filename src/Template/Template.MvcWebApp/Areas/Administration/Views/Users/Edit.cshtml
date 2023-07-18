@@ -1,15 +1,32 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization;
+﻿@using Template.Security.Authorization;
 @model EditUserViewModel
 
-@inject IHtmlLocalizer Localizer;
+@inject IAuthorizationService AuthService;
+@inject IStringLocalizer Localizer;
 
 @{
     var title = @Localizer["Administration_User_Edit_Title"].Value;
     ViewData["Title"] = title;
+
+    var canEditAdminRole = (await AuthService.AuthorizeAsync(User, Policies.EditAdminRole)).Succeeded;
 }
 
 @section SectionBar{
     <partial name="_SectionBar" model="@title" />
+}
+@if (Model.IsLockout)
+{
+    <form asp-area="Administration" asp-controller="Users" asp-action="ResetPassword" method="post">
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <div class="d-flex align-items-start flex-column flex-grow-1">
+            <div class="form-group w-100">
+                <h3>
+                    @Localizer["Administration_User_Edit_UserLockedOut"]
+                </h3>
+                <button type="submit" class="btn btn-danger">@Localizer["Administration_User_Edit_ResetPassword"]</button>
+            </div>
+        </div>
+    </form>
 }
 <form method="post">
     <div class="row">
@@ -22,7 +39,6 @@
             @*<div asp-validation-summary="ModelOnly" class="text-red-intense"></div>*@
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
-
                 <div class="form-group w-100">
                     <label asp-for="UserName" class="control-label"></label>
                     <input asp-for="UserName" value="@Model.UserName" class="form-control" />
@@ -36,6 +52,7 @@
                 <div class="w-100">
                     <hr class="silver" />
                     <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"]</a>
+
                     <input type="submit" value="@Localizer["Shared_Buttons_Update"]" class="btn btn-primary" />
                 </div>
             </div>
@@ -59,7 +76,10 @@
                     }
                 </div>
                 <div class="card-footer text-muted">
-                    <a class="btn btn-primary" asp-action="ManageRoles" asp-route-id="@Model.Id">@Localizer["Administration_User_Edit_AddOrRemoveRolesButton"]</a>
+                    @if (canEditAdminRole)
+                    {
+                        <a class="btn btn-primary" asp-action="ManageRoles" asp-route-id="@Model.Id">@Localizer["Administration_User_Edit_AddOrRemoveRolesButton"]</a>
+                    }
                 </div>
             </div>
 
@@ -81,7 +101,10 @@
                     }
                 </div>
                 <div class="card-footer text-muted">
-                    <a class="btn btn-primary" asp-action="ManageClaims" asp-route-id="@Model.Id">@Localizer["Administration_User_Edit_AddOrRemoveClaimsButton"]</a>
+                    @if (canEditAdminRole)
+                    {
+                        <a class="btn btn-primary" asp-action="ManageClaims" asp-route-id="@Model.Id">@Localizer["Administration_User_Edit_AddOrRemoveClaimsButton"]</a>
+                    }
                 </div>
             </div>
         </div>
