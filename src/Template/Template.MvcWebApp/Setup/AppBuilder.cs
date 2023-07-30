@@ -33,6 +33,7 @@ using Template.Persistence.Identity;
 using Template.Persistence.Respositories.Sample;
 using Template.Security.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Template.MvcWebApp.Setup
 {

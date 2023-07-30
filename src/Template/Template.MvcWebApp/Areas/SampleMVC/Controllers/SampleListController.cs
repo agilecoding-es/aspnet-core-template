@@ -144,8 +144,8 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
                 model.NewItem = new SampleItemViewModel() { ListId = model.Id };
                 if (result.IsFailure)
                 {
-                    sampleListViewModel.Items = model.Items;
-                    HandleErrorResult(result);
+                    sampleListViewModel.NewItem = model.NewItem;
+                    HandleErrorResult(result, "EditValidations");
                 }
                 else
                 {
@@ -217,7 +217,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 
                 if (addItemResult.IsFailure)
                 {
-                    HandleErrorResult(addItemResult);
+                    HandleErrorResult(addItemResult, "AddItemValidations");
                 }
                 else
                 {

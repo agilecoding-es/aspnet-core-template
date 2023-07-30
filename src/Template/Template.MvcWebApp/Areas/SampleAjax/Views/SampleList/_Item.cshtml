@@ -2,7 +2,7 @@
 @model SampleItemViewModel;
 
 <li class="list-group-item d-flex justify-content-between">
-    <span>@Model.Description</span>
+    <span class="d-flex align-items-center">@Model.Description</span>
     <form name="RemoveItemForm">
         <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
         <input type="hidden" asp-for="@Model.ListId" value="@Model.ListId" />

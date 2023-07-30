@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System.Text;
 using Template.Common;
-using Template.Common.Extensions;
 using Template.Domain;
+using Template.MvcWebApp.Common;
 
 namespace Template.MvcWebApp.TagHelpers
 {
@@ -16,9 +13,10 @@ namespace Template.MvcWebApp.TagHelpers
     public class ValidationMessagesTagHelper : TagHelper
     {
         public const string ValidationMessageAttributeName = "asp-validation-messages";
-        private ValidationMessage _validationMessage;
 
-        private readonly IHtmlGenerator _generator;
+        private ValidationMessage validationMessage;
+
+        private readonly IHtmlGenerator generator;
 
 
         [ViewContext]
@@ -35,7 +33,7 @@ namespace Template.MvcWebApp.TagHelpers
         [HtmlAttributeName(ValidationMessageAttributeName)]
         public ValidationMessage ValidationMessage
         {
-            get => _validationMessage;
+            get => validationMessage;
             set
             {
                 switch (value)
@@ -44,7 +42,7 @@ namespace Template.MvcWebApp.TagHelpers
                     case ValidationMessage.Errors:
                     case ValidationMessage.Validations:
                     case ValidationMessage.None:
-                        _validationMessage = value;
+                        validationMessage = value;
                         break;
 
                     default:
@@ -53,9 +51,13 @@ namespace Template.MvcWebApp.TagHelpers
                 }
             }
         }
+
+        [HtmlAttributeName("id")]
+        public string Id { get; set; }
+
         public ValidationMessagesTagHelper(IHtmlGenerator generator)
         {
-            _generator = generator;
+            this.generator = generator;
         }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -71,14 +73,25 @@ namespace Template.MvcWebApp.TagHelpers
                 return;
             }
 
-            var messages = GetMessagesByType();
-            if (messages.Count > 0)
+            string elementId = null;
+            if (this.ViewContext.TempData != null)
             {
-                foreach (var message in messages)
-                {
-                    AppendMessageItems(message.Key, message.Value.Errors, output.Content);
-                }
+                elementId = this.ViewContext.TempData[TempDataKey.ERROR_ID] as string;
+            }
 
+            if (
+               (string.IsNullOrEmpty(elementId) && string.IsNullOrEmpty(Id)) ||
+               (!string.IsNullOrEmpty(elementId) && elementId == Id))
+            {
+                var messages = GetMessagesByType();
+                if (messages.Count > 0)
+                {
+                    foreach (var message in messages)
+                    {
+                        AppendMessageItems(message.Key, message.Value.Errors, output.Content);
+                    }
+
+                }
             }
         }
 
@@ -112,7 +125,7 @@ namespace Template.MvcWebApp.TagHelpers
                 svgExlamation.Attributes.Add("aria-label", $"{messageType}:");
                 svgExlamation.Attributes.Add("style", "width: 1em; height: 1em;");
                 svgExlamation.AddCssClass("flex-shrink-0 me-2");
-                
+
                 TagBuilder svgExlamationUse = new TagBuilder("use");
                 svgExlamationUse.Attributes.Add("xlink:href", "#exclamation-triangle-fill");
                 svgExlamation.InnerHtml.AppendHtml(svgExlamationUse);

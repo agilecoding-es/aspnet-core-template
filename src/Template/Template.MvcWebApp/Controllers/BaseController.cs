@@ -7,6 +7,7 @@ using Template.Common;
 using Template.Configuration;
 using Template.Domain.Entities.Shared;
 using Template.Domain.Exceptions;
+using Template.MvcWebApp.Common;
 using Template.MvcWebApp.Extensions;
 using Template.MvcWebApp.Models;
 
@@ -21,9 +22,14 @@ namespace Template.MvcWebApp.Controllers
             this.localizer = localizer;
         }
 
-        public void HandleErrorResult(Result result)
+        public void HandleErrorResult(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
+
+            if (!string.IsNullOrEmpty(elementId))
+            {
+                TempData[TempDataKey.ERROR_ID] = elementId;
+            }
 
             if (!(result.Exception is ValidationException || result.Exception is DomainException))
             {
@@ -36,9 +42,14 @@ namespace Template.MvcWebApp.Controllers
             }
         }
 
-        public IActionResult HandleErrorResponse(Result result)
+        public IActionResult HandleErrorResponse(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
+
+            if (!string.IsNullOrEmpty(elementId))
+            {
+                TempData[TempDataKey.ERROR_ID] = elementId;
+            }
 
             if (!(result.Exception is ValidationException || result.Exception is DomainException))
             {

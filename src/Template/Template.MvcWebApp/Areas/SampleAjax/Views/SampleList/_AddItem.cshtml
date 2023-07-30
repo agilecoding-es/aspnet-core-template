@@ -18,18 +18,13 @@
     {
     <partial name="_ResponseMessage" model="ViewData.ModelState" />
     }*@
-    <div class="input-group mb-3">
+    <div class="input-group has-validation mb-3">
         <div class="form-floating">
-            <input asp-for="Description" value="@Model.Description" class="form-control" />
+            <input asp-for="Description" value="@Model.Description" class="form-control" placeholder="@Html.DisplayTextFor(m=>m.Description)" aria-describedby="btnAddItem" />
             <label asp-for="Description" class="form-label"></label>
-            <button type="submit" class="btn btn-primary">@Localizer["Shared_Buttons_AddItem"].Value</button>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-9">
-            <span asp-validation-for="Description" class="text-dark-red"></span>
-        </div>
+        <button id="btnAddItem" type="submit" class="btn btn-primary">@Localizer["Shared_Buttons_AddItem"].Value</button>
+        <span asp-validation-for="Description" class="invalid-feedback text-dark-red"></span>
     </div>
     <hr class="silver" />
 </form>

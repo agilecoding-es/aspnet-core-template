@@ -16,11 +16,17 @@ namespace Template.MvcWebApp.Setup
 
         public static AppBuilder DefaultServicesConfiguration(this WebApplicationBuilder builder)
         {
+            // NLog: Setup NLog for Dependency injection
+            builder.Logging.ClearProviders();
+            builder.Host.UseNLog();
+
             var appBuilder =
                 CreateAppBuilder(builder)
                 .ConfigureSettings()
                 .ConfigureDB()
                 .ConfigureIdentity();
+
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddControllersWithViews()
                             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -30,9 +36,7 @@ namespace Template.MvcWebApp.Setup
                                     factory.Create(Constants.Configuration.Resources.DataAnnotation, PresentationAssembly.AssemblyName);
                             });
 
-            // NLog: Setup NLog for Dependency injection
-            builder.Logging.ClearProviders();
-            builder.Host.UseNLog();
+            builder.Services.AddSession();
 
             appBuilder
                 .ConfigureDependencies()

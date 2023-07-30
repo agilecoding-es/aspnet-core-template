@@ -15,11 +15,10 @@
         <form asp-action="Create">
             <div asp-validation-messages="All" class="text-dark-red"></div>
             @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
-
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-dark-red"></span>
+            <div class="form-floating  w-100">
+                <input asp-for="Name" class="form-control" placeholder="@Html.DisplayTextFor(m=>m.Name)" aria-describedby="btnAddItem" />
+                <label asp-for="Name" class="form-label"></label>
+                <span asp-validation-for="Name" class="invalid-feedback text-dark-red"></span>
             </div>
             <br />
             <hr class="silver" />
