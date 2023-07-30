@@ -25,7 +25,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios
         [ResetDatabase]
         public async Task ResetAndFillWithUsers()
         {
-            await userFixture.SerFixtureAsync();
+            await userFixture.SetFixtureAsync();
         }
 
     }

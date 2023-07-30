@@ -232,6 +232,42 @@ namespace Template.MvcWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The page or resource you are looking for does not exist..
+        /// </summary>
+        internal static string ErrorController_Error_404_Description {
+            get {
+                return ResourceManager.GetString("ErrorController_Error_404_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource Not Found.
+        /// </summary>
+        internal static string ErrorController_Error_404_Title {
+            get {
+                return ResourceManager.GetString("ErrorController_Error_404_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Te pedimos disculpa, parece que tenemos un problema que resolver..
+        /// </summary>
+        internal static string ErrorController_Error_500_Description {
+            get {
+                return ResourceManager.GetString("ErrorController_Error_500_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opps... something went wrong!.
+        /// </summary>
+        internal static string ErrorController_Error_500_Title {
+            get {
+                return ResourceManager.GetString("ErrorController_Error_500_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home page.
         /// </summary>
         internal static string Home_Index_Title {

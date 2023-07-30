@@ -11,7 +11,7 @@
     <partial name="_SectionBar" model='"Detail"' />
 }
 <div>
-    <partial name="_ResponseMessage" />
+    @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
 
     <dl class="row">
         <dt class="col-sm-2">
@@ -24,5 +24,5 @@
 </div>
 <br />
 <hr class="silver" />
-<a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+<a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">@Localizer["Shared_Buttons_Update"].Value</a>

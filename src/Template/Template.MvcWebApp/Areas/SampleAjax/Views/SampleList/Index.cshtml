@@ -12,14 +12,26 @@
 @section SectionBar{
     <partial name="_SectionBar" model="title" />
 }
-<p class="text-end">
-    <a class="btn btn-outline-primary" asp-action="Create">@Localizer["Shared_Buttons_CreateNew"]</a>
-</p>
+@if (Model.Any())
+{
+    <p class="text-end">
+        <a class="btn btn-outline-primary" asp-action="Create">@Localizer["Shared_Buttons_CreateNew"]</a>
+    </p>
+}
 <hr />
 <div>
-    <partial name="_ResponseMessage" />
-
+    <div asp-validation-messages="All" class="text-dark-red"></div>
     <div class="grid">
+        @if (!Model.Any())
+        {
+            <div class="g-col-3">
+                <div class="card">
+                    <div class="card-body position-relative">
+                        <a class="btn btn-outline-primary" asp-action="Create">@Localizer["Shared_Buttons_CreateNew"]</a>
+                    </div>
+                </div>
+            </div>
+        }
         @foreach (var item in Model)
         {
             <div class="g-col-3">
@@ -35,7 +47,7 @@
                         <div class="row">
                             <div class="col text-end">
                                 <button class="btn btn-primary js_EditList" asp-action="Edit" asp-route-id="@item.Id">Edit</button>
-                                <button type="button" class="btn btn-outline-red-intense js_RemoveList" asp-action="Delete" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#RemoveConfirmation">@Localizer["Shared_Buttons_Delete"].Value</button>
+                                <button type="button" class="btn btn-outline-dark-red js_RemoveList" asp-action="Delete" asp-route-id="@item.Id" data-bs-toggle="modal" data-bs-target="#RemoveConfirmation">@Localizer["Shared_Buttons_Delete"].Value</button>
                             </div>
                         </div>
                     </div>
@@ -51,7 +63,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body js_deleteContent">
-                    
                 </div>
             </div>
         </div>

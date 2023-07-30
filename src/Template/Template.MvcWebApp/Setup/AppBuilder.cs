@@ -61,9 +61,17 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureSettings()
         {
             services.Configure<AppSettings>(configuration)
+                    .Configure<AuthenticationProviders>( options =>
+                    {
+                        configuration.GetSection(nameof(AuthenticationProviders)).Bind(options);
+                    })
                     .Configure<Mailsettings>(options =>
                     {
                         configuration.GetSection(nameof(Mailsettings)).Bind(options);
+                    })
+                    .Configure<LogMiddleware>(options =>
+                    {
+                        configuration.GetSection(nameof(LogMiddleware)).Bind(options);
                     });
 
             return this;
@@ -71,7 +79,7 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureDB()
         {
-            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection.Value}' not found.");
+            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
 
             //services.AddDbContextFactory<Context>(options => options.UseSqlServer(connectionString), lifetime: ServiceLifetime.Scoped);
             services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
@@ -97,6 +105,7 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureAuthentication()
         {
+            var authProviders = configuration.Get<AuthenticationProviders>();
             services
                 .Configure<IdentityOptions>(options =>
                 {
@@ -116,7 +125,7 @@ namespace Template.MvcWebApp.Setup
                     microsoftOptions.ClientSecret = microsoftAuthentication["ClientSecret"];
                 });
 
-            
+
 
             return this;
         }
@@ -132,7 +141,7 @@ namespace Template.MvcWebApp.Setup
                     policy => policy.RequireAssertion(
                         context =>
                         context.User.IsInRole(Roles.Superadmin) ||
-                        context.User.IsInRole(Roles.Admin) 
+                        context.User.IsInRole(Roles.Admin)
                 ));
 
                 options.AddPolicy(
@@ -223,7 +232,7 @@ namespace Template.MvcWebApp.Setup
                 .AddSingleton(provider =>
                 {
                     var factory = provider.GetService<IStringLocalizerFactory>()!;
-                    return factory.Create(Constants.Configuration.Resources.AppResources.Value, PresentationAssembly.AssemblyName);
+                    return factory.Create(Constants.Configuration.Resources.AppResources, PresentationAssembly.AssemblyName);
                 });
 
             services
@@ -246,7 +255,7 @@ namespace Template.MvcWebApp.Setup
                 {
                     var cookieProvider = new CookieRequestCultureProvider
                     {
-                        CookieName = Constants.Configuration.Cookies.CultureCookieName.Value
+                        CookieName = Constants.Configuration.Cookies.CultureCookieName
                     };
                     var supportedCultures = appSettings.SupportedCultures.GetSupportedCultures().Select(c => new CultureInfo(c)).ToList();
 
@@ -285,22 +294,26 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureHelthChecks()
         {
-            services.AddSingleton<LatencyHealthCheck>();
-            //services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(redisSettings.ConnectionString));
+            AppSettings appSettings = configuration.Get<AppSettings>();
 
-            services.AddHealthChecks()
-                    .AddCheck<LatencyHealthCheck>("CustomHealthCheck", tags: new[] { "mvc" })
-                    //.AddCheck<RedisHelthCheck>("Redis")
-                    .AddCheck("MvcApp", () =>
-                        HealthCheckResult.Healthy("App is working as expected."),
-                        new[] { "mvc" }
-                    )
-                    .AddDbContextCheck<Context>("Database", tags:
-                        new[] { "database", "sql server" }
-                    );
+            if (appSettings.HealthChecksEnabled)
+            {
+                services.AddSingleton<LatencyHealthCheck>();
+                //services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(redisSettings.ConnectionString));
 
-            services.AddHealthChecksUI().AddInMemoryStorage();
+                services.AddHealthChecks()
+                        .AddCheck<LatencyHealthCheck>("CustomHealthCheck", tags: new[] { "mvc" })
+                        //.AddCheck<RedisHelthCheck>("Redis")
+                        .AddCheck("MvcApp", () =>
+                            HealthCheckResult.Healthy("App is working as expected."),
+                            new[] { "mvc" }
+                        )
+                        .AddDbContextCheck<Context>("Database", tags:
+                            new[] { "database", "sql server" }
+                        );
 
+                services.AddHealthChecksUI().AddInMemoryStorage();
+            }
             return this;
         }
 

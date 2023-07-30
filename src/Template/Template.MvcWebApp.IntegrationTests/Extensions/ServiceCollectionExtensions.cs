@@ -6,9 +6,9 @@ namespace Template.MvcWebApp.IntegrationTests.Extensions
 {
     internal static class ServiceCollectionExtensions
     {
-        public static async Task<IServiceCollection> ResetDatabase(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection ResetDatabase(this IServiceCollection services, IConfiguration config)
         {
-            var connectionString = config.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value);
+            var connectionString = config.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection);
             if (
                 (
                 !connectionString.Contains("localhost") &&

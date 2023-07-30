@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Acheve.AspNetCore.TestHost.Security;
+using Acheve.TestHost;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.SqlClient;
@@ -11,7 +13,6 @@ using Respawn;
 using Respawn.Graph;
 using System.Data.Common;
 using Template.Common;
-using Template.Common.Extensions;
 using Template.Configuration;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
 using Template.MvcWebApp.IntegrationTests.Queries;
@@ -40,7 +41,7 @@ namespace Template.MvcWebApp.IntegrationTests
 
         internal static class FactoryConfiguration
         {
-            public static string ConnectionString => FactoryInstance.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value);
+            public static string ConnectionString => FactoryInstance.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection);
 
             public static AppSettings Settings => FactoryInstance.Services.GetService<IOptions<AppSettings>>().Value;
         }
@@ -90,7 +91,7 @@ namespace Template.MvcWebApp.IntegrationTests
                                 .AddJsonFile("appsettings.json")
                                 .AddEnvironmentVariables()
                                 .Build();
-            Connection = new SqlConnection(Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value));
+            Connection = new SqlConnection(Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection));
         }
 
         public RequestBuilder CreateRequest(string path) => Server.CreateRequest(path);
@@ -120,15 +121,24 @@ namespace Template.MvcWebApp.IntegrationTests
             string parentDirectories = string.Format("..{0}..{0}..{0}..{0}", Path.DirectorySeparatorChar);
             var contentRootPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), parentDirectories, PresentationAssembly.Assembly.GetName().Name));
 
-
             builder.ConfigureServices(services =>
             {
+                //services.AddAuthentication().AddCookie().AddTestServer();
+
+                services.AddAuthentication(options =>
+                            {
+                                options.DefaultAuthenticateScheme = TestServerDefaults.AuthenticationScheme;
+                            })
+                        .AddCookie()
+                        .AddTestServer();
+
                 ConfigureTestDependencies(services);
                 ConfigureMocks(services);
             })
             .UseConfiguration(Configuration)
             .UseContentRoot(contentRootPath)
-            .UseEnvironment("Development");
+            .UseEnvironment("Development")
+            .UseTestServer();
         }
 
         private async Task InitializeRespawner() =>
@@ -149,8 +159,8 @@ namespace Template.MvcWebApp.IntegrationTests
 
         private void ConfigureTestDependencies(IServiceCollection services)
         {
-            services.AddScoped(typeof(UserFixture));
-            //services.AddScoped<IUserFixture, UserFixture>();
+            services.AddScoped<UserFixture>();
+            services.AddScoped<SampleListFixture>();
         }
 
         private void ConfigureMocks(IServiceCollection services) { }

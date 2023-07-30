@@ -66,7 +66,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (user == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
 
             var model = new EditUserViewModel
@@ -92,7 +92,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                 if (user == null)
                 {
                     //TODO: Crear constante y revisar modelo de manejo de errores
-                    ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                    ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
                 }
                 else
                 {
@@ -111,7 +111,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                     foreach (var error in result.Errors)
                     {
                         //TODO: Revisar modelo de manejo de errores
-                        ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, error.Description);
+                        ModelState.AddModelError(Constants.KeyErrors.ValidationError, error.Description);
                     }
                 }
             }
@@ -131,7 +131,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (user == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
             else
             {
@@ -145,7 +145,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                 foreach (var error in result.Errors)
                 {
                     //TODO: Revisar modelo de manejo de errores
-                    ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, error.Description);
+                    ModelState.AddModelError(Constants.KeyErrors.ValidationError, error.Description);
                 }
             }
 
@@ -164,7 +164,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (user == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
             else
             {
@@ -197,7 +197,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (user == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
 
             var model = new List<UserRolesViewModel>();
@@ -222,7 +222,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (user == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
 
             var roles = await userManager.GetRolesAsync(user);
@@ -231,7 +231,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (!result.Succeeded)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Cannot remove user existing roles");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Cannot remove user existing roles");
                 return View(model);
             }
 
@@ -241,7 +241,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (!result.Succeeded)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Cannot add selected roles to the user");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Cannot add selected roles to the user");
                 return View(model);
             }
 
@@ -258,7 +258,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (user == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
 
             var assignedClaims = await userManager.GetClaimsAsync(user);
@@ -293,7 +293,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (user == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "User not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
 
             var claims = await userManager.GetClaimsAsync(user);
@@ -302,7 +302,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (!result.Succeeded)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Cannot remove user existing claims");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Cannot remove user existing claims");
                 return View(model);
             }
 
@@ -312,7 +312,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (!result.Succeeded)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Cannot add selected claims to the user");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Cannot add selected claims to the user");
                 return View(model);
             }
 

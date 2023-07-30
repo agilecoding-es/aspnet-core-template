@@ -1,0 +1,4 @@
+﻿.input-group.has-validation:has(input.is-invalid) > .invalid-feedback,
+.input-group.has-validation:has(input.is-invalid) > .invalid-feedback {
+    display: block;
+}

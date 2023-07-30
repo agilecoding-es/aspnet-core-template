@@ -27,7 +27,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Models.SampleList
         [Display(Name = "Items Count")]
         public int ItemsCount => Items.Count;
 
-        public List<SampleItemViewModel> Items { get; set; }
+        public List<SampleItemViewModel> Items { get; set; } = new List<SampleItemViewModel>();
         public SampleItemViewModel NewItem { get; set; } 
 
     }

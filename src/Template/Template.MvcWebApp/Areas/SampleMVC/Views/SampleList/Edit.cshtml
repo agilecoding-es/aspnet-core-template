@@ -7,11 +7,11 @@
     var title = @Localizer["Sample_SampleList_Edit_Title"].Value;
     ViewData["Title"] = title;
 
-    ResponseMessageViewModel responseMessage = null;
-    if(ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
-    {
-        responseMessage = ViewBag.ResponseMessage;
-    }
+    //ResponseMessageViewModel responseMessage = null;
+    //if(ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
+    //{
+    //    responseMessage = ViewBag.ResponseMessage;
+    //}
 }
 
 @section SectionBar{
@@ -19,14 +19,14 @@
 }
 <div class="row">
     <div class="col-12">
-        @if (responseMessage != null && responseMessage.Id == "Edit")
+        @*@if (responseMessage != null && responseMessage.Id == "Edit")
         {
-            <partial name="_ResponseMessage" />
-        }
+            <partial name="_ResponseMessage" model="ViewData.ModelState" />
+        }*@
     </div>
     <div class="col-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
+            <div asp-validation-messages="All" class="text-dark-red"></div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <input type="hidden" asp-for="UserId" value="@Model.UserId" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
@@ -34,11 +34,11 @@
                 <div class="form-group w-100">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" value="@Model.Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-red-intense"></span>
+                    <span asp-validation-for="Name" class="text-dark-red"></span>
                 </div>
                 <div class="w-100">
                     <hr class="silver" />
-                    <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+                    <a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
                     <input type="submit" value="@Localizer["Shared_Buttons_Update"].Value" class="btn btn-primary" />
                 </div>
             </div>
@@ -52,10 +52,10 @@
                     @foreach (var item in Model.Items)
                     {
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>@item.Description</span>
+                            <span class="d-flex align-items-center">@item.Description</span>
                             <form method="post" asp-action="RemoveItem" asp-route-listId="@Model.Id" asp-route-itemId="@item.Id">
                                 <button type="submit" class="btn btn-link">
-                                    <i class="bi bi-trash3 fs-5 text-red-intense"></i>
+                                    <i class="bi bi-trash3 fs-5 text-dark-red"></i>
                                 </button>
                             </form>
                         </li>

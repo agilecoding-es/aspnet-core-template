@@ -11,25 +11,37 @@
 
 	<ItemGroup>
 		<Compile Remove="Areas\SampleMVC - Copy\**" />
+		<Compile Remove="Content\theme\default\areas\**" />
 		<Compile Remove="Content\theme\default\css\**" />
 		<Compile Remove="Content\ts\**" />
 		<Compile Remove="wwwroot\css\**" />
 		<Compile Remove="wwwroot\js\**" />
 		<Content Remove="Areas\SampleMVC - Copy\**" />
+		<Content Remove="Content\theme\default\areas\**" />
 		<Content Remove="Content\theme\default\css\**" />
 		<Content Remove="Content\ts\**" />
 		<Content Remove="wwwroot\css\**" />
 		<Content Remove="wwwroot\js\**" />
 		<EmbeddedResource Remove="Areas\SampleMVC - Copy\**" />
+		<EmbeddedResource Remove="Content\theme\default\areas\**" />
 		<EmbeddedResource Remove="Content\theme\default\css\**" />
 		<EmbeddedResource Remove="Content\ts\**" />
 		<EmbeddedResource Remove="wwwroot\css\**" />
 		<EmbeddedResource Remove="wwwroot\js\**" />
 		<None Remove="Areas\SampleMVC - Copy\**" />
+		<None Remove="Content\theme\default\areas\**" />
 		<None Remove="Content\theme\default\css\**" />
 		<None Remove="Content\ts\**" />
 		<None Remove="wwwroot\css\**" />
 		<None Remove="wwwroot\js\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Models\ResponseMessageViewModel.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="Views\Shared\_ResponseMessage.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,10 +96,6 @@
 			<SubType>Code</SubType>
 		</TypeScriptCompile>
 		<TypeScriptCompile Include="Areas\SampleMVC\Content\ts\models\sample-list.ts" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Content\theme\default\areas\sampleajax\" />
 	</ItemGroup>
 
 	<ItemGroup>

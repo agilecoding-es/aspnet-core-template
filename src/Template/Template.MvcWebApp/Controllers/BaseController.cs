@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Reflection.Metadata;
 using Template.Application.Exceptions;
 using Template.Common;
@@ -20,36 +21,37 @@ namespace Template.MvcWebApp.Controllers
             this.localizer = localizer;
         }
 
-        public ResponseMessageViewModel HandleErrorResult(Result result, string id = null)
+        public void HandleErrorResult(Result result)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
 
-            return HandleErrorResult(result, ResponseMessageViewModel.Error(result.Exception.Message), id);
-        }
-
-        public ResponseMessageViewModel HandleErrorResult(Result result, ResponseMessageViewModel validationResponse, string id = null)
-        {
-            _ = result ?? throw new ArgumentNullException(nameof(result));
-            ResponseMessageViewModel response = validationResponse;
-            
             if (!(result.Exception is ValidationException || result.Exception is DomainException))
             {
                 //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                response = ResponseMessageViewModel.Error(localizer["Shared_Message_ErrorOccured"].Value);
+                ModelState.AddModelError(Constants.KeyErrors.GenericError, localizer.GetString("Shared_Message_ErrorOccured"));
             }
-
-            response.SetId(id);
-
-            //if (!Request.IsAjaxRequest())
-            //{
-            //    //TODO: Agregar severidad a ValidationException para poder emitir warnings
-            //    ViewBag.ResponseMessage = response;
-            //}
-
-            ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, response.Content);
-            
-            return response;
+            else
+            {
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
+            }
         }
 
+        public IActionResult HandleErrorResponse(Result result)
+        {
+            _ = result ?? throw new ArgumentNullException(nameof(result));
+
+            if (!(result.Exception is ValidationException || result.Exception is DomainException))
+            {
+                //TODO: Agregar severidad a ValidationException para poder emitir warnings
+                ModelState.AddModelError(Constants.KeyErrors.GenericError, localizer.GetString("Shared_Message_ErrorOccured"));
+
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
+                return NotFound(ModelState);
+            }
+        }
     }
 }

@@ -1,58 +1,31 @@
 ﻿namespace Template.Common
 {
-    public struct Constants
+    public static class Constants
     {
-        public struct Configuration
+        public static class Configuration
         {
-            public struct ConnectionString
+            public static class ConnectionString
             {
-                public static ConnectionString DefaultConnection = new ConnectionString("DefaultConnection");
+                public const string DefaultConnection = "DefaultConnection";
 
-                public ConnectionString(string value)
-                {
-                    Value = value;
-                }
-
-                public string Value { get; }
             }
 
-            public struct Resources
+            public static class Resources
             {
-                public static Resources AppResources = new Resources("AppResources");
-                public static Resources DataAnnotation = new Resources("DataAnnotationResources");
-
-                public Resources(string value)
-                {
-                    Value = value;
-                }
-
-                public string Value { get; }
+                public const string AppResources = "AppResources";
+                public const string DataAnnotation = "DataAnnotationResources";
             }
 
-            public struct Cookies
+            public static class Cookies
             {
-                public static Cookies CultureCookieName = new Cookies("TemplateCultureCookie");
-
-                public Cookies(string value)
-                {
-                    Value = value;
-                }
-
-                public string Value { get; }
+                public const string CultureCookieName = "TemplateCultureCookie";
             }
         }
 
-        public struct KeyErrors
+        public static class KeyErrors
         {
-            public static KeyErrors ValidationError = new KeyErrors("ValidationError");
-
-            public KeyErrors(string value)
-            {
-                Value = value;
-            }
-
-            public string Value { get; }
+            public const string GenericError = "GenericError";
+            public const string ValidationError = "ValidationError";
         }
-
     }
 }

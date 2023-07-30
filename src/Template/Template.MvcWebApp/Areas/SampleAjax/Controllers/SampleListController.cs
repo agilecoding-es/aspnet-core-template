@@ -32,11 +32,6 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
         {
             var result = await ListByLoggedUserAsync(cancellationToken);
 
-            if (result.IsFailure)
-            {
-                HandleErrorResult(result);
-            }
-
             return View(result.IsSuccess ? result.Value.Adapt<List<SampleListWithItemCountsViewModel>>() : new List<SampleListWithItemCountsViewModel>());
         }
 
@@ -44,7 +39,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
         {
             var result = await ListByLoggedUserAsync(cancellationToken);
 
-            return Json(result.Adapt<List<SampleListViewModel>>());
+            return Json(result.IsSuccess ? result.Value.Adapt<List<SampleListWithItemCountsViewModel>>() : new List<SampleListWithItemCountsViewModel>());
         }
 
         public async Task<IActionResult> Detail(int id, CancellationToken cancellationToken)
@@ -110,7 +105,8 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
             if (result.IsSuccess)
             {
                 model = result.Value.Adapt<EditSampleListViewModel>();
-                ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Create_Success"].Value);
+                //TODO: CORREGIR
+                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Create_Success"].Value);
             }
 
             return View("Edit", model);
@@ -131,13 +127,14 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
                 var model = getResult.Value.Adapt<EditSampleListViewModel>();
                 if (result.IsFailure)
                 {
-                    HandleErrorResult(result, id: "Edit");
+                    HandleErrorResult(result);
                 }
                 else
                 {
                     sampleListViewModel = model;
-                    ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value)
-                                                                      .SetId("Edit");
+                    //TODO: CORREGIR
+                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value)
+                    //                                                  .SetId("Edit");
                 }
             }
 
@@ -173,18 +170,20 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
                 if (result.IsFailure && result.Exception is ValidationException)
                 {
                     //TODO: Traducir mensaje
-                    var responseError = HandleErrorResult(
-                                    result,
-                                    ResponseMessageViewModel.Error(result.Exception.Message, "Do you want to delete anyway?"));
-                    
+                    //TODO: CORREGIR
+                    //var responseError = HandleErrorResult(
+                    //                result,
+                    //                ResponseMessageViewModel.Error(result.Exception.Message, "Do you want to delete anyway?"));
+
                     deleteSampleListViewModel.NeedsConfirmation = true;
-                    deleteSampleListViewModel.Error = responseError;
+                    //deleteSampleListViewModel.Error = responseError;
 
                     return Json(deleteSampleListViewModel);
                 }
 
                 //TODO: Cambiar mensaje
-                ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value);
+                //TODO: CORREGIR
+                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value);
             }
             Url.Action(nameof(Index));
             return  RedirectToAction(nameof(Index));
@@ -210,13 +209,15 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
                 if (addItemResult.IsFailure)
                 {
-                    var responseError = HandleErrorResult(addItemResult, id: "Items");
-                    return Json(responseError );
+                    //TODO: CORREGIR
+                    //var responseError = HandleErrorResult(addItemResult, id: "Items");
+                    //return Json(responseError );
                 }
                 else
                 {
-                    ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_AddItem_Success"].Value)
-                                                                      .SetId("Items");
+                    //TODO: CORREGIR
+                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_AddItem_Success"].Value)
+                    //                                                  .SetId("Items");
                 }
             }
             else
@@ -244,13 +245,15 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
             if (removeResult.IsFailure)
             {
-                var responseError = HandleErrorResult(removeResult, id: "Items");
-                return Json(responseError);
+                //TODO: CORREGIR
+                //var responseError = HandleErrorResult(removeResult, id: "Items");
+                //return Json(responseError);
             }
             else
             {
-                ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_RemoveItem_Success"].Value)
-                                                                  .SetId("Items");
+                //TODO: CORREGIR
+                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_RemoveItem_Success"].Value)
+                //                                                  .SetId("Items");
             }
 
             // Devolver el contenido del partial view como JSON
@@ -282,7 +285,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
             if (result.IsFailure)
             {
-                HandleErrorResult(result, elementId);
+                HandleErrorResult(result);
             }
 
             return result;

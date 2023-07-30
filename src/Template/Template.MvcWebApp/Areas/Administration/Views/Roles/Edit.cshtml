@@ -13,7 +13,7 @@
 <form method="post">
     <div class="row">
         <div class="col-12">
-            <partial name="_ResponseMessage" model="ViewData.ModelState" />
+            @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
         </div>
 @*
         <div class="col-4">
@@ -24,11 +24,11 @@
                     <label asp-for="RoleName" class="control-label"></label>
                     <input asp-for="RoleName" value="@Model.RoleName" class="form-control" disabled />
 
-                    <span asp-validation-for="RoleName" class="text-red-intense"></span>
+                    <span asp-validation-for="RoleName" class="text-dark-red"></span>
                 </div>
                 <div class="w-100">
                     <hr class="silver" />
-                    <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+                    <a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
                     <input type="submit" value="@Localizer["Shared_Buttons_Update"].Value" class="btn btn-primary" />
                 </div>
             </div>

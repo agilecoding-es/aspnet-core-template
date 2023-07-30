@@ -67,7 +67,7 @@ namespace Template.MvcWebApp.Localization
             expires = expires ?? DateTimeOffset.UtcNow.AddDays(_settings.SupportedCultures.CookieLifeTimeDays);
 
             response.Cookies.Append(
-                Constants.Configuration.Cookies.CultureCookieName.Value,
+                Constants.Configuration.Cookies.CultureCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture, uiCulture)),
                     new CookieOptions
                     {

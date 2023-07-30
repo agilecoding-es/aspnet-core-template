@@ -27,7 +27,7 @@ namespace Template.MvcWebApp.Setup
                             .AddDataAnnotationsLocalization(options =>
                             {
                                 options.DataAnnotationLocalizerProvider = (type, factory) =>
-                                    factory.Create(Constants.Configuration.Resources.DataAnnotation.Value, PresentationAssembly.AssemblyName);
+                                    factory.Create(Constants.Configuration.Resources.DataAnnotation, PresentationAssembly.AssemblyName);
                             });
 
             // NLog: Setup NLog for Dependency injection

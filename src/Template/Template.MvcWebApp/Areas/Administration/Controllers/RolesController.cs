@@ -66,7 +66,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                 foreach (var error in result.Errors)
                 {
                     //TODO: Crear constante y revisar modelo de manejo de errores
-                    ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, error.Description);
+                    ModelState.AddModelError(Constants.KeyErrors.ValidationError, error.Description);
                 }
             }
 
@@ -81,7 +81,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (role == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Role not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Role not found");
             }
 
             var model = new EditRoleViewModel
@@ -104,7 +104,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                 if (role == null)
                 {
                     //TODO: Crear constante y revisar modelo de manejo de errores
-                    ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Role not found");
+                    ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Role not found");
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                     foreach (var error in result.Errors)
                     {
                         //TODO: Crear constante y revisar modelo de manejo de errores
-                        ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, error.Description);
+                        ModelState.AddModelError(Constants.KeyErrors.ValidationError, error.Description);
                     }
                 }
             }
@@ -141,7 +141,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (role == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Role not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Role not found");
             }
             else
             {
@@ -155,7 +155,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                 foreach (var error in result.Errors)
                 {
                     //TODO: Revisar modelo de manejo de errores
-                    ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, error.Description);
+                    ModelState.AddModelError(Constants.KeyErrors.ValidationError, error.Description);
                 }
             }
 
@@ -172,7 +172,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             if (role == null)
             {
                 //TODO: Crear constante y revisar modelo de manejo de errores
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Role not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Role not found");
             }
 
             var model = new List<UserRoleViewModel>();
@@ -205,7 +205,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
 
             if (role == null)
             {
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError.Value, "Role not found");
+                ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Role not found");
             }
 
             for (int i = 0; i < model.Count; i++)

@@ -31,27 +31,27 @@
 <form method="post">
     <div class="row">
         <div class="col-12">
-            <partial name="_ResponseMessage" model="ViewData.ModelState" />
+            @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
         </div>
 
         <div class="col-4">
 
-            @*<div asp-validation-summary="ModelOnly" class="text-red-intense"></div>*@
+            @*<div asp-validation-messages="All" class="text-dark-red"></div>*@
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
                 <div class="form-group w-100">
                     <label asp-for="UserName" class="control-label"></label>
                     <input asp-for="UserName" value="@Model.UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-red-intense"></span>
+                    <span asp-validation-for="UserName" class="text-dark-red"></span>
                 </div>
                 <div class="form-group w-100">
                     <label asp-for="Email" class="control-label"></label>
                     <input asp-for="Email" value="@Model.Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-red-intense"></span>
+                    <span asp-validation-for="Email" class="text-dark-red"></span>
                 </div>
                 <div class="w-100">
                     <hr class="silver" />
-                    <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"]</a>
+                    <a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"]</a>
 
                     <input type="submit" value="@Localizer["Shared_Buttons_Update"]" class="btn btn-primary" />
                 </div>

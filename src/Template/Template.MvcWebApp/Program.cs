@@ -6,6 +6,7 @@ using NLog;
 using NLog.Web;
 using Template.Common;
 using Template.Configuration;
+using Template.MvcWebApp.Middlewares;
 using Template.MvcWebApp.Setup;
 
 // Early init of NLog to allow startup and exception logging, before host is built
@@ -20,11 +21,12 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     var config = builder.Configuration;
-    var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection.Value}' not found.");
+    var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
 
     var app = builder.DefaultServicesConfiguration().Build();
-
     await app.InitializeAsync(config);
+
+    var settings = app.Configuration.Get<AppSettings>();
 
     //----------------------------------------------
     //Configure the HTTP request pipeline.
@@ -33,20 +35,22 @@ try
 
     _ = locOptions ?? throw new ArgumentException(nameof(RequestLocalizationOptions));
 
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseMigrationsEndPoint();
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-        app.UseExceptionHandler("/Home/Error")
-                       .UseWhen(context => !context.Request.Path.StartsWithSegments("/api"),
-                       appBuilder => appBuilder.UseStatusCodePagesWithReExecute("/Home/error/{0}"));
 
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-    }
+    //if (app.Environment.IsDevelopment())
+    //{
+    //    app.UseMigrationsEndPoint();
+    //    app.UseDeveloperExceptionPage();
+    //}
+    //else
+    //{
+        app.UseLogExceptions()
+           .UseExceptionHandler("/Error/500")
+                       .UseWhen(context => !context.Request.Path.StartsWithSegments("/api"),
+                       appBuilder => appBuilder.UseStatusCodePagesWithReExecute("/Error/{0}"));
+
+    //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    //    app.UseHsts();
+    //}
 
     app.UseHttpsRedirection();
     app.UseResponseCaching();
@@ -70,20 +74,22 @@ try
     app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
     app.MapHealthChecksUI();
-    app.MapHealthChecks("/health", new HealthCheckOptions()
+    if (settings.HealthChecksEnabled)
     {
-        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    });
-    app.MapHealthChecks("/health/databases", new HealthCheckOptions()
-    {
-        Predicate = registration => registration.Tags.Contains("database"),
-        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    });
-    app.MapHealthChecks("/healthoverview", new HealthCheckOptions()
-    {
-        Predicate = _ => false
-    });
-
+        app.MapHealthChecks("/health", new HealthCheckOptions()
+        {
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+        app.MapHealthChecks("/health/databases", new HealthCheckOptions()
+        {
+            Predicate = registration => registration.Tags.Contains("database"),
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+        app.MapHealthChecks("/healthoverview", new HealthCheckOptions()
+        {
+            Predicate = _ => false
+        });
+    }
     app.MapRazorPages();
 
     app.Run();

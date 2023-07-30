@@ -23,7 +23,7 @@
 </p>
 <hr />
 <div>
-    <partial name="_ResponseMessage" model="ViewData.ModelState" />
+    @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
 
     <div class="grid">
         @foreach (var user in Model)
@@ -47,7 +47,7 @@
                                 @if (canDeleteUser)
                                 {
                                     <form asp-action="Delete" asp-route-id="@user.Id" method="post" style="display: inline;">
-                                        <button type="submit" class="btn btn-outline-red-intense" onclick="return confirm('Are you sure you wanto to delete this user [@user.UserName]?)">@Localizer["Shared_Buttons_Delete"]</button>
+                                        <button type="submit" class="btn btn-outline-dark-red" onclick="return confirm('Are you sure you wanto to delete this user [@user.UserName]?)">@Localizer["Shared_Buttons_Delete"]</button>
                                     </form>
                                 }
                             </div>

@@ -41,7 +41,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue-1 border-bottom box-shadow">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Template</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -109,9 +109,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer bg-blue-3 border-top text-white text-center">
         <div class="container">
-            &copy; 2023 - Template.MvcWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Layout_Footer_Privacy"]</a>
+            &copy; 2023 - Template.MvcWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white">@Localizer["Layout_Footer_Privacy"]</a>
         </div>
     </footer>
 

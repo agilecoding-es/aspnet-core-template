@@ -48,7 +48,8 @@ namespace Template.Domain.Entities.Shared
         public static implicit operator Result<TValue>(TValue? value) => new Result<TValue>(value, true, null);
 
         public static Result<TValue> Success(TValue value) => new(value, true, null);
-        public static new Result<TValue> Success() => new(default,true, null);
-        public static new Result<TValue> Failure(Exception exception) => new(default, false, exception);
+        public static new Result<TValue> Success() => new(default, true, null);
+        public static Result<TValue> Failure<TException>(TException exception) where TException : Exception
+            => new(default, false, exception);
     }
 }

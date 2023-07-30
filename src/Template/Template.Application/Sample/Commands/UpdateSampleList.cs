@@ -39,7 +39,7 @@ namespace Template.Application.Sample.Commands
                         return Result.Failure(new ValidationException(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists));
                     }
 
-                    var sampleList = await sampleListRepository.GetByIdAsync(request.SampleListId, cancellationToken);
+                    var sampleList = await sampleListRepository.GetWithItemsAndUserAsync(request.SampleListId, cancellationToken);
 
                     sampleList.UpdateName(request.Name);
 

@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.AspNetCore.Identity;
+using Template.Common;
+using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {
@@ -19,11 +22,13 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager _userManager;
+        private readonly RoleManager _roleManager;
         private readonly IEmailSender _sender;
 
-        public RegisterConfirmationModel(UserManager userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager userManager, RoleManager roleManager, IEmailSender sender)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _sender = sender;
         }
 

@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using Template.Application.Identity;
+using Template.Common;
 using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;
 
@@ -113,6 +114,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            var isRegisteredByAdmin = _signInManager.IsSignedIn(User) && (User.IsInRole(Roles.Superadmin) || User.IsInRole(Roles.Admin));
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -125,6 +127,33 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+
+                    var roles = await _userManager.GetRolesAsync(user);
+                    var resultRemoveRoles = await _userManager.RemoveFromRolesAsync(user, roles);
+
+                    if (!resultRemoveRoles.Succeeded)
+                    {
+                        //TODO: Localize
+                        _logger.LogError($"Can't remove roles from user: {user.Id}");
+
+                        //TODO: Localize
+                        //TODO: Crear constante y revisar modelo de manejo de errores
+                        ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Theres is a problem with your account registration");
+                        return Page();
+                    }
+
+                    var resultAddRole = await _userManager.AddToRoleAsync(user, Roles.User);
+
+                    if (!resultRemoveRoles.Succeeded)
+                    {
+                        _logger.LogError($"Can't add User role to user: {user.Id}");
+
+                        //TODO: Localize
+                        //TODO: Crear constante y revisar modelo de manejo de errores
+                        ModelState.AddModelError(Constants.KeyErrors.ValidationError, "Theres is a problem with your account registration");
+                    }
+
+
                     _logger.LogInformation("New user registered.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
@@ -143,18 +172,22 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
                         await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                             $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
+                        if (!isRegisteredByAdmin)
+                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
                     }
-                    else
-                    {
-                        if(_signInManager.IsSignedIn(User) && (User.IsInRole(Roles.Superadmin) || User.IsInRole(Roles.Admin)))
-                        {
-                            return RedirectToAction("Index", "Users");
-                        }
 
+
+                    if (!isRegisteredByAdmin)
+                    {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
+                    else
+                    {
+                        return RedirectToAction("Index", "Users");
+                    }
+
+
                 }
                 foreach (var error in result.Errors)
                 {

@@ -17,7 +17,7 @@ namespace Template.Persistence.Respositories
 
         public QueryRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value) ?? throw new ArgumentNullException(nameof(configuration));
+            _connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new ArgumentNullException(nameof(configuration));
         }
     }
 }

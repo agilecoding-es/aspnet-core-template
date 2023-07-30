@@ -26,12 +26,12 @@
         </div>
     </div>
     <br />
-    <partial name="_ResponseMessage" />
+    @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
     <hr class="silver"/>
     <form asp-action="Delete">
         <input type="hidden" asp-for="SampleList.Id" />
         <input type="hidden" asp-for="SampleList.Name" />
-        <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+        <a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
         @if (!@Model.NeedsConfirmation)
         {
             <input type="submit" value="@Localizer["Shared_Buttons_Delete"].Value" class="btn btn-danger" />

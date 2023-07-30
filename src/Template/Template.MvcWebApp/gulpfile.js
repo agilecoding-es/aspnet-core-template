@@ -259,8 +259,8 @@ function areas_ts(done) {
 }
 
 function settings() {
-    return src(`deployment/${mode.development() ? 'development' : 'production'}/*.*`)
-        .pipe(dest("."));
+        return src(`../Template.MvcWebApp.Deployment/${mode.development() ? 'development' : 'production'}/*.*`)
+            .pipe(dest("."));
 }
 
 const keep_watching = series(function (done) {

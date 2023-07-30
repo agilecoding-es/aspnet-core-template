@@ -13,11 +13,11 @@
 
             };
 
-    ResponseMessageViewModel responseMessage = null;
-    if (ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
-    {
-        responseMessage = ViewBag.ResponseMessage;
-    }
+    //ResponseMessageViewModel responseMessage = null;
+    //if (ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
+    //{
+    //    responseMessage = ViewBag.ResponseMessage;
+    //}
 }
 
 @section SectionBar{
@@ -25,25 +25,25 @@
 }
 <div class="row">
     <div class="col-12">
-        @if (responseMessage != null && responseMessage.Id == "Edit")
+        @*@if (responseMessage != null && responseMessage.Id == "Edit")
         {
-            <partial name="_ResponseMessage" />
-        }
+            <partial name="_ResponseMessage" model="ViewData.ModelState" />
+        }*@
     </div>
     <div class="col-4">
         <form name="EditForm">
-            <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
+            <div asp-validation-messages="All" class="text-dark-red"></div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <input type="hidden" asp-for="UserId" value="@Model.UserId" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
                 <div class="form-group w-100">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" value="@Model.Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-red-intense"></span>
+                    <span asp-validation-for="Name" class="text-dark-red"></span>
                 </div>
                 <div class="w-100">
                     <hr class="silver" />
-                    <a class="btn btn-outline-silver me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+                    <a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
                     <button type="submit" class="btn btn-primary">@Localizer["Shared_Buttons_Update"].Value</button>
                 </div>
             </div>

@@ -24,7 +24,7 @@
         </div>
     </div>
     <br />
-    <partial name="_ResponseMessage" />
+    @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
     <hr class="silver"/>
     <form asp-action="Delete">
         <input type="hidden" asp-for="SampleList.Id" />

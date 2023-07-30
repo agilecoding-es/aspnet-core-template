@@ -20,7 +20,7 @@ namespace Template.Persistence.Database
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection.Value);
+            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection);
 
             var optionsBuilder = new DbContextOptionsBuilder<Context>();
             optionsBuilder.UseSqlServer(connectionString);

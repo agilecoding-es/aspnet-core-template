@@ -12,7 +12,7 @@ using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.IntegrationTests.Fixtures
 {
-    public class UserFixture //: IUserFixture
+    public class UserFixture
     {
         private readonly WebAppFactory factory;
 
@@ -26,7 +26,7 @@ namespace Template.MvcWebApp.IntegrationTests.Fixtures
         /// </summary>
         /// <param name="countOfUsers">Count of normal users</param>
         /// <returns></returns>
-        public async Task SerFixtureAsync(int countOfUsers = 5)
+        public async Task SetFixtureAsync(int countOfUsers = 5)
         {
             await ConfigureRolesAsync();
             await ConfigureSuperadminAsync();

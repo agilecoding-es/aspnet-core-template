@@ -19,13 +19,13 @@
 
 <div>
     <form id="delete-user" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
+        <div asp-validation-messages="All" class="text-dark-red"></div>
         @if (Model.RequirePassword)
         {
-            <div class="form-floating">
-                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+            <div class="form-floating mb-2">
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="@Html.DisplayTextFor(m => m.Input.Password)" />
                 <label asp-for="Input.Password" class="form-label"></label>
-                <span asp-validation-for="Input.Password" class="text-red-intense"></span>
+                <span asp-validation-for="Input.Password" class="invalid-feedback text-dark-red"></span>
             </div>
         }
         <button class="w-100 btn btn-lg btn-danger" type="submit">@Localizer["Identity_Account_Manage_DeletePersonalData_Submit"]</button>

@@ -1,10 +1,26 @@
 ﻿
-$timberwolk: #D6D3CC;
-$silver: #BCBFC1;
-$ecru: #D8B373;
-$isabelline: #F6F4EF;
-$red-intense: #bd3925;
+$blue-1: #27374D;
+$blue-2: #4682A9;
+$blue-3: #66A2C2;
+$light-blue-1: #91C8E4;
+$light-blue-2: #C6DFE2;
+$chalk-white: #F6F4EB;
+$cadet-gray: #8BAAAD;
+$cadet-gray-shadow: #678c8f;
+$dark-yellow: #E2C959;
+$dark-red: #BD3925;
 
-$custom-colors: ( "timberwolk":$timberwolk, "silver": $silver, "ecru": $ecru, "isabelline": $isabelline, "red-intense": $red-intense );
+$custom-colors: ( 
+    "blue-1": $blue-1, 
+    "blue-2": $blue-2, 
+    "blue-3": $blue-3, 
+    "light-blue-1": $light-blue-1, 
+    "light-blue-2": $light-blue-2, 
+    "chalk-white": $chalk-white, 
+    "cadet-gray": $cadet-gray, 
+    "cadet-gray-shadow": $cadet-gray-shadow, 
+    "dark-yellow": $dark-yellow, 
+    "dark-red": $dark-red 
+);
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
