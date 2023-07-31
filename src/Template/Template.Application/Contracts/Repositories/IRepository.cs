@@ -12,7 +12,7 @@ namespace Template.Application.Contracts.Repositories
 
     public interface IRepository<TEntity, TKey> : IRepository
         where TEntity : Entity<TKey>
-        where TKey : Key
+        where TKey : IEquatable<TKey>
     {
         void Add(TEntity entity);
         Task AddAsync(TEntity entity, CancellationToken cancellationToken);

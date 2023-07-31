@@ -1,14 +1,31 @@
-﻿@using Template.Common.Extensions;
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding;
+@using Template.Common;
+@using Template.Configuration;
+@model (ModelStateDictionary ModelState, ErrorType ErrorType);
 
-@if (ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
+@if (Model.ModelState != null && !Model.ModelState.IsValid)
 {
-    ResponseMessageViewModel responseMessage = ViewBag.ResponseMessage;
-    <div class="alert alert-@responseMessage.MessageType.GetDescription() alert-dismissible" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        @if (!responseMessage.Title.IsNullOrWhiteSpace())
+    <div class="validation-summary-errors">
+        @if (Model.ErrorType == ErrorType.All | Model.ErrorType == ErrorType.Generics)
         {
-            <h4 class="alert-heading">@responseMessage.Title</h4>
+            @foreach (var modelError in Model.ModelState.Where(kv => kv.Key == Constants.KeyErrors.GenericError.Value).SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    @*<h4 class="alert-heading">ERROR</h4>*@
+                    <span>@modelError.ErrorMessage</span>
+                </div>
+            }
         }
-        @ViewBag.ResponseMessage.Content
+        @if ((Model.ErrorType == ErrorType.All | Model.ErrorType == ErrorType.Validations) && Model.ModelState.Any(kv => kv.Key == Constants.KeyErrors.ValidationError.Value))
+        {
+            <ul>
+                @foreach (var modelError in Model.ModelState.Where(kv => kv.Key == Constants.KeyErrors.ValidationError.Value).SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                {
+                    <li>@modelError.ErrorMessage</li>
+                }
+            </ul>
+        }
     </div>
+
 }

@@ -32,13 +32,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <form id="send-code" method="post">
-                        <div class="form-floating">
-                            <input asp-for="Input.Code" class="form-control" autocomplete="off" />
+                        <div class="form-floating mb-2">
+                            <input asp-for="Input.Code" class="form-control" autocomplete="off" placeholder="@Html.DisplayTextFor(m => m.Input.Code)" />
                             <label asp-for="Input.Code" class="control-label form-label"></label>
-                            <span asp-validation-for="Input.Code" class="text-red-intense"></span>
+                            <span asp-validation-for="Input.Code" class="invalid-feedback text-dark-red"></span>
                         </div>
                         <button type="submit" class="w-100 btn btn-lg btn-primary">@Localizer["Identity_Account_Manage_EnableAuthenticator_Submit"]</button>
-                        <div asp-validation-summary="ModelOnly" class="text-red-intense"></div>
+                        <div asp-validation-messages="All" class="text-dark-red"></div>
                     </form>
                 </div>
             </div>

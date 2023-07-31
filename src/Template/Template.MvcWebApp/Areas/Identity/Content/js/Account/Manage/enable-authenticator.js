@@ -1,1 +1,1 @@
-﻿import  '../../../../../../Content/js/shared/qr-code-generator.js'
+﻿import  '../../../../../../Content/js/qr-code-generator.js'

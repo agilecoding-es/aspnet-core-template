@@ -13,11 +13,6 @@ namespace Template.Persistence.Database.EntityConfiguration.Sample
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(p => p.Id).HasConversion(
-                key => key.Value,
-                value => new SampleItemKey(value)
-            );
-
             builder.Property(p => p.Description)
                    .HasMaxLength(500)
                    .IsRequired();

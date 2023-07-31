@@ -1,4 +1,5 @@
-﻿const { series, parallel, src, dest, watch } = require("gulp");
+/// <binding />
+const { series, parallel, src, dest, watch } = require("gulp");
 
 const
     //GULP DEPENDENCIES
@@ -91,6 +92,7 @@ function vendors_modules_js(done) {
         let filename = vendor.prod;
         if (mode.development()) {
             filename = vendor.dev;
+            console.log(filename);
         }
         return src(filename)
             .pipe(dest('./wwwroot/content/vendors/'));
@@ -257,8 +259,8 @@ function areas_ts(done) {
 }
 
 function settings() {
-    return src(`deployment/${mode.development() ? 'development' : 'production'}/*.*`)
-        .pipe(dest("."));
+        return src(`../Template.MvcWebApp.Deployment/${mode.development() ? 'development' : 'production'}/*.*`)
+            .pipe(dest("."));
 }
 
 const keep_watching = series(function (done) {

@@ -8,7 +8,7 @@ namespace Template.Application.Contracts.DTOs.Sample
 {
     public  class SampleListWithItemsDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string UserId { get; set; }
 

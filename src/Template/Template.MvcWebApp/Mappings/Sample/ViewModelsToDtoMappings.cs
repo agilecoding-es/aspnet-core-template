@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using Template.Application.Contracts.DTOs.Sample;
 using Template.Application.Sample.Queries;
-using Template.MvcWebApp.Areas.Sample.Models.SampleList;
+using Template.MvcWebApp.Areas.SampleMvc.Models.SampleList;
 
 namespace Template.MvcWebApp.Mappings.Sample
 {
@@ -14,6 +14,7 @@ namespace Template.MvcWebApp.Mappings.Sample
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.ListId, src => src.ListId)
                 .Map(dest => dest.Description, src => src.Description);
+
         }
     }
 }

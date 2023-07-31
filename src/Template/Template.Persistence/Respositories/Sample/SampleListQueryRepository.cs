@@ -1,12 +1,9 @@
-﻿using System.Linq.Expressions;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Template.Application.Contracts.DTOs.Sample;
 using Template.Application.Contracts.Repositories.Sample;
 using Template.Domain.Entities.Sample;
-using Template.Persistence.Database;
 
 namespace Template.Persistence.Respositories.Sample
 {
@@ -37,10 +34,10 @@ namespace Template.Persistence.Respositories.Sample
         {
         }
 
-        public async Task<SampleListWithItemsDto> GetByIdWithItemsAsync(SampleListKey id, CancellationToken cancellationToken)
+        public async Task<SampleListWithItemsDto> GetByIdWithItemsAsync(int sampleListId, CancellationToken cancellationToken)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@SampleListId", id.Value);
+            parameters.Add("@SampleListId", sampleListId);
 
             SampleListWithItemsDto result = null;
 

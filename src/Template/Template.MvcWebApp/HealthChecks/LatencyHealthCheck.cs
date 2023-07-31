@@ -8,9 +8,10 @@ namespace Template.MvcWebApp.HealthChecks
         {
             int latency = 0;
 
+            //TODO: Make real check
             var rnd = new Random();
 
-            latency = rnd.Next(1, 15);
+            latency = rnd.Next(1, 10);
 
             if (latency < 5)
             {

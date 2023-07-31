@@ -9,16 +9,13 @@ using Template.Domain.Exceptions;
 
 namespace Template.Domain.Entities.Sample
 {
-    public record SampleListKey(Guid Value) : Key(Value);
-
     [DisplayName("Sample list")]
-    public class SampleList : Entity<SampleListKey>
+    public class SampleList : Entity<int>
     {
         public SampleList() : base() {
-            Id = new SampleListKey(Guid.NewGuid());
         }
 
-        public SampleList(SampleListKey id) : base(id) { }
+        public SampleList(int id) : base(id) { }
 
         public string Name { get; private set; }
         public List<SampleItem> Items { get; private set; } = new List<SampleItem>();
@@ -29,7 +26,7 @@ namespace Template.Domain.Entities.Sample
 
         public static SampleList Create(User user, string name)
         {
-            var sampleList = new SampleList(new SampleListKey(Guid.NewGuid()))
+            var sampleList = new SampleList()
             {
                 UserId = user.Id,
                 Name = name
@@ -70,9 +67,9 @@ namespace Template.Domain.Entities.Sample
                 throw new DomainException("Cannot update Items with a null List of Items");
 
             Items = Items ?? new List<SampleItem>();
-            Items.RecreateList<SampleItemKey, SampleItem>(items);
+            Items.RecreateList<int, SampleItem>(items);
 
-            Items.UpdateList<SampleItemKey, SampleItem>(items);
+            Items.UpdateList<int, SampleItem>(items);
 
         }
 

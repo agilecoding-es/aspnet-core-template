@@ -32,9 +32,10 @@ namespace Template.Application.Sample.Queries
             {
                 var result = await sampleListRepository.ListWithItemsCountByUserAsync(request.User.Id, cancellationToken);
 
-                return result.IsNullOrEmpty() ?
-                    Result<List<SampleListWithItemsCountDto>>.Failure(new ValidationException(ValidationErrors.Shared.EmptyList(typeof(SampleList).GetDisplayNameOrTypeName()))) :
-                    Result<List<SampleListWithItemsCountDto>>.Success(result);
+                if (result.IsNullOrEmpty())
+                    result = new List<SampleListWithItemsCountDto>();
+
+                return Result<List<SampleListWithItemsCountDto>>.Success(result);
             }
 
         }

@@ -13,7 +13,7 @@ namespace Template.Application.Sample.Commands
 {
     public static class UpdateSampleList
     {
-        public sealed record Command(SampleListKey SampleListKey, string Name, string UserId) : IRequest<Result>;
+        public sealed record Command(int SampleListId, string Name, string UserId) : IRequest<Result>;
 
         public class Handler : IRequestHandler<Command, Result>
         {
@@ -31,7 +31,7 @@ namespace Template.Application.Sample.Commands
                 try
                 {
                     var alreadyExists = await sampleListRepository.AnyAsync(l => l.Name == request.Name
-                                                                                      && l.Id != request.SampleListKey
+                                                                                      && l.Id != request.SampleListId
                                                                                       && l.UserId == request.UserId,
                                                                                       cancellationToken);
                     if (alreadyExists)
@@ -39,7 +39,7 @@ namespace Template.Application.Sample.Commands
                         return Result.Failure(new ValidationException(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists));
                     }
 
-                    var sampleList = await sampleListRepository.GetByIdAsync(request.SampleListKey, cancellationToken);
+                    var sampleList = await sampleListRepository.GetWithItemsAndUserAsync(request.SampleListId, cancellationToken);
 
                     sampleList.UpdateName(request.Name);
 
@@ -49,7 +49,7 @@ namespace Template.Application.Sample.Commands
                 }
                 catch (Exception ex)
                 {
-                    return Result<SampleListKey>.Failure(ex);
+                    return Result<int>.Failure(ex);
                 }
             }
         }

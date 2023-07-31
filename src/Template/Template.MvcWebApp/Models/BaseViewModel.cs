@@ -2,6 +2,7 @@
 {
     public class BaseViewModel
     {
-        public ResponseMessageViewModel ResponseMessage { get; set; }
+        //TODO: CORREGIR
+        //public ResponseMessageViewModel ResponseMessage { get; set; }
     }
 }

@@ -13,13 +13,13 @@ namespace Template.Domain.Entities.Extensions
     {
         public static void RecreateList<K, T>(this List<T> existingList, List<T> updatedList)
             where T : Entity<K>
-            where K : Key
+            where K : IEquatable<K>
         {
             if (existingList == null)
                 throw new InvalidOperationException("List<T> property is null or not of type IList.");
 
             // Eliminar los T que ya no existen
-            var itemsToRemove = existingList.Where(e => !updatedList.Any(e2 => e2.Id == e.Id)).ToList();
+            var itemsToRemove = existingList.Where(e => !updatedList.Any(e2 => e2.Id.Equals(e.Id))).ToList();
             foreach (var itemToRemove in itemsToRemove)
             {
                 if (typeof(T).IsAssignableFrom(typeof(ISoftDelete)))
@@ -31,12 +31,12 @@ namespace Template.Domain.Entities.Extensions
                     existingList.Remove(itemToRemove);
                 }
             }
-            existingList.AddRange(updatedList.Where(e => !existingList.Any(e2 => e2.Id == e.Id)).ToList());
+            existingList.AddRange(updatedList.Where(e => !existingList.Any(e2 => e2.Id.Equals(e.Id))).ToList());
         }
 
         public static void UpdateList<K, T>(this List<T> existingList, List<T> updatedList)
             where T : Entity<K>
-            where K : Key
+            where K : IEquatable<K>
         {
             if (existingList == null)
                 throw new InvalidOperationException("List<T> property is null or not of type IList.");
@@ -48,7 +48,7 @@ namespace Template.Domain.Entities.Extensions
                 if (existingItemIds.Contains(updatedItem.Id))
                 {
                     // Actualizar propiedades de T 
-                    var existingItem = existingList.First(i => i.Id == updatedItem.Id);
+                    var existingItem = existingList.First(i => i.Id.Equals(updatedItem.Id));
                     existingItem.Update(updatedItem);
                 }
                 else
@@ -58,7 +58,7 @@ namespace Template.Domain.Entities.Extensions
             }
 
             // Eliminar los T que ya no existen
-            var itemsToRemove = existingList.Where(e => !updatedList.Any(e2 => e2.Id == e.Id)).ToList();
+            var itemsToRemove = existingList.Where(e => !updatedList.Any(e2 => e2.Id.Equals(e.Id))).ToList();
             foreach (var itemToRemove in itemsToRemove)
             {
                 if (typeof(T).IsAssignableFrom(typeof(ISoftDelete)))
@@ -70,7 +70,7 @@ namespace Template.Domain.Entities.Extensions
                     existingList.Remove(itemToRemove);
                 }
             }
-            existingList.AddRange(updatedList.Where(e => !existingList.Any(e2 => e2.Id == e.Id)).ToList());
+            existingList.AddRange(updatedList.Where(e => !existingList.Any(e2 => e2.Id.Equals(e.Id))).ToList());
 
         }
     }

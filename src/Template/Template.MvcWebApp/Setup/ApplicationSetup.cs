@@ -1,17 +1,55 @@
-﻿using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
-using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Razor;
+using NLog.Web;
 using Template.Configuration;
+using Template.Common;
 
 namespace Template.MvcWebApp.Setup
 {
     public static class ApplicationSetup
     {
-        public static ApplicationLayerBuilder AddApplication(this IServiceCollection services, ConfigurationManager configuration,Action<IServiceCollection, ConfigurationManager> builder)
-        {
-            builder.Invoke(services, configuration);
+        public static AppBuilder CreateAppBuilder(this WebApplicationBuilder builder) => new AppBuilder(builder);
 
-            return new ApplicationLayerBuilder(services, configuration);
+        public static AppBuilder DefaultServicesConfiguration(this WebApplicationBuilder builder)
+        {
+            // NLog: Setup NLog for Dependency injection
+            builder.Logging.ClearProviders();
+            builder.Host.UseNLog();
+
+            var appBuilder =
+                CreateAppBuilder(builder)
+                .ConfigureSettings()
+                .ConfigureDB()
+                .ConfigureIdentity();
+
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddControllersWithViews()
+                            .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                            .AddDataAnnotationsLocalization(options =>
+                            {
+                                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                                    factory.Create(Constants.Configuration.Resources.DataAnnotation, PresentationAssembly.AssemblyName);
+                            });
+
+            builder.Services.AddSession();
+
+            appBuilder
+                .ConfigureDependencies()
+                .ConfigureAuthentication()
+                .ConfigureAuthorization()
+                .ConfigureResources()
+                .ConfigureCache()
+                .ConfigureMediatr()
+                .ConfigureMapster()
+                .ConfigureHelthChecks();
+
+
+            return appBuilder;
         }
 
     }

@@ -13,14 +13,21 @@ namespace Template.Configuration
     public class AppSettings
     {
         public string ApplicationName { get; set; }
+
+        public string SuperadminPass { get; set; }
+
+        public bool HealthChecksEnabled { get; set; }
+
+
         public SupportedCultures SupportedCultures { get; set; }
 
         public Mailsettings Mailsettings { get; set; }
-        
+
         public AuthenticationProviders AuthenticationProviders { get; set; }
 
-
+        public Errors Errors { get; set; }
     }
+    
     public class AuthenticationProviders
     {
         public GoogleOptions GoogleOptions { get; set; }
@@ -134,6 +141,17 @@ namespace Template.Configuration
 
             return $"(?<language>{Language})(?:-(?<country>{countriesExpression.ToString()}))?|(?<language>{Language})(?:-\\w+)?";
         }
+    }
+
+    public class LogMiddleware
+    {
+        public bool Enabled { get; set; }
+        public bool Rethrow { get; set; }
+    }
+
+    public class Errors
+    {
+        public bool ShowRequestId { get; set; }
     }
 
 }

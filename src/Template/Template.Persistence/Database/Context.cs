@@ -7,10 +7,11 @@ namespace Template.Persistence.Database
 {
     public class Context : IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
-        internal enum DbSchema
+        public enum DbSchema
         {
             identity,
-            sample
+            sample,
+            log
         }
 
         public DbSet<SampleList> SampleLists { get; set; }

@@ -16,7 +16,7 @@ namespace Template.Application.Sample.Commands
 {
     public static class AddSampleItemsToList
     {
-        public sealed record Command(SampleListKey SampleListKey, List<SampleItemDto> Items) : IRequest<Result>;
+        public sealed record Command(int SampleListId, List<SampleItemDto> Items) : IRequest<Result>;
 
         public class Handler : IRequestHandler<Command, Result>
         {
@@ -33,7 +33,7 @@ namespace Template.Application.Sample.Commands
             {
                 try
                 {
-                    var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListKey, cancellationToken);
+                    var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListId, cancellationToken);
 
 
                     var newItems = new List<SampleItem>();

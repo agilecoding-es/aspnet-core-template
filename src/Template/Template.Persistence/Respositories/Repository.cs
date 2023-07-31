@@ -8,7 +8,7 @@ namespace Template.Persistence.Respositories
 {
     public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
         where TEntity : Entity<TKey>
-        where TKey : Key
+        where TKey : IEquatable<TKey>
     {
 
         protected readonly Context context;
@@ -61,13 +61,13 @@ namespace Template.Persistence.Respositories
             context.Set<TEntity>().Find(id);
 
         public virtual TEntity GetByIdNoTraking(TKey id) =>
-            context.Set<TEntity>().AsNoTracking().FirstOrDefault(e => e.Id == id);
+            context.Set<TEntity>().AsNoTracking().FirstOrDefault(e => e.Id.Equals(id));
 
         public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken) =>
-            await context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
+            await context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
 
         public virtual async Task<TEntity> GetByIdNoTrackingAsync(TKey id, CancellationToken cancellationToken) =>
-            await context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
+            await context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
 
         public virtual List<TEntity> List() =>
             context.Set<TEntity>().ToList();

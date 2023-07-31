@@ -4,9 +4,9 @@ using Template.Domain.Entities.Sample;
 
 namespace Template.Application.Contracts.Repositories.Sample
 {
-    public interface ISampleListRepository : IRepository<SampleList, SampleListKey>
+    public interface ISampleListRepository : IRepository<SampleList, int>
     {
-        Task<SampleList> GetWithItemsAsync(SampleListKey id, CancellationToken cancellationToken);
-        Task<SampleList> GetWithItemsAndUserAsync(SampleListKey id, CancellationToken cancellationToken);
+        Task<SampleList> GetWithItemsAsync(int sampleListId, CancellationToken cancellationToken);
+        Task<SampleList> GetWithItemsAndUserAsync(int sampleListId, CancellationToken cancellationToken);
     }
 }

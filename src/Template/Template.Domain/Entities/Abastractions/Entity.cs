@@ -7,10 +7,8 @@ using Template.Domain.Entities.Sample;
 
 namespace Template.Domain.Entities.Abastractions
 {
-    public record Key(Guid Value);
-
     public abstract class Entity<T> : IEquatable<Entity<T>>
-        where T : Key
+        where T : IEquatable<T>
     {
         public Entity()
         {
@@ -41,7 +39,7 @@ namespace Template.Domain.Entities.Abastractions
 
             if (obj is not Entity<T> entity) return false;
 
-            return entity.Id == Id;
+            return entity.Id.Equals(Id);
         }
 
         public bool Equals(Entity<T>? other)
@@ -50,7 +48,7 @@ namespace Template.Domain.Entities.Abastractions
 
             if (other.GetType() != GetType()) return false;
 
-            return other.Id == Id;
+            return other.Id.Equals(Id);
         }
 
         public override int GetHashCode()
