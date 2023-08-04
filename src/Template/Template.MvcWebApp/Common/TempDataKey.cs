@@ -2,6 +2,6 @@
 {
     public static class TempDataKey
     {
-        public const string ERROR_ID = nameof(ERROR_ID);
+        public const string MESSAGE_RESPONSE = nameof(MESSAGE_RESPONSE);
     }
 }

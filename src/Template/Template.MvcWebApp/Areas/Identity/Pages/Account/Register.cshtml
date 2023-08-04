@@ -15,7 +15,7 @@
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>@Localizer["Identity_Account_Register_Subtitle"]</h2>
             <hr />
-            <div asp-validation-messages="All" class="text-dark-red"></div>
+            <div asp-messages="All"></div>
             <div class="form-floating mb-2">
                 <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="@Html.DisplayTextFor(m => m.Input.UserName)" />
                 <label asp-for="Input.UserName"></label>

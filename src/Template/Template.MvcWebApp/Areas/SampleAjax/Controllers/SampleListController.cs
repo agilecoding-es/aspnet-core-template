@@ -66,7 +66,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
                 if (createListResult.IsFailure)
                 {
-                    HandleErrorResult(createListResult);
+                    HandleFailureResult(createListResult);
                     return View(sampleListViewModel);
                 }
 
@@ -76,7 +76,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
                     if (addItemsResult.IsFailure)
                     {
-                        HandleErrorResult(createListResult);
+                        HandleFailureResult(createListResult);
                         return View(sampleListViewModel);
                     }
 
@@ -127,7 +127,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
                 var model = getResult.Value.Adapt<EditSampleListViewModel>();
                 if (result.IsFailure)
                 {
-                    HandleErrorResult(result);
+                    HandleFailureResult(result);
                 }
                 else
                 {
@@ -273,7 +273,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
             if (result.IsFailure)
             {
-                HandleErrorResult(result);
+                HandleFailureResult(result);
             }
 
             return result;
@@ -285,7 +285,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
             if (result.IsFailure)
             {
-                HandleErrorResult(result);
+                HandleFailureResult(result);
             }
 
             return result;

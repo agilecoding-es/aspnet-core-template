@@ -19,7 +19,7 @@
 
 <div>
     <form id="delete-user" method="post">
-        <div asp-validation-messages="All" class="text-dark-red"></div>
+        <div asp-messages="All"></div>
         @if (Model.RequirePassword)
         {
             <div class="form-floating mb-2">

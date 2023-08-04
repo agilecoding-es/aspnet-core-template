@@ -154,4 +154,8 @@ namespace Template.Configuration
         public bool ShowRequestId { get; set; }
     }
 
+    public class Messages
+    {
+        public bool TreatValidationsAsWarnings { get; set; }
+    }
 }

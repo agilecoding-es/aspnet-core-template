@@ -32,7 +32,7 @@
     </div>
     <div class="col-4">
         <form name="EditForm">
-            <div asp-validation-messages="All" class="text-dark-red"></div>
+            <div asp-messages="All"></div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <input type="hidden" asp-for="UserId" value="@Model.UserId" />
             <div class="d-flex align-items-start flex-column flex-grow-1">

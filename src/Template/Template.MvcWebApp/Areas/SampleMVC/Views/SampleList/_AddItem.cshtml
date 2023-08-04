@@ -11,7 +11,7 @@
     //}
 }
 <form asp-action="AddItem">
-    <div id="AddItemValidations" asp-validation-messages="All" class="text-dark-red"></div>
+    <div id="AddItemValidations" asp-messages="All"></div>
     <input type="hidden" asp-for="Id" value="@Model.Id" />
     <input type="hidden" asp-for="ListId" value="@Model.ListId" />
     @*@if (responseMessage != null && responseMessage.Id == "Items")
