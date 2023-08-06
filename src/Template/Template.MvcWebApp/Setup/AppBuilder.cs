@@ -233,7 +233,7 @@ namespace Template.MvcWebApp.Setup
                 .AddSingleton(provider =>
                 {
                     var factory = provider.GetService<IStringLocalizerFactory>()!;
-                    return factory.Create(Constants.Configuration.Resources.AppResources, PresentationAssembly.AssemblyName);
+                    return factory.Create(Constants.Configuration.Resources.AppResources, PresentationAssembly.AssemblyFullName);
                 });
 
             services

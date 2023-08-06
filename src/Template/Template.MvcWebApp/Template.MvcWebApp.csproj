@@ -53,6 +53,13 @@
 		<None Remove="Areas\SampleMVC\Content\ts\sample-list.ts" />
 		<None Remove="Areas\SampleMVC\Content\ts\services\sample-list-controller-services.ts" />
 		<None Remove="Areas\SampleMVC\Content\ts\views\sample-list\index.ts" />
+		<None Remove="Content\theme\uicomponents\message-taghelper.scss" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Content\theme\uicomponents\message-taghelper.scss">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

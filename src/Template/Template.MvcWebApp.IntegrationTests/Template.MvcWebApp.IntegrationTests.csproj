@@ -49,6 +49,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Template.MvcWebApp\Template.MvcWebApp.csproj" />
+	  <ProjectReference Include="..\Template.UIComponents\Template.UIComponents.csproj" />
 	</ItemGroup>
 
 </Project>

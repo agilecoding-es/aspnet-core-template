@@ -36,21 +36,21 @@ try
     _ = locOptions ?? throw new ArgumentException(nameof(RequestLocalizationOptions));
 
 
-    //if (app.Environment.IsDevelopment())
-    //{
-    //    app.UseMigrationsEndPoint();
-    //    app.UseDeveloperExceptionPage();
-    //}
-    //else
-    //{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseMigrationsEndPoint();
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
         app.UseLogExceptions()
            .UseExceptionHandler("/Error/500")
                        .UseWhen(context => !context.Request.Path.StartsWithSegments("/api"),
                        appBuilder => appBuilder.UseStatusCodePagesWithReExecute("/Error/{0}"));
 
-    //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    //    app.UseHsts();
-    //}
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
     app.UseHttpsRedirection();
     app.UseResponseCaching();

@@ -4,9 +4,7 @@ using Template.Configuration.AssemblyInfo;
 
 namespace Template.Persistence
 {
-    public sealed class PersistenceAssembly: IAssemblyInfo
+    public sealed class PersistenceAssembly : AssemblyInfo<PersistenceAssembly>
     {
-        public static Assembly Assembly => typeof(PersistenceAssembly).Assembly;
-        public static string AssemblyName => typeof(PersistenceAssembly).Assembly.FullName;
     }
 }

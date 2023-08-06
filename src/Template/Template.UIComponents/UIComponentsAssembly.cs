@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Template.Configuration.AssemblyInfo;
 
-namespace Template.Infrastructure
+namespace Template.UIComponents
 {
-    public sealed class InfrastructureAssembly : AssemblyInfo<InfrastructureAssembly>
+    public sealed class UIComponentsAssembly : AssemblyInfo<UIComponentsAssembly>
     {
     }
 }

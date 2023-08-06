@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
+using Template.Common.Extensions;
 using Template.UIComponents.Configuration;
 using Template.UIComponents.Models;
-using Template.Common.Extensions;
 using static Template.UIComponents.Models.ResponseMessageViewModel;
 
 namespace Template.UIComponents
@@ -17,8 +21,8 @@ namespace Template.UIComponents
         public const string MessagesAttributeName = "asp-messages";
 
         private MessageType validationMessage;
-
         private readonly IHtmlGenerator generator;
+        private readonly IHtmlHelper htmlHelper;
         private readonly IOptions<Messages> options;
 
         [ViewContext]
@@ -59,24 +63,29 @@ namespace Template.UIComponents
         [HtmlAttributeName("id")]
         public string Id { get; set; }
 
-        public MessagesTagHelper(IHtmlGenerator generator, IOptions<Messages> options)
+        public int HidingDelay { get; set; } = 0;
+
+        public MessagesTagHelper(IHtmlGenerator generator, IHtmlHelper htmlHelper, IOptions<Messages> options)
         {
             this.generator = generator;
+            this.htmlHelper = htmlHelper;
             this.options = options;
         }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             ArgumentNullException.ThrowIfNull(output, nameof(output));
-
-            output.TagName = "div";
-            output.TagMode = TagMode.StartTagAndEndTag;
 
             if (ValidationMessage == MessageType.None)
             {
                 return;
             }
+
+            (htmlHelper as IViewContextAware).Contextualize(ViewContext);
+
+            output.TagName = "div";
+            output.TagMode = TagMode.StartTagAndEndTag;
 
             ResponseMessageViewModel failureResponse = null;
             if (ViewContext.TempData != null)
@@ -92,70 +101,33 @@ namespace Template.UIComponents
                     AppendMessageItems(messages, output.Content);
                 }
             }
+
+            var partialViewResult = await htmlHelper.PartialAsync("~/Views/Shared/_MessageTagHelperScripts.cshtml");
+            output.Content.AppendHtml(partialViewResult);
         }
 
         private void AppendMessageItems(List<Message> messages, TagHelperContent content)
         {
-
-            TagBuilder svgContainer = new TagBuilder("svg");
-            svgContainer.Attributes.Add("xmlns", "http://www.w3.org/2000/svg");
-            svgContainer.Attributes.Add("style", "display: none;");
-
-            //SVG EXCLAMATION SYMBOL - START
-            TagBuilder svgSymbolExclamation = new TagBuilder("symbol");
-            svgSymbolExclamation.Attributes.Add("id", "exclamation-triangle-fill");
-            svgSymbolExclamation.Attributes.Add("viewBox", "0 0 16 16");
-
-            TagBuilder svgSymbolExclamationPath = new TagBuilder("path");
-            svgSymbolExclamationPath.Attributes.Add("d", "M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z");
-
-            svgSymbolExclamation.InnerHtml.AppendHtml(svgSymbolExclamationPath);
-            //SVG EXCLAMATION SYMBOL - END
-
-            //SVG SUCCESS SYMBOL - START
-            TagBuilder svgSymbolSucess = new TagBuilder("symbol");
-            svgSymbolSucess.Attributes.Add("id", "check-circle-fill");
-            svgSymbolSucess.Attributes.Add("viewBox", "0 0 16 16");
-
-            TagBuilder svgSymbolSucessPath = new TagBuilder("path");
-            svgSymbolSucessPath.Attributes.Add("d", "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z");
-
-            svgSymbolSucess.InnerHtml.AppendHtml(svgSymbolSucessPath);
-            //SVG SUCCESS SYMBOL - END
-
-            //SVG INFO SYMBOL - START
-            TagBuilder svgSymbolInfo = new TagBuilder("symbol");
-            svgSymbolInfo.Attributes.Add("id", "info-fill");
-            svgSymbolInfo.Attributes.Add("viewBox", "0 0 16 16");
-
-            TagBuilder svgSymbolInfoPath = new TagBuilder("path");
-            svgSymbolInfoPath.Attributes.Add("d", "M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z");
-
-            svgSymbolInfo.InnerHtml.AppendHtml(svgSymbolInfoPath);
-            //SVG INFO SYMBOL - END
-
-            svgContainer.InnerHtml.AppendHtml(svgSymbolExclamation);
-            svgContainer.InnerHtml.AppendHtml(svgSymbolSucess);
-            svgContainer.InnerHtml.AppendHtml(svgSymbolInfo);
-            content.AppendHtml(svgContainer);
-
             foreach (var message in messages)
             {
                 var messageType = GetMessagesType(message.MessageType);
+
                 TagBuilder messageItemContainer = new TagBuilder("div");
                 messageItemContainer.Attributes.Add("role", "alert");
                 messageItemContainer.Attributes.Add($"ui-{message.Id}", null);
+                messageItemContainer.Attributes.Add("styles", "position: relative;");
+                messageItemContainer.Attributes.Add($"data-hiding-delay", HidingDelay.ToString());
                 messageItemContainer.AddCssClass($"alert alert-{messageType} d-flex align-items-center");
 
-                TagBuilder svgExclamation = new TagBuilder("svg");
-                svgExclamation.Attributes.Add("role", "img");
-                svgExclamation.Attributes.Add("aria-label", $"{messageType}:");
-                svgExclamation.Attributes.Add("style", "width: 1em; height: 1em;");
-                svgExclamation.AddCssClass("flex-shrink-0 me-2");
+                var (img, alt) = GetMessagesImage(message.MessageType);
 
-                TagBuilder svgExclamationUse = new TagBuilder("use");
-                svgExclamationUse.Attributes.Add("xlink:href", "#exclamation-triangle-fill");
-                svgExclamation.InnerHtml.AppendHtml(svgExclamationUse);
+                TagBuilder image = new TagBuilder("img");
+                image.Attributes.Add("src", $"/UIComponents/message-taghelper/images/{img}.svg");
+                image.Attributes.Add("alt", alt);
+                image.Attributes.Add("role", "img");
+                image.Attributes.Add("aria-label", $"{messageType}:");
+                image.Attributes.Add("style", "width: 1em; height: 1em;");
+                image.AddCssClass("flex-shrink-0 me-2");
 
                 TagBuilder messageItemTag = new TagBuilder("div");
                 if (!string.IsNullOrEmpty(message.Title))
@@ -177,10 +149,17 @@ namespace Template.UIComponents
                 messageItemButtonCloseSpan.Attributes.Add("aria-hidden", "true");
                 messageItemButtonClose.InnerHtml.AppendHtml(messageItemButtonCloseSpan);
 
+                TagBuilder progressBar = new TagBuilder("div");
+                progressBar.AddCssClass($"message-progress bg-{messageType}");
 
-                messageItemContainer.InnerHtml.AppendHtml(svgExclamation);
+                messageItemContainer.InnerHtml.AppendHtml(image);
                 messageItemContainer.InnerHtml.AppendHtml(messageItemTag);
                 messageItemContainer.InnerHtml.AppendHtml(messageItemButtonClose);
+
+                if (HidingDelay > 0)
+                {
+                    messageItemContainer.InnerHtml.AppendHtml(progressBar);
+                }
 
                 content.AppendHtml(messageItemContainer);
             }
@@ -199,6 +178,21 @@ namespace Template.UIComponents
                 case ResponseType.Error:
                 default:
                     return "danger";
+            }
+        }
+
+        private (string Img, string Alt) GetMessagesImage(ResponseType messageType)
+        {
+            switch (messageType)
+            {
+                case ResponseType.Info:
+                    return ("info", "info image");
+                case ResponseType.Success:
+                    return ("success", "success image");
+                case ResponseType.Validation:
+                case ResponseType.Error:
+                default:
+                    return ("exclamation", "exclamation image");
             }
         }
 
@@ -228,7 +222,6 @@ namespace Template.UIComponents
                     return failureResponse.Messages.ToList();
             }
         }
-
 
         /// <summary>
         /// Acceptable message types rendering modes.
