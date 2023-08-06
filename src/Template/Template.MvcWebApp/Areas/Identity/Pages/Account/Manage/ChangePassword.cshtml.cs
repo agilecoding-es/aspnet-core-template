@@ -127,6 +127,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
             StatusMessage = _localizer.GetString("Identity_Account_Manage_ChangePassword_StatusMessage_Ok");
+            //TODO: Crear un BasePageModel
 
             return RedirectToPage();
         }

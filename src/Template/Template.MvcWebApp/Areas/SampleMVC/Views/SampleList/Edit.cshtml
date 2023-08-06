@@ -6,27 +6,15 @@
 @{
     var title = @Localizer["Sample_SampleList_Edit_Title"].Value;
     ViewData["Title"] = title;
-
-    //ResponseMessageViewModel responseMessage = null;
-    //if(ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
-    //{
-    //    responseMessage = ViewBag.ResponseMessage;
-    //}
 }
 
 @section SectionBar{
     <partial name="_SectionBar" model="@title" />
 }
 <div class="row">
-    <div class="col-12">
-        @*@if (responseMessage != null && responseMessage.Id == "Edit")
-        {
-            <partial name="_ResponseMessage" model="ViewData.ModelState" />
-        }*@
-    </div>
-    <div class="col-4">
+    <div class="col-4" style="position: relative;">
         <form asp-action="Edit">
-            <div id="Edit" asp-messages="All" hiding-delay="15"></div>
+            <div id="Edit" asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <input type="hidden" asp-for="UserId" value="@Model.UserId" />
             <div class="d-flex align-items-start flex-column flex-grow-1">

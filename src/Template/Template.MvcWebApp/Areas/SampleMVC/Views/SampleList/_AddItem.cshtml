@@ -2,23 +2,11 @@
 @model Template.MvcWebApp.Areas.SampleMvc.Models.SampleList.SampleItemViewModel
 @inject IHtmlLocalizer Localizer;
 
-@{
-
-    //ResponseMessageViewModel responseMessage = null;
-    //if (ViewData.ContainsKey("ResponseMessage") && ViewBag.ResponseMessage != null)
-    //{
-    //    responseMessage = ViewBag.ResponseMessage;
-    //}
-}
-<form asp-action="AddItem">
-    <div id="AddItemValidations" asp-messages="All" hiding-delay="15"></div>
+<form asp-action="AddItem" style="position: relative;">
+    <div id="AddItemValidations" asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
     <input type="hidden" asp-for="Id" value="@Model.Id" />
     <input type="hidden" asp-for="ListId" value="@Model.ListId" />
-    @*@if (responseMessage != null && responseMessage.Id == "Items")
-    {
-    <partial name="_ResponseMessage" model="ViewData.ModelState" />
-    }*@
-
+    
     <div class="input-group has-validation mb-3">
         <div class="form-floating">
             <input asp-for="Description" value="@Model.Description" class="form-control" placeholder="@Html.DisplayTextFor(m=>m.Description)" aria-describedby="btnAddItem" />

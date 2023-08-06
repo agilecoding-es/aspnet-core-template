@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Template.Application.Exceptions;
+using Template.Common.Extensions;
 using Template.Domain.Entities.Shared;
 using Template.Domain.Exceptions;
 using Template.MvcWebApp.Common;
@@ -25,7 +26,7 @@ namespace Template.MvcWebApp.Controllers
             if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
                 responseMessage = ResponseMessageViewModel.Create(elementId);
             else
-                responseMessage = TempData[TempDataKey.MESSAGE_RESPONSE] as ResponseMessageViewModel;
+                responseMessage = (TempData[TempDataKey.MESSAGE_RESPONSE] as string).Deserialize<ResponseMessageViewModel>();
 
             if (!(result.Exception is ValidationException || result.Exception is DomainException))
             {
@@ -37,7 +38,7 @@ namespace Template.MvcWebApp.Controllers
                 responseMessage.AddValidationMessage(result.Exception.Message);
             }
 
-            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage;
+            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
         }
 
         public void AddSuccessMessage(string message, string elementId = null)
@@ -48,11 +49,11 @@ namespace Template.MvcWebApp.Controllers
             if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
                 responseMessage = ResponseMessageViewModel.Create(elementId);
             else
-                responseMessage = TempData[TempDataKey.MESSAGE_RESPONSE] as ResponseMessageViewModel;
+                responseMessage = (TempData[TempDataKey.MESSAGE_RESPONSE] as string).Deserialize<ResponseMessageViewModel>();
 
-            responseMessage.AddSuccessMessage(message,"Test");
+            responseMessage.AddSuccessMessage(message);
 
-            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage;
+            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
         }
 
         public void AddInfoMessage(string message, string elementId = null)
@@ -63,34 +64,11 @@ namespace Template.MvcWebApp.Controllers
             if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
                 responseMessage = ResponseMessageViewModel.Create(elementId);
             else
-                responseMessage = TempData[TempDataKey.MESSAGE_RESPONSE] as ResponseMessageViewModel;
+                responseMessage = (TempData[TempDataKey.MESSAGE_RESPONSE] as string).Deserialize<ResponseMessageViewModel>();
 
             responseMessage.AddInfoMessage(message);
 
-            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage;
+            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
         }
-
-        //public IActionResult HandleErrorResponse(Result result, string elementId = null)
-        //{
-        //    _ = result ?? throw new ArgumentNullException(nameof(result));
-
-        //    if (!string.IsNullOrEmpty(elementId))
-        //    {
-        //        TempData[TempDataKey.ERROR_ID] = elementId;
-        //    }
-
-        //    if (!(result.Exception is ValidationException || result.Exception is DomainException))
-        //    {
-        //        //TODO: Agregar severidad a ValidationException para poder emitir warnings
-        //        ModelState.AddModelError(Constants.KeyErrors.GenericError, localizer.GetString("Shared_Message_ErrorOccured"));
-
-        //        return BadRequest(ModelState);
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
-        //        return NotFound(ModelState);
-        //    }
-        //}
     }
 }

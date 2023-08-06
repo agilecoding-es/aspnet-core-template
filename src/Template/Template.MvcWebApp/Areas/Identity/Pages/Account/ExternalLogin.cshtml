@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <div asp-messages="All"></div>
+            <div asp-validation-summary="ModelOnly"></div>
             <div class="form-floating mb-2">
                 <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="@Html.DisplayTextFor(m => m.Input.UserName)" />
                 <label asp-for="Input.UserName"></label>

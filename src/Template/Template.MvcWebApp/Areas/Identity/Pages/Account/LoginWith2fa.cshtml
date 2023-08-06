@@ -16,7 +16,7 @@
     <div class="col-md-4">
         <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
             <input asp-for="RememberMe" type="hidden" />
-            <div asp-messages="All"></div>
+                <div asp-validation-summary="ModelOnly"></div>
             <div class="form-floating mb-2">
                 <input asp-for="Input.TwoFactorCode" class="form-control" autocomplete="off" placeholder="@Html.DisplayTextFor(m => m.Input.TwoFactorCode)" />
                 <label asp-for="Input.TwoFactorCode" class="form-label"></label>

@@ -88,9 +88,10 @@ namespace Template.UIComponents
             output.TagMode = TagMode.StartTagAndEndTag;
 
             ResponseMessageViewModel failureResponse = null;
-            if (ViewContext.TempData != null)
+            if (ViewContext.TempData != null && ViewContext.TempData[Constants.MESSAGE_RESPONSE] != null)
             {
-                failureResponse = ViewContext.TempData[Constants.MESSAGE_RESPONSE] as ResponseMessageViewModel;
+                var content = ViewContext.TempData[Constants.MESSAGE_RESPONSE] as string;
+                failureResponse = content.Deserialize<ResponseMessageViewModel>();
             }
 
             if (failureResponse != null && (failureResponse.ElementId == Id || string.IsNullOrEmpty(Id)))

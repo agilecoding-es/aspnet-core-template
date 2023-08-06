@@ -83,7 +83,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
                     }
 
                     var sampleListId = createListResult.Value;
-
+                    AddSuccessMessage(localizer["Sample_SampleList_Edit_Success"].Value, "Edit");
                     return RedirectToAction(nameof(Edit), new { id = sampleListId });
                 }
             }
@@ -150,7 +150,6 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
                     {
                         //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value, elementId: "Edit");
                         AddSuccessMessage(localizer["Sample_SampleList_Edit_Success"].Value, "Edit");
-                        AddInfoMessage(localizer["Sample_SampleList_Edit_Success"].Value, "Edit");
                     }
                 }
             }
