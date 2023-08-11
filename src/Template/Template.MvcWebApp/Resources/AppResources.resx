@@ -708,8 +708,15 @@
   <data name="Sample_SampleList_Create_Title" xml:space="preserve">
     <value>Create sample list</value>
   </data>
+  <data name="Sample_SampleList_DeleteWithItems_Description" xml:space="preserve">
+    <value>Are you sure you want to delete the following example list?
+You will lose the associated items</value>
+  </data>
   <data name="Sample_SampleList_Delete_Description" xml:space="preserve">
-    <value>Are you sure you want to delete this sample list?</value>
+    <value>Are you sure you want to delete the following example list?</value>
+  </data>
+  <data name="Sample_SampleList_Delete_Success" xml:space="preserve">
+    <value>The sample list was successfully deleted.</value>
   </data>
   <data name="Sample_SampleList_Delete_Title" xml:space="preserve">
     <value>Delete sample list</value>

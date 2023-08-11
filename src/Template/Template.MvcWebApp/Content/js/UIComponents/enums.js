@@ -11,11 +11,7 @@ function Enum(a) {
     );
 }
 
-const _lodingType = Enum({
-    Div: 0,
-    Button: 1,
-}),
-    _responseType = Enum({
+const _responseType = Enum({
         Success: 0,
         Info: 1,
         Validation: 2,
@@ -23,6 +19,5 @@ const _lodingType = Enum({
     });
 
 export class Enums {
-    static get LoadingType() { return _lodingType; }
     static get ResponseType() { return _responseType; }
 }

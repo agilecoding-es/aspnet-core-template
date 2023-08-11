@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 
-namespace Template.MvcWebApp.UIComponents.Models
+namespace Template.MvcWebApp.TagHelpers.Models.MessageTagHelper
 {
     [Serializable]
     public class ResponseMessageViewModel
@@ -35,7 +35,7 @@ namespace Template.MvcWebApp.UIComponents.Models
         public string ElementId { get; private set; }
         public ReadOnlyCollection<Message> Messages => messages.AsReadOnly();
 
-        
+
         private ResponseMessageViewModel() { }
 
         [JsonConstructor]

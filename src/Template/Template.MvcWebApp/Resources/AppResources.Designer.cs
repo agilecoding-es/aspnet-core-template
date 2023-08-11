@@ -1745,11 +1745,20 @@ namespace Template.MvcWebApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this sample list?.
+        ///   Looks up a localized string similar to Are you sure you want to delete the following example list?.
         /// </summary>
         internal static string Sample_SampleList_Delete_Description {
             get {
                 return ResourceManager.GetString("Sample_SampleList_Delete_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The sample list was successfully deleted..
+        /// </summary>
+        internal static string Sample_SampleList_Delete_Success {
+            get {
+                return ResourceManager.GetString("Sample_SampleList_Delete_Success", resourceCulture);
             }
         }
         
@@ -1759,6 +1768,16 @@ namespace Template.MvcWebApp.Resources {
         internal static string Sample_SampleList_Delete_Title {
             get {
                 return ResourceManager.GetString("Sample_SampleList_Delete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the following example list?
+        ///You will lose the associated items.
+        /// </summary>
+        internal static string Sample_SampleList_DeleteWithItems_Description {
+            get {
+                return ResourceManager.GetString("Sample_SampleList_DeleteWithItems_Description", resourceCulture);
             }
         }
         

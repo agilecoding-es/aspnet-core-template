@@ -14,7 +14,6 @@ namespace Template.MvcWebApp.Mappings.Sample
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.ListId, src => src.ListId)
                 .Map(dest => dest.Description, src => src.Description);
-
         }
     }
 }

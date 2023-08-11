@@ -12,6 +12,7 @@ export class SampleListServices {
             List: 'list',
             Items: 'items',
             Edit: 'edit',
+            Delete: 'delete',
             AddItem: 'additem',
             RemoveItem: 'removeitem'
         }
@@ -33,6 +34,15 @@ export class SampleListServices {
 
     async submitEditForm(formData) {
         const url = `/${this.AreaAndController}/${this.Actions.Edit}`;
+
+        return DoFetch(url, {
+            method: 'POST',
+            body: formData
+        });
+    }
+
+    async submitRemoveForm(formData) {
+        const url = `/${this.AreaAndController}/${this.Actions.Delete}`;
 
         return DoFetch(url, {
             method: 'POST',

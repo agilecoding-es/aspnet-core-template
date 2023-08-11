@@ -48,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\..\.gitignore = ..\..\.gitignore
 		..\..\README.md = ..\..\README.md
+		H:\Mi unidad\Proyectos\Template - Horas.xlsx = H:\Mi unidad\Proyectos\Template - Horas.xlsx
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Persistence", "Template.Persistence\Template.Persistence.csproj", "{3FA39C7B-C910-4B9F-AE69-D227745BC62E}"
@@ -173,8 +174,8 @@ Global
 		{9677394F-07F1-400B-8B6A-CA5EAA888366} = {92552C75-0019-4A93-B5A8-9AA318B5BE13}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
-		RESX_SortFileContentOnSave = True
 		RESX_EnableXlifSync = False
+		RESX_SortFileContentOnSave = True
+		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
 	EndGlobalSection
 EndGlobal

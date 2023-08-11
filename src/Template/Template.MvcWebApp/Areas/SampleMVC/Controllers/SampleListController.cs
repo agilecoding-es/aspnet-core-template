@@ -38,7 +38,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 
         public async Task<IActionResult> Detail(int id, CancellationToken cancellationToken)
         {
-            var result = await GetSamplelistAsync(id, cancellationToken);
+            var result = await GetSampleListByIdAsync(id, cancellationToken: cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -160,14 +160,18 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken = default)
         {
-            var result = await GetSamplelistAsync(id, cancellationToken);
+            var result = await GetSampleListByIdAsync(id, cancellationToken: cancellationToken);
 
             var model = new DeleteSampleListViewModel();
             if (result.IsSuccess)
             {
+                var sampleList = result.Value.Adapt<SampleListViewModel>();
                 model = new DeleteSampleListViewModel()
                 {
-                    SampleList = result.Value.Adapt<SampleListViewModel>()
+                    ListId = sampleList.Id,
+                    ListName = sampleList.Name,
+                    ItemsCount = sampleList.ItemsCount,
+                    HasItems = sampleList.Items.Any()
                 };
             }
 
@@ -180,24 +184,17 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             if (ModelState.IsValid)
             {
                 var result = await mediator.Send(
-                    new DeleteSampleList.Command(deleteSampleListViewModel.SampleList.Id,
-                                                        DeleteWithItems: deleteSampleListViewModel.NeedsConfirmation && deleteSampleListViewModel.Confirmed),
+                    new DeleteSampleList.Command(deleteSampleListViewModel.ListId),
                     cancellationToken);
 
-                if (result.IsFailure)
+                if (result.IsSuccess)
                 {
-                    //TODO: Traducir mensaje
-                    //TODO: CORREGIR
-                    //HandleErrorResult(result,
-                    //                  ResponseMessageViewModel.Error(result.Exception.Message, "Do you want to delete anyway?"));
-                    deleteSampleListViewModel.NeedsConfirmation = true;
-
-                    return View(deleteSampleListViewModel);
+                    AddSuccessMessage(localizer.GetString("Sample_SampleList_Delete_Success"));
                 }
-
-                //TODO: Cambiar mensaje
-                //TODO: CORREGIR
-                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value);
+                else
+                {
+                    HandleFailureResult(result);
+                }
             }
 
             return RedirectToAction(nameof(Index));
@@ -217,12 +214,6 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
                 if (addItemResult.IsFailure)
                 {
                     HandleFailureResult(addItemResult, "AddItemValidations");
-                }
-                else
-                {
-                    //TODO: CORREGIR
-                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_AddItem_Success"].Value)
-                    //.SetId("Items");
                 }
             }
 
@@ -277,18 +268,6 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             var user = await userManager.GetUserAsync(UserPrincipal);
 
             return await mediator.Send(new ListSampleListByUser.Query(user), cancellationToken);
-        }
-
-        private async Task<Result<SampleListWithItemsDto>> GetSamplelistAsync(int id, CancellationToken cancellationToken)
-        {
-            var result = await mediator.Send(new GetSampleListById.Query(id), cancellationToken);
-
-            if (result.IsFailure)
-            {
-                HandleFailureResult(result);
-            }
-
-            return result;
         }
 
         private async Task<Result<SampleListWithItemsDto>> GetSampleListByIdAsync(int id, string elementId = null, CancellationToken cancellationToken = default)

@@ -31,7 +31,7 @@ namespace Template.Application.Sample.Commands
                 try
                 {
                     var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListId, cancellationToken);
-
+                    
                     var newItem = SampleItem.Create(request.Item.Description);
                     sampleList.Items.Add(newItem);
 

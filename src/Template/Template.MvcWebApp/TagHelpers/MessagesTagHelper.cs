@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Options;
 using Template.Common.Extensions;
-using Template.MvcWebApp.UIComponents.Models;
-using Template.UIComponents.Configuration;
-using static Template.MvcWebApp.UIComponents.Models.ResponseMessageViewModel;
+using Template.MvcWebApp.TagHelpers.Models.MessageTagHelper;
+using Template.MvcWebApp.TagHelpers.Configuration;
+using static Template.MvcWebApp.TagHelpers.Models.MessageTagHelper.ResponseMessageViewModel;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using System.Text.Encodings.Web;
 
-namespace Template.UIComponents
+namespace Template.MvcWebApp.TagHelpers
 {
     [HtmlTargetElement("div", Attributes = MessagesAttributeName)]
     public class MessagesTagHelper : TagHelper
@@ -67,8 +69,7 @@ namespace Template.UIComponents
             this.htmlHelper = htmlHelper;
             this.options = options;
         }
-
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        public override void Process(TagHelperContext context, TagHelperOutput output) 
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             ArgumentNullException.ThrowIfNull(output, nameof(output));
@@ -82,6 +83,8 @@ namespace Template.UIComponents
 
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
+            output.Attributes.Add("id", Id);
+            output.AddClass("message-component", HtmlEncoder.Default);
 
             ResponseMessageViewModel failureResponse = null;
             if (ViewContext.TempData != null && ViewContext.TempData[Constants.MESSAGE_RESPONSE] != null)
@@ -98,9 +101,6 @@ namespace Template.UIComponents
                     AppendMessageItems(messages, output.Content);
                 }
             }
-
-            var partialViewResult = await htmlHelper.PartialAsync("~/Views/Shared/_MessageTagHelperScripts.cshtml");
-            output.Content.AppendHtml(partialViewResult);
         }
 
         private void AppendMessageItems(List<Message> messages, TagHelperContent content)
@@ -109,44 +109,44 @@ namespace Template.UIComponents
             {
                 var messageType = GetMessagesType(message.MessageType);
 
-                TagBuilder messageItemContainer = new TagBuilder("div");
+                var messageItemContainer = new TagBuilder("div");
                 messageItemContainer.Attributes.Add("role", "alert");
                 messageItemContainer.Attributes.Add($"ui-{message.Id}", null);
                 messageItemContainer.Attributes.Add("styles", "position: relative;");
-                messageItemContainer.Attributes.Add($"data-hiding-delay", HidingDelay.ToString());
+                messageItemContainer.Attributes.Add("data-hiding-delay", HidingDelay.ToString());
                 messageItemContainer.AddCssClass($"alert alert-{messageType} d-flex align-items-center");
 
                 var (img, alt) = GetMessagesImage(message.MessageType);
 
-                TagBuilder image = new TagBuilder("img");
-                image.Attributes.Add("src", $"/UIComponents/message-taghelper/images/{img}.svg");
+                var image = new TagBuilder("img");
+                image.Attributes.Add("src", $"/images/UIComponents/message-taghelper/{img}.svg");
                 image.Attributes.Add("alt", alt);
                 image.Attributes.Add("role", "img");
                 image.Attributes.Add("aria-label", $"{messageType}:");
                 image.Attributes.Add("style", "width: 1em; height: 1em;");
                 image.AddCssClass("flex-shrink-0 me-2");
 
-                TagBuilder messageItemTag = new TagBuilder("div");
+                var messageItemTag = new TagBuilder("div");
                 if (!string.IsNullOrEmpty(message.Title))
                 {
-                    TagBuilder messageItemStrong = new TagBuilder("strong");
+                    var messageItemStrong = new TagBuilder("strong");
                     messageItemStrong.AddCssClass("pe-1");
                     messageItemStrong.InnerHtml.SetContent(message.Title);
                     messageItemTag.InnerHtml.AppendHtml(messageItemStrong);
                 }
                 messageItemTag.InnerHtml.AppendHtml(message.Content);
 
-                TagBuilder messageItemButtonClose = new TagBuilder("button");
+                var messageItemButtonClose = new TagBuilder("button");
                 messageItemButtonClose.Attributes.Add("type", "button");
                 messageItemButtonClose.Attributes.Add("data-bs-dismiss", "alert");
                 messageItemButtonClose.Attributes.Add("aria-label", "close");
                 messageItemButtonClose.AddCssClass("btn-close ms-auto p-2");
 
-                TagBuilder messageItemButtonCloseSpan = new TagBuilder("span");
+                var messageItemButtonCloseSpan = new TagBuilder("span");
                 messageItemButtonCloseSpan.Attributes.Add("aria-hidden", "true");
                 messageItemButtonClose.InnerHtml.AppendHtml(messageItemButtonCloseSpan);
 
-                TagBuilder progressBar = new TagBuilder("div");
+                var progressBar = new TagBuilder("div");
                 progressBar.AddCssClass($"message-progress bg-{messageType}");
 
                 messageItemContainer.InnerHtml.AppendHtml(image);

@@ -5,7 +5,7 @@ using Template.Common.Extensions;
 using Template.Domain.Entities.Shared;
 using Template.Domain.Exceptions;
 using Template.MvcWebApp.Common;
-using Template.UIComponents.Models;
+using Template.MvcWebApp.TagHelpers.Models.MessageTagHelper;
 
 namespace Template.MvcWebApp.Controllers
 {
@@ -69,6 +69,48 @@ namespace Template.MvcWebApp.Controllers
             responseMessage.AddInfoMessage(message);
 
             TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
+        }
+
+
+        public dynamic GetFailureMessageResponse(Result result, string elementId = null)
+        {
+            _ = result ?? throw new ArgumentNullException(nameof(result));
+
+            ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
+
+            if (!(result.Exception is ValidationException || result.Exception is DomainException))
+            {
+                responseMessage.AddErrorMessage(localizer.GetString("Shared_Message_ErrorOccured"));
+            }
+            else
+            {
+                //ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
+                responseMessage.AddValidationMessage(result.Exception.Message);
+            }
+
+            return new { success = false, content = responseMessage.Serialize() };
+        }
+
+        public dynamic GetSuccessMessageResponse(string message, string elementId = null)
+        {
+            _ = message ?? throw new ArgumentNullException(nameof(message));
+
+            ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
+
+            responseMessage.AddSuccessMessage(message);
+
+            return new { success = true, content = responseMessage.Serialize() };
+        }
+
+        public dynamic GetInfoMessageResponse(string message, string elementId = null)
+        {
+            _ = message ?? throw new ArgumentNullException(nameof(message));
+
+            ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
+
+            responseMessage.AddInfoMessage(message);
+
+            return new { success = true, content = responseMessage.Serialize() };
         }
     }
 }

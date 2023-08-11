@@ -3,13 +3,17 @@ using Template.MvcWebApp.Models;
 
 namespace Template.MvcWebApp.Areas.SampleMvc.Models.SampleList
 {
-    public class DeleteSampleListViewModel 
+    public class DeleteSampleListViewModel
     {
-        public SampleListViewModel SampleList { get; set; }
+        public int ListId { get; set; }
 
-        public bool NeedsConfirmation { get; set; }
+        [Display(Name = "Name")]
+        public string ListName { get; set; }
 
-        public bool Confirmed { get; set; }
+        [Display(Name = "Items Count")]
+        public int ItemsCount { get; internal set; }
+
+        public bool HasItems { get; set; }
 
     }
 }

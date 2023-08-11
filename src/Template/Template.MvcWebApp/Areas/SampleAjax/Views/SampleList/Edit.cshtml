@@ -18,9 +18,9 @@
     <partial name="_SectionBar" model="@title" />
 }
 <div class="row">
-    <div class="col-4">
+    <div class="col-4" style="position: relative;">
         <form name="EditForm">
-            <div asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
+            <div id="Edit" asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <input type="hidden" asp-for="UserId" value="@Model.UserId" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
