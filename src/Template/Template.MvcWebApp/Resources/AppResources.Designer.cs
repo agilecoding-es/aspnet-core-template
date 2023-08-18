@@ -1915,5 +1915,32 @@ namespace Template.MvcWebApp.Resources {
                 return ResourceManager.GetString("Shared_Message_ErrorOccured", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the list already exist..
+        /// </summary>
+        internal static string Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The list of {0} is empty..
+        /// </summary>
+        internal static string Validations_Shared_EmptyList {
+            get {
+                return ResourceManager.GetString("Validations_Shared_EmptyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entity {0} could not be found..
+        /// </summary>
+        internal static string Validations_Shared_EntityNotFound {
+            get {
+                return ResourceManager.GetString("Validations_Shared_EntityNotFound", resourceCulture);
+            }
+        }
     }
 }

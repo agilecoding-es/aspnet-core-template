@@ -108,8 +108,11 @@ class Edit {
             .submitRemoveItemForm(formData)
             .then(data => {
                 if (data) {
+                    if (data.success) { }
                     const $itemContainer = $submitRemoveItemForm.parent();
                     $itemContainer.remove();
+                } else {
+                    this.messageHelper.showMesssage(data.content)
                 }
             })
             .catch(error => {

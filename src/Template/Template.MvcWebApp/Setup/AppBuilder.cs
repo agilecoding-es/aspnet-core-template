@@ -208,6 +208,7 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureDependencies()
         {
             AppSettings appSettings = configuration.Get<AppSettings>();
+            services.AddSingleton(appSettings);
 
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
 

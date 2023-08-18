@@ -766,4 +766,13 @@ You will lose the associated items</value>
   <data name="Shared_Message_ErrorOccured" xml:space="preserve">
     <value>Sorry, an unexpected error occurred. Please try again later. If the problem continues, contact with the system administrator.</value>
   </data>
+  <data name="Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists" xml:space="preserve">
+    <value>The name of the list already exist.</value>
+  </data>
+  <data name="Validations_Shared_EmptyList" xml:space="preserve">
+    <value>The list of {0} is empty.</value>
+  </data>
+  <data name="Validations_Shared_EntityNotFound" xml:space="preserve">
+    <value>The entity {0} could not be found.</value>
+  </data>
 </root>

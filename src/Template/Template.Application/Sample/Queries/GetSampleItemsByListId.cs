@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +26,12 @@ namespace Template.Application.Sample.Queries
         public class Handler : IRequestHandler<Query, Result<List<SampleItemDto>>>
         {
             private readonly ISampleItemQueryRepository sampleItemRepository;
+            private readonly IHtmlLocalizer localizer;
 
-            public Handler(ISampleItemQueryRepository sampleItemRepository)
+            public Handler(ISampleItemQueryRepository sampleItemRepository, IHtmlLocalizer localizer)
             {
                 this.sampleItemRepository = sampleItemRepository;
+                this.localizer = localizer;
             }
 
             public async Task<Result<List<SampleItemDto>>> Handle(Query request, CancellationToken cancellationToken)
@@ -36,7 +39,9 @@ namespace Template.Application.Sample.Queries
                 var result = await sampleItemRepository.GetItemsByListId(request.ListId, cancellationToken);
 
                 return result == null ?
-                    Result<List<SampleItemDto>>.Failure(new ValidationException(ValidationErrors.Shared.EmptyList(typeof(SampleItem).GetDisplayNameOrTypeName()))) :
+                    Result<List<SampleItemDto>>.Failure(
+                        new ValidationException(localizer.GetString(ValidationErrors.Shared.EmptyList, typeof(SampleItem).GetDisplayNameOrTypeName()))
+                    ) :
                     Result<List<SampleItemDto>>.Success(result.ToList());
             }
         }

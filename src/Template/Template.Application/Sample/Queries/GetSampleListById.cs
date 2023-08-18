@@ -7,6 +7,7 @@ using Template.Application.Exceptions;
 using Template.Application.Contracts.Repositories.Sample;
 using Template.Application.Contracts.DTOs.Sample;
 using Template.Common.Extensions;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Template.Application.Sample.Queries
 {
@@ -20,10 +21,12 @@ namespace Template.Application.Sample.Queries
         public class Handler : IRequestHandler<Query, Result<SampleListWithItemsDto>>
         {
             private readonly ISampleListQueryRepository sampleListRepository;
+            private readonly IHtmlLocalizer localizer;
 
-            public Handler(ISampleListQueryRepository sampleListRepository)
+            public Handler(ISampleListQueryRepository sampleListRepository, IHtmlLocalizer localizer)
             {
                 this.sampleListRepository = sampleListRepository;
+                this.localizer = localizer;
             }
 
             public async Task<Result<SampleListWithItemsDto>> Handle(Query request, CancellationToken cancellationToken)
@@ -31,7 +34,9 @@ namespace Template.Application.Sample.Queries
                 var result = await sampleListRepository.GetByIdWithItemsAsync(request.ListId, cancellationToken);
 
                 return result == null ?
-                    Result<SampleListWithItemsDto>.Failure(new ValidationException(ValidationErrors.Shared.EntityNotFound(typeof(SampleList).GetDisplayNameOrTypeName()))) :
+                    Result<SampleListWithItemsDto>.Failure(
+                        new ValidationException(localizer.GetString(ValidationErrors.Shared.EntityNotFound, typeof(SampleList).GetDisplayNameOrTypeName()))
+                        ) :
                     Result<SampleListWithItemsDto>.Success(result);
             }
         }

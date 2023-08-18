@@ -3,14 +3,16 @@
 @using Microsoft.Extensions.Options;
 @using System.Globalization;
 @using Template.Application.Identity;
+@using Template.Configuration;
 @using Template.Security.Authorization;
 @using Template.MvcWebApp.Extensions;
 
 @inject SignInManager SignInManager
 @inject UserManager UserManager
 @inject IAuthorizationService AuthService;
-@inject IOptions<RequestLocalizationOptions> LocalizationOptions
 @inject IStringLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+@inject AppSettings Settings
 
 
 @{
@@ -58,12 +60,18 @@
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="SampleMvc" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_MVC"]</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="SampleAjax" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_Ajax"]</a>
-                            </li>
+                            @if (Settings.Samples.ShowSampleMVC)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="SampleMvc" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_MVC"]</a>
+                                </li>
+                            }
+                            @if (Settings.Samples.ShowSampleAjax)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="SampleAjax" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_Ajax"]</a>
+                                </li>
+                            }
 
                             if (isAdmin)
                             {

@@ -11,19 +11,25 @@ namespace Template.Application.Errors
     {
         public static class Shared
         {
-            public static string EmptyList(string entityName) => $"The {entityName} is empty.";
-            public static string EntityNotFound(string entityName) => $"The {entityName} could not be found.";
+            /// <summary>
+            /// The list of {0} is empty.
+            /// </summary>
+            public static readonly string EmptyList = "Validations_Shared_EmptyList";
+
+            /// <summary>
+            /// The entity {0} could not be found.
+            /// </summary>
+            public static readonly string EntityNotFound = "Validations_Shared_EntityNotFound";
         }
 
         public static class Sample
         {
             public static class GetSampleListById
             {
-                public static readonly string ListWithSameNameAlreadyExists = "The name of the list already exist.";
-            }
-            public static class DeleteSampleList
-            {
-                public static readonly string ListWithItems = "The list {0} contains {1}.";
+                /// <summary>
+                /// The name of the list already exist.
+                /// </summary>
+                public static readonly string ListWithSameNameAlreadyExists = "Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists";
             }
         }
     }

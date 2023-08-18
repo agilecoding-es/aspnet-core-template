@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using IdentityModel.OidcClient;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -108,18 +109,12 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
                         sampleListViewModel.Name,
                         sampleListViewModel.UserId), cancellationToken);
 
-                var getResult = await GetSampleListByIdAsync(sampleListViewModel.Id, "Edit", cancellationToken);
-                var model = getResult.Value.Adapt<EditSampleListViewModel>();
                 if (result.IsFailure)
                 {
                     return Json(GetFailureMessageResponse(result, "Edit"));
                 }
                 else
                 {
-                    sampleListViewModel = model;
-                    //TODO: CORREGIR
-                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value)
-                    //                                                  .SetId("Edit");
                     return Json(GetSuccessMessageResponse(localizer["Sample_SampleList_Edit_Success"].Value, "Edit"));
                 }
             }
@@ -200,27 +195,20 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoveItem(SampleItemViewModel sampleItemViewModel, CancellationToken cancellationToken)
         {
-            var removeResult = await mediator.Send(
+            var result = await mediator.Send(
                 new RemoveSampleItemFromList.Command(
                     sampleItemViewModel.ListId,
                     sampleItemViewModel.Id), cancellationToken: cancellationToken);
 
 
-            if (removeResult.IsFailure)
+            if (result.IsFailure)
             {
-                //TODO: CORREGIR
-                //var responseError = GetFailureMessage(removeResult, id: "Items");
-                //return Json(responseError);
+                return Json(GetFailureMessageResponse(result, elementId: "Items"));
             }
             else
             {
-                //TODO: CORREGIR
-                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_RemoveItem_Success"].Value)
-                //                                                  .SetId("Items");
+                return Json(GetSuccessMessageResponse(localizer.GetString("Sample_SampleList_RemoveItem_Success"), elementId: "Items"));
             }
-
-            // Devolver el contenido del partial view como JSON
-            return Json(new { success = removeResult.IsSuccess });
         }
 
         private async Task<Result<List<SampleListWithItemsCountDto>>> ListByLoggedUserAsync(CancellationToken cancellationToken)
