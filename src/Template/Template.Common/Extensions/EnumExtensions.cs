@@ -17,17 +17,23 @@ namespace Template.Common.Extensions
         /// <returns>The <see cref="string"/>.</returns>
         public static string GetDescription(this Enum value)
         {
-            // Get the type
             Type type = value.GetType();
+            string name = Enum.GetName(type, value);
 
-            // Get fieldinfo for this type
-            FieldInfo fieldInfo = type.GetField(value.ToString());
+            if (name != null)
+            {
+                FieldInfo field = type.GetField(name);
+                if (field != null)
+                {
+                    DescriptionAttribute attr = field.GetCustomAttribute<DescriptionAttribute>();
+                    if (attr != null)
+                    {
+                        return attr.Description;
+                    }
+                }
+            }
 
-            // Get the stringvalue attributes
-            DescriptionAttribute[] attribs = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
-
-            // Return the first if there was a match.
-            return attribs.Length > 0 ? attribs[0].Description : null;
+            return value.ToString();
         }
 
         /// <summary>
@@ -35,40 +41,35 @@ namespace Template.Common.Extensions
         /// </summary>
         /// <param name="value">The value<see cref="Type"/>.</param>
         /// <returns>The <see cref="List{string}"/>.</returns>
-        public static List<string> GetDescriptions(this Type value)
+        public static IEnumerable<string> GetDescriptions(this Enum value)
         {
-            List<string> values = new List<string>();
-            Array enumValues = Enum.GetValues(value);
+            Type type = value.GetType();
+            Array enumValues = Enum.GetValues(type);
 
             foreach (Enum e in enumValues)
             {
-                values.Add(e.GetDescription());
+                yield return GetDescription(e);
             }
-
-            return values;
         }
 
         /// <summary>
-        /// The GetEnumFromAttribute.
+        /// The FromDescription.
         /// </summary>
-        /// <param name="enType">The enType<see cref="Type"/>.</param>
-        /// <param name="attribute">The attribute<see cref="string"/>.</param>
+        /// <param name="type">The type<see cref="Type"/>.</param>
+        /// <param name="description">The attribute<see cref="string"/>.</param>
         /// <returns>The <see cref="Enum"/>.</returns>
-        public static Enum GetEnumFromAttribute(Type enType, string attribute)
+        public static Enum FromDescription(this Enum value, string description)
         {
-            Enum eRet = null;
+            Type type = value.GetType();
+            
+            Array values = Enum.GetValues(type);
 
-            Array vals = Enum.GetValues(enType);
-            foreach (Enum e in vals)
+            foreach (Enum e in values)
             {
-                string att = e.GetDescription();
-                if (att.Equals(attribute))
-                {
-                    eRet = e;
-                    break;
-                }
+                if (e.GetDescription().Equals(description))
+                    return e;
             }
-            return eRet;
+            return null;
         }
     }
 }

@@ -1745,11 +1745,20 @@ namespace Template.MvcWebApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete this sample list?.
+        ///   Looks up a localized string similar to Are you sure you want to delete the following example list?.
         /// </summary>
         internal static string Sample_SampleList_Delete_Description {
             get {
                 return ResourceManager.GetString("Sample_SampleList_Delete_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The sample list was successfully deleted..
+        /// </summary>
+        internal static string Sample_SampleList_Delete_Success {
+            get {
+                return ResourceManager.GetString("Sample_SampleList_Delete_Success", resourceCulture);
             }
         }
         
@@ -1759,6 +1768,16 @@ namespace Template.MvcWebApp.Resources {
         internal static string Sample_SampleList_Delete_Title {
             get {
                 return ResourceManager.GetString("Sample_SampleList_Delete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the following example list?
+        ///You will lose the associated items.
+        /// </summary>
+        internal static string Sample_SampleList_DeleteWithItems_Description {
+            get {
+                return ResourceManager.GetString("Sample_SampleList_DeleteWithItems_Description", resourceCulture);
             }
         }
         
@@ -1894,6 +1913,33 @@ namespace Template.MvcWebApp.Resources {
         internal static string Shared_Message_ErrorOccured {
             get {
                 return ResourceManager.GetString("Shared_Message_ErrorOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the list already exist..
+        /// </summary>
+        internal static string Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The list of {0} is empty..
+        /// </summary>
+        internal static string Validations_Shared_EmptyList {
+            get {
+                return ResourceManager.GetString("Validations_Shared_EmptyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entity {0} could not be found..
+        /// </summary>
+        internal static string Validations_Shared_EntityNotFound {
+            get {
+                return ResourceManager.GetString("Validations_Shared_EntityNotFound", resourceCulture);
             }
         }
     }

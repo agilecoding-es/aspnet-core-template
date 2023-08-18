@@ -6,6 +6,7 @@ using Template.Domain.Entities.Shared;
 using Template.Application.Errors;
 using Template.Application.Contracts.Repositories.Sample;
 using Template.Application.Contracts;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Template.Application.Sample.Commands
 {
@@ -17,11 +18,13 @@ namespace Template.Application.Sample.Commands
         {
             private readonly ISampleListRepository sampleListRepository;
             private readonly IUnitOfWork unitOfWork;
+            private readonly IHtmlLocalizer localizer;
 
-            public Handler(ISampleListRepository sampleListRepository, IUnitOfWork unitOfWork)
+            public Handler(ISampleListRepository sampleListRepository, IUnitOfWork unitOfWork, IHtmlLocalizer localizer)
             {
                 this.sampleListRepository = sampleListRepository;
                 this.unitOfWork = unitOfWork;
+                this.localizer = localizer;
             }
 
             public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken)
@@ -33,7 +36,7 @@ namespace Template.Application.Sample.Commands
                                                                                                      cancellationToken);
                     if (alreadyExists)
                     {
-                        return Result<int>.Failure(new ValidationException(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists));
+                        return Result<int>.Failure(new ValidationException(localizer.GetString(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists)));
                     }
 
                     var newSampleList = SampleList.Create(request.User, request.Name);

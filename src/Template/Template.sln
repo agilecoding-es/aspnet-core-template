@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Application", "Tem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Domain", "Template.Domain\Template.Domain.csproj", "{377D7216-A42B-414A-BBE6-A950967C5F6F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.Documentation", "00.Documentation", "{59366ED1-AC5E-4D43-BA8A-9B76FECED361}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10.Documentation", "10.Documentation", "{59366ED1-AC5E-4D43-BA8A-9B76FECED361}"
 	ProjectSection(SolutionItems) = preProject
 		Template.Documentation\Documentation.md = Template.Documentation\Documentation.md
 	EndProjectSection
@@ -48,6 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\..\.gitignore = ..\..\.gitignore
 		..\..\README.md = ..\..\README.md
+		H:\Mi unidad\Proyectos\Template - Horas.xlsx = H:\Mi unidad\Proyectos\Template - Horas.xlsx
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Persistence", "Template.Persistence\Template.Persistence.csproj", "{3FA39C7B-C910-4B9F-AE69-D227745BC62E}"

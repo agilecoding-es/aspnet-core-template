@@ -8,6 +8,7 @@ using Template.Application.Contracts.Repositories.Sample;
 using Template.Application.Contracts;
 using Template.Application.Contracts.DTOs.Sample;
 using Mapster;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Template.Application.Sample.Commands
 {
@@ -19,11 +20,13 @@ namespace Template.Application.Sample.Commands
         {
             private readonly ISampleListRepository sampleListRepository;
             private readonly IUnitOfWork unitOfWork;
+            private readonly IHtmlLocalizer localizer;
 
-            public Handler(ISampleListRepository sampleListRepository, IUnitOfWork unitOfWork)
+            public Handler(ISampleListRepository sampleListRepository, IUnitOfWork unitOfWork, IHtmlLocalizer localizer)
             {
                 this.sampleListRepository = sampleListRepository;
                 this.unitOfWork = unitOfWork;
+                this.localizer = localizer;
             }
 
             public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
@@ -36,7 +39,7 @@ namespace Template.Application.Sample.Commands
                                                                                       cancellationToken);
                     if (alreadyExists)
                     {
-                        return Result.Failure(new ValidationException(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists));
+                        return Result.Failure(new ValidationException(localizer.GetString(ValidationErrors.Sample.GetSampleListById.ListWithSameNameAlreadyExists)));
                     }
 
                     var sampleList = await sampleListRepository.GetWithItemsAndUserAsync(request.SampleListId, cancellationToken);

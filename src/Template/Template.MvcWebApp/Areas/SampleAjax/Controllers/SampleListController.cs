@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using IdentityModel.OidcClient;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -44,7 +45,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
         public async Task<IActionResult> Detail(int id, CancellationToken cancellationToken)
         {
-            var result = await GetSamplelistAsync(id, cancellationToken);
+            var result = await GetSampleListByIdAsync(id, cancellationToken: cancellationToken);
 
             return View(result.Value.Adapt<SampleListViewModel>());
 
@@ -66,7 +67,7 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
                 if (createListResult.IsFailure)
                 {
-                    HandleErrorResult(createListResult);
+                    HandleFailureResult(createListResult);
                     return View(sampleListViewModel);
                 }
 
@@ -76,40 +77,25 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
                     if (addItemsResult.IsFailure)
                     {
-                        HandleErrorResult(createListResult);
+                        HandleFailureResult(createListResult);
                         return View(sampleListViewModel);
                     }
 
                 }
 
-                var sampleListKey = createListResult.Value;
-                return RedirectToAction(nameof(EditFromSuccessRedirection), new { id = sampleListKey });
+                var sampleListId = createListResult.Value;
+                return RedirectToAction(nameof(Edit), new { id = sampleListId });
             }
             return View(sampleListViewModel);
         }
 
         public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
-            var result = await GetSamplelistAsync(id, "Edit", cancellationToken);
+            var result = await GetSampleListByIdAsync(id, "Edit", cancellationToken);
 
             var model = result.Value.Adapt<EditSampleListViewModel>();
 
             return View(model);
-        }
-
-        public async Task<IActionResult> EditFromSuccessRedirection(int id, CancellationToken cancellationToken)
-        {
-            var result = await GetSamplelistAsync(id, "Edit", cancellationToken);
-
-            var model = new EditSampleListViewModel();
-            if (result.IsSuccess)
-            {
-                model = result.Value.Adapt<EditSampleListViewModel>();
-                //TODO: CORREGIR
-                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Create_Success"].Value);
-            }
-
-            return View("Edit", model);
         }
 
         [HttpPost]
@@ -123,38 +109,36 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
                         sampleListViewModel.Name,
                         sampleListViewModel.UserId), cancellationToken);
 
-                var getResult = await GetSamplelistAsync(sampleListViewModel.Id, "Edit", cancellationToken);
-                var model = getResult.Value.Adapt<EditSampleListViewModel>();
                 if (result.IsFailure)
                 {
-                    HandleErrorResult(result);
+                    return Json(GetFailureMessageResponse(result, "Edit"));
                 }
                 else
                 {
-                    sampleListViewModel = model;
-                    //TODO: CORREGIR
-                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value)
-                    //                                                  .SetId("Edit");
+                    return Json(GetSuccessMessageResponse(localizer["Sample_SampleList_Edit_Success"].Value, "Edit"));
                 }
             }
-
             return View(sampleListViewModel);
         }
 
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken = default)
         {
-            var result = await GetSamplelistAsync(id, cancellationToken);
+            var result = await GetSampleListByIdAsync(id, cancellationToken: cancellationToken);
 
             var model = new DeleteSampleListViewModel();
             if (result.IsSuccess)
             {
+                var sampleList = result.Value.Adapt<SampleListViewModel>();
                 model = new DeleteSampleListViewModel()
                 {
-                    SampleList = result.Value.Adapt<SampleListViewModel>()
+                    ListId = sampleList.Id,
+                    ListName = sampleList.Name,
+                    ItemsCount = sampleList.ItemsCount,
+                    HasItems = sampleList.Items.Any()
                 };
             }
 
-            return PartialView("_Delete",model);
+            return PartialView("_Delete", model);
         }
 
         [HttpPost]
@@ -163,30 +147,19 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
             if (ModelState.IsValid)
             {
                 var result = await mediator.Send(
-                    new DeleteSampleList.Command(deleteSampleListViewModel.SampleList.Id,
-                                                        DeleteWithItems: deleteSampleListViewModel.NeedsConfirmation && deleteSampleListViewModel.Confirmed),
+                    new DeleteSampleList.Command(deleteSampleListViewModel.ListId),
                     cancellationToken);
 
-                if (result.IsFailure && result.Exception is ValidationException)
+                if (result.IsSuccess)
                 {
-                    //TODO: Traducir mensaje
-                    //TODO: CORREGIR
-                    //var responseError = HandleErrorResult(
-                    //                result,
-                    //                ResponseMessageViewModel.Error(result.Exception.Message, "Do you want to delete anyway?"));
-
-                    deleteSampleListViewModel.NeedsConfirmation = true;
-                    //deleteSampleListViewModel.Error = responseError;
-
-                    return Json(deleteSampleListViewModel);
+                    return Json(GetSuccessMessageResponse(localizer.GetString("Sample_SampleList_Delete_Success")));
                 }
-
-                //TODO: Cambiar mensaje
-                //TODO: CORREGIR
-                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value);
+                else
+                {
+                    return Json(GetFailureMessageResponse(result));
+                }
             }
-            Url.Action(nameof(Index));
-            return  RedirectToAction(nameof(Index));
+            return Json(deleteSampleListViewModel);
         }
 
         public async Task<IActionResult> Items(int id, CancellationToken cancellationToken)
@@ -209,55 +182,33 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 
                 if (addItemResult.IsFailure)
                 {
-                    //TODO: CORREGIR
-                    //var responseError = HandleErrorResult(addItemResult, id: "Items");
-                    //return Json(responseError );
-                }
-                else
-                {
-                    //TODO: CORREGIR
-                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_AddItem_Success"].Value)
-                    //                                                  .SetId("Items");
+                    return Json(GetFailureMessageResponse(addItemResult, "AddItemValidations"));
                 }
             }
-            else
-            {
-                var result = await GetSamplelistAsync(sampleItemViewModel.ListId, "Edit", cancellationToken);
-                var model = result.Value.Adapt<EditSampleListViewModel>();
 
-                return View("Edit", model);
-            }
-            
             var partialViewContent = await razorViewRenderer.RenderPartialViewAsync("_Item", sampleItemViewModel, ControllerContext);
-            
+
             // Devolver el contenido del partial view como JSON
-            return Json(new { content = partialViewContent });
+            return Json(new { success = true, content = partialViewContent });
         }
 
         [HttpPost]
         public async Task<IActionResult> RemoveItem(SampleItemViewModel sampleItemViewModel, CancellationToken cancellationToken)
         {
-            var removeResult = await mediator.Send(
+            var result = await mediator.Send(
                 new RemoveSampleItemFromList.Command(
                     sampleItemViewModel.ListId,
                     sampleItemViewModel.Id), cancellationToken: cancellationToken);
 
 
-            if (removeResult.IsFailure)
+            if (result.IsFailure)
             {
-                //TODO: CORREGIR
-                //var responseError = HandleErrorResult(removeResult, id: "Items");
-                //return Json(responseError);
+                return Json(GetFailureMessageResponse(result, elementId: "Items"));
             }
             else
             {
-                //TODO: CORREGIR
-                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_RemoveItem_Success"].Value)
-                //                                                  .SetId("Items");
+                return Json(GetSuccessMessageResponse(localizer.GetString("Sample_SampleList_RemoveItem_Success"), elementId: "Items"));
             }
-
-            // Devolver el contenido del partial view como JSON
-            return Json(new { success = removeResult.IsSuccess });
         }
 
         private async Task<Result<List<SampleListWithItemsCountDto>>> ListByLoggedUserAsync(CancellationToken cancellationToken)
@@ -267,25 +218,13 @@ namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
             return await mediator.Send(new ListSampleListByUser.Query(user), cancellationToken);
         }
 
-        private async Task<Result<SampleListWithItemsDto>> GetSamplelistAsync(int id, CancellationToken cancellationToken)
+        private async Task<Result<SampleListWithItemsDto>> GetSampleListByIdAsync(int id, string elementId = null, CancellationToken cancellationToken = default)
         {
             var result = await mediator.Send(new GetSampleListById.Query(id), cancellationToken);
 
             if (result.IsFailure)
             {
-                HandleErrorResult(result);
-            }
-
-            return result;
-        }
-
-        private async Task<Result<SampleListWithItemsDto>> GetSamplelistAsync(int id, string elementId = null, CancellationToken cancellationToken = default)
-        {
-            var result = await mediator.Send(new GetSampleListById.Query(id), cancellationToken);
-
-            if (result.IsFailure)
-            {
-                HandleErrorResult(result);
+                HandleFailureResult(result, elementId);
             }
 
             return result;

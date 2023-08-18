@@ -17,8 +17,9 @@ const _lodingType = Enum({
 }),
     _responseType = Enum({
         Success: 0,
-        Warning: 1,
-        Error: 2
+        Info: 1,
+        Validation: 2,
+        Error: 3
     });
 
 export class Enums {

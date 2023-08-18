@@ -1,11 +1,5 @@
-﻿
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Mvc.Razor;
+﻿using Microsoft.AspNetCore.Mvc.Razor;
 using NLog.Web;
-using Template.Configuration;
 using Template.Common;
 
 namespace Template.MvcWebApp.Setup
@@ -33,7 +27,7 @@ namespace Template.MvcWebApp.Setup
                             .AddDataAnnotationsLocalization(options =>
                             {
                                 options.DataAnnotationLocalizerProvider = (type, factory) =>
-                                    factory.Create(Constants.Configuration.Resources.DataAnnotation, PresentationAssembly.AssemblyName);
+                                    factory.Create(Constants.Configuration.Resources.DataAnnotation, PresentationAssembly.AssemblyFullName);
                             });
 
             builder.Services.AddSession();

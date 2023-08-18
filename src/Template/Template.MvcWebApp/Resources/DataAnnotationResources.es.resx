@@ -132,8 +132,14 @@
   <data name="Email" xml:space="preserve">
     <value>Correo electrónico</value>
   </data>
+  <data name="Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
   <data name="Items count" xml:space="preserve">
     <value>Cantidad de items</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>Lista</value>
   </data>
   <data name="List Name" xml:space="preserve">
     <value>Nombre de lista</value>
@@ -161,9 +167,6 @@
   </data>
   <data name="Remember this machine" xml:space="preserve">
     <value>Recordar este equipo</value>
-  </data>
-  <data name="Sample list" xml:space="preserve">
-    <value>Lista de ejemplo</value>
   </data>
   <data name="The new password and confirmation password do not match." xml:space="preserve">
     <value>La nueva contraseña y la contraseña de confirmación no coinciden.</value>

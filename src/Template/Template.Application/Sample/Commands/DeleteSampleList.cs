@@ -10,7 +10,7 @@ namespace Template.Application.Sample.Commands
 {
     public static class DeleteSampleList
     {
-        public sealed record Command(int SampleListId, bool DeleteWithItems = false) : IRequest<Result>;
+        public sealed record Command(int SampleListId) : IRequest<Result>;
 
         public class Handler : IRequestHandler<Command, Result>
         {
@@ -27,13 +27,8 @@ namespace Template.Application.Sample.Commands
             {
                 try
                 {
-
                     var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListId, cancellationToken);
-                    if (!request.DeleteWithItems && sampleList.Items.Any())
-                    {
-                        return Result.Failure(new ValidationException(ValidationErrors.Sample.DeleteSampleList.ListWithItems));
-                    }
-
+                    
                     sampleListRepository.Delete(sampleList);
                     
                     await unitOfWork.SaveChangesAsync(cancellationToken);

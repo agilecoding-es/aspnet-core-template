@@ -26,8 +26,11 @@ namespace Template.Configuration
         public AuthenticationProviders AuthenticationProviders { get; set; }
 
         public Errors Errors { get; set; }
+
+        public Samples Samples { get; set; }
+
     }
-    
+
     public class AuthenticationProviders
     {
         public GoogleOptions GoogleOptions { get; set; }
@@ -154,4 +157,14 @@ namespace Template.Configuration
         public bool ShowRequestId { get; set; }
     }
 
+    public class Messages
+    {
+        public bool TreatValidationsAsWarnings { get; set; }
+    }
+
+    public class Samples
+    {
+        public bool ShowSampleMVC { get; set; }
+        public bool ShowSampleAjax { get; set; }
+    }
 }

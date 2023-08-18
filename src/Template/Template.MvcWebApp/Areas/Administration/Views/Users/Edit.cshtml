@@ -30,13 +30,8 @@
 }
 <form method="post">
     <div class="row">
-        <div class="col-12">
-            @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
-        </div>
-
         <div class="col-4">
-
-            @*<div asp-validation-messages="All" class="text-dark-red"></div>*@
+            <div asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
                 <div class="form-group w-100">

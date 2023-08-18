@@ -8,37 +8,38 @@
     ViewData["Title"] = title;
 }
 
-
-<h6>@Localizer["Sample_SampleList_Delete_Description"].Value</h6>
+<div asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
+<h6> @(!Model.HasItems ? Localizer["Sample_SampleList_Delete_Description"].Value : Localizer["Sample_SampleList_DeleteWithItems_Description"].Value)</h6>
 <div>
     <div class="card col-12">
         <div class="card-body position-relative">
             <dl class="row">
                 <dt class="col-sm-12">
-                    @Html.DisplayNameFor(model => model.SampleList.Name)
+                    @Html.DisplayNameFor(model => model.ListName)
                 </dt>
                 <dd class="col-sm-12">
-                    @Html.DisplayFor(model => model.SampleList.Name)
+                    @Html.DisplayFor(model => model.ListName)
                 </dd>
             </dl>
+            @if (Model.HasItems){
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.ItemsCount)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.ItemsCount)
+                </dd>
+            </dl>
+            }
         </div>
     </div>
-    <br />
-    @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
-    <hr class="silver"/>
+    <hr class="silver" />
     <form asp-action="Delete">
-        <input type="hidden" asp-for="SampleList.Id" />
-        <input type="hidden" asp-for="SampleList.Name" />
+        <input type="hidden" asp-for="ListId" value="@Model.ListId" />
+        <input type="hidden" asp-for="ListName" value="@Model.ListName" />
+        <input type="hidden" asp-for="ItemsCount" value="@Model.ItemsCount" />
+        <input type="hidden" asp-for="HasItems" value="@Model.HasItems" />
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Shared_Buttons_Close"].Value</button>
-        @if (!@Model.NeedsConfirmation)
-        {
-            <button type="submit" class="btn btn-danger">@Localizer["Shared_Buttons_Delete"].Value</button>
-        }
-        else
-        {
-            <input type="hidden" asp-for="NeedsConfirmation" value="true" />
-            <input type="hidden" asp-for="Confirmed" value="true" />
-            <button type="submit" class="btn btn-danger">@Localizer["Shared_Buttons_DeleteAndConfirm"].Value</button>
-        }
+        <button type="submit" class="js_DeleteButton btn btn-danger" data-id="@Model.ListId">@Localizer["Shared_Buttons_Delete"].Value</button>
     </form>
 </div>

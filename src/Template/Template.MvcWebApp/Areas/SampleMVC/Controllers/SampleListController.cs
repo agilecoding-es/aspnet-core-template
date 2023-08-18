@@ -1,23 +1,16 @@
-﻿using System.Security.Claims;
-using IdentityModel.OidcClient;
-using Mapster;
+﻿using Mapster;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.MSIdentity.Shared;
+using Microsoft.AspNetCore.Mvc.Localization;
+using System.Security.Claims;
 using Template.Application.Contracts.DTOs.Sample;
 using Template.Application.Identity;
 using Template.Application.Sample.Commands;
 using Template.Application.Sample.Queries;
-using Template.Domain.Entities.Sample;
 using Template.Domain.Entities.Shared;
-using Template.Common.Extensions;
 using Template.MvcWebApp.Areas.SampleMvc.Models.SampleList;
 using Template.MvcWebApp.Models;
-using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Result = Template.Domain.Entities.Shared.Result;
-using Template.Common;
 
 namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 {
@@ -45,7 +38,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 
         public async Task<IActionResult> Detail(int id, CancellationToken cancellationToken)
         {
-            var result = await GetSamplelistAsync(id, cancellationToken);
+            var result = await GetSampleListByIdAsync(id, cancellationToken: cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -73,31 +66,33 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 
                 if (createListResult.IsFailure)
                 {
-                    HandleErrorResult(createListResult);
+                    HandleFailureResult(createListResult);
+
                     return View(sampleListViewModel);
                 }
 
-                if (createListResult.IsSuccess && !sampleListViewModel.Items.IsNullOrEmpty())
+                if (createListResult.IsSuccess)
                 {
                     var addItemsResult = await mediator.Send(new AddSampleItemsToList.Command(createListResult.Value, sampleListViewModel.Items.Adapt<List<SampleItemDto>>()));
 
                     if (addItemsResult.IsFailure)
                     {
-                        HandleErrorResult(createListResult);
+                        HandleFailureResult(createListResult);
+
                         return View(sampleListViewModel);
                     }
 
+                    var sampleListId = createListResult.Value;
+                    AddSuccessMessage(localizer["Sample_SampleList_Edit_Success"].Value, "Edit");
+                    return RedirectToAction(nameof(Edit), new { id = sampleListId });
                 }
-
-                var sampleListId = createListResult.Value;
-                return RedirectToAction(nameof(EditFromSuccessRedirection), new { id = sampleListId });
             }
             return View(sampleListViewModel);
         }
 
         public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
         {
-            var result = await GetSamplelistAsync(id, "Edit", cancellationToken);
+            var result = await GetSampleListByIdAsync(id, cancellationToken: cancellationToken);
 
             if (result.IsSuccess)
             {
@@ -108,25 +103,25 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             }
             else
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
         }
 
-        public async Task<IActionResult> EditFromSuccessRedirection(int id, CancellationToken cancellationToken)
-        {
-            var result = await GetSamplelistAsync(id, "Edit", cancellationToken);
+        //public async Task<IActionResult> EditFromSuccessRedirection(int id, CancellationToken cancellationToken)
+        //{
+        //    var result = await GetSampleListByIdAsync(id, "Edit", cancellationToken);
 
-            var model = new EditSampleListViewModel();
-            if (result.IsSuccess)
-            {
-                model = result.Value.Adapt<EditSampleListViewModel>();
-                model.NewItem = new SampleItemViewModel() { ListId = model.Id };
-                //TODO: CORREGIR
-                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Create_Success"].Value);
-            }
+        //    var model = new EditSampleListViewModel();
+        //    if (result.IsSuccess)
+        //    {
+        //        model = result.Value.Adapt<EditSampleListViewModel>();
+        //        model.NewItem = new SampleItemViewModel() { ListId = model.Id };
+        //        //TODO: CORREGIR
+        //        //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Create_Success"].Value);
+        //    }
 
-            return View("Edit", model);
-        }
+        //    return View("Edit", model);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditSampleListViewModel sampleListViewModel, CancellationToken cancellationToken)
@@ -139,36 +134,44 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
                         sampleListViewModel.Name,
                         sampleListViewModel.UserId), cancellationToken);
 
-                var getResult = await GetSamplelistAsync(sampleListViewModel.Id, "Edit", cancellationToken);
-                var model = getResult.Value.Adapt<EditSampleListViewModel>();
-                model.NewItem = new SampleItemViewModel() { ListId = model.Id };
-                if (result.IsFailure)
+                var updatedModelResult = await GetSampleListByIdAsync(sampleListViewModel.Id, "Edit", cancellationToken);
+
+
+                if (updatedModelResult.IsSuccess)
                 {
-                    sampleListViewModel.NewItem = model.NewItem;
-                    HandleErrorResult(result, "EditValidations");
-                }
-                else
-                {
-                    sampleListViewModel = model;
-                    //TODO: CORREGIR
-                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value)
-                    //                                                  .SetId("Edit");
+                    sampleListViewModel = updatedModelResult.Value.Adapt<EditSampleListViewModel>();
+                    sampleListViewModel.NewItem = new SampleItemViewModel() { ListId = sampleListViewModel.Id };
+
+                    if (result.IsFailure)
+                    {
+                        HandleFailureResult(result, "Edit");
+                    }
+                    else
+                    {
+                        //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value, elementId: "Edit");
+                        AddSuccessMessage(localizer["Sample_SampleList_Edit_Success"].Value, "Edit");
+                    }
                 }
             }
+            sampleListViewModel.NewItem = new SampleItemViewModel() { ListId = sampleListViewModel.Id };
 
             return View(sampleListViewModel);
         }
 
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken = default)
         {
-            var result = await GetSamplelistAsync(id, cancellationToken);
+            var result = await GetSampleListByIdAsync(id, cancellationToken: cancellationToken);
 
             var model = new DeleteSampleListViewModel();
             if (result.IsSuccess)
             {
+                var sampleList = result.Value.Adapt<SampleListViewModel>();
                 model = new DeleteSampleListViewModel()
                 {
-                    SampleList = result.Value.Adapt<SampleListViewModel>()
+                    ListId = sampleList.Id,
+                    ListName = sampleList.Name,
+                    ItemsCount = sampleList.ItemsCount,
+                    HasItems = sampleList.Items.Any()
                 };
             }
 
@@ -181,24 +184,17 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             if (ModelState.IsValid)
             {
                 var result = await mediator.Send(
-                    new DeleteSampleList.Command(deleteSampleListViewModel.SampleList.Id,
-                                                        DeleteWithItems: deleteSampleListViewModel.NeedsConfirmation && deleteSampleListViewModel.Confirmed),
+                    new DeleteSampleList.Command(deleteSampleListViewModel.ListId),
                     cancellationToken);
 
-                if (result.IsFailure)
+                if (result.IsSuccess)
                 {
-                    //TODO: Traducir mensaje
-                    //TODO: CORREGIR
-                    //HandleErrorResult(result,
-                    //                  ResponseMessageViewModel.Error(result.Exception.Message, "Do you want to delete anyway?"));
-                    deleteSampleListViewModel.NeedsConfirmation = true;
-
-                    return View(deleteSampleListViewModel);
+                    AddSuccessMessage(localizer.GetString("Sample_SampleList_Delete_Success"));
                 }
-
-                //TODO: Cambiar mensaje
-                //TODO: CORREGIR
-                //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_Edit_Success"].Value);
+                else
+                {
+                    HandleFailureResult(result);
+                }
             }
 
             return RedirectToAction(nameof(Index));
@@ -217,17 +213,11 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 
                 if (addItemResult.IsFailure)
                 {
-                    HandleErrorResult(addItemResult, "AddItemValidations");
-                }
-                else
-                {
-                    //TODO: CORREGIR
-                    //ViewBag.ResponseMessage = ResponseMessageViewModel.Success(localizer["Sample_SampleList_AddItem_Success"].Value)
-                    //.SetId("Items");
+                    HandleFailureResult(addItemResult, "AddItemValidations");
                 }
             }
 
-            var result = await GetSamplelistAsync(sampleItemViewModel.ListId, "Edit", cancellationToken);
+            var result = await GetSampleListByIdAsync(sampleItemViewModel.ListId, "Edit", cancellationToken);
             var model = result.Value.Adapt<EditSampleListViewModel>();
             if (result.IsSuccess)
             {
@@ -253,7 +243,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
 
             if (removeResult.IsFailure)
             {
-                HandleErrorResult(removeResult);
+                HandleFailureResult(removeResult);
             }
             else
             {
@@ -263,7 +253,7 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             }
 
 
-            var result = await GetSamplelistAsync(listId, "Edit", cancellationToken);
+            var result = await GetSampleListByIdAsync(listId, "Edit", cancellationToken);
             var model = result.Value.Adapt<EditSampleListViewModel>();
             if (result.IsSuccess)
             {
@@ -280,26 +270,13 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             return await mediator.Send(new ListSampleListByUser.Query(user), cancellationToken);
         }
 
-        private async Task<Result<SampleListWithItemsDto>> GetSamplelistAsync(int id, CancellationToken cancellationToken)
+        private async Task<Result<SampleListWithItemsDto>> GetSampleListByIdAsync(int id, string elementId = null, CancellationToken cancellationToken = default)
         {
             var result = await mediator.Send(new GetSampleListById.Query(id), cancellationToken);
 
             if (result.IsFailure)
             {
-                HandleErrorResult(result);
-            }
-
-            return result;
-        }
-
-        private async Task<Result<SampleListWithItemsDto>> GetSamplelistAsync(int id, string elementId = null, CancellationToken cancellationToken = default)
-        {
-            
-            var result = await mediator.Send(new GetSampleListById.Query(id), cancellationToken);
-
-            if (result.IsFailure)
-            {
-                HandleErrorResponse(result);
+                HandleFailureResult(result, elementId);
             }
 
             return result;

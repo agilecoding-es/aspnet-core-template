@@ -708,8 +708,15 @@
   <data name="Sample_SampleList_Create_Title" xml:space="preserve">
     <value>Create sample list</value>
   </data>
+  <data name="Sample_SampleList_DeleteWithItems_Description" xml:space="preserve">
+    <value>Are you sure you want to delete the following example list?
+You will lose the associated items</value>
+  </data>
   <data name="Sample_SampleList_Delete_Description" xml:space="preserve">
-    <value>Are you sure you want to delete this sample list?</value>
+    <value>Are you sure you want to delete the following example list?</value>
+  </data>
+  <data name="Sample_SampleList_Delete_Success" xml:space="preserve">
+    <value>The sample list was successfully deleted.</value>
   </data>
   <data name="Sample_SampleList_Delete_Title" xml:space="preserve">
     <value>Delete sample list</value>
@@ -758,5 +765,14 @@
   </data>
   <data name="Shared_Message_ErrorOccured" xml:space="preserve">
     <value>Sorry, an unexpected error occurred. Please try again later. If the problem continues, contact with the system administrator.</value>
+  </data>
+  <data name="Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists" xml:space="preserve">
+    <value>The name of the list already exist.</value>
+  </data>
+  <data name="Validations_Shared_EmptyList" xml:space="preserve">
+    <value>The list of {0} is empty.</value>
+  </data>
+  <data name="Validations_Shared_EntityNotFound" xml:space="preserve">
+    <value>The entity {0} could not be found.</value>
   </data>
 </root>

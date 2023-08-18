@@ -92,9 +92,14 @@ function vendors_modules_js(done) {
         let filename = vendor.prod;
         if (mode.development()) {
             filename = vendor.dev;
-            console.log(filename);
         }
-        return src(filename)
+
+        console.log(filename);
+
+        return src(vendor.prod)
+            .pipe(concat(`${vendor.expose}.js`))
+            .pipe(rename({ extname: '.bundle.js' }))
+            .pipe(mode.production(rename({ suffix: '.min' })))
             .pipe(dest('./wwwroot/content/vendors/'));
     });
 
@@ -291,7 +296,7 @@ const build = series(
     parallel(
         series(theme, ts, js),
         settings,
-        images_copy
+        images
     )
 )
 
@@ -300,4 +305,4 @@ const dev = series(build, keep_watching);
 exports.dev = dev;
 exports.default = build;
 exports.images = images;
-exports.prueba = series(clean_up, shared_ts);
+exports.prueba = series(clean_up, vendors_modules_js);

@@ -707,8 +707,15 @@
   <data name="Sample_SampleList_Create_Title" xml:space="preserve">
     <value>Crear lista de ejemplo</value>
   </data>
+  <data name="Sample_SampleList_DeleteWithItems_Description" xml:space="preserve">
+    <value>Estas seguro de querer eliminar la siguiente lista de ejemplo?
+Vas a perder los items asociados</value>
+  </data>
   <data name="Sample_SampleList_Delete_Description" xml:space="preserve">
     <value>Estas seguro de querer eliminar la siguiente lista de ejemplo?</value>
+  </data>
+  <data name="Sample_SampleList_Delete_Success" xml:space="preserve">
+    <value>La lista de ejemplo fue eliminada correctamente.</value>
   </data>
   <data name="Sample_SampleList_Delete_Title" xml:space="preserve">
     <value>Eliminar lista de ejemplo</value>
@@ -757,5 +764,14 @@
   </data>
   <data name="Shared_Message_ErrorOccured" xml:space="preserve">
     <value>Disculpe, ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde. Si el problema continúa, póngase en contacto con el administrador del sistema.</value>
+  </data>
+  <data name="Validations_Sample_GetSampleListById_ListWithSameNameAlreadyExists" xml:space="preserve">
+    <value>El nombre de la lista ya existe.</value>
+  </data>
+  <data name="Validations_Shared_EmptyList" xml:space="preserve">
+    <value>La lista de {0} está vacía.</value>
+  </data>
+  <data name="Validations_Shared_EntityNotFound" xml:space="preserve">
+    <value>La entidad {0} no se pudo encontrar.</value>
   </data>
 </root>

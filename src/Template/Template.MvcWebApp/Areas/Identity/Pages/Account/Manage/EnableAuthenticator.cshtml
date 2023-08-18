@@ -38,7 +38,7 @@
                             <span asp-validation-for="Input.Code" class="invalid-feedback text-dark-red"></span>
                         </div>
                         <button type="submit" class="w-100 btn btn-lg btn-primary">@Localizer["Identity_Account_Manage_EnableAuthenticator_Submit"]</button>
-                        <div asp-validation-messages="All" class="text-dark-red"></div>
+                        <div asp-validation-summary="ModelOnly"></div>
                     </form>
                 </div>
             </div>
@@ -50,10 +50,10 @@
     <partial name="_ValidationScriptsPartial" />
     <environment include="Development">
         <script type="text/javascript" src="~/content/vendors/davidshimjs-qrcodejs/qrcode.js"></script>
-        <script type="text/javascript" src="~/content/js/Areas/Identity/Account/Manage/enable-authenticator.bundle.js"></script>
+        <script type="text/javascript" src="~/content/js/qr-code-generator.bundle.js"></script>
     </environment>
     <environment exclude="Development">
         <script type="text/javascript" src="~/content/vendors/davidshimjs-qrcodejs/qrcode.min.js"></script>
-        <script type="text/javascript" src="~/content/js/Areas/Identity/Account/Manage/enable-authenticator.bundle.min.js"></script>
+        <script type="text/javascript" src="~/content/js/qr-code-generator.bundle.min.js"></script>
     </environment>
 }

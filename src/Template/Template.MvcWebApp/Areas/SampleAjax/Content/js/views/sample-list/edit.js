@@ -1,8 +1,9 @@
 ﻿import { SampleList } from "../../models/sample-list";
 import { SampleItem } from "../../models/sample-item";
 import { SampleListServices } from "../../services/sample-list-controller-services";
-import { Loader } from '../../../../../../Content/js/loader'
+import { Loader } from "../../../../../../Content/js/loader"
 import { Enums } from "../../../../../../Content/js/enums";
+import { MessageHelper } from "../../../../../../Content/js/UIComponents/message-taghelper/message-helper";
 
 class Edit {
 
@@ -17,8 +18,10 @@ class Edit {
             submitAddItemForm: "form[name=AddItemForm] button[type=submit]",
             descriptionItem: "form[name=AddItemForm] #Description",
             removeItemForm: "form[name=RemoveItemForm]",
+            addItemValidations: "AddItemValidations"
         };
         this.sampleListServices = sampleListServices;
+        this.messageHelper = new MessageHelper();
         this.bindEvents();
 
         $(() => {
@@ -40,7 +43,7 @@ class Edit {
             });;
     }
 
-    submitEditorForm(event) {
+    async submitEditorForm(event) {
         event.preventDefault();
 
         const $submitEditForm = $(this.elements.submitEditForm);
@@ -49,17 +52,19 @@ class Edit {
         const form = $(this.elements.editForm).get(0);
         const formData = new FormData(form);
 
-        this.sampleListServices
-            .submitEditForm(formData)
-            .catch(error => {
-                console.error(error);
-            })
-            .finally(() => {
-                loader.endLoading();
-            });;
+        try {
+            let data = await this.sampleListServices.submitEditForm(formData);
+            if (data) {
+                this.messageHelper.showMesssage(data.content)
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            loader.endLoading();
+        }
     }
 
-    submitAddItemForm(event) {
+    async submitAddItemForm(event) {
         event.preventDefault();
 
         const $submitAddItemForm = $(this.elements.submitAddItemForm);
@@ -68,24 +73,25 @@ class Edit {
         const form = $(this.elements.addItemForm).get(0);
         const formData = new FormData(form);
 
-        this.sampleListServices
-            .submitAddItemForm(formData)
-            .then(data => {
-                if (data) {
+        try {
+            let data = await this.sampleListServices.submitAddItemForm(formData)
+            if (data) {
+                if (data.success) {
                     const $items = $(this.elements.items);
                     $items.append(data.content);
 
                     const $descriptionItem = $(this.elements.descriptionItem);
                     $descriptionItem.val('');
                     $descriptionItem.trigger("focus");
+                } else {
+                    this.messageHelper.showMesssage(data.content)
                 }
-            })
-            .catch(error => {
-                console.error(error);
-            })
-            .finally(() => {
-                loader.endLoading();
-            });
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            loader.endLoading();
+        }
     }
 
     submitRemoveItemForm(event) {
@@ -102,8 +108,11 @@ class Edit {
             .submitRemoveItemForm(formData)
             .then(data => {
                 if (data) {
+                    if (data.success) { }
                     const $itemContainer = $submitRemoveItemForm.parent();
                     $itemContainer.remove();
+                } else {
+                    this.messageHelper.showMesssage(data.content)
                 }
             })
             .catch(error => {

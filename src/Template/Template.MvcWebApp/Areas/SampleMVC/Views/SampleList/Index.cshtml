@@ -21,7 +21,7 @@
 }
 <hr />
 <div>
-    <div asp-validation-messages="All" class="text-dark-red"></div>
+    <div asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
     <div class="grid">
         @if (!Model.Any())
         {
@@ -47,7 +47,7 @@
 
                         <div class="row">
                             <div class="col text-end">
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">@Localizer["Shared_Buttons_Edit"].Value</a>
                                 <a class="btn btn-outline-dark-red" asp-action="Delete" asp-route-id="@item.Id">@Localizer["Shared_Buttons_Delete"].Value</a>
                             </div>
                         </div>

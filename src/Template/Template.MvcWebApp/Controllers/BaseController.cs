@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Reflection.Metadata;
 using Template.Application.Exceptions;
-using Template.Common;
-using Template.Configuration;
+using Template.Common.Extensions;
 using Template.Domain.Entities.Shared;
 using Template.Domain.Exceptions;
 using Template.MvcWebApp.Common;
-using Template.MvcWebApp.Extensions;
-using Template.MvcWebApp.Models;
+using Template.MvcWebApp.TagHelpers.Models.MessageTagHelper;
 
 namespace Template.MvcWebApp.Controllers
 {
@@ -22,47 +18,99 @@ namespace Template.MvcWebApp.Controllers
             this.localizer = localizer;
         }
 
-        public void HandleErrorResult(Result result, string elementId = null)
+        public void HandleFailureResult(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
 
-            if (!string.IsNullOrEmpty(elementId))
-            {
-                TempData[TempDataKey.ERROR_ID] = elementId;
-            }
+            ResponseMessageViewModel responseMessage = null;
+            if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
+                responseMessage = ResponseMessageViewModel.Create(elementId);
+            else
+                responseMessage = (TempData[TempDataKey.MESSAGE_RESPONSE] as string).Deserialize<ResponseMessageViewModel>();
 
             if (!(result.Exception is ValidationException || result.Exception is DomainException))
             {
-                //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                ModelState.AddModelError(Constants.KeyErrors.GenericError, localizer.GetString("Shared_Message_ErrorOccured"));
+                responseMessage.AddErrorMessage(localizer.GetString("Shared_Message_ErrorOccured"));
             }
             else
             {
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
+                //ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
+                responseMessage.AddValidationMessage(result.Exception.Message);
             }
+
+            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
         }
 
-        public IActionResult HandleErrorResponse(Result result, string elementId = null)
+        public void AddSuccessMessage(string message, string elementId = null)
+        {
+            _ = message ?? throw new ArgumentNullException(nameof(message));
+
+            ResponseMessageViewModel responseMessage = null;
+            if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
+                responseMessage = ResponseMessageViewModel.Create(elementId);
+            else
+                responseMessage = (TempData[TempDataKey.MESSAGE_RESPONSE] as string).Deserialize<ResponseMessageViewModel>();
+
+            responseMessage.AddSuccessMessage(message);
+
+            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
+        }
+
+        public void AddInfoMessage(string message, string elementId = null)
+        {
+            _ = message ?? throw new ArgumentNullException(nameof(message));
+
+            ResponseMessageViewModel responseMessage = null;
+            if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
+                responseMessage = ResponseMessageViewModel.Create(elementId);
+            else
+                responseMessage = (TempData[TempDataKey.MESSAGE_RESPONSE] as string).Deserialize<ResponseMessageViewModel>();
+
+            responseMessage.AddInfoMessage(message);
+
+            TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
+        }
+
+
+        public dynamic GetFailureMessageResponse(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
 
-            if (!string.IsNullOrEmpty(elementId))
-            {
-                TempData[TempDataKey.ERROR_ID] = elementId;
-            }
+            ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
 
             if (!(result.Exception is ValidationException || result.Exception is DomainException))
             {
-                //TODO: Agregar severidad a ValidationException para poder emitir warnings
-                ModelState.AddModelError(Constants.KeyErrors.GenericError, localizer.GetString("Shared_Message_ErrorOccured"));
-
-                return BadRequest(ModelState);
+                responseMessage.AddErrorMessage(localizer.GetString("Shared_Message_ErrorOccured"));
             }
             else
             {
-                ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
-                return NotFound(ModelState);
+                //ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
+                responseMessage.AddValidationMessage(result.Exception.Message);
             }
+
+            return new { success = false, content = responseMessage.Serialize() };
+        }
+
+        public dynamic GetSuccessMessageResponse(string message, string elementId = null)
+        {
+            _ = message ?? throw new ArgumentNullException(nameof(message));
+
+            ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
+
+            responseMessage.AddSuccessMessage(message);
+
+            return new { success = true, content = responseMessage.Serialize() };
+        }
+
+        public dynamic GetInfoMessageResponse(string message, string elementId = null)
+        {
+            _ = message ?? throw new ArgumentNullException(nameof(message));
+
+            ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
+
+            responseMessage.AddInfoMessage(message);
+
+            return new { success = true, content = responseMessage.Serialize() };
         }
     }
 }

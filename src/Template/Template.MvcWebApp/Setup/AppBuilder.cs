@@ -208,6 +208,7 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureDependencies()
         {
             AppSettings appSettings = configuration.Get<AppSettings>();
+            services.AddSingleton(appSettings);
 
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
 
@@ -233,7 +234,7 @@ namespace Template.MvcWebApp.Setup
                 .AddSingleton(provider =>
                 {
                     var factory = provider.GetService<IStringLocalizerFactory>()!;
-                    return factory.Create(Constants.Configuration.Resources.AppResources, PresentationAssembly.AssemblyName);
+                    return factory.Create(Constants.Configuration.Resources.AppResources, PresentationAssembly.AssemblyFullName);
                 });
 
             services

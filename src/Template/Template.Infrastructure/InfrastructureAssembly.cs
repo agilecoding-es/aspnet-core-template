@@ -8,9 +8,7 @@ using Template.Configuration.AssemblyInfo;
 
 namespace Template.Infrastructure
 {
-    public sealed class InfrastructureAssembly: IAssemblyInfo
+    public sealed class InfrastructureAssembly : AssemblyInfo<InfrastructureAssembly>
     {
-        public static Assembly Assembly => typeof(InfrastructureAssembly).Assembly;
-        public static string AssemblyName => typeof(InfrastructureAssembly).Assembly.FullName;
     }
 }

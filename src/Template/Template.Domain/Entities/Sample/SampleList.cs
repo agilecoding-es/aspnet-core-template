@@ -9,7 +9,7 @@ using Template.Domain.Exceptions;
 
 namespace Template.Domain.Entities.Sample
 {
-    [DisplayName("Sample list")]
+    [DisplayName("List")]
     public class SampleList : Entity<int>
     {
         public SampleList() : base() {

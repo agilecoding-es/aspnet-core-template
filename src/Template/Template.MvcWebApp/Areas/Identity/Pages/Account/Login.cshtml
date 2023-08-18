@@ -15,7 +15,7 @@
             <form id="account" method="post">
                 <h2>@Localizer["Identity_Account_Login_Subtitle"]</h2>
                 <hr />
-                <div asp-validation-messages="All" class="text-dark-red"></div>
+                <div asp-validation-summary="ModelOnly"></div>
                 <div class="form-floating mb-2">
                     <input asp-for="Input.UsernameOrEmail" class="form-control" autocomplete="username" aria-required="true" placeholder="@Html.DisplayTextFor(m => m.Input.UsernameOrEmail)" />
                     <label asp-for="Input.UsernameOrEmail" class="form-label"></label>
