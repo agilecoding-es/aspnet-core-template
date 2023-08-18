@@ -1,9 +1,9 @@
 ﻿(function ($) {
     $(function () {
         // Function to hide the message element after the specified timeout
-        function hideMessageElement(element) {
-            let delay = $(element).data('hiding-delay');
-            let timeout = $(element).data('hiding-delay') * 1000;
+        function hideMessageElements(container, element) {
+            let delay = $(container).data('hiding-delay');
+            let timeout = delay * 1000;
 
             if (timeout) {
                 let progressBar = $(element).find('.message-progress');
@@ -28,9 +28,15 @@
             }
         }
 
-        // Hide message elements with the 'data-hiding-delay' attribute
-        $('[data-hiding-delay]').each(function () {
-            hideMessageElement(this);
+        $(document).on('show', '[data-hiding-delay] .message-item', function () {
+            const container = $('[data-hiding-delay]');
+            let newMessageItem = $('[data-hiding-delay] .message-item:last-child');
+            console.log('show');
+            hideMessageElements(container, newMessageItem);
+        });
+
+        $(document).on('hide', '[data-hiding-delay] .message-item', function () {
+            console.log('hide');
         });
     });
 })(jQuery);

@@ -73,8 +73,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "production", "production", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Security", "Template.Security\Template.Security.csproj", "{34E78E88-BA47-4076-81E3-1719F2A19F50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.UIComponents", "Template.UIComponents\Template.UIComponents.csproj", "{9677394F-07F1-400B-8B6A-CA5EAA888366}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,10 +139,6 @@ Global
 		{34E78E88-BA47-4076-81E3-1719F2A19F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34E78E88-BA47-4076-81E3-1719F2A19F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34E78E88-BA47-4076-81E3-1719F2A19F50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9677394F-07F1-400B-8B6A-CA5EAA888366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9677394F-07F1-400B-8B6A-CA5EAA888366}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9677394F-07F1-400B-8B6A-CA5EAA888366}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9677394F-07F1-400B-8B6A-CA5EAA888366}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,11 +165,10 @@ Global
 		{C819DCAE-087C-4A0E-90A8-55919F63E581} = {D0C4D9BB-161A-4911-BF95-B1123D434E42}
 		{5C07E9D6-8FF5-497E-9FA3-B3CAE3249CA0} = {D0C4D9BB-161A-4911-BF95-B1123D434E42}
 		{34E78E88-BA47-4076-81E3-1719F2A19F50} = {3B322308-A8AC-4F0E-BCB1-78D2339F5385}
-		{9677394F-07F1-400B-8B6A-CA5EAA888366} = {92552C75-0019-4A93-B5A8-9AA318B5BE13}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_EnableXlifSync = False
-		RESX_SortFileContentOnSave = True
 		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
+		RESX_SortFileContentOnSave = True
+		RESX_EnableXlifSync = False
 	EndGlobalSection
 EndGlobal

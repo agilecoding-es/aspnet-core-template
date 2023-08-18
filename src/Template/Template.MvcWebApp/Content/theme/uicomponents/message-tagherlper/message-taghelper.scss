@@ -1,10 +1,10 @@
-﻿.message-absolute {
+﻿.message-component.message-absolute {
     max-width: 500px;
     width: 100%;
     z-index: 10000;
 }
 
-.message-progress {
+.message-component .message-progress {
     height: 2px;
     position: absolute;
     bottom: 0;

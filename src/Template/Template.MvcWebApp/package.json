@@ -27,8 +27,7 @@
     "davidshimjs-qrcodejs": "0.0.2",
     "jquery": "3.7.0",
     "jquery-validation": "1.19.5",
-    "jquery-validation-unobtrusive": "3.2.12",
-    "mdb-ui-kit": "6.3.0"
+    "jquery-validation-unobtrusive": "3.2.12"
   },
   "devDependencies": {
     "@babel/preset-env": "7.21.5",

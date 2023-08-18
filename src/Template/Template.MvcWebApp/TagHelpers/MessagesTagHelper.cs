@@ -61,6 +61,7 @@ namespace Template.MvcWebApp.TagHelpers
         [HtmlAttributeName("id")]
         public string Id { get; set; }
 
+        [HtmlAttributeName("hiding-delay")]
         public int HidingDelay { get; set; } = 0;
 
         public MessagesTagHelper(IHtmlGenerator generator, IHtmlHelper htmlHelper, IOptions<Messages> options)
@@ -84,6 +85,7 @@ namespace Template.MvcWebApp.TagHelpers
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("id", Id);
+            output.Attributes.Add("data-hiding-delay", HidingDelay.ToString());
             output.AddClass("message-component", HtmlEncoder.Default);
 
             ResponseMessageViewModel failureResponse = null;
@@ -113,13 +115,12 @@ namespace Template.MvcWebApp.TagHelpers
                 messageItemContainer.Attributes.Add("role", "alert");
                 messageItemContainer.Attributes.Add($"ui-{message.Id}", null);
                 messageItemContainer.Attributes.Add("styles", "position: relative;");
-                messageItemContainer.Attributes.Add("data-hiding-delay", HidingDelay.ToString());
-                messageItemContainer.AddCssClass($"alert alert-{messageType} d-flex align-items-center");
+                messageItemContainer.AddCssClass($"message-item alert alert-{messageType} d-flex align-items-center");
 
                 var (img, alt) = GetMessagesImage(message.MessageType);
 
                 var image = new TagBuilder("img");
-                image.Attributes.Add("src", $"/images/UIComponents/message-taghelper/{img}.svg");
+                image.Attributes.Add("src", $"/content/images/UIComponents/message-taghelper/{img}.svg");
                 image.Attributes.Add("alt", alt);
                 image.Attributes.Add("role", "img");
                 image.Attributes.Add("aria-label", $"{messageType}:");
@@ -146,15 +147,15 @@ namespace Template.MvcWebApp.TagHelpers
                 messageItemButtonCloseSpan.Attributes.Add("aria-hidden", "true");
                 messageItemButtonClose.InnerHtml.AppendHtml(messageItemButtonCloseSpan);
 
-                var progressBar = new TagBuilder("div");
-                progressBar.AddCssClass($"message-progress bg-{messageType}");
-
                 messageItemContainer.InnerHtml.AppendHtml(image);
                 messageItemContainer.InnerHtml.AppendHtml(messageItemTag);
                 messageItemContainer.InnerHtml.AppendHtml(messageItemButtonClose);
 
                 if (HidingDelay > 0)
                 {
+                    var progressBar = new TagBuilder("div");
+                    progressBar.AddCssClass($"message-progress bg-{messageType}");
+
                     messageItemContainer.InnerHtml.AppendHtml(progressBar);
                 }
 
