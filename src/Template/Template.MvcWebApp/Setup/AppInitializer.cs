@@ -1,20 +1,47 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Template.Application.Identity;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
+using Template.Persistence.Database;
 using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.Setup
 {
     public static class AppInitializer
     {
-        public static async Task<WebApplication> InitializeAsync(this WebApplication app, ConfigurationManager configuration)
+        public static async Task<WebApplication> InitializeAsync<TContext>(this WebApplication app, ConfigurationManager configuration)
+            where TContext : DbContext
         {
+            await ApplyMigrations<TContext>(app, configuration);
             await ConfigureRolesAsync(app, configuration);
             await ConfigureSuperadminAsync(app, configuration);
 
             return app;
+        }
+
+        private static async Task ApplyMigrations<TContext>(WebApplication app, ConfigurationManager configuration)
+            where TContext : DbContext
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<TContext>();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<TContext>>();
+
+                try
+                {
+                    logger.LogInformation($"[Database] Applying migrations for context: {typeof(TContext).Name}");
+
+                    await db.Database.MigrateAsync();
+
+                    logger.LogInformation($"[Database] Migrations applied for context: {typeof(TContext).Name}");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, $"An error occurred while applying migrations for context: {typeof(TContext).Name}");
+                }
+            }
         }
 
         private static async Task ConfigureRolesAsync(WebApplication app, ConfigurationManager configuration)
@@ -43,7 +70,7 @@ namespace Template.MvcWebApp.Setup
                 }
             }
         }
-        
+
         private static async Task ConfigureSuperadminAsync(WebApplication app, ConfigurationManager configuration)
         {
             AppSettings settings = configuration.Get<AppSettings>();
