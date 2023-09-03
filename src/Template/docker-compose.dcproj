@@ -7,8 +7,13 @@
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>template.mvcwebapp</DockerServiceName>
+    <DockerComposeProjectName>templateapp</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose - Copy.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.integrationtests.yml" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>

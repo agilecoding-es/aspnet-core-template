@@ -17,6 +17,7 @@ namespace Template.MvcWebApp.Controllers
             this.logger = logger;
         }
 
+        [Route("")]
         [Route("{statusCode}")]
         [AcceptVerbs(new[] { "GET", "HEAD", "POST" })]
         public IActionResult Error(int? statusCode = null)

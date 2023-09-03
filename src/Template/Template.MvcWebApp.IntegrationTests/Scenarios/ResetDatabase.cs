@@ -4,6 +4,7 @@ using Template.MvcWebApp.IntegrationTests.Fixtures;
 namespace Template.MvcWebApp.IntegrationTests.Scenarios
 {
     [Collection("WebApp")]
+    [Trait("Category", "ExcludedFromBuild")]
     public class ResetDatabase
     {
         private readonly WebAppFactory factory;

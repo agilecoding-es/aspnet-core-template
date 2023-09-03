@@ -10,6 +10,12 @@ services:
     depends_on:
       - template.sql
       - template.redis
+    ports:
+      - "9000:80"
+      - "9001:443"
+    environment: 
+     "ConnectionStrings__DefaultConnection": "Server=sql;Database=TemplateApp;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
+     "ASPNETCORE_HTTPS_PORT": "9001"
 
   template.redis:
     image: redis:alpine

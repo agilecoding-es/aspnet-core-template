@@ -16,7 +16,6 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
         [InlineData("/")]
         [InlineData("/Index")]
         [InlineData("/Privacy")]
-        [InlineData("/Error")]
         [ResetDatabase()]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {

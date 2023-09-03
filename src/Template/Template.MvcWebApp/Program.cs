@@ -23,7 +23,9 @@ try
 
     var app = builder.DefaultServicesConfiguration().Build();
 
+    logger.Info("App Initialization \t | Initializing app ...");
     await app.InitializeAsync<Context>(builder.Configuration);
+    logger.Info("App Initialization \t | App initialized!");
 
     var settings = app.Configuration.Get<AppSettings>();
 
@@ -51,7 +53,9 @@ try
         app.UseHsts();
     }
 
+#if !DEBUG
     app.UseHttpsRedirection();
+#endif
     app.UseResponseCaching();
     //app.UseResponseCompression();
 

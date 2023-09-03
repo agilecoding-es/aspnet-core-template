@@ -48,6 +48,7 @@ namespace Template.MvcWebApp.Setup
             this.builder = builder;
             this.services = builder.Services;
             this.configuration = builder.Configuration;
+
         }
 
         public AppBuilder AddConfiguration(Action<IServiceCollection, ConfigurationManager> builder)
@@ -62,7 +63,7 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureSettings()
         {
             services.Configure<AppSettings>(configuration)
-                    .Configure<AuthenticationProviders>( options =>
+                    .Configure<AuthenticationProviders>(options =>
                     {
                         configuration.GetSection(nameof(AuthenticationProviders)).Bind(options);
                     })

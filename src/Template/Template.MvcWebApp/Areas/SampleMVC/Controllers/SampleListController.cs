@@ -103,7 +103,8 @@ namespace Template.MvcWebApp.Areas.SampleMvc.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
+                //return RedirectToAction(nameof(Index));
             }
         }
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Respawn;
 using Respawn.Graph;
@@ -50,6 +51,10 @@ namespace Template.MvcWebApp.IntegrationTests
         {
             var factory = new WebAppFactory();
 
+            var logger = factory.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Factory created");
+
+
             await factory.Connection.OpenAsync();
             await factory.InitializeRespawner();
 
@@ -72,11 +77,10 @@ namespace Template.MvcWebApp.IntegrationTests
            !FactoryConfiguration.ConnectionString.Contains("localhost") &&
            !FactoryConfiguration.ConnectionString.Contains("SQLEXPRESS") &&
            !FactoryConfiguration.ConnectionString.Contains("MSSQLSERVER") &&
-           !FactoryConfiguration.ConnectionString.Contains("ats.sql") &&
            !FactoryConfiguration.ConnectionString.Contains("(local)") &&
            !FactoryConfiguration.ConnectionString.Contains("(localdb)") &&
            !FactoryConfiguration.ConnectionString.Contains("127.0.0.1") &&
-           !FactoryConfiguration.ConnectionString.Contains("ats.mysql");
+           !FactoryConfiguration.ConnectionString.Contains("TemplateAppIntegrationTests");
 
         #endregion
 
@@ -88,9 +92,10 @@ namespace Template.MvcWebApp.IntegrationTests
         {
             Configuration = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
-                                .AddJsonFile("appsettings.json")
+                                .AddJsonFile("appsettings.integrationtests.json")
                                 .AddEnvironmentVariables()
                                 .Build();
+            
             Connection = new SqlConnection(Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection));
         }
 
@@ -123,11 +128,12 @@ namespace Template.MvcWebApp.IntegrationTests
 
             builder.ConfigureServices(services =>
             {
+                //services.AddAuthentication();
                 //services.AddAuthentication().AddCookie().AddTestServer();
 
                 services.AddAuthentication(options =>
                             {
-                                options.DefaultAuthenticateScheme = TestServerDefaults.AuthenticationScheme;
+                                options.DefaultAuthenticateScheme = "TestServer";// TestServerDefaults.AuthenticationScheme;
                             })
                         .AddCookie()
                         .AddTestServer();

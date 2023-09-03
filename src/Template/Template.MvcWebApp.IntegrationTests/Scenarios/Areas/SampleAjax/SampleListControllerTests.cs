@@ -19,7 +19,8 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
             factory = WebAppFactory.FactoryInstance;
         }
 
-        [Theory(Skip = "Pendiente de revision")]
+        //[Theory(Skip = "Pendiente de revision")]
+        [Theory()]
         [InlineData("/Index")]
         [InlineData("/Detail")]
         [InlineData("/Create")]
@@ -46,6 +47,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
         }
 
         [Theory(Skip = "Pendiente de revision")]
+        //[Theory()]
         [InlineData("/Index")]
         [InlineData("/Detail")]
         [InlineData("/Create")]

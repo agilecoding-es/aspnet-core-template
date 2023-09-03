@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  template.redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6380:6379"
+  
+  template.sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql
+    ports:
+      - "1434:1433"
+    environment: 
+      "ACCEPT_EULA": "Y"
+      "SA_PASSWORD": "sa!Password-123"
+
+  template.mvcwebapp.integrationtests:
+    image: ${DOCKER_REGISTRY-}templatemvcwebappintegrationtests
+    container_name: webapp.integration-tests
+    
+    environment: 
+      "ASPNETCORE_URLS": "https://0.0.0.0:443;http://0.0.0.0:80"
+      "ASPNETCORE_HTTPS_PORT": "9001"
+      "ConnectionStrings__DefaultConnection": "Server=sql;Database=TemplateAppIntegrationTests;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
+    build:
+      context: .
+      dockerfile: Template.MvcWebApp.IntegrationTests/Dockerfile
+    depends_on:
+      - template.sql
+      - template.redis
+    entrypoint: 
+      [
+        "/src/wait-for-it.sh", "sql:1433", "-t", "15", "--",
+        "dotnet", "test", "/src/Template.MvcWebApp.IntegrationTests/Template.MvcWebApp.IntegrationTests.csproj", "--filter", "Category!=ExcludedFromBuild", "--logger", "trx", "--results-directory", "/var/temp", "-v", "d"
+      ]
+    volumes:
+     - /opt/vsts/work/_temp:/var/temp
+
+
+# "dotnet", "test", "/src/Template.MvcWebApp.IntegrationTests/Template.MvcWebApp.IntegrationTests.csproj", "--filter", "Category!=ExcludedFromBuild", "--logger", "trx", "--results-directory", "/var/temp", "-v", "d"
