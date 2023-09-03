@@ -16,7 +16,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
 
         public SampleListControllerTests()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
         }
 
         //[Theory(Skip = "Pendiente de revision")]

@@ -7,6 +7,7 @@
             public static class ConnectionString
             {
                 public const string DefaultConnection = "DefaultConnection";
+                public const string AppConnection = "AppConnection";
 
             }
 

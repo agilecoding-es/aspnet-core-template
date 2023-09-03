@@ -24,6 +24,7 @@ services:
       "ASPNETCORE_URLS": "https://0.0.0.0:443;http://0.0.0.0:80"
       "ASPNETCORE_HTTPS_PORT": "9001"
       "ConnectionStrings__DefaultConnection": "Server=sql;Database=TemplateAppIntegrationTests;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
+      "ConnectionStrings__AppConnection": "Server=sql;Database=TemplateApp;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
     build:
       context: .
       dockerfile: Template.MvcWebApp.IntegrationTests/Dockerfile

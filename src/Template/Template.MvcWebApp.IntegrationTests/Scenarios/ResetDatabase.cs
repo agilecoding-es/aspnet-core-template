@@ -1,5 +1,6 @@
 ﻿using Template.MvcWebApp.IntegrationTests.Attributes;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
+using Template.Common;
 
 namespace Template.MvcWebApp.IntegrationTests.Scenarios
 {
@@ -12,7 +13,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios
 
         public ResetDatabase()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance(Constants.Configuration.ConnectionString.AppConnection);
             userFixture = factory.GetService<UserFixture>();
         }
 
@@ -24,10 +25,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios
         [Fact]
         [CheckExceptions]
         [ResetDatabase]
-        public async Task ResetAndFillWithUsers()
-        {
-            await userFixture.SetFixtureAsync();
-        }
+        public async Task ResetAndFillWithUsers() => await userFixture.SetFixtureAsync();
 
     }
 }

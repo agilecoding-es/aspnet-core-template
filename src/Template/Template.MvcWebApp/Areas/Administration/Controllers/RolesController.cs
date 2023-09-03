@@ -14,7 +14,7 @@ using Template.Security.DataProtection;
 
 namespace Template.MvcWebApp.Areas.Administration.Controllers
 {
-    [Authorize(Roles = Roles.SuperadminAndAdminRoles)]
+    [Authorize(Roles = RoleGroup.SuperadminAndAdminRoles)]
     public class RolesController : BaseAdministrationController
     {
         private readonly IDataProtector protector;

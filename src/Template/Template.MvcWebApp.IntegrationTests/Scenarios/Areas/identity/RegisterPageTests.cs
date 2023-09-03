@@ -25,7 +25,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.identity
 
         public RegisterPageTests()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
             userFixture = factory.GetService<UserFixture>();
         }
 

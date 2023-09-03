@@ -26,7 +26,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleMVC
 
         public SampleListControllerTests()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
             userFixture = factory.GetService<UserFixture>();
             sampleListFixture = factory.GetService<SampleListFixture>();
         }

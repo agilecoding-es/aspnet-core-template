@@ -21,7 +21,7 @@ namespace Template.MvcWebApp.IntegrationTests.Fixtures
 
         public SampleListFixture()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
         }
 
         /// <summary>

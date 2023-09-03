@@ -18,6 +18,7 @@ using Template.Configuration;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
 using Template.MvcWebApp.IntegrationTests.Queries;
 using Template.Persistence.Database;
+using static Template.MvcWebApp.IntegrationTests.WebAppFactory;
 
 namespace Template.MvcWebApp.IntegrationTests
 {
@@ -29,31 +30,38 @@ namespace Template.MvcWebApp.IntegrationTests
 
         private static WebAppFactory factory = default!;
 
-        public static WebAppFactory FactoryInstance
+        public static WebAppFactory GetFactoryInstance(string connectionStringName = null)
         {
-            get
-            {
-                if (factory == null)
-                    factory = Create().GetAwaiter().GetResult();
-
-                return factory;
-            }
+            if (factory == null)
+                factory = Create(connectionStringName).GetAwaiter().GetResult();
+            
+            return factory;
         }
 
         internal static class FactoryConfiguration
         {
-            public static string ConnectionString => FactoryInstance.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection);
+            public static string ConnectionString
+            {
+                get
+                {
+                    var instance = GetFactoryInstance();
+                    return instance.Configuration.GetConnectionString(instance.ConnectionStringName);
+                }
+            }
 
-            public static AppSettings Settings => FactoryInstance.Services.GetService<IOptions<AppSettings>>().Value;
+            public static AppSettings Settings => GetFactoryInstance().Services.GetService<IOptions<AppSettings>>().Value;
         }
 
-        public static async Task<WebAppFactory> Create()
+        public static async Task<WebAppFactory> Create(string connectionStringName = null)
         {
-            var factory = new WebAppFactory();
+            var csName = !string.IsNullOrWhiteSpace(connectionStringName) ? connectionStringName : Constants.Configuration.ConnectionString.DefaultConnection;
 
+            var factory = new WebAppFactory();
+            factory.ConnectionStringName = csName;
+            factory.Connection = new SqlConnection(factory.Configuration.GetConnectionString(csName));
+                        
             var logger = factory.Services.GetRequiredService<ILogger<Program>>();
             logger.LogInformation("Factory created");
-
 
             await factory.Connection.OpenAsync();
             await factory.InitializeRespawner();
@@ -61,12 +69,19 @@ namespace Template.MvcWebApp.IntegrationTests
             return factory;
         }
 
-        public static void ResetDatabase()
+        public static void ResetDatabase(WebAppFactory instance = null)
         {
             if (IsNotLocalDb())
                 throw new Exception(NON_DEVELOPMENT_DB_EXCEPTION);
 
-            FactoryInstance.Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+            if (instance != null)
+            {
+                instance.Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+            }
+            else
+            {
+                GetFactoryInstance().Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+            }
         }
 
         public static int GetExceptionsCount() => ExceptionsQueries
@@ -85,6 +100,7 @@ namespace Template.MvcWebApp.IntegrationTests
         #endregion
 
         private IConfiguration Configuration = default!;
+        private string ConnectionStringName = default!;
         private DbConnection Connection = default!;
         private Respawner Respawner = default!;
 
@@ -95,8 +111,6 @@ namespace Template.MvcWebApp.IntegrationTests
                                 .AddJsonFile("appsettings.integrationtests.json")
                                 .AddEnvironmentVariables()
                                 .Build();
-            
-            Connection = new SqlConnection(Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection));
         }
 
         public RequestBuilder CreateRequest(string path) => Server.CreateRequest(path);
@@ -137,6 +151,8 @@ namespace Template.MvcWebApp.IntegrationTests
                             })
                         .AddCookie()
                         .AddTestServer();
+
+                services.AddDbContext<Context>(options => options.UseSqlServer(this.ConnectionStringName));
 
                 ConfigureTestDependencies(services);
                 ConfigureMocks(services);

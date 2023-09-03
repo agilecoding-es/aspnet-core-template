@@ -18,7 +18,7 @@ namespace Template.MvcWebApp.IntegrationTests.Fixtures
 
         public UserFixture()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
         }
 
         /// <summary>

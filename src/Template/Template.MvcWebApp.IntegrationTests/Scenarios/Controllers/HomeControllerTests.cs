@@ -9,7 +9,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
 
         public HomeControllerTests()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
         }
 
         [Theory]
