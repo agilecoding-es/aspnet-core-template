@@ -14,7 +14,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios
         public ResetDatabase()
         {
             factory = WebAppFactory.GetFactoryInstance(Constants.Configuration.ConnectionString.AppConnection);
-            userFixture = factory.GetService<UserFixture>();
+            userFixture = new UserFixture(factory);
         }
 
         [Fact]

@@ -19,6 +19,7 @@
 
             public static class Cookies
             {
+                public const string AuthCookieName = "TemplateCookie";
                 public const string CultureCookieName = "TemplateCultureCookie";
             }
         }

@@ -14,8 +14,11 @@
 
 	<ItemGroup>
 	  <Compile Remove="Scenarios\Areas\administration\**" />
+	  <Compile Remove="Scenarios\Areas\identity\**" />
 	  <EmbeddedResource Remove="Scenarios\Areas\administration\**" />
+	  <EmbeddedResource Remove="Scenarios\Areas\identity\**" />
 	  <None Remove="Scenarios\Areas\administration\**" />
+	  <None Remove="Scenarios\Areas\identity\**" />
 	</ItemGroup>
 
 	<ItemGroup>

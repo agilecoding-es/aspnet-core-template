@@ -1,6 +1,8 @@
 ﻿using Acheve.AspNetCore.TestHost.Security;
 using Acheve.TestHost;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.SqlClient;
@@ -14,6 +16,7 @@ using Respawn;
 using Respawn.Graph;
 using System.Data.Common;
 using Template.Common;
+using Template.Common.Extensions;
 using Template.Configuration;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
 using Template.MvcWebApp.IntegrationTests.Queries;
@@ -28,14 +31,14 @@ namespace Template.MvcWebApp.IntegrationTests
 
         #region Static
 
-        private static WebAppFactory factory = default!;
+        private static Dictionary<string, WebAppFactory> factory = new Dictionary<string, WebAppFactory>();
 
-        public static WebAppFactory GetFactoryInstance(string connectionStringName = null)
+        public static WebAppFactory GetFactoryInstance(string connectionStringName = Constants.Configuration.ConnectionString.DefaultConnection)
         {
-            if (factory == null)
-                factory = Create(connectionStringName).GetAwaiter().GetResult();
-            
-            return factory;
+            if (factory.IsNullOrEmpty() || !factory.Any(f => f.Key == connectionStringName))
+                factory.Add(connectionStringName, Create(connectionStringName).GetAwaiter().GetResult());
+
+            return factory.First(f => f.Key == connectionStringName).Value;
         }
 
         internal static class FactoryConfiguration
@@ -59,7 +62,7 @@ namespace Template.MvcWebApp.IntegrationTests
             var factory = new WebAppFactory();
             factory.ConnectionStringName = csName;
             factory.Connection = new SqlConnection(factory.Configuration.GetConnectionString(csName));
-                        
+
             var logger = factory.Services.GetRequiredService<ILogger<Program>>();
             logger.LogInformation("Factory created");
 
@@ -142,15 +145,13 @@ namespace Template.MvcWebApp.IntegrationTests
 
             builder.ConfigureServices(services =>
             {
-                //services.AddAuthentication();
-                //services.AddAuthentication().AddCookie().AddTestServer();
-
                 services.AddAuthentication(options =>
-                            {
-                                options.DefaultAuthenticateScheme = "TestServer";// TestServerDefaults.AuthenticationScheme;
-                            })
-                        .AddCookie()
-                        .AddTestServer();
+                {
+                    options.DefaultAuthenticateScheme = TestServerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = TestServerDefaults.AuthenticationScheme;
+                })
+                .AddCookie(Constants.Configuration.Cookies.AuthCookieName)
+                .AddTestServer();
 
                 services.AddDbContext<Context>(options => options.UseSqlServer(this.ConnectionStringName));
 
@@ -160,8 +161,17 @@ namespace Template.MvcWebApp.IntegrationTests
             .UseConfiguration(Configuration)
             .UseContentRoot(contentRootPath)
             .UseEnvironment("Development")
-            .UseTestServer();
+            .UseTestServer()
+            .UseSetting("https_port", "443");
         }
+
+        protected override void ConfigureClient(HttpClient client)
+        {
+            // Configura la BaseAddress para todas las solicitudes
+            client.BaseAddress = new Uri("https://localhost");
+            ClientOptions.BaseAddress = new Uri("https://localhost");
+        }
+
 
         private async Task InitializeRespawner() =>
             Respawner = await Respawner.CreateAsync(
@@ -181,8 +191,6 @@ namespace Template.MvcWebApp.IntegrationTests
 
         private void ConfigureTestDependencies(IServiceCollection services)
         {
-            services.AddScoped<UserFixture>();
-            services.AddScoped<SampleListFixture>();
         }
 
         private void ConfigureMocks(IServiceCollection services) { }

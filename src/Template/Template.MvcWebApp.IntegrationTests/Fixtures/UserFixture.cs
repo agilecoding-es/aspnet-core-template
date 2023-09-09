@@ -12,13 +12,13 @@ using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.IntegrationTests.Fixtures
 {
-    public class UserFixture
+    internal class UserFixture
     {
         private readonly WebAppFactory factory;
 
-        public UserFixture()
+        public UserFixture(WebAppFactory factory)
         {
-            factory = WebAppFactory.GetFactoryInstance();
+            this.factory = factory;
         }
 
         /// <summary>

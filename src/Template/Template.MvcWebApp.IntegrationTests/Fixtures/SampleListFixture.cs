@@ -15,13 +15,13 @@ using Template.Persistence.Database;
 
 namespace Template.MvcWebApp.IntegrationTests.Fixtures
 {
-    public class SampleListFixture
+    internal class SampleListFixture
     {
         private readonly WebAppFactory factory;
 
-        public SampleListFixture()
+        public SampleListFixture(WebAppFactory factory)
         {
-            factory = WebAppFactory.GetFactoryInstance();
+            this.factory = factory;
         }
 
         /// <summary>

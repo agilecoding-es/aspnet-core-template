@@ -19,7 +19,6 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
             factory = WebAppFactory.GetFactoryInstance();
         }
 
-        //[Theory(Skip = "Pendiente de revision")]
         [Theory()]
         [InlineData("/Index")]
         [InlineData("/Detail")]
@@ -27,23 +26,17 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleAjax
         [InlineData("/Edit")]
         [InlineData("/Delete")]
         [CheckExceptions()]
-        public async Task Get_SecurePageRequiresAnAuthenticatedUser(string endpoint)
+        public async Task GetEndpoints_WhenUserIsNotAuthenticated_ReturnsUnauthorized(string endpoint)
         {
             // Arrange
             var url = $"{AREA}/{CONTROLLER}{endpoint}";
-            var client = factory.CreateClient(
-                new WebApplicationFactoryClientOptions
-                {
-                    AllowAutoRedirect = false
-                });
+            var client = factory.CreateClient();
 
             // Act
             var response = await client.GetAsync(url);
 
             // Assert
-            Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
-            Assert.StartsWith("http://localhost/Identity/Account/Login",
-                               response.Headers.Location.OriginalString);
+            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
         [Theory(Skip = "Pendiente de revision")]
