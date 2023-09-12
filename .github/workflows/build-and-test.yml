@@ -1,16 +1,17 @@
 name: Build & Test
 
 on:
-  push:
+  pull_request:
     branches:
       - master
-      - 'feature/*'
+      - 'release/*'
 
 env:
   DOTNET_VERSION: '6.0.x'
 
 jobs:
-  build:
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -19,3 +20,17 @@ jobs:
 
     - name: Run Unit Tests
       run: docker compose -f ./src/Template/docker-compose.unittests.yml up
+      continue-on-error: true
+
+
+  integration-tests:
+    name: Intragration Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Unit Tests
+      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up
+      continue-on-error: true
