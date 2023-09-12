@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Template.MvcWebApp.UnitTests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -19,7 +19,6 @@ services:
   template.mvcwebapp.integrationtests:
     image: ${DOCKER_REGISTRY-}templatemvcwebappintegrationtests
     container_name: webapp.integration-tests
-    
     environment: 
       "ASPNETCORE_URLS": "https://0.0.0.0:443;http://0.0.0.0:80"
       "ASPNETCORE_HTTPS_PORT": "9001"
