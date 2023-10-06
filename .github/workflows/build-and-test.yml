@@ -43,15 +43,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Construir imágenes Docker
-      run: docker-compose build
-
     - name: Ejecutar contenedor y copiar archivos
       run: |
-         mkdir -p artifacts
+         mkdir -p ${{ github.workspace }}/artifacts
          cd /src/Template
+         docker-compose build
          docker-compose up -d  # Iniciar contenedores en segundo plano
-         docker cp webapp:/app/publish /${{ github.workspace }}/artifacts
+         docker cp webapp:/app/publish ${{ github.workspace }}/artifacts
          docker-compose down  # Detener y eliminar contenedores
 
     - name: Crear artefacto
