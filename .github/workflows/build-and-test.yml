@@ -46,7 +46,7 @@ jobs:
     - name: Ejecutar contenedor y copiar archivos
       run: |
          mkdir -p ${{ github.workspace }}/artifacts
-         cd /src/Template
+         cd ${{ github.workspace }}/src/Template
          docker-compose build
          docker-compose up -d  # Iniciar contenedores en segundo plano
          docker cp webapp:/app/publish ${{ github.workspace }}/artifacts
