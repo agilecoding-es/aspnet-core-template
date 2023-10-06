@@ -31,10 +31,3 @@ services:
     environment: 
       "ACCEPT_EULA": "Y"
       "SA_PASSWORD": "sa!Password-123"
-
-  template.mvcwebapp.unittests:
-    image: ${DOCKER_REGISTRY-}templatemvcwebappunittests
-    build:
-      context: .
-      dockerfile: Template.MvcWebApp.UnitTests/Dockerfile
-

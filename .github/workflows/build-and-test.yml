@@ -34,3 +34,29 @@ jobs:
     - name: Run Unit Tests
       run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up
       continue-on-error: true
+
+  create-artifact:
+    name: Generate artifacts
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Construir imágenes Docker
+      run: docker-compose build
+
+    - name: Ejecutar contenedor y copiar archivos
+      run: |
+         mkdir -p artifacts
+         docker-compose up -d  # Iniciar contenedores en segundo plano
+         docker cp webapp:/app/publish /artifacts
+         docker-compose down  # Detener y eliminar contenedores
+         mv /${{ github.workspace }} /${{ github.workspace }}/artifacts
+    # Asegúrate de ajustar "nombre-del-contenedor" y las rutas según tu configuración.
+
+    - name: Crear artefacto
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: artifacts/
