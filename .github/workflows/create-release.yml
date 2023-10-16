@@ -16,17 +16,20 @@ jobs:
         id: extract_branch
         run: |
           if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
-            echo "::set-output name=branch::$(echo ${GITHUB_REF##*/})"
+            echo "::set-output name=branch_name::$(echo ${GITHUB_REF##*/})"
           elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
-            echo "::set-output name=branch::$(echo $GITHUB_BASE_REF)"
+            echo "::set-output name=branch_name::$(echo $GITHUB_BASE_REF)"
           else
-            echo "::set-output name=branch::INVALID_EVENT_BRANCH_UNKNOWN"
+            echo "::set-output name=branch_name::INVALID_EVENT_BRANCH_UNKNOWN"
           fi
 
+      - name: Mostrar branch
+        run: echo Branch - ${{ steps.extract_branch.outputs.branch_name }}
+
       - name: Paso para ramas de release
-        if: startsWith(github.ref, 'refs/heads/release/') # Ejecutar este trabajo si la rama es release/*
-        run: echo "::set-output name=branch_name::$(echo ${{ github.ref }} | sed 's/refs\/heads\/release\///')"
+        if: startsWith(${{ steps.extract_branch.outputs.branch_name }}, 'refs/heads/release/') # Ejecutar este trabajo si la rama es release/*
+        run: echo  ${{ steps.extract_branch.outputs.branch_name }} | sed 's/refs\/heads\/release\///'
 
       - name: Paso para ramas de hotfix
         if: startsWith(github.ref, 'refs/heads/hotfix/') # Ejecutar este trabajo si la rama es hotfix/*
-        run: echo "::set-output name=branch_name::$(echo ${{ github.ref }} | sed 's/refs\/heads\/hotfix\///')"
+        run: echo ${{ steps.extract_branch.outputs.branch_name }} | sed 's/refs\/heads\/hotfix\///'
