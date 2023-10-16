@@ -20,7 +20,7 @@ jobs:
 
     - name: Run Unit Tests
       run: docker compose -f ./src/Template/docker-compose.unittests.yml up
-      continue-on-error: true
+      continue-on-error: false
 
 
   integration-tests:
@@ -33,4 +33,4 @@ jobs:
 
     - name: Run Unit Tests
       run: docker compose -f /src/Template/docker-compose.integrationtests.yml up
-      continue-on-error: true
+      continue-on-error: false

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Determine release name
+      - name: Determine branch name
         id: extract_branch
         run: |
           if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
@@ -23,13 +23,20 @@ jobs:
             echo "::set-output name=branch_name::INVALID_EVENT_BRANCH_UNKNOWN"
           fi
 
-      - name: Mostrar branch
+      - name: Branch Name
         run: echo Branch - ${{ steps.extract_branch.outputs.branch_name }}
 
       - name: Paso para ramas de release
+        id: release_version
         if: startsWith(${{ steps.extract_branch.outputs.branch_name }}, 'refs/heads/release/') # Ejecutar este trabajo si la rama es release/*
-        run: echo  ${{ steps.extract_branch.outputs.branch_name }} | sed 's/refs\/heads\/release\///'
+        run: | 
+            echo "::set-output name=version::$(echo  ${{ steps.extract_branch.outputs.branch_name }} | sed 's\/release\///')"
+            echo Version - ${{ steps.release_version.outputs.version }}
 
       - name: Paso para ramas de hotfix
+        id: hotfix_version
         if: startsWith(github.ref, 'refs/heads/hotfix/') # Ejecutar este trabajo si la rama es hotfix/*
-        run: echo ${{ steps.extract_branch.outputs.branch_name }} | sed 's/refs\/heads\/hotfix\///'
+        run: |
+            echo "::set-output name=version::$(echo ${{ steps.extract_branch.outputs.branch_name }} | sed 's\/hotfix\///')"
+            echo Version - ${{ steps.hotfix_version.outputs.version }}
+      
