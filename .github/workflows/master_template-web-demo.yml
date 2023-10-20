@@ -8,6 +8,10 @@ on:
     branches:
       - master
   workflow_dispatch:
+  #Permite el deploy manual
+  
+env:
+    WEBAPPPATH: '${{ github.workspace }}/src/Template/Template.MvcWebApp'
 
 jobs:
   build:
@@ -21,18 +25,20 @@ jobs:
         with:
           dotnet-version: '6.0.x'
           include-prerelease: true
+          
+      - name: Install dependencies
+        run: dotnet restore ${{env.WEBAPPPATH}}
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Build and publish
+        run: |
+            dotnet build --configuration Release --no-restore ${{env.WEBAPPPATH}}
+            dotnet publish -c Release --no-build -o ${{env.DOTNET_ROOT}}/publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{env.DOTNET_ROOT}}/publish
 
   deploy:
     runs-on: ubuntu-latest
