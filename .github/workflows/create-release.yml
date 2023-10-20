@@ -6,37 +6,60 @@ on:
       - 'release/*'
       - 'hotfix/*'
 
+env:
+    INVALID_EVENT_BRANCH_UNKNOWN: 1
+    AZURE_WEBAPP_NAME: 3panas-template-app
+    AZURE_WEBAPP_PACKAGE_PATH: './publish'
+    DOTNET_VERSION: '6.0.x'
+
 jobs:
   create-release:
     name: Create release
     runs-on: ubuntu-latest
 
     steps:
-      - name: Determine branch name
+      - name: Determining branch name
         id: extract_branch
         run: |
           if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
-            echo "::set-output name=branch_name::$(echo ${GITHUB_REF##*/})"
+            branch=$(echo ${GITHUB_REF##*/})
+            echo "{branch_name}={$branch}" >> GITHUB_OUTPUT
           elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
-            echo "::set-output name=branch_name::$(echo $GITHUB_BASE_REF)"
+            branch = $(echo $GITHUB_BASE_REF)
+            echo "{branch_name}={$branch}" >> GITHUB_OUTPUT
           else
-            echo "::set-output name=branch_name::INVALID_EVENT_BRANCH_UNKNOWN"
+            exit ${{ env.INVALID_EVENT_BRANCH_UNKNOWN }}
           fi
+          echo Branch - ${{ steps.extract_branch.outputs.branch_name }}
 
-      - name: Branch Name
-        run: echo Branch - ${{ steps.extract_branch.outputs.branch_name }}
 
-      - name: Paso para ramas de release
+      - name: Determining target and version
         id: release_version
-        if: startsWith(${{ steps.extract_branch.outputs.branch_name }}, 'refs/heads/release/') # Ejecutar este trabajo si la rama es release/*
-        run: | 
-            echo "::set-output name=version::$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f2)"
-            echo Version - ${{ steps.release_version.outputs.version }}
-
-      - name: Paso para ramas de hotfix
-        id: hotfix_version
-        if: startsWith(${{ steps.extract_branch.outputs.branch_name }}, 'refs/heads/hotfix/') # Ejecutar este trabajo si la rama es hotfix/*
         run: |
-            echo "::set-output name=version::$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f2)"
-            echo Version - ${{ steps.hotfix_version.outputs.version }}
+            target=$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f1)
+            version=$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f2)
+            echo "{target}={$target}" >> GITHUB_OUTPUT
+            echo "{version}={$version}" >> GITHUB_OUTPUT
+            echo Version - $version
       
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+
+      - name: Build and Publish
+        run: |
+            dotnet restore WebApi
+            dotnet build WebApi -c Release --no-restore
+            dotnet publish WebApi -c Release --no-build
+            --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+      
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
