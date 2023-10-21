@@ -16,15 +16,15 @@ var connectionString = builder.Configuration.GetConnectionString(Constants.Confi
 
 var app = builder.DefaultServicesConfiguration().Build();
 
-var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+//var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
-try
-{
-    // Early init of NLog to allow startup and exception logging, before host is built
+//try
+//{
+//    // Early init of NLog to allow startup and exception logging, before host is built
 
-    logger.Info("************");
-    logger.Info("Initializing App");
-    logger.Info("************");
+//    logger.Info("************");
+//    logger.Info("Initializing App");
+//    logger.Info("************");
 
     await app.InitializeAsync(config);
 
@@ -96,15 +96,15 @@ try
 
     app.Run();
 
-}
-catch (Exception exception)
-{
-    // NLog: catch setup errors
-    logger.Error(exception, "Stopped program because of exception");
-    throw;
-}
-finally
-{
-    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-    LogManager.Shutdown();
-}
+//}
+//catch (Exception exception)
+//{
+//    // NLog: catch setup errors
+//    logger.Error(exception, "Stopped program because of exception");
+//    throw;
+//}
+//finally
+//{
+//    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+//    LogManager.Shutdown();
+//}
