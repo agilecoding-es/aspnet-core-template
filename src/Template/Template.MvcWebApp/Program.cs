@@ -11,13 +11,13 @@ using Template.MvcWebApp.Setup;
 
 // Early init of NLog to allow startup and exception logging, before host is built
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-logger.Debug("init main");
+//logger.Debug("init main");
 
 try
 {
-    logger.Info("************");
-    logger.Info("Starting App");
-    logger.Info("************");
+    //logger.Info("************");
+    //logger.Info("Starting App");
+    //logger.Info("************");
     var builder = WebApplication.CreateBuilder(args);
 
     var config = builder.Configuration;
