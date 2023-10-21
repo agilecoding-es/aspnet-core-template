@@ -9,21 +9,22 @@ using Template.Configuration;
 using Template.MvcWebApp.Middlewares;
 using Template.MvcWebApp.Setup;
 
-// Early init of NLog to allow startup and exception logging, before host is built
-var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-//logger.Debug("init main");
-
 try
 {
-    //logger.Info("************");
-    //logger.Info("Starting App");
-    //logger.Info("************");
     var builder = WebApplication.CreateBuilder(args);
 
     var config = builder.Configuration;
     var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
 
     var app = builder.DefaultServicesConfiguration().Build();
+
+    // Early init of NLog to allow startup and exception logging, before host is built
+    var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
+    logger.Info("************");
+    logger.Info("Initializing App");
+    logger.Info("************");
+
     await app.InitializeAsync(config);
 
     var settings = app.Configuration.Get<AppSettings>();
