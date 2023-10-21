@@ -32,7 +32,7 @@ jobs:
       - name: Build and publish
         run: |
             dotnet build --configuration Release --no-restore ${{env.WEBAPPPATH}}
-            dotnet publish -c Release --no-build -o ${{env.DOTNET_ROOT}}/publish
+            dotnet publish -c Release --no-build -o ${{env.DOTNET_ROOT}}/publish ${{env.WEBAPPPATH}}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
