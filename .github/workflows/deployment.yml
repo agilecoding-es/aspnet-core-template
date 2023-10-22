@@ -1,0 +1,81 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Deployment
+
+on:
+  workflow_run:
+    workflows: ["Build & Test"]
+    types:
+      - completed
+  workflow_dispatch:  # Este evento permite la ejecución manual
+    branches:
+      - master
+  
+
+env:
+    INVALID_EVENT_BRANCH_UNKNOWN: 1
+    WEBAPPPATH: '${{ github.workspace }}/src/Template/Template.MvcWebApp'
+
+jobs:
+  runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18  # Especifica aquí la versión de Node.js que necesitas
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Install Node dependencies
+        run: |
+            cd ${{env.WEBAPPPATH}}
+            npm install 
+            npm run build
+
+      - name: Install dependencies
+        run: dotnet restore ${{env.WEBAPPPATH}}
+
+      - name: Build and publish
+        run: |
+            dotnet build --configuration Release --no-restore ${{env.WEBAPPPATH}}
+            dotnet publish -c Release --no-build -o ${{env.DOTNET_ROOT}}/publish ${{env.WEBAPPPATH}}
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: DemoWeb
+          path: ${{env.DOTNET_ROOT}}/publish
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: DemoWeb
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'Template-Web-Demo'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FB17B91993324E6EA0AA926CEC5A3E4C }}
+          package: .

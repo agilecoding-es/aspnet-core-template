@@ -1,65 +1,51 @@
 name: Create release
 
 on:
-  pull_request:
-    branches:
-      - 'release/*'
-      - 'hotfix/*'
+  workflow_run:
+    workflows: ["Deployment"]
+    types:
+      - completed
 
 env:
     INVALID_EVENT_BRANCH_UNKNOWN: 1
-    AZURE_WEBAPP_NAME: 3panas-template-app
-    AZURE_WEBAPP_PACKAGE_PATH: './publish'
-    DOTNET_VERSION: '6.0.x'
 
 jobs:
   create-release:
     name: Create release
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
 
     steps:
-      - name: Determining branch name
-        id: extract_branch
+      - name: Check for Existing Release
+        id: check_release
         run: |
-          if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
-            branch=$(echo ${GITHUB_REF##*/})
-            echo "{branch_name}={$branch}" >> GITHUB_OUTPUT
-          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
-            branch = $(echo $GITHUB_BASE_REF)
-            echo "{branch_name}={$branch}" >> GITHUB_OUTPUT
+          release_info=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/latest)
+          if [ "$(echo "$release_info" | jq -r .message)" = "Not Found" ]; then
+            echo "{release_version}=1" >> GITHUB_OUTPUT
           else
-            exit ${{ env.INVALID_EVENT_BRANCH_UNKNOWN }}
+            echo "La última release es:"
+            echo "$release_info" | jq '.tag_name, .html_url'
           fi
-          echo Branch - ${{ steps.extract_branch.outputs.branch_name }}
 
-
-      - name: Determining target and version
-        id: release_version
+      - name: Package Source Code
         run: |
-            target=$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f1)
-            version=$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f2)
-            echo "{target}={$target}" >> GITHUB_OUTPUT
-            echo "{version}={$version}" >> GITHUB_OUTPUT
-            echo Version - $version
-      
+          zip -r SourceCode.zip .
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          name: DemoWeb
 
-
-      - name: Build and Publish
+      - name: Package DemoWeb
         run: |
-            dotnet restore WebApi
-            dotnet build WebApi -c Release --no-restore
-            dotnet publish WebApi -c Release --no-build
-            --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
-      
+           cd ${{ github.workspace }}
+           zip -r DemoWeb.zip DemoWeb 
 
-      - name: Deploy to Azure
-        uses: azure/webapps-deploy@v2
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1  # Utiliza la acción softprops/action-gh-release
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+          files: |
+            ./DemoWeb.zip
+            ./SourceCode.zip
+

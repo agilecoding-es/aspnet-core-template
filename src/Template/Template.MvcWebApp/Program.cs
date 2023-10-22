@@ -24,6 +24,9 @@ try
     var app = builder.DefaultServicesConfiguration().Build();
 
     logger.Info("App Initialization \t | Initializing app ...");
+    logger.Info("- Applying migrations ");
+    logger.Info("- Configuring roles ");
+    logger.Info("- Configuring superadmin ");
     await app.InitializeAsync<Context>(builder.Configuration);
     logger.Info("App Initialization \t | App initialized!");
 
