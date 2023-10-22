@@ -1,4 +1,4 @@
-name: Build & Test
+name: Unit & Integration Tests
 
 on:
   pull_request:
@@ -6,6 +6,7 @@ on:
       - master
       - 'release/*'
       - 'hotfix/*'
+  workflow_dispatch:
 
 env:
   DOTNET_VERSION: '6.0.x'
