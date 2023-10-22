@@ -9,22 +9,23 @@ using Template.Configuration;
 using Template.MvcWebApp.Middlewares;
 using Template.MvcWebApp.Setup;
 
-var builder = WebApplication.CreateBuilder(args);
+
+var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
+try
+{
+    // Early init of NLog to allow startup and exception logging, before host is built
+
+    logger.Info("************");
+    logger.Info("Initializing App");
+    logger.Info("************");
+    var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
 
 var app = builder.DefaultServicesConfiguration().Build();
 
-//var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-
-//try
-//{
-//    // Early init of NLog to allow startup and exception logging, before host is built
-
-//    logger.Info("************");
-//    logger.Info("Initializing App");
-//    logger.Info("************");
 
     await app.InitializeAsync(config);
 
@@ -96,15 +97,15 @@ var app = builder.DefaultServicesConfiguration().Build();
 
     app.Run();
 
-//}
-//catch (Exception exception)
-//{
-//    // NLog: catch setup errors
-//    logger.Error(exception, "Stopped program because of exception");
-//    throw;
-//}
-//finally
-//{
-//    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-//    LogManager.Shutdown();
-//}
+}
+catch (Exception exception)
+{
+    // NLog: catch setup errors
+    logger.Error(exception, "Stopped program because of exception");
+    throw;
+}
+finally
+{
+    // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+    LogManager.Shutdown();
+}
