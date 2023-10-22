@@ -33,6 +33,7 @@ RUN dotnet restore "Template.MvcWebApp.IntegrationTests/Template.MvcWebApp.Integ
 COPY . .
 
 COPY ["./docker-scripts/utils/wait-for-it.sh", "."]
+RUN chmod +x wait-for-it.sh
 
 # Cambia al directorio /app/build/Template.MvcWebApp/
 WORKDIR /src/Template.MvcWebApp.IntegrationTests
