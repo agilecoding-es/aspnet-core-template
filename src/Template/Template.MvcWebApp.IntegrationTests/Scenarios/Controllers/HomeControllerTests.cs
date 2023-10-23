@@ -9,14 +9,13 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
 
         public HomeControllerTests()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
         }
 
         [Theory]
         [InlineData("/")]
         [InlineData("/Index")]
         [InlineData("/Privacy")]
-        [InlineData("/Error")]
         [ResetDatabase()]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {

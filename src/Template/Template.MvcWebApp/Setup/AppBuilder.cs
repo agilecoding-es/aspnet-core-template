@@ -34,6 +34,7 @@ using Template.Persistence.Respositories.Sample;
 using Template.Security.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Template.MvcWebApp.Setup
 {
@@ -48,6 +49,7 @@ namespace Template.MvcWebApp.Setup
             this.builder = builder;
             this.services = builder.Services;
             this.configuration = builder.Configuration;
+
         }
 
         public AppBuilder AddConfiguration(Action<IServiceCollection, ConfigurationManager> builder)
@@ -62,7 +64,7 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureSettings()
         {
             services.Configure<AppSettings>(configuration)
-                    .Configure<AuthenticationProviders>( options =>
+                    .Configure<AuthenticationProviders>(options =>
                     {
                         configuration.GetSection(nameof(AuthenticationProviders)).Bind(options);
                     })
@@ -112,21 +114,27 @@ namespace Template.MvcWebApp.Setup
                 {
                     configuration.GetSection(nameof(IdentityOptions)).Bind(options);
                 })
-                .AddAuthentication()
+                .AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                .AddCookie(options => {
+                    options.Cookie.Name = Constants.Configuration.Cookies.AuthCookieName;
+                    options.Cookie.MaxAge = TimeSpan.FromDays(1);
+                })
                 .AddGoogle(options =>
                 {
                     IConfigurationSection googleAuthentication = configuration.GetSection("Authentication:Google");
                     options.ClientId = googleAuthentication["ClientId"];
                     options.ClientSecret = googleAuthentication["ClientSecret"];
                 })
-                .AddMicrosoftAccount(microsoftOptions =>
+                .AddMicrosoftAccount(options =>
                 {
                     IConfigurationSection microsoftAuthentication = configuration.GetSection("Authentication:Microsoft");
-                    microsoftOptions.ClientId = microsoftAuthentication["ClientId"];
-                    microsoftOptions.ClientSecret = microsoftAuthentication["ClientSecret"];
+                    options.ClientId = microsoftAuthentication["ClientId"];
+                    options.ClientSecret = microsoftAuthentication["ClientSecret"];
                 });
-
-
 
             return this;
         }

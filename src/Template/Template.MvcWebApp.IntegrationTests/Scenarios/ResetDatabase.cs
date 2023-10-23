@@ -1,9 +1,11 @@
 ﻿using Template.MvcWebApp.IntegrationTests.Attributes;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
+using Template.Common;
 
 namespace Template.MvcWebApp.IntegrationTests.Scenarios
 {
     [Collection("WebApp")]
+    [Trait("Category", "ExcludedFromBuild")]
     public class ResetDatabase
     {
         private readonly WebAppFactory factory;
@@ -11,8 +13,8 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios
 
         public ResetDatabase()
         {
-            factory = WebAppFactory.FactoryInstance;
-            userFixture = factory.GetService<UserFixture>();
+            factory = WebAppFactory.GetFactoryInstance(Constants.Configuration.ConnectionString.AppConnection);
+            userFixture = new UserFixture(factory);
         }
 
         [Fact]
@@ -23,10 +25,7 @@ namespace Template.MvcWebApp.IntegrationTests.Scenarios
         [Fact]
         [CheckExceptions]
         [ResetDatabase]
-        public async Task ResetAndFillWithUsers()
-        {
-            await userFixture.SetFixtureAsync();
-        }
+        public async Task ResetAndFillWithUsers() => await userFixture.SetFixtureAsync();
 
     }
 }

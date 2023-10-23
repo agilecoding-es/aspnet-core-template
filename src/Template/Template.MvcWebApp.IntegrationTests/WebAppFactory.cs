@@ -1,6 +1,8 @@
 ﻿using Acheve.AspNetCore.TestHost.Security;
 using Acheve.TestHost;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.SqlClient;
@@ -8,15 +10,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Respawn;
 using Respawn.Graph;
 using System.Data.Common;
 using Template.Common;
+using Template.Common.Extensions;
 using Template.Configuration;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
 using Template.MvcWebApp.IntegrationTests.Queries;
 using Template.Persistence.Database;
+using static Template.MvcWebApp.IntegrationTests.WebAppFactory;
 
 namespace Template.MvcWebApp.IntegrationTests
 {
@@ -26,29 +31,40 @@ namespace Template.MvcWebApp.IntegrationTests
 
         #region Static
 
-        private static WebAppFactory factory = default!;
+        private static Dictionary<string, WebAppFactory> factory = new Dictionary<string, WebAppFactory>();
 
-        public static WebAppFactory FactoryInstance
+        public static WebAppFactory GetFactoryInstance(string connectionStringName = Constants.Configuration.ConnectionString.DefaultConnection)
         {
-            get
-            {
-                if (factory == null)
-                    factory = Create().GetAwaiter().GetResult();
+            if (factory.IsNullOrEmpty() || !factory.Any(f => f.Key == connectionStringName))
+                factory.Add(connectionStringName, Create(connectionStringName).GetAwaiter().GetResult());
 
-                return factory;
-            }
+            return factory.First(f => f.Key == connectionStringName).Value;
         }
 
         internal static class FactoryConfiguration
         {
-            public static string ConnectionString => FactoryInstance.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection);
+            public static string ConnectionString
+            {
+                get
+                {
+                    var instance = GetFactoryInstance();
+                    return instance.Configuration.GetConnectionString(instance.ConnectionStringName);
+                }
+            }
 
-            public static AppSettings Settings => FactoryInstance.Services.GetService<IOptions<AppSettings>>().Value;
+            public static AppSettings Settings => GetFactoryInstance().Services.GetService<IOptions<AppSettings>>().Value;
         }
 
-        public static async Task<WebAppFactory> Create()
+        public static async Task<WebAppFactory> Create(string connectionStringName = null)
         {
+            var csName = !string.IsNullOrWhiteSpace(connectionStringName) ? connectionStringName : Constants.Configuration.ConnectionString.DefaultConnection;
+
             var factory = new WebAppFactory();
+            factory.ConnectionStringName = csName;
+            factory.Connection = new SqlConnection(factory.Configuration.GetConnectionString(csName));
+
+            var logger = factory.Services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Factory created");
 
             await factory.Connection.OpenAsync();
             await factory.InitializeRespawner();
@@ -56,12 +72,19 @@ namespace Template.MvcWebApp.IntegrationTests
             return factory;
         }
 
-        public static void ResetDatabase()
+        public static void ResetDatabase(WebAppFactory instance = null)
         {
             if (IsNotLocalDb())
                 throw new Exception(NON_DEVELOPMENT_DB_EXCEPTION);
 
-            FactoryInstance.Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+            if (instance != null)
+            {
+                instance.Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+            }
+            else
+            {
+                GetFactoryInstance().Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+            }
         }
 
         public static int GetExceptionsCount() => ExceptionsQueries
@@ -72,15 +95,15 @@ namespace Template.MvcWebApp.IntegrationTests
            !FactoryConfiguration.ConnectionString.Contains("localhost") &&
            !FactoryConfiguration.ConnectionString.Contains("SQLEXPRESS") &&
            !FactoryConfiguration.ConnectionString.Contains("MSSQLSERVER") &&
-           !FactoryConfiguration.ConnectionString.Contains("ats.sql") &&
            !FactoryConfiguration.ConnectionString.Contains("(local)") &&
            !FactoryConfiguration.ConnectionString.Contains("(localdb)") &&
            !FactoryConfiguration.ConnectionString.Contains("127.0.0.1") &&
-           !FactoryConfiguration.ConnectionString.Contains("ats.mysql");
+           !FactoryConfiguration.ConnectionString.Contains("TemplateAppIntegrationTests");
 
         #endregion
 
         private IConfiguration Configuration = default!;
+        private string ConnectionStringName = default!;
         private DbConnection Connection = default!;
         private Respawner Respawner = default!;
 
@@ -88,10 +111,9 @@ namespace Template.MvcWebApp.IntegrationTests
         {
             Configuration = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
-                                .AddJsonFile("appsettings.json")
+                                .AddJsonFile("appsettings.integrationtests.json")
                                 .AddEnvironmentVariables()
                                 .Build();
-            Connection = new SqlConnection(Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection));
         }
 
         public RequestBuilder CreateRequest(string path) => Server.CreateRequest(path);
@@ -123,14 +145,15 @@ namespace Template.MvcWebApp.IntegrationTests
 
             builder.ConfigureServices(services =>
             {
-                //services.AddAuthentication().AddCookie().AddTestServer();
-
                 services.AddAuthentication(options =>
-                            {
-                                options.DefaultAuthenticateScheme = TestServerDefaults.AuthenticationScheme;
-                            })
-                        .AddCookie()
-                        .AddTestServer();
+                {
+                    options.DefaultAuthenticateScheme = TestServerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = TestServerDefaults.AuthenticationScheme;
+                })
+                .AddCookie(Constants.Configuration.Cookies.AuthCookieName)
+                .AddTestServer();
+
+                services.AddDbContext<Context>(options => options.UseSqlServer(this.ConnectionStringName));
 
                 ConfigureTestDependencies(services);
                 ConfigureMocks(services);
@@ -138,8 +161,17 @@ namespace Template.MvcWebApp.IntegrationTests
             .UseConfiguration(Configuration)
             .UseContentRoot(contentRootPath)
             .UseEnvironment("Development")
-            .UseTestServer();
+            .UseTestServer()
+            .UseSetting("https_port", "443");
         }
+
+        protected override void ConfigureClient(HttpClient client)
+        {
+            // Configura la BaseAddress para todas las solicitudes
+            client.BaseAddress = new Uri("https://localhost");
+            ClientOptions.BaseAddress = new Uri("https://localhost");
+        }
+
 
         private async Task InitializeRespawner() =>
             Respawner = await Respawner.CreateAsync(
@@ -159,8 +191,6 @@ namespace Template.MvcWebApp.IntegrationTests
 
         private void ConfigureTestDependencies(IServiceCollection services)
         {
-            services.AddScoped<UserFixture>();
-            services.AddScoped<SampleListFixture>();
         }
 
         private void ConfigureMocks(IServiceCollection services) { }

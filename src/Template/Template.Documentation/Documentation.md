@@ -2,20 +2,24 @@
 
 Creo los proyectos principales:
 
-- Folder Presentation:
-    - Proyecto Template.MvcWebApp
+* Carpeta "Presentation":
+    * Proyecto Template.MvcWebApp
 
-- Folder Application:
-    - Proyecto Template.Application.Contracts
+- Carpeta "Application":
     - Proyecto Template.Application
     - Proyecto Template.Domain
 
-- Folder Infrastructure
-    - Proyecto Template.DataAccess
+- Carpeta "Infrastructure":
+    - Proyecto Template.Infrastructure
+    - Proyecto Template.Persistence
+    - Proyecto Template.Persistence.Identity
     - Proyecto Template.ConnectedServices
+    - Proyecto Template.Security
 
-- Folder Cross Cutting
-    - Proyecto Template.Common (o proyectos separados por utilidades)
+- Carpeta "Cross Cutting":
+    - Proyecto Template.Common
+    - Proyecto Template.Configuration
+    - Proyecto Template.MailSender
 
 Agrego referencias entre proyectos.
 
@@ -31,14 +35,14 @@ Luego selecciono la siguiente configuración
 
 Creo la estructura inicial del proyecto `Template.DataAccess`:
 
-![Estructura de proyecto DataAccess](/assets/03.EstructuraProyectoData.png "Estructura de proyecto DataAccess")
+![Estructura de proyecto DataAccess](/assets/03.EstructuraProyectoData.png "Estructura de proyecto Persistence")
 
 La clase `Context` es una clase que hereda de DbContext (Entity Framework).
 
-La clase `DataAccessAssembly` es solo una clase dummy para poder configurar el contexto de EF.
+La clase `PersistenceAssembly` es solo una clase dummy para poder configurar el contexto de EF.
 
 ```cs
-builder.ApplyConfigurationsFromAssembly(typeof(DataAccessAssembly).Assembly);
+builder.ApplyConfigurationsFromAssembly(typeof(PersistenceAssembly).Assembly);
 ```
 
 En el proyecto web `Template.MvcWebApp` modifico el Connection String para crear una base de datos con el nombre que quiera indicarle.
@@ -51,7 +55,7 @@ En el proyecto web `Template.MvcWebApp` modifico el Connection String para crear
 }
 ```
 
-Luego en el archivo `Program.cs` modifico el contexto para que apunte a la clase `Context` del proyecto `Template.DataAccess`. Si había otro contexto creado lo elimino.
+Luego en el archivo `Program.cs` modifico el contexto para que apunte a la clase `Context` del proyecto `Template.Persistence`. Si había otro contexto creado lo elimino.
 
 ```cs
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

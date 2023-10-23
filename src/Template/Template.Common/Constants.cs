@@ -7,6 +7,7 @@
             public static class ConnectionString
             {
                 public const string DefaultConnection = "DefaultConnection";
+                public const string AppConnection = "AppConnection";
 
             }
 
@@ -18,6 +19,7 @@
 
             public static class Cookies
             {
+                public const string AuthCookieName = "TemplateCookie";
                 public const string CultureCookieName = "TemplateCultureCookie";
             }
         }

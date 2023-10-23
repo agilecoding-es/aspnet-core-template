@@ -7,7 +7,7 @@
 
         public SampleItemControllerTests()
         {
-            factory = WebAppFactory.FactoryInstance;
+            factory = WebAppFactory.GetFactoryInstance();
         }
 
     }

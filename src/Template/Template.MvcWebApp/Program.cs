@@ -8,26 +8,27 @@ using Template.Common;
 using Template.Configuration;
 using Template.MvcWebApp.Middlewares;
 using Template.MvcWebApp.Setup;
+using Template.Persistence.Database;
 
-
+// Early init of NLog to allow startup and exception logging, before host is built
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("init main");
 
 try
 {
-    // Early init of NLog to allow startup and exception logging, before host is built
-
     logger.Info("************");
-    logger.Info("Initializing App");
+    logger.Info("Starting App");
     logger.Info("************");
     var builder = WebApplication.CreateBuilder(args);
 
-var config = builder.Configuration;
-var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
+    var app = builder.DefaultServicesConfiguration().Build();
 
-var app = builder.DefaultServicesConfiguration().Build();
-
-
-    await app.InitializeAsync(config);
+    logger.Info("App Initialization \t | Initializing app ...");
+    logger.Info("- Applying migrations ");
+    logger.Info("- Configuring roles ");
+    logger.Info("- Configuring superadmin ");
+    await app.InitializeAsync<Context>(builder.Configuration);
+    logger.Info("App Initialization \t | App initialized!");
 
     var settings = app.Configuration.Get<AppSettings>();
 
@@ -55,7 +56,9 @@ var app = builder.DefaultServicesConfiguration().Build();
         app.UseHsts();
     }
 
+#if !DEBUG
     app.UseHttpsRedirection();
+#endif
     app.UseResponseCaching();
     //app.UseResponseCompression();
 

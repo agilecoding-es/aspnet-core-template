@@ -1,0 +1,39 @@
+name: Unit & Integration Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+      - 'release/*'
+      - 'hotfix/*'
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '6.0.x'
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Unit Tests
+      run: docker compose -f ./src/Template/docker-compose.unittests.yml up
+      continue-on-error: false
+      
+
+  integration-tests:
+    name: Intragration Tests
+    runs-on: ubuntu-latest
+    needs: unit-tests
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Unit Tests
+      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.mvcwebapp.integrationtests
+      continue-on-error: false

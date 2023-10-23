@@ -29,7 +29,6 @@ namespace Template.MvcWebApp.Controllers
             return View();
         }
 
-
         [HttpGet]
         public IActionResult ChangeLanguage(string culture, string returnUrl)
         {

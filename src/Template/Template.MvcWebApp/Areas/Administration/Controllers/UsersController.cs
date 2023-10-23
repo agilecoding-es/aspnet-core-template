@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Template.MvcWebApp.Areas.Administration.Controllers
 {
-    [Authorize(Roles = Roles.SuperadminAndAdminRoles)]
+    [Authorize(Roles = RoleGroup.SuperadminAndAdminRoles)]
     public class UsersController : BaseAdministrationController
     {
         private readonly IMediator mediator;
