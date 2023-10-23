@@ -5,7 +5,7 @@ name: Deployment
 
 on:
   workflow_run:
-    workflows: ["Build & Test"]
+    workflows: ["Unit & Integration Tests"]
     types:
       - completed
   workflow_dispatch:  # Este evento permite la ejecución manual
