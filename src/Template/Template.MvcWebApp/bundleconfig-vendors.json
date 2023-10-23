@@ -2,11 +2,11 @@
   {
     "prod": [
       "./node_modules/jquery/dist/jquery.min.js",
-      "./content/js/jquery.visibility-events.js"
+      "./Content/js/jquery.visibility-events.js"
     ],
     "dev": [
       "./node_modules/jquery/dist/jquery.js",
-      "./content/js/jquery.visibility-events.js"
+      "./Content/js/jquery.visibility-events.js"
     ],
     "expose": "jquery"
   },

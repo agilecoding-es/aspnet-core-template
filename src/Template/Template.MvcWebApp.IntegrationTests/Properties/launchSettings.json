@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Template.MvcWebApp.IntegrationTests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
