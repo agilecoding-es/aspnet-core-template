@@ -265,7 +265,7 @@ function areas_ts(done) {
 
 function settings() {
         return src(`../Template.MvcWebApp.Deployment/${mode.development() ? 'development' : 'production'}/*.*`)
-            .pipe(dest("."));
+            .pipe(dest(".", { overwrite: true }));
 }
 
 const keep_watching = series(function (done) {

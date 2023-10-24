@@ -40,7 +40,9 @@ jobs:
         run: |
             cd ${{env.WEBAPPPATH}}
             npm install 
-            npm run build
+
+      - name: Run Gulp
+        run: npm run build
 
       - name: Install dependencies
         run: dotnet restore ${{env.WEBAPPPATH}}
@@ -100,7 +102,11 @@ jobs:
 
       - name: Package Source Code
         run: |
-          zip -r SourceCode.zip .
+          cd ${{ github.workspace }}
+          zip -r SourceCode.zip . -x "*/node_modules/*" "*/bin/*" "*/obj/*"
+
+      - name: Create DemoWeb folder
+        run: mkdir DemoWeb
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v3

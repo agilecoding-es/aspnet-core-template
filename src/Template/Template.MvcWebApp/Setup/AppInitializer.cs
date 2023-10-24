@@ -64,7 +64,9 @@ namespace Template.MvcWebApp.Setup
                         {
                             Role role = Activator.CreateInstance<Role>();
                             role.Name = value.ToString();
-                            await roleManager.CreateAsync(role);
+
+                            if ((await roleManager.GetRoleIdAsync(role)) == null)
+                                await roleManager.CreateAsync(role);
                         }
                     }
                 }
@@ -82,14 +84,29 @@ namespace Template.MvcWebApp.Setup
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager>();
                 var roleStore = scope.ServiceProvider.GetRequiredService<IRoleStore<Role>>();
 
-                User user = Activator.CreateInstance<User>();
-                user.EmailConfirmed = true;
-                var emailStore = (IUserEmailStore<User>)userStore;
-                await userStore.SetUserNameAsync(user, $"sa", CancellationToken.None);
-                await emailStore.SetEmailAsync(user, "malonejv@gmail.com", CancellationToken.None);
+                var existingSA = await userManager.FindByNameAsync("sa");
+                if (existingSA == null)
+                {
+                    User user = Activator.CreateInstance<User>();
+                    user.LockoutEnabled= false;
+                    user.EmailConfirmed = true;
+                    var emailStore = (IUserEmailStore<User>)userStore;
+                    await userStore.SetUserNameAsync(user, $"sa", CancellationToken.None);
+                    await emailStore.SetEmailAsync(user, "malonejv@gmail.com", CancellationToken.None);
 
-                await userManager.CreateAsync(user, settings.SuperadminPass);
-                await userManager.AddToRoleAsync(user, Roles.Superadmin);
+                    await userManager.CreateAsync(user, settings.SuperadminPass);
+                    await userManager.AddToRoleAsync(user, Roles.Superadmin);
+                }
+                else
+                {
+                    existingSA.LockoutEnd = null;
+                    existingSA.LockoutEnabled = false;
+                    existingSA.EmailConfirmed = true;
+                    existingSA.Email = "malonejv@gmail.com";
+
+                    await userManager.UpdateAsync(existingSA);
+                    await userManager.AddToRoleAsync(existingSA, Roles.Superadmin);
+                }
             }
         }
     }
