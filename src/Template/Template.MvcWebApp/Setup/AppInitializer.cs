@@ -65,7 +65,7 @@ namespace Template.MvcWebApp.Setup
                             Role role = Activator.CreateInstance<Role>();
                             role.Name = value.ToString();
 
-                            if ((await roleManager.GetRoleIdAsync(role)) == null)
+                            if (!(await roleManager.RoleExistsAsync(role.Name)))
                                 await roleManager.CreateAsync(role);
                         }
                     }
