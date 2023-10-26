@@ -1,20 +1,24 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 using Template.Configuration;
 
 namespace Template.MailSender
 {
-    public class EmailSender : IEmailSender, IEmailService
+    internal class AzureEmailSender : IEmailService
     {
         protected readonly ISmtpClientWrapper _smtpClient;
-        protected readonly Mailsettings _mailSettings;
+        protected readonly AppSettings appSettings;
 
         // Get our parameterized configuration
-        public EmailSender(ISmtpClientWrapper smtpClient, IOptions<Mailsettings> mailSettings)
+        public AzureEmailSender(ISmtpClientWrapper smtpClient, AppSettings appSettings)
         {
             _smtpClient = smtpClient ?? throw new ArgumentNullException(nameof(smtpClient));
-            _mailSettings = mailSettings.Value;
+            _mailSettings = appSettings;
         }
 
         // Use our configuration to send the email by using SmtpClient

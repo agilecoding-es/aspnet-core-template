@@ -229,8 +229,8 @@ namespace Template.MvcWebApp.Setup
                     EnableSsl = appSettings.Mailsettings.EnableSSL
                 })
                 .AddTransient<ISmtpClientWrapper, SmtpClientWrapper>()
-                .AddTransient<IEmailService, EmailSender>()
-                .AddTransient<IEmailSender, EmailSender>();
+                .AddTransient<IEmailService, SmtpEmailSender>()
+                .AddTransient<IEmailSender, SmtpEmailSender>();
 
             services
                 .AddScoped<ICultureHelper, CultureHelper>()

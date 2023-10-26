@@ -37,7 +37,7 @@ namespace Template.MailSender.UnitTests
         [Fact]
         public async Task EmailSender_SendEmailAsync_Success()
         {
-            var emailSender = new EmailSender(_smtpClientMock.Object, _mailSettings);
+            var emailSender = new SmtpEmailSender(_smtpClientMock.Object, _mailSettings);
 
             await emailSender.SendEmailAsync("recipient@example.com", "Test Subject", "<h1>Test Body</h1>");
 
@@ -56,7 +56,7 @@ namespace Template.MailSender.UnitTests
             _smtpClientMock.Setup(x => x.SendMailAsync(It.IsAny<MailMessage>())).ThrowsAsync(new SmtpException("Mail send failed."));
 
             
-            var emailSender = new EmailSender(_smtpClientMock.Object, _mailSettings);
+            var emailSender = new SmtpEmailSender(_smtpClientMock.Object, _mailSettings);
 
             await Assert.ThrowsAsync<SmtpException>(() =>
                 emailSender.SendEmailAsync("recipient@example.com", "Test Subject", "<h1>Test Body</h1>"));
