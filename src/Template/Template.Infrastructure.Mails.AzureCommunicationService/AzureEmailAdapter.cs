@@ -8,13 +8,11 @@ namespace Template.Infrastructure.Mails.AzureCommunicationService
 {
     public class AzureEmailAdapter : IEmailClient
     {
-        protected readonly ISmtpClientWrapper smtpClient;
         protected readonly AppSettings appSettings;
 
         // Get our parameterized configuration
-        public AzureEmailAdapter(ISmtpClientWrapper smtpClient, AppSettings appSettings)
+        public AzureEmailAdapter(AppSettings appSettings)
         {
-            this.smtpClient = smtpClient ?? throw new ArgumentNullException(nameof(smtpClient));
             this.appSettings = appSettings;
         }
 
@@ -24,7 +22,7 @@ namespace Template.Infrastructure.Mails.AzureCommunicationService
             try
             {
                 var emailClient = new EmailClient(appSettings.ConnectionStrings.AzureCommunicationServiceConnection);
-
+                EmailContent content;
                 var sendOperation = await emailClient.SendAsync(
                     WaitUntil.Completed,
                     appSettings.Mailsettings.FromEmail,
