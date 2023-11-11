@@ -18,6 +18,7 @@ namespace Template.Configuration
 
         public bool HealthChecksEnabled { get; set; }
 
+        public ConnectionStrings ConnectionStrings { get; set; }
 
         public SupportedCultures SupportedCultures { get; set; }
 
@@ -28,6 +29,13 @@ namespace Template.Configuration
         public Errors Errors { get; set; }
 
         public Samples Samples { get; set; }
+
+    }
+
+    public class ConnectionStrings
+    {
+        public string DefaultConnection { get; set; }
+        public string AzureCommunicationServiceConnection { get; set; }
 
     }
 

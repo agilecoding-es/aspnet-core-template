@@ -9,14 +9,14 @@ namespace Template.MailSender
 {
     public class SmtpClientWrapper : ISmtpClientWrapper
     {
-        private readonly SmtpClient _smtpClient;
+        private readonly SmtpClient smtpClient;
 
         public SmtpClientWrapper(SmtpClient smtpClient)
         {
-            _smtpClient = smtpClient;
+            this.smtpClient = smtpClient;
         }
 
-        public Task SendMailAsync(MailMessage message) => _smtpClient.SendMailAsync(message);
+        public Task SendMailAsync(MailMessage message) => smtpClient.SendMailAsync(message);
 
     }
 }

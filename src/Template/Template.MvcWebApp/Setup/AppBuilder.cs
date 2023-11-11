@@ -119,7 +119,8 @@ namespace Template.MvcWebApp.Setup
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
-                .AddCookie(options => {
+                .AddCookie(options =>
+                {
                     options.Cookie.Name = Constants.Configuration.Cookies.AuthCookieName;
                     options.Cookie.MaxAge = TimeSpan.FromDays(1);
                 })
@@ -228,9 +229,16 @@ namespace Template.MvcWebApp.Setup
                     Credentials = new NetworkCredential(appSettings.Mailsettings.UserName, appSettings.Mailsettings.Password),
                     EnableSsl = appSettings.Mailsettings.EnableSSL
                 })
-                .AddTransient<ISmtpClientWrapper, SmtpClientWrapper>()
-                .AddTransient<IEmailService, SmtpEmailSender>()
-                .AddTransient<IEmailSender, SmtpEmailSender>();
+                .AddTransient<ISmtpClientWrapper, SmtpClientWrapper>();
+
+            if (builder.Environment.IsDevelopment())
+            {
+                services.AddTransient<IEmailSender, SmtpEmailSender>();
+            }
+            else
+            {
+                services.AddTransient<IEmailSender, AzureEmailSender>();
+            }
 
             services
                 .AddScoped<ICultureHelper, CultureHelper>()

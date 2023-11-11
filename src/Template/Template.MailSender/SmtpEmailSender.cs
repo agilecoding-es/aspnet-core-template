@@ -5,26 +5,28 @@ using Template.Configuration;
 
 namespace Template.MailSender
 {
-    public class SmtpEmailSender : IEmailSender, IEmailService
+    public class SmtpEmailSender : IEmailSender
     {
-        protected readonly ISmtpClientWrapper _smtpClient;
-        protected readonly Mailsettings _mailSettings;
+        protected readonly ISmtpClientWrapper smtpClient;
+        protected readonly Mailsettings mailSettings;
 
         // Get our parameterized configuration
         public SmtpEmailSender(ISmtpClientWrapper smtpClient, IOptions<Mailsettings> mailSettings)
         {
-            _smtpClient = smtpClient ?? throw new ArgumentNullException(nameof(smtpClient));
-            _mailSettings = mailSettings.Value;
+            this.smtpClient = smtpClient ?? throw new ArgumentNullException(nameof(smtpClient));
+            this.mailSettings = mailSettings.Value;
         }
 
         // Use our configuration to send the email by using SmtpClient
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             try
             {
-                return _smtpClient.SendMailAsync(
-                    new MailMessage(_mailSettings.FromEmail, email, subject, htmlMessage) { IsBodyHtml = true }
+                await smtpClient.SendMailAsync(
+                    new MailMessage(mailSettings.FromEmail, email, subject, htmlMessage) { IsBodyHtml = true }
                 );
+
+                return;
             }
             catch
             {

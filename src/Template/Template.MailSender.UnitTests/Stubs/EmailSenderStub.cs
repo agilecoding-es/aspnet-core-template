@@ -5,8 +5,8 @@ namespace Template.MailSender.UnitTests.Stubs
 {
     internal class EmailSenderStub : SmtpEmailSender
     {
-        public ISmtpClientWrapper SmtpClient => _smtpClient;
-        public Mailsettings MailSettings => _mailSettings;
+        public ISmtpClientWrapper SmtpClient => smtpClient;
+        public Mailsettings MailSettings => mailSettings;
 
         public EmailSenderStub(ISmtpClientWrapper smtpClient, IOptions<Mailsettings> mailSettings) : base(smtpClient, mailSettings)
         {
