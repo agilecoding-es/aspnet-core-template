@@ -3,17 +3,15 @@ using Microsoft.Extensions.Options;
 using System.Net.Mail;
 using Template.Configuration;
 
-namespace Template.MailSender
+namespace Template.Infrastructure.Mails.Smtp
 {
-    public class SmtpEmailSender : IEmailSender
+    public class SmtpEmailAdapter : IEmailClient
     {
-        protected readonly ISmtpClientWrapper smtpClient;
         protected readonly Mailsettings mailSettings;
 
         // Get our parameterized configuration
-        public SmtpEmailSender(ISmtpClientWrapper smtpClient, IOptions<Mailsettings> mailSettings)
+        public SmtpEmailAdapter(IOptions<Mailsettings> mailSettings)
         {
-            this.smtpClient = smtpClient ?? throw new ArgumentNullException(nameof(smtpClient));
             this.mailSettings = mailSettings.Value;
         }
 
@@ -22,6 +20,7 @@ namespace Template.MailSender
         {
             try
             {
+                var smtpClient = new SmtpClient();
                 await smtpClient.SendMailAsync(
                     new MailMessage(mailSettings.FromEmail, email, subject, htmlMessage) { IsBodyHtml = true }
                 );

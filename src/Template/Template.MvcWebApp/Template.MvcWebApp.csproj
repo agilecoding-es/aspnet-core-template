@@ -80,7 +80,6 @@
 		<ProjectReference Include="..\Template.Application\Template.Application.csproj" />
 		<ProjectReference Include="..\Template.Common\Template.Common.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
-		<ProjectReference Include="..\Template.MailSender\Template.MailSender.csproj" />
 		<ProjectReference Include="..\Template.Persistence.Identity\Template.Persistence.Identity.csproj" />
 		<ProjectReference Include="..\Template.Persistence\Template.Persistence.csproj" />
 		<ProjectReference Include="..\Template.Security\Template.Security.csproj" />

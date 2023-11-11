@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Net.Mail;
 using Template.Configuration;
 
-namespace Template.MailSender
+namespace Template.Infrastructure.Mails.AzureCommunicationService
 {
-    public class AzureEmailSender : IEmailSender
+    public class AzureEmailAdapter : IEmailClient
     {
         protected readonly ISmtpClientWrapper smtpClient;
         protected readonly AppSettings appSettings;
 
         // Get our parameterized configuration
-        public AzureEmailSender(ISmtpClientWrapper smtpClient, AppSettings appSettings)
+        public AzureEmailAdapter(ISmtpClientWrapper smtpClient, AppSettings appSettings)
         {
             this.smtpClient = smtpClient ?? throw new ArgumentNullException(nameof(smtpClient));
             this.appSettings = appSettings;

@@ -5,10 +5,10 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Template.MailSender
+namespace Template.Infrastructure.Mails
 {
-    public interface ISmtpClientWrapper
+    public interface IEmailClient
     {
-        Task SendMailAsync(MailMessage message);
+        Task SendEmailAsync(string email, string subject, string htmlMessage);
     }
 }
