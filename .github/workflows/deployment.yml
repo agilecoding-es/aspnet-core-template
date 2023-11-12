@@ -8,10 +8,10 @@ on:
     workflows: ["Unit & Integration Tests"]
     types:
       - completed
-  workflow_dispatch:  # Este evento permite la ejecución manual
-    branches:
+  push:
+   branches:
       - master
-  
+      - 'release/*'
 
 env:
     INVALID_EVENT_BRANCH_UNKNOWN: 1
@@ -19,9 +19,8 @@ env:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
-
     steps:
       - uses: actions/checkout@v4
       
@@ -61,8 +60,9 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/publish
 
   deploy-staging:
+    name: Deploy Staging
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
     needs: build
     environment:
       name: 'Production'
@@ -82,6 +82,31 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE7A9D8FA0DD4CBEB7143A56C57EAA92 }}
           package: .
+
+  #deploy-production:
+  #  name: Deploy Production
+  #  runs-on: ubuntu-latest
+  #  if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+  #  needs: build
+  #  environment:
+  #    name: 'Production'
+  #    url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+  #  steps:
+  #    - name: Download artifact from build job
+  #      uses: actions/download-artifact@v3
+  #      with:
+  #        name: DemoWeb
+
+  #    - name: Deploy to Azure Web App
+  #      id: deploy-to-webapp
+  #      uses: azure/webapps-deploy@v2
+  #      with:
+  #        app-name: 'SurfAdminAgileCoding'
+  #        slot-name: 'Production'
+  #        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE7A9D8FA0DD4CBEB7143A56C57EAA92 }}
+  #        package: .
+
 
   #create-release:
   #  name: Create release
