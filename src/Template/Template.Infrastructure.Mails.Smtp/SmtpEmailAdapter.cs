@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using System.Net;
 using System.Net.Mail;
 using Template.Configuration;
 
@@ -19,10 +20,14 @@ namespace Template.Infrastructure.Mails.Smtp
         {
             try
             {
-                var smtpClient = new SmtpClient();
+                var smtpClient = new SmtpClient(mailSettings.Host, mailSettings.Port)
+                {
+                    EnableSsl = mailSettings.EnableSSL,
+                    Credentials = new NetworkCredential(mailSettings.UserName, mailSettings.Password)
+                };
 
                 var emailMessage = new MailMessage(
-                    new MailAddress(mailSettings.FromEmail),
+                    new MailAddress(mailSettings.FromEmail, mailSettings.DisplayName),
                     new MailAddress(email)
                     );
                 emailMessage.Subject = subject;
