@@ -10,19 +10,18 @@ using Template.MvcWebApp.Middlewares;
 using Template.MvcWebApp.Setup;
 using Template.Persistence.Database;
 
-// Early init of NLog to allow startup and exception logging, before host is built
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-logger.Debug("init main");
-
 try
 {
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Early init of NLog to allow startup and exception logging, before host is built
     logger.Info("************");
     logger.Info("Starting App");
     logger.Info("************");
-    var builder = WebApplication.CreateBuilder(args);
-    
+
     var app = builder.DefaultServicesConfiguration().Build();
-    
+
     logger.Info("App Initialization \t | Initializing app ...");
     logger.Info("- Applying migrations ");
     logger.Info("- Configuring roles ");
