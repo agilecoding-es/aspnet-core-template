@@ -1,7 +1,5 @@
 ﻿using Azure;
 using Azure.Communication.Email;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using System.Net.Mail;
 using Template.Configuration;
 
 namespace Template.Infrastructure.Mails.AzureCommunicationService
@@ -9,26 +7,31 @@ namespace Template.Infrastructure.Mails.AzureCommunicationService
     public class AzureEmailAdapter : IEmailClient
     {
         protected readonly AppSettings appSettings;
+        protected readonly Mailsettings mailSettings;
 
-        // Get our parameterized configuration
         public AzureEmailAdapter(AppSettings appSettings)
         {
             this.appSettings = appSettings;
+            mailSettings = appSettings.Mailsettings;
         }
 
-        // Use our configuration to send the email by using SmtpClient
-        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public async Task SendEmailAsync(string email, string subject, string plainTextMessage, string htmlMessage = null, CancellationToken cancellationToken = default)
         {
             try
             {
                 var emailClient = new EmailClient(appSettings.ConnectionStrings.AzureCommunicationServiceConnection);
-                EmailContent content;
+                EmailContent emailContent = new EmailContent(subject);
+                emailContent.PlainText = plainTextMessage;
+                emailContent.Html = htmlMessage;
+
+                List<EmailAddress> emailAddresses = new List<EmailAddress>() { new EmailAddress(email) };
+                EmailRecipients emailRecipients = new EmailRecipients(emailAddresses);
+                EmailMessage emailMessage = new EmailMessage(mailSettings.FromEmail, emailRecipients, emailContent);
+
                 var sendOperation = await emailClient.SendAsync(
                     WaitUntil.Completed,
-                    appSettings.Mailsettings.FromEmail,
-                    email,
-                    subject,
-                    htmlMessage
+                    emailMessage,
+                    cancellationToken
                     );
 
                 return;
@@ -39,5 +42,7 @@ namespace Template.Infrastructure.Mails.AzureCommunicationService
                 throw;
             }
         }
+
+        public Task SendEmailAsync(string email, string subject, string htmlMessage) => SendEmailAsync(email, subject, null, htmlMessage);
     }
 }

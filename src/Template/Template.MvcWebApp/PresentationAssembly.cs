@@ -1,9 +1,8 @@
-﻿using System.Reflection;
-using Template.Configuration.AssemblyInfo;
+﻿using Template.Configuration.AssemblyInfo;
 
 namespace Template.MvcWebApp
 {
-    public sealed class PresentationAssembly : AssemblyInfo<PresentationAssembly>
+    public sealed class PresentationAssembly : AssemblyBasicInfo<PresentationAssembly>
     {
     }
 }

@@ -4,7 +4,7 @@ using Template.Configuration.AssemblyInfo;
 
 namespace Template.Persistence
 {
-    public sealed class PersistenceAssembly : AssemblyInfo<PersistenceAssembly>
+    public sealed class PersistenceAssembly : AssemblyBasicInfo<PersistenceAssembly>
     {
     }
 }

@@ -60,7 +60,7 @@ jobs:
           name: DemoWeb
           path: ${{env.DOTNET_ROOT}}/publish
 
-  deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
     needs: build
@@ -78,9 +78,9 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'Template-Web-Demo'
+          app-name: 'SurfAdminAgileCoding'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FB17B91993324E6EA0AA926CEC5A3E4C }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE7A9D8FA0DD4CBEB7143A56C57EAA92 }}
           package: .
 
   #create-release:

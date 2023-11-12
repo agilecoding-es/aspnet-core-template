@@ -80,7 +80,7 @@ try
     app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
     app.MapHealthChecksUI();
-    if (settings.HealthChecksEnabled)
+    if (settings.HealthChecks.Enabled)
     {
         app.MapHealthChecks("/health", new HealthCheckOptions()
         {

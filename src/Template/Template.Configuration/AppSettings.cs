@@ -7,29 +7,33 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Template.Configuration
 {
     public class AppSettings
     {
-        public string ApplicationName { get; set; }
-
-        public string SuperadminPass { get; set; }
-
-        public bool HealthChecksEnabled { get; set; }
-
         public ConnectionStrings ConnectionStrings { get; set; }
+        
+        public AuthenticationProviders AuthenticationProviders { get; set; }
+        
+        public Mailsettings Mailsettings { get; set; }
+
+        public HealthChecks HealthChecks { get; set; }
+
+        public LogMiddleware LogMiddleware { get; set; }
 
         public SupportedCultures SupportedCultures { get; set; }
 
-        public Mailsettings Mailsettings { get; set; }
-
-        public AuthenticationProviders AuthenticationProviders { get; set; }
-
         public Errors Errors { get; set; }
+
+        public Messages Messages { get; set; }
 
         public Samples Samples { get; set; }
 
+        public string ApplicationName { get; set; }
+
+        public string SuperadminPass { get; set; }
     }
 
     public class ConnectionStrings
@@ -41,8 +45,8 @@ namespace Template.Configuration
 
     public class AuthenticationProviders
     {
-        public GoogleOptions GoogleOptions { get; set; }
-        public MicrosoftAccountOptions MicrosoftAccountOptions { get; set; }
+        public GoogleOptions Google { get; set; }
+        public MicrosoftAccountOptions MicrosoftAccount { get; set; }
     }
 
     public class Mailsettings
@@ -54,6 +58,24 @@ namespace Template.Configuration
         public string Password { get; set; }
         public string FromEmail { get; set; }
         public string DisplayName { get; set; }
+    }
+
+    public class HealthChecks
+    {
+        public bool Enabled { get; set; }
+        public LatencyHealthCheck LatencyHealthCheck { get; set; }
+    }
+
+    public class LatencyHealthCheck
+    {
+        public int OkLatency { get; set; }
+        public int DegradedLatency { get; set; }
+    }
+
+    public class LogMiddleware
+    {
+        public bool Enabled { get; set; }
+        public bool Rethrow { get; set; }
     }
 
     public class SupportedCultures
@@ -152,12 +174,6 @@ namespace Template.Configuration
 
             return $"(?<language>{Language})(?:-(?<country>{countriesExpression.ToString()}))?|(?<language>{Language})(?:-\\w+)?";
         }
-    }
-
-    public class LogMiddleware
-    {
-        public bool Enabled { get; set; }
-        public bool Rethrow { get; set; }
     }
 
     public class Errors

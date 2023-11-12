@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Template.Configuration.AssemblyInfo
 {
-    public abstract class AssemblyInfo<T>
+    public abstract class AssemblyBasicInfo<T>
     {
         public static Assembly Assembly => typeof(T).Assembly;
         public static string AssemblyName => Assembly.GetName().Name;

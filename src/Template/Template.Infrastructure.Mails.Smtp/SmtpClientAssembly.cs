@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using Template.Configuration.AssemblyInfo;
 
 namespace Template.Infrastructure.Mails.Smtp
-    public sealed class SmtpClientAssembly : AssemblyInfo<SmtpClientAssembly>
+{
+    public sealed class SmtpClientAssembly : AssemblyBasicInfo<SmtpClientAssembly>
     {
     }
 }
