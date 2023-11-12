@@ -60,7 +60,7 @@ jobs:
           name: DemoWeb
           path: ${{env.DOTNET_ROOT}}/publish
 
-  deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
     needs: build
@@ -78,52 +78,86 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'Template-Web-Demo'
+          app-name: 'SurfAdminAgileCoding'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FB17B91993324E6EA0AA926CEC5A3E4C }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE7A9D8FA0DD4CBEB7143A56C57EAA92 }}
           package: .
 
+  #create-release:
+  #  name: Create release
+  #  runs-on: ubuntu-latest
+  #  if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
+  #  needs: deploy
 
-  create-release:
-    name: Create release
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
-    needs: deploy
+  #  steps:
+  #    - name: Check for Existing Release
+  #      id: check_release
+  #      run: |
+  #        release_info=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/latest)
+  #        if [ "$(echo "$release_info" | jq -r .message)" = "Not Found" ]; then
+  #          echo "{release_version}=1" >> GITHUB_OUTPUT
+  #        else
+  #          echo "La última release es:"
+  #          echo "$release_info" | jq '.tag_name, .html_url'
+  #        fi
 
-    steps:
-      - name: Check for Existing Release
-        id: check_release
-        run: |
-          release_info=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/latest)
-          if [ "$(echo "$release_info" | jq -r .message)" = "Not Found" ]; then
-            echo "{release_version}=1" >> GITHUB_OUTPUT
-          else
-            echo "La última release es:"
-            echo "$release_info" | jq '.tag_name, .html_url'
-          fi
+  #    - name: Package Source Code
+  #      run: |
+  #        cd ${{ github.workspace }}
+  #        zip -r SourceCode.zip . -x "*/node_modules/*" "*/bin/*" "*/obj/*"
 
-      - name: Package Source Code
-        run: |
-          cd ${{ github.workspace }}
-          zip -r SourceCode.zip . -x "*/node_modules/*" "*/bin/*" "*/obj/*"
+  #    - name: Create DemoWeb folder
+  #      run: mkdir DemoWeb
 
-      - name: Create DemoWeb folder
-        run: mkdir DemoWeb
+  #    - name: Download artifact from build job
+  #      uses: actions/download-artifact@v3
+  #      with:
+  #        name: DemoWeb
 
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: DemoWeb
+  #    - name: Package DemoWeb
+  #      run: |
+  #         cd ${{ github.workspace }}
+  #         zip -r DemoWeb.zip DemoWeb 
 
-      - name: Package DemoWeb
-        run: |
-           cd ${{ github.workspace }}
-           zip -r DemoWeb.zip DemoWeb 
+  #    - name: Create Release
+  #      id: create_release
+  #      uses: softprops/action-gh-release@v1  # Utiliza la acción softprops/action-gh-release
+  #      with:
+  #        files: |
+  #          ./DemoWeb.zip
+  #          ./SourceCode.zip
 
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v1  # Utiliza la acción softprops/action-gh-release
-        with:
-          files: |
-            ./DemoWeb.zip
-            ./SourceCode.zip
+
+#create-release:
+#    name: Create release
+#    runs-on: ubuntu-latest
+
+#    steps:
+#      - name: Determining branch name
+#        id: extract_branch
+#        run: |
+#          if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
+#            branch=$(echo ${GITHUB_REF##*/})
+#            echo "{branch_name}={$branch}" >> GITHUB_OUTPUT
+#          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+#            branch = $(echo $GITHUB_BASE_REF)
+#            echo "{branch_name}={$branch}" >> GITHUB_OUTPUT
+#          else
+#            exit ${{ env.INVALID_EVENT_BRANCH_UNKNOWN }}
+#          fi
+#          target=$(echo {$branch} | cut -d '/' -f1)
+#          version=$(echo {$branch} | cut -d '/' -f2)
+#          echo "{target}={$target}" >> GITHUB_OUTPUT
+#          echo "{version}={$version}" >> GITHUB_OUTPUT
+
+
+#      - name: Determining target and version
+#        id: release_version
+#        run: |
+#            target=$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f1)
+#            version=$(echo ${{ steps.extract_branch.outputs.branch_name }} | cut -d '/' -f2)
+#            echo "{target}={$target}" >> GITHUB_OUTPUT
+#            echo "{version}={$version}" >> GITHUB_OUTPUT
+#            echo Version - $version
+      
+            

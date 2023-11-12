@@ -20,9 +20,9 @@ try
     logger.Info("Starting App");
     logger.Info("************");
     var builder = WebApplication.CreateBuilder(args);
-
+    
     var app = builder.DefaultServicesConfiguration().Build();
-
+    
     logger.Info("App Initialization \t | Initializing app ...");
     logger.Info("- Applying migrations ");
     logger.Info("- Configuring roles ");
@@ -80,7 +80,7 @@ try
     app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
     app.MapHealthChecksUI();
-    if (settings.HealthChecksEnabled)
+    if (settings.HealthChecks.Enabled)
     {
         app.MapHealthChecks("/health", new HealthCheckOptions()
         {

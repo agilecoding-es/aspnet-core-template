@@ -53,6 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.5" />
@@ -79,8 +80,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Template.Application\Template.Application.csproj" />
 		<ProjectReference Include="..\Template.Common\Template.Common.csproj" />
+		<ProjectReference Include="..\Template.Configuration\Template.Configuration.csproj" />
+		<ProjectReference Include="..\Template.Infrastructure.Mails.AzureCommunicationService\Template.Infrastructure.Mails.AzureCommunicationService.csproj" />
+		<ProjectReference Include="..\Template.Infrastructure.Mails.Smtp\Template.Infrastructure.Mails.Smtp.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
-		<ProjectReference Include="..\Template.MailSender\Template.MailSender.csproj" />
 		<ProjectReference Include="..\Template.Persistence.Identity\Template.Persistence.Identity.csproj" />
 		<ProjectReference Include="..\Template.Persistence\Template.Persistence.csproj" />
 		<ProjectReference Include="..\Template.Security\Template.Security.csproj" />

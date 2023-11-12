@@ -1,29 +1,54 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.Diagnostics;
 
 namespace Template.MvcWebApp.HealthChecks
 {
     public class LatencyHealthCheck : IHealthCheck
     {
-        public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
+        public LatencyHealthCheck()
         {
-            int latency = 0;
+        }
 
-            //TODO: Make real check
-            var rnd = new Random();
+        public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var _urlToCheck = "Obtener de configuración";
 
-            latency = rnd.Next(1, 10);
-
-            if (latency < 5)
+            try
             {
-                return Task.FromResult(HealthCheckResult.Healthy($"Service Ok - {latency}"));
+                using (var httpClient = new HttpClient())
+                {
+                    // Simula una solicitud a un recurso externo, como una API
+                    var response = await httpClient.GetAsync(_urlToCheck, cancellationToken);
+
+                    // Ajusta la lógica según sea necesario según la respuesta real del servicio
+                    if (response.IsSuccessStatusCode)
+                    {
+                        stopwatch.Stop();
+                        var elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+                        if (elapsedMilliseconds < 100)
+                        {
+                            return HealthCheckResult.Healthy($"Service Ok - Latency: {elapsedMilliseconds}ms");
+                        }
+                        else if (elapsedMilliseconds < 500)
+                        {
+                            return HealthCheckResult.Degraded($"Service slow - Latency: {elapsedMilliseconds}ms");
+                        }
+                        else
+                        {
+                            return HealthCheckResult.Unhealthy($"Service down - Latency: {elapsedMilliseconds}ms");
+                        }
+                    }
+                    else
+                    {
+                        return HealthCheckResult.Unhealthy($"Service returned an error: {response.StatusCode}");
+                    }
+                }
             }
-            else if (latency < 10)
+            catch (Exception ex)
             {
-                return Task.FromResult(HealthCheckResult.Degraded($"Service slow - {latency}"));
-            }
-            else
-            {
-                return Task.FromResult(HealthCheckResult.Unhealthy($"Service down- {latency}"));
+                return HealthCheckResult.Unhealthy($"Error checking service health: {ex.Message}");
             }
         }
     }

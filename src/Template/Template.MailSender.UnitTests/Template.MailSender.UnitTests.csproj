@@ -32,8 +32,4 @@
 		</AssemblyAttribute>
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Template.MailSender\Template.MailSender.csproj" />
-	</ItemGroup>
-
 </Project>
