@@ -105,7 +105,7 @@ jobs:
       
       - name: Build App Docker image
         run: |
-               docker build '${{ github.workspace }}/src/Template' --tag ghcr.io/3panas/template-webapp:latest
+               docker build ${{env.WEBAPPPATH}} --tag ghcr.io/3panas/template-webapp:latest
                docker push ghcr.io/3panas/template-webapp:latest
 
 
