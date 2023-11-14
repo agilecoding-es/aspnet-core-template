@@ -14,6 +14,8 @@ namespace Template.MvcWebApp.Setup
             builder.Logging.ClearProviders();
             builder.Host.UseNLog();
 
+            builder.Configuration.AddEnvironmentVariables();
+
             var appBuilder =
                 CreateAppBuilder(builder)
                 .ConfigureSettings()
