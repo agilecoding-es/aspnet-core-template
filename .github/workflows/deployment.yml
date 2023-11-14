@@ -15,6 +15,7 @@ on:
 
 env:
     INVALID_EVENT_BRANCH_UNKNOWN: 1
+    SOLUTIONPATH: '${{ github.workspace }}/src/Template'
     WEBAPPPATH: '${{ github.workspace }}/src/Template/Template.MvcWebApp'
 
 jobs:
@@ -27,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 18  # Especifica aquí la versión de Node.js que necesitas
+          node-version: 18  # Especifica aqu� la versi�n de Node.js que necesitas
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
@@ -105,7 +106,7 @@ jobs:
       
       - name: Build App Docker image
         run: |
-               docker build ${{env.WEBAPPPATH}} --tag ghcr.io/3panas/template-webapp:latest
+               docker build -f "${{env.WEBAPPPATH}}\Dockerfile" --force-rm --tag ghcr.io/3panas/template-webapp:latest --target base "${{SOLUTIONPATH}}"
                docker push ghcr.io/3panas/template-webapp:latest
 
 
@@ -124,7 +125,7 @@ jobs:
   #        if [ "$(echo "$release_info" | jq -r .message)" = "Not Found" ]; then
   #          echo "{release_version}=1" >> GITHUB_OUTPUT
   #        else
-  #          echo "La última release es:"
+  #          echo "La �ltima release es:"
   #          echo "$release_info" | jq '.tag_name, .html_url'
   #        fi
 
@@ -148,7 +149,7 @@ jobs:
 
   #    - name: Create Release
   #      id: create_release
-  #      uses: softprops/action-gh-release@v1  # Utiliza la acción softprops/action-gh-release
+  #      uses: softprops/action-gh-release@v1  # Utiliza la acci�n softprops/action-gh-release
   #      with:
   #        files: |
   #          ./DemoWeb.zip
