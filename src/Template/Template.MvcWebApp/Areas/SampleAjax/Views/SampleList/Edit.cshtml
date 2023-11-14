@@ -51,5 +51,12 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script type="text/javascript" src="~/content/js/Areas/SampleAjax/views/sample-list/edit.bundle.js"></script>
+
+    <environment include="Development">
+        <script type="text/javascript" src="~/content/js/Areas/SampleAjax/views/sample-list/edit.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script type="text/javascript" src="~/content/js/Areas/SampleAjax/views/sample-list/edit.bundle.min.js"></script>
+    </environment>
+
 }

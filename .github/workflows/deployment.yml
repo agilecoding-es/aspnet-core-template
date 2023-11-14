@@ -8,27 +8,27 @@ on:
     workflows: ["Unit & Integration Tests"]
     types:
       - completed
-  workflow_dispatch:  # Este evento permite la ejecución manual
-    branches:
+  push:
+   branches:
       - master
-  
+      - 'release/*'
 
 env:
     INVALID_EVENT_BRANCH_UNKNOWN: 1
+    SOLUTIONPATH: '${{ github.workspace }}/src/Template'
     WEBAPPPATH: '${{ github.workspace }}/src/Template/Template.MvcWebApp'
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
-
     steps:
       - uses: actions/checkout@v4
       
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 18  # Especifica aquí la versión de Node.js que necesitas
+          node-version: 18  # Especifica aquï¿½ la versiï¿½n de Node.js que necesitas
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
@@ -61,8 +61,9 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/publish
 
   deploy-staging:
+    name: Deploy Staging
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'master' }} || github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'master'
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
     needs: build
     environment:
       name: 'Production'
@@ -83,6 +84,33 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BE7A9D8FA0DD4CBEB7143A56C57EAA92 }}
           package: .
 
+  deploy-production:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    #if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build App Docker image
+        run: |
+               docker build -f "${{env.WEBAPPPATH}}\Dockerfile" --force-rm --tag ghcr.io/3panas/template-webapp:latest --target base "${{SOLUTIONPATH}}"
+               docker push ghcr.io/3panas/template-webapp:latest
+
+
+
   #create-release:
   #  name: Create release
   #  runs-on: ubuntu-latest
@@ -97,7 +125,7 @@ jobs:
   #        if [ "$(echo "$release_info" | jq -r .message)" = "Not Found" ]; then
   #          echo "{release_version}=1" >> GITHUB_OUTPUT
   #        else
-  #          echo "La última release es:"
+  #          echo "La ï¿½ltima release es:"
   #          echo "$release_info" | jq '.tag_name, .html_url'
   #        fi
 
@@ -121,7 +149,7 @@ jobs:
 
   #    - name: Create Release
   #      id: create_release
-  #      uses: softprops/action-gh-release@v1  # Utiliza la acción softprops/action-gh-release
+  #      uses: softprops/action-gh-release@v1  # Utiliza la acciï¿½n softprops/action-gh-release
   #      with:
   #        files: |
   #          ./DemoWeb.zip

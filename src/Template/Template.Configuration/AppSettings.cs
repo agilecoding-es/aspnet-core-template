@@ -46,7 +46,7 @@ namespace Template.Configuration
     public class AuthenticationProviders
     {
         public GoogleOptions Google { get; set; }
-        public MicrosoftAccountOptions MicrosoftAccount { get; set; }
+        public MicrosoftAccountOptions Microsoft { get; set; }
     }
 
     public class Mailsettings

@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   template.mvcwebapp:
-    image: ${DOCKER_REGISTRY-}templatemvcwebapp
+    image: ghcr.io/3panas/template-webapp:latest
     container_name: webapp
     build:
       context: .

@@ -12,7 +12,7 @@ namespace Template.MvcWebApp.IntegrationTests.Queries
 
         public static async Task<int> GetExceptionsCountAsync(this SqlConnection connection)
         {
-            var query = @"SELECT COUNT(*) FROM log.logs";
+            var query = @"SELECT COUNT(*) FROM log.Logs";
 
             using (connection)
             {

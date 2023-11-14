@@ -24,7 +24,6 @@ using Template.Domain.Entities.Identity;
 using Template.Infrastructure.Mails;
 using Template.Infrastructure.Mails.AzureCommunicationService;
 using Template.Infrastructure.Mails.Smtp;
-using Template.MvcWebApp.HealthChecks;
 using Template.MvcWebApp.Localization;
 using Template.MvcWebApp.Resources;
 using Template.MvcWebApp.Services.Rendering;
@@ -64,10 +63,6 @@ namespace Template.MvcWebApp.Setup
         public AppBuilder ConfigureSettings()
         {
             services.Configure<AppSettings>(configuration)
-                    .Configure<AuthenticationProviders>(options =>
-                    {
-                        configuration.GetSection(nameof(AuthenticationProviders)).Bind(options);
-                    })
                     .Configure<Mailsettings>(options =>
                     {
                         configuration.GetSection(nameof(Mailsettings)).Bind(options);
@@ -108,33 +103,23 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureAuthentication()
         {
-            var authProviders = configuration.Get<AuthenticationProviders>();
+            var appSettings = configuration.Get<AppSettings>();
+            var authProviders = appSettings.AuthenticationProviders;
             services
                 .Configure<IdentityOptions>(options =>
                 {
                     configuration.GetSection(nameof(IdentityOptions)).Bind(options);
                 })
-                .AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                })
-                .AddCookie(options =>
-                {
-                    options.Cookie.Name = Constants.Configuration.Cookies.AuthCookieName;
-                    options.Cookie.MaxAge = TimeSpan.FromDays(1);
-                })
+                .AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    IConfigurationSection googleAuthentication = configuration.GetSection("Authentication:Google");
-                    options.ClientId = googleAuthentication["ClientId"];
-                    options.ClientSecret = googleAuthentication["ClientSecret"];
+                    options.ClientId = authProviders.Google.ClientId;
+                    options.ClientSecret = authProviders.Google.ClientSecret;
                 })
                 .AddMicrosoftAccount(options =>
                 {
-                    IConfigurationSection microsoftAuthentication = configuration.GetSection("Authentication:Microsoft");
-                    options.ClientId = microsoftAuthentication["ClientId"];
-                    options.ClientSecret = microsoftAuthentication["ClientSecret"];
+                    options.ClientId = authProviders.Microsoft.ClientId;
+                    options.ClientSecret = authProviders.Microsoft.ClientSecret;
                 });
 
             return this;
@@ -216,7 +201,7 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureDependencies()
         {
-            AppSettings appSettings = configuration.Get<AppSettings>();
+            var appSettings = configuration.Get<AppSettings>();
             services.AddSingleton(appSettings);
 
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
@@ -266,7 +251,7 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureResources()
         {
-            AppSettings appSettings = configuration.Get<AppSettings>();
+            var appSettings = configuration.Get<AppSettings>();
 
             services
                 .AddLocalization(options => options.ResourcesPath = "Resources")
@@ -313,7 +298,7 @@ namespace Template.MvcWebApp.Setup
 
         public AppBuilder ConfigureHelthChecks()
         {
-            AppSettings appSettings = configuration.Get<AppSettings>();
+            var appSettings = configuration.Get<AppSettings>();
 
             if (appSettings.HealthChecks.Enabled)
             {
@@ -329,9 +314,9 @@ namespace Template.MvcWebApp.Setup
                         )
                         .AddDbContextCheck<Context>("Database", tags:
                             new[] { "database", "sql server" }
-                        );
+                );
 
-                services.AddHealthChecksUI();
+                services.AddHealthChecksUI().AddSqlServerStorage(appSettings.ConnectionStrings.DefaultConnection);
             }
             return this;
         }
