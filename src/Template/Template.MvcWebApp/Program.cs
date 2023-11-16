@@ -78,23 +78,23 @@ try
     app.MapControllerRoute("default-for-areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
     app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    app.MapHealthChecksUI();
-    if (settings.HealthChecks.Enabled)
-    {
-        app.MapHealthChecks("/health", new HealthCheckOptions()
-        {
-            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
-        app.MapHealthChecks("/health/databases", new HealthCheckOptions()
-        {
-            Predicate = registration => registration.Tags.Contains("database"),
-            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
-        app.MapHealthChecks("/healthoverview", new HealthCheckOptions()
-        {
-            Predicate = _ => false
-        });
-    }
+   // app.MapHealthChecksUI();
+   //  if (settings.HealthChecks.Enabled)
+   //  {
+   //      app.MapHealthChecks("/health", new HealthCheckOptions()
+   //      {
+   //          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+   //      });
+   //      app.MapHealthChecks("/health/databases", new HealthCheckOptions()
+   //      {
+   //          Predicate = registration => registration.Tags.Contains("database"),
+   //          ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+   //      });
+   //      app.MapHealthChecks("/healthoverview", new HealthCheckOptions()
+   //      {
+   //          Predicate = _ => false
+   //      });
+   //  }
     app.MapRazorPages();
 
     app.Run();
