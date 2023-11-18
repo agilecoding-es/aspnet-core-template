@@ -21,13 +21,13 @@ services:
     image: redis:alpine
     container_name: redis
     ports:
-      - "6380:6379"
+      - "9002:6379"
   
   template.sql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql
     ports:
-      - "1434:1433"
+      - "9003:1433"
     environment: 
       "ACCEPT_EULA": "Y"
       "SA_PASSWORD": "sa!Password-123"

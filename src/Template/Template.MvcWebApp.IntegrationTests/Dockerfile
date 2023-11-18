@@ -6,12 +6,6 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     npm install -g gulp-cli
 
-
-#WORKDIR /app/web/Template.MvcWebApp
-#COPY Template.MvcWebApp .
-#RUN npm install
-#RUN npm run build
-
 WORKDIR /src
 
 # Copia los archivos de proyecto y restaura las dependencias

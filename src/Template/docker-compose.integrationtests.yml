@@ -1,29 +1,14 @@
 version: '3.4'
 
 services:
-  template.redis:
-    image: redis:alpine
-    container_name: redis
-    ports:
-      - "6380:6379"
-  
-  template.sql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sql
-    ports:
-      - "1434:1433"
-    environment: 
-      "ACCEPT_EULA": "Y"
-      "SA_PASSWORD": "sa!Password-123"
-
   template.mvcwebapp.integrationtests:
-    image: ${DOCKER_REGISTRY-}templatemvcwebappintegrationtests
     container_name: webapp.integration-tests
     environment: 
       "ASPNETCORE_URLS": "https://0.0.0.0:443;http://0.0.0.0:80"
-      "ASPNETCORE_HTTPS_PORT": "9001"
-      "ConnectionStrings__DefaultConnection": "Server=sql;Database=TemplateAppIntegrationTests;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
-      "ConnectionStrings__AppConnection": "Server=sql;Database=TemplateApp;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
+      "ASPNETCORE_HTTP_PORT": "8000"
+      "ASPNETCORE_HTTPS_PORT": "8001"
+      "ConnectionStrings__DefaultConnection": "Server=sql_tests;Database=TemplateAppIntegrationTests;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
+      "ConnectionStrings__AppConnection": "Server=sql_tests;Database=TemplateApp;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
     build:
       context: .
       dockerfile: Template.MvcWebApp.IntegrationTests/Dockerfile
@@ -38,5 +23,19 @@ services:
     volumes:
      - /opt/vsts/work/_temp:/var/temp
 
+  template.redis:
+    image: redis:alpine
+    container_name: redis_tests
+    ports:
+      - "8002:6379"
+  
+  template.sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql_tests
+    ports:
+      - "8003:1433"
+    environment: 
+      "ACCEPT_EULA": "Y"
+      "SA_PASSWORD": "sa!Password-123"
 
-# "dotnet", "test", "/src/Template.MvcWebApp.IntegrationTests/Template.MvcWebApp.IntegrationTests.csproj", "--filter", "Category!=ExcludedFromBuild", "--logger", "trx", "--results-directory", "/var/temp", "-v", "d"
+
