@@ -8,27 +8,26 @@ on:
     workflows: ["Unit & Integration Tests"]
     types:
       - completed
-  push:
-   branches:
-      - master
-      - 'release/*'
 
 env:
     INVALID_EVENT_BRANCH_UNKNOWN: 1
     SOLUTIONPATH: '${{ github.workspace }}/src/Template/'
     WEBAPPPATH: '${{ github.workspace }}/src/Template/Template.MvcWebApp'
 
+
 jobs:
+
   build:
     name: Build
     runs-on: ubuntu-latest
+    if: ${{  github.event_name == 'push' && ( startsWith(github.ref, 'refs/heads/release/') || github.ref == 'refs/heads/master' ) && github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
       
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 18  # Especifica aqu� la versi�n de Node.js que necesitas
+          node-version: 18  # Especifica aqui la version de Node.js que necesitas
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
@@ -63,7 +62,7 @@ jobs:
   deploy-staging:
     name: Deploy Staging
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    if: ${{ startsWith(github.ref, 'refs/heads/release/') }}
     needs: build
     environment:
       name: 'Production'
@@ -87,8 +86,7 @@ jobs:
   deploy-production:
     name: Deploy Production
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    #if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    if: {{ github.ref == 'refs/heads/master' }}
     needs: build
     environment:
       name: 'Production'
@@ -106,7 +104,7 @@ jobs:
       
       - name: Build App Docker image
         run: |
-               docker build -f "${{env.WEBAPPPATH}}/Dockerfile" --force-rm --tag ghcr.io/3panas/template-webapp:latest --target base "${{env.SOLUTIONPATH}}"
+               docker build -f "${{env.WEBAPPPATH}}/Dockerfile" --force-rm --tag ghcr.io/3panas/template-webapp:latest --target "${{env.SOLUTIONPATH}}"
                docker push ghcr.io/3panas/template-webapp:latest
 
 

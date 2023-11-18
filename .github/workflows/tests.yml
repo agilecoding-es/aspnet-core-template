@@ -4,11 +4,12 @@ on:
   push:
    branches:
       - master
+      - release/*
+      - hotfix/*
   pull_request:
     branches:
       - master
-      - 'release/*'
-      - 'hotfix/*'
+      - release/*
   workflow_dispatch:
 
 env:
