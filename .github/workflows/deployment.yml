@@ -15,7 +15,7 @@ on:
 
 env:
     INVALID_EVENT_BRANCH_UNKNOWN: 1
-    SOLUTIONPATH: '${{ github.workspace }}/src/Template'
+    SOLUTIONPATH: '${{ github.workspace }}/src/Template/'
     WEBAPPPATH: '${{ github.workspace }}/src/Template/Template.MvcWebApp'
 
 jobs:
