@@ -33,7 +33,7 @@ namespace Template.MvcWebApp.IntegrationTests.Fixtures
         public async Task<List<SampleList>> SetFixtureAsync(User user, int countOfSampleList = 5)
         {
             var faker = new Faker<SampleList>()
-           .RuleFor(e => e.Name, f => f.Lorem.Word())
+           .RuleFor(e => e.Name, f => $"Lista {f.IndexFaker}")
            .RuleFor(e => e.UserId, user.Id);
 
             var data = faker.Generate(countOfSampleList);
