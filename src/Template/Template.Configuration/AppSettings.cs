@@ -14,9 +14,9 @@ namespace Template.Configuration
     public class AppSettings
     {
         public ConnectionStrings ConnectionStrings { get; set; }
-        
+
         public AuthenticationProviders AuthenticationProviders { get; set; }
-        
+
         public Mailsettings Mailsettings { get; set; }
 
         public HealthChecks HealthChecks { get; set; }
@@ -34,6 +34,8 @@ namespace Template.Configuration
         public string ApplicationName { get; set; }
 
         public string SuperadminPass { get; set; }
+
+        public bool LogHttpEnabled { get; set; } = false;
     }
 
     public class ConnectionStrings
