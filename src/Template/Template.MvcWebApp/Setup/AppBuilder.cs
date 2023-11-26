@@ -220,11 +220,24 @@ namespace Template.MvcWebApp.Setup
                 services.AddTransient<IEmailSender, SmtpEmailAdapter>();
                 services.AddTransient<IEmailClient, SmtpEmailAdapter>();
             }
-            else
+            else if (builder.Environment.IsStaging())
             {
                 services.AddTransient<IEmailSender, AzureEmailAdapter>();
                 services.AddTransient<IEmailClient, AzureEmailAdapter>();
             }
+            else
+            {
+                services
+                    .AddTransient(provider => new SmtpClient(appSettings.Mailsettings.Host, appSettings.Mailsettings.Port)
+                    {
+                        Credentials = new NetworkCredential(appSettings.Mailsettings.UserName, appSettings.Mailsettings.Password),
+                        EnableSsl = appSettings.Mailsettings.EnableSSL
+                    });
+
+                services.AddTransient<IEmailSender, SmtpEmailAdapter>();
+                services.AddTransient<IEmailClient, SmtpEmailAdapter>();
+            }
+
 
             services
                 .AddScoped<ICultureHelper, CultureHelper>()
