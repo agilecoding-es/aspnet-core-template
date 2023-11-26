@@ -73,6 +73,10 @@ function images_copy() {
         ], {
             verbose: true
         }))
+        .pipe(rename(function (path) {
+            path.dirname = path.dirname.toLowerCase();
+            path.basename = path.basename.toLowerCase();
+        }))
         .pipe(dest('wwwroot/content/images'))
     //.pipe(browserSync.stream());
 }
@@ -98,7 +102,11 @@ function vendors_modules_js(done) {
 
         return src(vendor.prod)
             .pipe(concat(`${vendor.expose}.js`))
-            .pipe(rename({ extname: '.bundle.js' }))
+            .pipe(rename(function (path) {
+                path.dirname = path.dirname.toLowerCase();
+                path.basename = path.basename.toLowerCase();
+                path.extname = ".bundle.js";
+            }))
             .pipe(mode.production(rename({ suffix: '.min' })))
             .pipe(dest('./wwwroot/content/vendors/'));
     });
@@ -112,7 +120,7 @@ function vendors_modules_js(done) {
 const js = series(shared_js, areas_js);
 
 function shared_js(done) {
-    return glob('./Content/js/**/*.js', function (err, files) {
+    return glob('./content/js/**/*.js', function (err, files) {
         if (err) done(err);
 
         var tasks = files.map(function (entry) {
@@ -135,9 +143,13 @@ function shared_js(done) {
                 .pipe(source(entry))
                 .pipe(buffer())
                 .pipe(mode.production(uglify()))
-                .pipe(rename({ extname: ".bundle.js" }))
+                .pipe(rename(function (path) {
+                    path.dirname = path.dirname.toLowerCase();
+                    path.basename = path.basename.toLowerCase();
+                    path.extname = ".bundle.js";
+                }))
                 .pipe(mode.production(rename({ suffix: '.min' })))
-                .pipe(dest('./wwwroot'));
+                .pipe(dest('./wwwroot/'));
         });
         es.merge(tasks).on('end', done);
     });
@@ -171,7 +183,7 @@ function areas_js(done) {
                     function (file) {
                         const parts = file.dirname.split(path.sep);
                         const newParts = parts.filter(part => part !== 'Content' && part !== 'js');
-                        const newDirname = newParts.join(path.sep);
+                        const newDirname = newParts.join(path.sep).toLowerCase();
 
                         file.dirname = newDirname;
                         file.extname = ".bundle.js";
@@ -186,7 +198,7 @@ function areas_js(done) {
 const ts = series(shared_ts, areas_ts);
 
 function shared_ts(done) {
-    return glob('./Content/ts/**/*.ts', function (err, files) {
+    return glob('./content/ts/**/*.ts', function (err, files) {
         if (err) done(err);
 
         var tasks = files.map(function (entry) {
@@ -251,7 +263,7 @@ function areas_ts(done) {
                     function (file) {
                         const parts = file.dirname.split(path.sep);
                         const newParts = parts.filter(part => part !== 'Content' && part !== 'ts');
-                        const newDirname = newParts.join(path.sep);
+                        const newDirname = newParts.join(path.sep).toLowerCase();
 
                         file.dirname = newDirname;
                         file.extname = ".bundle.js";

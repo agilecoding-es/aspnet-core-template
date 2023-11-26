@@ -1,7 +1,7 @@
-﻿import { Enums } from "../../../../../../Content/js/enums";
-import { Loader } from "../../../../../../Content/js/loader";
+﻿import { Enums } from "../../../../../../content/js/enums";
+import { Loader } from "../../../../../../content/js/loader";
 import { SampleListServices } from "../../services/sample-list-controller-services";
-import { MessageHelper } from "../../../../../../Content/js/UIComponents/message-taghelper/message-helper";
+import { MessageHelper } from "../../../../../../content/js/uicomponents/message-taghelper/message-helper";
 
 export class Index {
 

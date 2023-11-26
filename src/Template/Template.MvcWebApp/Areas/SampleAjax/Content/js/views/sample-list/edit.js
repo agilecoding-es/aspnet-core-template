@@ -1,9 +1,9 @@
 ﻿import { SampleList } from "../../models/sample-list";
 import { SampleItem } from "../../models/sample-item";
 import { SampleListServices } from "../../services/sample-list-controller-services";
-import { Loader } from "../../../../../../Content/js/loader"
-import { Enums } from "../../../../../../Content/js/enums";
-import { MessageHelper } from "../../../../../../Content/js/UIComponents/message-taghelper/message-helper";
+import { Loader } from "../../../../../../content/js/loader"
+import { Enums } from "../../../../../../content/js/enums";
+import { MessageHelper } from "../../../../../../content/js/uicomponents/message-taghelper/message-helper";
 
 class Edit {
 

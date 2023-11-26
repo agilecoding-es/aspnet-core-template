@@ -1,4 +1,4 @@
-﻿import { DoFetch } from "../../../../../Content/js/fetch-ajax";
+﻿import { DoFetch } from "../../../../../content/js/fetch-ajax";
 import { SampleItem } from "../models/sample-item";
 import { SampleList } from "../models/sample-list";
 
