@@ -81,6 +81,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Mai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Mails.Smtp", "Template.Infrastructure.Mails.Smtp\Template.Infrastructure.Mails.Smtp.csproj", "{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{58AD5A6D-9097-4058-ACB0-20670F8EA311}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\.github\workflows\deployment.yml = ..\..\.github\workflows\deployment.yml
+		..\..\.github\workflows\tests.yml = ..\..\.github\workflows\tests.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,10 +186,11 @@ Global
 		{564A22A7-0AB6-4DCB-9E75-07FC990C1F91} = {C5100798-29D8-4373-8104-3826D270CB6A}
 		{8FBE6D80-1388-48AC-BB86-5DF80CA51DF7} = {3B322308-A8AC-4F0E-BCB1-78D2339F5385}
 		{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0} = {3B322308-A8AC-4F0E-BCB1-78D2339F5385}
+		{58AD5A6D-9097-4058-ACB0-20670F8EA311} = {92F1EDB1-05E3-4698-A942-7107070F939C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_EnableXlifSync = False
-		RESX_SortFileContentOnSave = True
 		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
+		RESX_SortFileContentOnSave = True
+		RESX_EnableXlifSync = False
 	EndGlobalSection
 EndGlobal
