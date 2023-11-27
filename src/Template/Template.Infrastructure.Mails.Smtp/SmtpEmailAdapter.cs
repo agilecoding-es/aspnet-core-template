@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;
 using Template.Configuration;
@@ -8,11 +9,13 @@ namespace Template.Infrastructure.Mails.Smtp
     public class SmtpEmailAdapter : IEmailClient
     {
         protected readonly Mailsettings mailSettings;
+        private readonly ILogger logger;
 
         // Get our parameterized configuration
-        public SmtpEmailAdapter(IOptions<Mailsettings> mailSettings)
+        public SmtpEmailAdapter(IOptions<Mailsettings> mailSettings, ILogger<SmtpEmailAdapter> logger)
         {
             this.mailSettings = mailSettings.Value;
+            this.logger = logger;
         }
 
         // Use our configuration to send the email by using SmtpClient
@@ -20,12 +23,14 @@ namespace Template.Infrastructure.Mails.Smtp
         {
             try
             {
+                logger.LogInformation($"Mail Host: {mailSettings.Host}");
                 var smtpClient = new SmtpClient(mailSettings.Host, mailSettings.Port)
                 {
                     EnableSsl = mailSettings.EnableSSL,
+                    UseDefaultCredentials= false,
                     Credentials = new NetworkCredential(mailSettings.UserName, mailSettings.Password)
                 };
-
+                logger.LogInformation($"Mail Username: {mailSettings.UserName}");
                 var emailMessage = new MailMessage(
                     new MailAddress(mailSettings.FromEmail, mailSettings.DisplayName),
                     new MailAddress(email)
