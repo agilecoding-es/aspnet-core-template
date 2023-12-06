@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Template.Common;
-using Template.Configuration;
 
 namespace Template.MvcWebApp.Areas.Administration.Models
 {

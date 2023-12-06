@@ -3,7 +3,7 @@
 namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
 {
     [Collection("WebApp")]
-    public class ErrorControllerTests 
+    public class ErrorControllerTests
     {
         private readonly WebAppFactory factory;
 

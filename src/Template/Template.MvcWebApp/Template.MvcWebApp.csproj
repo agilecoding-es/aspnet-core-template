@@ -79,14 +79,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Template.Application.Features\Template.Application.Features.csproj" />
 		<ProjectReference Include="..\Template.Application\Template.Application.csproj" />
 		<ProjectReference Include="..\Template.Common\Template.Common.csproj" />
 		<ProjectReference Include="..\Template.Configuration\Template.Configuration.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure.Mails.AzureCommunicationService\Template.Infrastructure.Mails.AzureCommunicationService.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure.Mails.Smtp\Template.Infrastructure.Mails.Smtp.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
-		<ProjectReference Include="..\Template.Persistence.Identity\Template.Persistence.Identity.csproj" />
-		<ProjectReference Include="..\Template.Persistence\Template.Persistence.csproj" />
+		<ProjectReference Include="..\Template.Persistence.Identity.SqlServer\Template.Persistence.Identity.SqlServer.csproj" />
+		<ProjectReference Include="..\Template.Persistence.SqlServer\Template.Persistence.SqlServer.csproj" />
 		<ProjectReference Include="..\Template.Security\Template.Security.csproj" />
 	</ItemGroup>
 

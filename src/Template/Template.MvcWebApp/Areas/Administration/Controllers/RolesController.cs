@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
-using Template.Application.Identity;
+using Template.Application.Features.Identity;
 using Template.Common;
 using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.Areas.Administration.Models;
@@ -27,11 +27,11 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var superadminRole = await roleManager.Roles.Where(r=> r.Name == Roles.Superadmin).ToListAsync();
+            var superadminRole = await roleManager.Roles.Where(r => r.Name == Roles.Superadmin).ToListAsync();
             var allRoles = await roleManager.Roles.ToListAsync();
 
             var allRolesExceptSuperadmin = allRoles.Except(superadminRole).ToList();
-            
+
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             List<Role> roles = await userManager.IsInRoleAsync(user, Roles.Superadmin) ? allRoles : allRolesExceptSuperadmin;
 
@@ -178,9 +178,9 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
             var model = new List<UserRoleViewModel>();
 
             var users = new List<User>();
-            var allUsers = await userManager.Users.Where(u=> u.Id != loggedUser.Id).ToListAsync();
+            var allUsers = await userManager.Users.Where(u => u.Id != loggedUser.Id).ToListAsync();
 
-            var allUsersExceptLoggedUser = allUsers.Except(new List<User> { loggedUser}).ToList();
+            var allUsersExceptLoggedUser = allUsers.Except(new List<User> { loggedUser }).ToList();
             users = await userManager.IsInRoleAsync(loggedUser, Roles.Superadmin) ? allUsers : allUsersExceptLoggedUser;
 
 

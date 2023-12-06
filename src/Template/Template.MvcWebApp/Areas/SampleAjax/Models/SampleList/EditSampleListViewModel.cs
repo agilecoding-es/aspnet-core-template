@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Template.MvcWebApp.Models;
 
 namespace Template.MvcWebApp.Areas.SampleAjax.Models.SampleList
 {

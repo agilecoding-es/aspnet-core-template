@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel;
-using System.Reflection.Metadata;
-using System.Xml.Linq;
+﻿using System.ComponentModel;
 using Template.Domain.Entities.Abastractions;
 using Template.Domain.Entities.Extensions;
 using Template.Domain.Entities.Identity;
@@ -12,7 +9,8 @@ namespace Template.Domain.Entities.Sample
     [DisplayName("List")]
     public class SampleList : Entity<int>
     {
-        public SampleList() : base() {
+        public SampleList() : base()
+        {
         }
 
         public SampleList(int id) : base(id) { }

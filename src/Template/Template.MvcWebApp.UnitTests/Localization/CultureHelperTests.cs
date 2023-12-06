@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Template.Configuration;
 using Template.MvcWebApp.Localization;
 

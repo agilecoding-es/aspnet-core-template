@@ -1,17 +1,9 @@
 ﻿using Bogus;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using Template.Domain.Entities.Identity;
-using Template.Application.Identity;
-using Microsoft.AspNetCore.Builder;
-using System.Reflection;
-using Template.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Security.Authorization;
+using Template.Application.Features.Sample.Contracts;
+using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Sample;
-using Template.Application.Contracts.Repositories.Sample;
-using Template.Persistence.Database;
+using Template.Persistence.SqlServer.Database;
 
 namespace Template.MvcWebApp.IntegrationTests.Fixtures
 {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Template.Application.Identity;
+using Template.Application.Features.Identity;
 using Template.MvcWebApp.Controllers;
 
 namespace Template.MvcWebApp.Areas.Administration.Controllers

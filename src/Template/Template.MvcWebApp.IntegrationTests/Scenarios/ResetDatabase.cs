@@ -1,6 +1,6 @@
-﻿using Template.MvcWebApp.IntegrationTests.Attributes;
+﻿using Template.Common;
+using Template.MvcWebApp.IntegrationTests.Attributes;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
-using Template.Common;
 
 namespace Template.MvcWebApp.IntegrationTests.Scenarios
 {

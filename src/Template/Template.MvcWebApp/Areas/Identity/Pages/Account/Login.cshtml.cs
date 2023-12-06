@@ -1,25 +1,12 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using Template.Application.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using Template.MvcWebApp.Localization;
 using Microsoft.Extensions.Localization;
-using Microsoft.AspNetCore.Identity;
-using Template.Configuration;
-using Template.Domain.Entities.Identity;
+using System.ComponentModel.DataAnnotations;
+using Template.Application.Features.Identity;
 using Template.Common;
+using Template.Domain.Entities.Identity;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {

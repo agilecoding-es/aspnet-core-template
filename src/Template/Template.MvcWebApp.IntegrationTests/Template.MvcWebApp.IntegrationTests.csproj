@@ -56,6 +56,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Template.Application.Features\Template.Application.Features.csproj" />
 	  <ProjectReference Include="..\Template.MvcWebApp\Template.MvcWebApp.csproj" />
 	</ItemGroup>
 

@@ -1,22 +1,21 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using System.Text.Encodings.Web;
 using System.Text;
-using Template.Application.Identity;
+using System.Text.Encodings.Web;
+using Template.Application.Features.Identity;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.Areas.Administration.Models;
 using Template.Security.Authorization;
 using Template.Security.DataProtection;
-using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Template.MvcWebApp.Areas.Administration.Controllers
 {
@@ -74,8 +73,8 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                 Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
-                IsLockout = user.LockoutEnd !=null && user.LockoutEnd > DateTimeOffset.Now,
-                Claims = (await userManager.GetClaimsAsync(user)).Where(c=>c.Value == true.AsString()).Select(c => c.Type).ToList(),
+                IsLockout = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.Now,
+                Claims = (await userManager.GetClaimsAsync(user)).Where(c => c.Value == true.AsString()).Select(c => c.Type).ToList(),
                 Roles = (await userManager.GetRolesAsync(user)).ToList()
             };
 
@@ -184,7 +183,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
 
             }
 
-            return RedirectToAction(nameof(Edit),new { id });
+            return RedirectToAction(nameof(Edit), new { id });
 
         }
 
@@ -306,7 +305,7 @@ namespace Template.MvcWebApp.Areas.Administration.Controllers
                 return View(model);
             }
 
-            var newClaimsToAdd = model.Claims.Select(uc => new Claim(uc.ClaimType, uc.IsSelected.AsString() )).ToList();
+            var newClaimsToAdd = model.Claims.Select(uc => new Claim(uc.ClaimType, uc.IsSelected.AsString())).ToList();
             result = await userManager.AddClaimsAsync(user, newClaimsToAdd);
 
             if (!result.Succeeded)

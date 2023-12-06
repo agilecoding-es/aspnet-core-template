@@ -1,17 +1,8 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Template.Application.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using Template.MvcWebApp.Localization;
+using System.ComponentModel.DataAnnotations;
+using Template.Application.Features.Identity;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {
@@ -70,7 +61,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                    //TODO: Localize
+                //TODO: Localize
                 throw new InvalidOperationException($"Unable to load two-factor authentication user.");
             }
 
@@ -89,7 +80,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                    //TODO: Localize
+                //TODO: Localize
                 throw new InvalidOperationException($"Unable to load two-factor authentication user.");
             }
 

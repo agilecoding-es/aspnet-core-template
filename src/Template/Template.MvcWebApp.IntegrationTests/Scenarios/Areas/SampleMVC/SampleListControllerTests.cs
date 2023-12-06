@@ -1,22 +1,18 @@
-﻿using Acheve.TestHost;
-using AngleSharp.Html.Dom;
+﻿using AngleSharp.Html.Dom;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
 using System.Net;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
-using Template.Application.Contracts.Repositories.Sample;
-using Template.Application.Identity;
-using Template.Common.Extensions;
+using Template.Application.Features.Identity;
+using Template.Application.Features.Sample.Contracts;
 using Template.Domain.Entities.Identity;
 using Template.MvcWebApp.IntegrationTests.Attributes;
 using Template.MvcWebApp.IntegrationTests.Extensions;
 using Template.MvcWebApp.IntegrationTests.Fixtures;
 using Template.Security.Authorization;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Template.MvcWebApp.IntegrationTests.Scenarios.Areas.SampleMVC
 {

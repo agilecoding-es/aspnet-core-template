@@ -1,6 +1,4 @@
-﻿using AutoMapper.Configuration.Annotations;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
+﻿using Microsoft.AspNetCore.TestHost;
 using System.Net;
 using System.Security.Claims;
 using Template.MvcWebApp.IntegrationTests.Attributes;

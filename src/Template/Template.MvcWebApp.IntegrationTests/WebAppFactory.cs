@@ -1,8 +1,6 @@
 ﻿using Acheve.AspNetCore.TestHost.Security;
 using Acheve.TestHost;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.SqlClient;
@@ -18,10 +16,8 @@ using System.Data.Common;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Configuration;
-using Template.MvcWebApp.IntegrationTests.Fixtures;
 using Template.MvcWebApp.IntegrationTests.Queries;
-using Template.Persistence.Database;
-using static Template.MvcWebApp.IntegrationTests.WebAppFactory;
+using Template.Persistence.SqlServer.Database;
 
 namespace Template.MvcWebApp.IntegrationTests
 {

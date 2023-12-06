@@ -1,13 +1,10 @@
 ﻿using Bogus;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using Template.Domain.Entities.Identity;
-using Template.Application.Identity;
-using Microsoft.AspNetCore.Builder;
-using System.Reflection;
-using Template.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using Template.Application.Features.Identity;
+using Template.Configuration;
+using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.IntegrationTests.Fixtures

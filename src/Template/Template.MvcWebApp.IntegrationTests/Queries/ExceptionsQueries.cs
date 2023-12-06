@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using Template.Configuration;
 
 
 namespace Template.MvcWebApp.IntegrationTests.Queries

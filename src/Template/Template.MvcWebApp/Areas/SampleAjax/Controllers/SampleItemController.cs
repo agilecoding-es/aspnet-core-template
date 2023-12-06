@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Template.Application.Identity;
+using Template.Application.Features.Identity;
 
 namespace Template.MvcWebApp.Areas.SampleAjax.Controllers
 {

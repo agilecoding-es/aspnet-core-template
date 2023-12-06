@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Template.MvcWebApp.Extensions
+﻿namespace Template.MvcWebApp.Extensions
 {
     public static class ResultExtensions
     {

@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Template.Common;
 using Template.MvcWebApp.Localization;
-using Template.MvcWebApp.Models;
 
 namespace Template.MvcWebApp.Controllers
 {

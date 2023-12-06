@@ -1,12 +1,7 @@
-﻿using AngleSharp.Html.Dom;
+﻿using AngleSharp;
+using AngleSharp.Html.Dom;
 using AngleSharp.Io;
-using AngleSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Template.MvcWebApp.IntegrationTests.Extensions
 {

@@ -1,11 +1,6 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-using System;
-using System.Threading.Tasks;
-using Template.Application.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using Template.Application.Features.Identity;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account.Manage
 {

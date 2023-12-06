@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Template.MvcWebApp.IntegrationTests.Extensions
+﻿namespace Template.MvcWebApp.IntegrationTests.Extensions
 {
     internal static class TestListExtensions
     {

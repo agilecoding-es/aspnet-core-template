@@ -3,7 +3,7 @@
 namespace Template.MvcWebApp.IntegrationTests.Scenarios.Controllers
 {
     [Collection("WebApp")]
-    public class HomeControllerTests 
+    public class HomeControllerTests
     {
         private readonly WebAppFactory factory;
 

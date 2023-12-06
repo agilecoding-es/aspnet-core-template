@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Template.Application.Abastractions;
@@ -11,13 +6,13 @@ using Template.Application.Abastractions;
 namespace Template.Application.Behaviours
 {
     public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest: IRequest, ICacheable
+        where TRequest : IRequest, ICacheable
     {
         //TODO: Reemplazar por Redis
         private readonly IMemoryCache _cache;
         private readonly ILogger _logger;
 
-        public CachingBehavior(IMemoryCache cache, ILogger<CachingBehavior<TRequest,TResponse>> logger)
+        public CachingBehavior(IMemoryCache cache, ILogger<CachingBehavior<TRequest, TResponse>> logger)
         {
             _cache = cache;
             _logger = logger;
@@ -30,7 +25,8 @@ namespace Template.Application.Behaviours
             _logger.LogInformation($"[{DateTime.UtcNow}] Caching request - {requestName}");
 
             TResponse response;
-            if(_cache.TryGetValue(request.CacheKey,  out response)) {
+            if (_cache.TryGetValue(request.CacheKey, out response))
+            {
                 _logger.LogInformation($"[{DateTime.UtcNow}] Returning value from cache key - {request.CacheKey}");
 
                 return response;

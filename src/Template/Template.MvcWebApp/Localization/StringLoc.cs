@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 
 namespace Template.MvcWebApp.Localization
 {
-     public class StringLoc<T> : StringLocalizer<T>
+    public class StringLoc<T> : StringLocalizer<T>
     {
         private readonly ILogger _logger;
 

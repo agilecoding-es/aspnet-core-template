@@ -7,7 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using Template.Configuration;
 using Template.MvcWebApp.Middlewares;
 using Template.MvcWebApp.Setup;
-using Template.Persistence.Database;
+using Template.Persistence.SqlServer.Database;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 try

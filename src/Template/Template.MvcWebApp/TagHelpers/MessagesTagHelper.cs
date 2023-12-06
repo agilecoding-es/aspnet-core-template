@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Options;
-using Template.Common.Extensions;
-using Template.MvcWebApp.TagHelpers.Models.MessageTagHelper;
-using Template.MvcWebApp.TagHelpers.Configuration;
-using static Template.MvcWebApp.TagHelpers.Models.MessageTagHelper.ResponseMessageViewModel;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.Text.Encodings.Web;
+using Template.Common.Extensions;
+using Template.MvcWebApp.TagHelpers.Configuration;
+using Template.MvcWebApp.TagHelpers.Models.MessageTagHelper;
+using static Template.MvcWebApp.TagHelpers.Models.MessageTagHelper.ResponseMessageViewModel;
 
 namespace Template.MvcWebApp.TagHelpers
 {
@@ -70,7 +70,7 @@ namespace Template.MvcWebApp.TagHelpers
             this.htmlHelper = htmlHelper;
             this.options = options;
         }
-        public override void Process(TagHelperContext context, TagHelperOutput output) 
+        public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             ArgumentNullException.ThrowIfNull(output, nameof(output));

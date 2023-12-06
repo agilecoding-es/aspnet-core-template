@@ -1,18 +1,15 @@
-﻿using IdentityModel.OidcClient;
-using Mapster;
+﻿using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using System.Security.Claims;
-using Template.Application.Contracts.DTOs.Sample;
-using Template.Application.Exceptions;
-using Template.Application.Identity;
-using Template.Application.Sample.Commands;
-using Template.Application.Sample.Queries;
+using Template.Application.Features.Identity;
+using Template.Application.Features.Sample.Contracts.DTOs;
+using Template.Application.Features.Sample.Items;
+using Template.Application.Features.Sample.Lists;
 using Template.Common.Extensions;
 using Template.Domain.Entities.Shared;
 using Template.MvcWebApp.Areas.SampleAjax.Models.SampleList;
-using Template.MvcWebApp.Models;
 using Template.MvcWebApp.Services.Rendering;
 using Result = Template.Domain.Entities.Shared.Result;
 

@@ -1,13 +1,9 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System.Text;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Localization;
-using Template.Application.Identity;
+using System.Text;
+using Template.Application.Features.Identity;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 {
@@ -44,7 +40,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? _localizer.GetString("Identity_Account_ConfirmEmail_StatusMessage_Ok"): _localizer.GetString("Identity_Account_ConfirmEmail_StatusMessage_Error");
+            StatusMessage = result.Succeeded ? _localizer.GetString("Identity_Account_ConfirmEmail_StatusMessage_Ok") : _localizer.GetString("Identity_Account_ConfirmEmail_StatusMessage_Error");
             return Page();
         }
     }

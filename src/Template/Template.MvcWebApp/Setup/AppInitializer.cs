@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Template.Application.Identity;
+using Template.Application.Features.Identity;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
-using Template.Persistence.Database;
 using Template.Security.Authorization;
 
 namespace Template.MvcWebApp.Setup
@@ -88,7 +87,7 @@ namespace Template.MvcWebApp.Setup
                 if (existingSA == null)
                 {
                     User user = Activator.CreateInstance<User>();
-                    user.LockoutEnabled= false;
+                    user.LockoutEnabled = false;
                     user.EmailConfirmed = true;
                     var emailStore = (IUserEmailStore<User>)userStore;
                     await userStore.SetUserNameAsync(user, $"sa", CancellationToken.None);

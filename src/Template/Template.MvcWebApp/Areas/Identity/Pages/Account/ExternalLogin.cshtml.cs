@@ -1,25 +1,15 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
-using Template.Application.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
-using Template.MvcWebApp.Localization;
 using Microsoft.Extensions.Localization;
-using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Encodings.Web;
+using Template.Application.Features.Identity;
 using Template.Domain.Entities.Identity;
 
 namespace Template.MvcWebApp.Areas.Identity.Pages.Account
@@ -101,7 +91,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
         }
-        
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
         public IActionResult OnPost(string provider, string returnUrl = null)
@@ -148,7 +138,7 @@ namespace Template.MvcWebApp.Areas.Identity.Pages.Account
                     var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                     Input = new InputModel
                     {
-                        UserName = email.Substring(0,email.IndexOf('@')),
+                        UserName = email.Substring(0, email.IndexOf('@')),
                         Email = email
                     };
                 }
