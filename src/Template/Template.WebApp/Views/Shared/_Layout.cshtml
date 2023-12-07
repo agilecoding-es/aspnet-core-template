@@ -1,0 +1,140 @@
+﻿@using Microsoft.AspNetCore.Http.Extensions;
+@using Microsoft.Extensions.Localization;
+@using Microsoft.Extensions.Options;
+@using System.Globalization;
+@using Template.Application.Features.Identity;
+@using Template.Configuration;
+@using Template.Security.Authorization;
+@using Template.WebApp.Extensions;
+
+@inject SignInManager SignInManager
+@inject UserManager UserManager
+@inject IAuthorizationService AuthService;
+@inject IStringLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+@inject AppSettings Settings
+
+
+@{
+    string returnUrl = ViewContext.HttpContext.Request.GetEncodedPathAndQuery();
+    var requestCultureFeature = Context.GetRequestCultureFeature();
+    var requestCulture = requestCultureFeature.RequestCulture.UICulture.Name.Length == 2 ? requestCultureFeature.RequestCulture.UICulture.Name : requestCultureFeature.RequestCulture.UICulture.Parent.Name;
+    var cultureItems = LocalizationOptions.Value.SupportedUICultures
+                        .Where(c => c.ToString().Length == 2)
+                        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName.ToUpper() })
+                        .ToList();
+    var currentLang = cultureItems.Find(x => x.Value == CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
+
+    var isAdmin = (await AuthService.AuthorizeAsync(User, Policies.AdminUser)).Succeeded;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Template.WebApp</title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/content/theme/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/content/theme/site.min.css" />
+    </environment>
+    <link rel="stylesheet" href="~/content/vendors/bootstrap-icons/font/bootstrap-icons.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue-1 border-bottom box-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Template</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Layout_Navbar_Home"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Layout_Navbar_Privacy"]</a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @if (Settings.Samples.ShowSampleMVC)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="SampleMvc" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_MVC"]</a>
+                                </li>
+                            }
+                            @if (Settings.Samples.ShowSampleAjax)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="SampleAjax" asp-controller="SampleList" asp-action="Index">@Localizer["Layout_Navbar_SampleList_Ajax"]</a>
+                                </li>
+                            }
+
+                            if (isAdmin)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownManage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@Localizer["Layout_Navbar_Administration_Manage"]</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownManage">
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="Index">@Localizer["Layout_Navbar_Administration_Users"]</a>
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="Roles" asp-action="Index">@Localizer["Layout_Navbar_Administration_Roles"]</a>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <ul class="navbar-nav d-flex flex-row">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="c-gray-520 mr-05 font-sm text-white text-uppercase">@currentLang.Value</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLanguages">
+                                @foreach (var language in cultureItems.FindAll(x => x != currentLang))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="@language.Value" asp-route-returnUrl="@returnUrl">
+                                            <img width="27" height="19" src="~/content/images/flags/@(language.Value).svg" alt="@language.Text">
+                                            <span class="c-md ms-4 text-capitalize">@language.Text</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section class="section-bar mb-4">
+        @await RenderSectionAsync("SectionBar", required: false)
+    </section>
+    <div class="container" style="position: relative;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer bg-blue-3 border-top text-white text-center">
+        <div class="container">
+            &copy; 2023 - Template.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white">@Localizer["Layout_Footer_Privacy"]</a>
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/content/vendors/jquery.bundle.js"></script>
+        <script src="~/content/vendors/bootstrap.bundle.js"></script>
+        <script src="~/content/js/uicomponents/message-taghelper/message-taghelper.bundle.js"></script>
+        <script src="~/content/vendors/references.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/content/vendors/jquery.bundle.min.js"></script>
+        <script src="~/content/vendors/bootstrap.bundle.min.js"></script>
+        <script src="~/content/js/uicomponents/message-taghelper/message-taghelper.bundle.min.js"></script>
+    </environment>
+
+    @await RenderSectionAsync("scripts", required: false)
+</body>
+</html>

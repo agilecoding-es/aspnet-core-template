@@ -1,12 +1,12 @@
 version: '3.4'
 
 services:
-  template.mvcwebapp.unittests:
-    image: ${DOCKER_REGISTRY-}templatemvcwebappunittests
+  template.WebApp.unittests:
+    image: ${DOCKER_REGISTRY-}templateWebAppunittests
     container_name: webapp.unit-tests
     build:
       context: .
-      dockerfile: Template.MvcWebApp.UnitTests/Dockerfile
+      dockerfile: Template.WebApp.UnitTests/Dockerfile
     volumes:
      - /opt/vsts/work/_temp:/var/temp
     depends_on:

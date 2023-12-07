@@ -6,7 +6,7 @@
     <ProjectGuid>71b4b880-e5ee-4b08-8a02-f09b099b2770</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>template.mvcwebapp</DockerServiceName>
+    <DockerServiceName>Template.WebApp</DockerServiceName>
     <DockerComposeProjectName>templateapp</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>

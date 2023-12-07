@@ -1,0 +1,37 @@
+﻿@using Microsoft.Extensions.Localization;
+@using Template.Application.Features.Identity;
+
+@inject SignInManager SignInManager
+@inject UserManager UserManager
+@inject IStringLocalizer Localizer
+
+<ul class="navbar-nav d-flex flex-row">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-fill fs-5 text-white"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@Localizer["Layout_Navbar_LoggedUser",@User.Identity?.Name!]</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="dropdown-item">@Localizer["Layout_Navbar_Logout"]</button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">@Localizer["Layout_Navbar_Register"]</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">@Localizer["Layout_Navbar_Login"]</a>
+        </li>
+    }
+</ul>
