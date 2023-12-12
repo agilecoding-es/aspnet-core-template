@@ -180,7 +180,7 @@ namespace Template.WebApp.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Users");
+                        return RedirectToAction("Index", "Users",new { area = "Administration" });
                     }
 
 

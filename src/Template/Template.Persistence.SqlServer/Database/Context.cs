@@ -29,7 +29,7 @@ namespace Template.Persistence.SqlServer.Database
         {
             base.OnModelCreating(builder);
 
-            builder.ApplyConfigurationsFromAssembly(PersistenceAssembly.Assembly);
+            builder.ApplyConfigurationsFromAssembly(PersistenceSqlServerAssembly.Assembly);
         }
     }
 }

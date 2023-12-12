@@ -1,0 +1,5 @@
+-- init.sql
+CREATE USER TemplateApp WITH PASSWORD 'sa!Password-123';
+ALTER USER TemplateApp CREATEDB;
+CREATE DATABASE TemplateApp;
+GRANT ALL PRIVILEGES ON DATABASE TemplateApp TO TemplateApp;

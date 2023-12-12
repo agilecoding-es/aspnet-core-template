@@ -2,7 +2,7 @@
 
 namespace Template.Application.Features
 {
-    public sealed class ApplicationFeatures : AssemblyBasicInfo<ApplicationFeatures>
+    public sealed class ApplicationFeaturesAssembly : AssemblyBasicInfo<ApplicationFeaturesAssembly>
     {
     }
 }

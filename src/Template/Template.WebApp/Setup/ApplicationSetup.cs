@@ -1,14 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc.Razor;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Razor;
 using NLog.Web;
 using Template.Common;
+using Template.Configuration.Setup;
+using Template.Infrastructure.Mails.AzureCommunicationService;
+using Template.Infrastructure.Mails.Smtp;
+using Template.Infrastructure.Mails;
 
 namespace Template.WebApp.Setup
 {
     public static class ApplicationSetup
     {
-        public static AppBuilder CreateAppBuilder(this WebApplicationBuilder builder) => new AppBuilder(builder);
+        public static IAppBuilder CreateAppBuilder(this WebApplicationBuilder builder) => new AppBuilder(builder);
 
-        public static AppBuilder DefaultServicesConfiguration(this WebApplicationBuilder builder)
+        public static IAppBuilder DefaultServicesConfiguration(this WebApplicationBuilder builder)
         {
             // NLog: Setup NLog for Dependency injection
             builder.Logging.ClearProviders();
@@ -16,34 +21,25 @@ namespace Template.WebApp.Setup
 
             builder.Configuration.AddEnvironmentVariables();
 
+            var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
+
             var appBuilder =
                 CreateAppBuilder(builder)
-                .ConfigureSettings()
-                .ConfigureDB()
-                .ConfigureIdentity();
+                .AddSettings()
+                .AddPostgreSql(connectionString)
+                .AddIdentity()
+                .AddPresentation()
+                .AddApplicationFeatures()
+                .AddHelthChecks();
 
-            builder.Services.AddHttpContextAccessor();
-
-            builder.Services.AddControllersWithViews()
-                            .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                            .AddDataAnnotationsLocalization(options =>
-                            {
-                                options.DataAnnotationLocalizerProvider = (type, factory) =>
-                                    factory.Create(Constants.Configuration.Resources.DataAnnotation, PresentationAssembly.AssemblyFullName);
-                            });
-
-            builder.Services.AddSession();
-
-            appBuilder
-                .ConfigureDependencies()
-                .ConfigureAuthentication()
-                .ConfigureAuthorization()
-                .ConfigureResources()
-                .ConfigureCache()
-                .ConfigureMediatr()
-                .ConfigureMapster()
-                .ConfigureHelthChecks();
-
+            if (builder.Environment.IsStaging())
+            {
+                appBuilder.AddAzureEmail();
+            }
+            else
+            {
+                appBuilder.AddSmtpEmail();
+            }
 
             return appBuilder;
         }

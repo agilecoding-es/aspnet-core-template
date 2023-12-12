@@ -5,91 +5,68 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection.PortableExecutable;
 using Template.Application;
 using Template.Application.Behaviours;
 using Template.Application.Contracts;
+using Template.Application.Features;
 using Template.Application.Features.Identity;
 using Template.Application.Features.Sample.Contracts;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Configuration;
+using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;
 using Template.Infrastructure.Mails;
 using Template.Infrastructure.Mails.AzureCommunicationService;
 using Template.Infrastructure.Mails.Smtp;
+using Template.Persistence.Identity.PosgreSql;
+using Template.Persistence.PosgreSql;
+using Template.Persistence.PosgreSql.Database;
+using Template.Persistence.PosgreSql.Respositories.Sample;
+using Template.Security.Authorization;
+using Template.Security.Authorization.Requirements;
 using Template.WebApp.Localization;
 using Template.WebApp.Resources;
 using Template.WebApp.Services.Rendering;
-using Template.Persistence.SqlServer;
-using Template.Persistence.SqlServer.Database;
-using Template.Persistence.Identity.SqlServer;
-using Template.Persistence.SqlServer.Respositories.Sample;
-using Template.Security.Authorization;
-using Template.Security.Authorization.Requirements;
 using LatencyHealthCheck = Template.WebApp.HealthChecks.LatencyHealthCheck;
-using Template.Application.Features;
 
 namespace Template.WebApp.Setup
 {
-    public class AppBuilder
+    public class AppBuilder : IAppBuilder
     {
         private WebApplicationBuilder builder;
-        internal readonly IServiceCollection services;
-        internal readonly ConfigurationManager configuration;
 
         public AppBuilder(WebApplicationBuilder builder)
         {
             this.builder = builder;
-            this.services = builder.Services;
-            this.configuration = builder.Configuration;
-
+            this.Services = builder.Services;
+            this.Configuration = builder.Configuration;
+            this.Environment = builder.Environment;
         }
 
-        public AppBuilder AddConfiguration(Action<IServiceCollection, ConfigurationManager> builder)
+        public IServiceCollection Services { get; }
+        public ConfigurationManager Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
+
+        public IAppBuilder AddSettings(Action<IServiceCollection, ConfigurationManager> builder)
         {
             _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
-            builder.Invoke(services, configuration);
+            builder.Invoke(Services, Configuration);
 
             return this;
         }
 
-        public AppBuilder ConfigureSettings()
+        public IAppBuilder AddIdentity()
         {
-            services.Configure<AppSettings>(configuration)
-                    .Configure<Mailsettings>(options =>
-                    {
-                        configuration.GetSection(nameof(Mailsettings)).Bind(options);
-                    })
-                    .Configure<LogMiddleware>(options =>
-                    {
-                        configuration.GetSection(nameof(LogMiddleware)).Bind(options);
-                    });
-
-            return this;
-        }
-
-        public AppBuilder ConfigureDB()
-        {
-            var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
-
-            //services.AddDbContextFactory<Context>(options => options.UseSqlServer(connectionString), lifetime: ServiceLifetime.Scoped);
-            services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
-
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
-            return this;
-        }
-
-        public AppBuilder ConfigureIdentity()
-        {
-            services.AddDefaultIdentity<User>()
+            Services.AddDefaultIdentity<User>()
                    .AddUserManager<UserManager>()
                    .AddSignInManager<SignInManager>()
                    .AddUserStore<UserStore>()
@@ -101,14 +78,37 @@ namespace Template.WebApp.Setup
             return this;
         }
 
-        public AppBuilder ConfigureAuthentication()
+        public IAppBuilder AddPresentation()
         {
-            var appSettings = configuration.Get<AppSettings>();
+            Services
+                .AddHttpContextAccessor()
+                .AddControllersWithViews()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization(options =>
+                            {
+                                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                                    factory.Create(Constants.Configuration.Resources.DataAnnotation, PresentationAssembly.AssemblyFullName);
+                            });
+
+            Services.AddSession();
+
+            this.AddDependencies()
+                .AddAuthentication()
+                .AddAuthorization()
+                .AddResources()
+                .AddMapster();
+
+            return this;
+        }
+
+        public IAppBuilder AddAuthentication()
+        {
+            var appSettings = Configuration.Get<AppSettings>();
             var authProviders = appSettings.AuthenticationProviders;
-            services
+            Services
                 .Configure<IdentityOptions>(options =>
                 {
-                    configuration.GetSection(nameof(IdentityOptions)).Bind(options);
+                    Configuration.GetSection(nameof(IdentityOptions)).Bind(options);
                 })
                 .AddAuthentication()
                 .AddGoogle(options =>
@@ -125,9 +125,9 @@ namespace Template.WebApp.Setup
             return this;
         }
 
-        public AppBuilder ConfigureAuthorization()
+        public IAppBuilder AddAuthorization()
         {
-            services.AddAuthorization(options =>
+            Services.AddAuthorization(options =>
             {
                 #region User Policies
 
@@ -199,47 +199,11 @@ namespace Template.WebApp.Setup
             return this;
         }
 
-        public AppBuilder ConfigureDependencies()
+        public IAppBuilder AddDependencies()
         {
-            var appSettings = configuration.Get<AppSettings>();
-            services.AddSingleton(appSettings);
-
-            services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
-
-            services.AddTransient<IAuthorizationHandler, CanEditOnlyOtherAdminRolesAndClaimsHandler>();
-
-            if (builder.Environment.IsDevelopment())
-            {
-                services
-                    .AddTransient(provider => new SmtpClient(appSettings.Mailsettings.Host, appSettings.Mailsettings.Port)
-                    {
-                        Credentials = new NetworkCredential(appSettings.Mailsettings.UserName, appSettings.Mailsettings.Password),
-                        EnableSsl = appSettings.Mailsettings.EnableSSL
-                    });
-
-                services.AddTransient<IEmailSender, SmtpEmailAdapter>();
-                services.AddTransient<IEmailClient, SmtpEmailAdapter>();
-            }
-            else if (builder.Environment.IsStaging())
-            {
-                services.AddTransient<IEmailSender, AzureEmailAdapter>();
-                services.AddTransient<IEmailClient, AzureEmailAdapter>();
-            }
-            else
-            {
-                services
-                    .AddTransient(provider => new SmtpClient(appSettings.Mailsettings.Host, appSettings.Mailsettings.Port)
-                    {
-                        Credentials = new NetworkCredential(appSettings.Mailsettings.UserName, appSettings.Mailsettings.Password),
-                        EnableSsl = appSettings.Mailsettings.EnableSSL
-                    });
-
-                services.AddTransient<IEmailSender, SmtpEmailAdapter>();
-                services.AddTransient<IEmailClient, SmtpEmailAdapter>();
-            }
-
-
-            services
+            Services
+                .AddTransient<IRazorViewRenderer, RazorViewRenderer>()
+                .AddTransient<IAuthorizationHandler, CanEditOnlyOtherAdminRolesAndClaimsHandler>()
                 .AddScoped<ICultureHelper, CultureHelper>()
                 .AddSingleton<IHtmlLocalizer, HtmlLoc>()
                 .AddSingleton<IHtmlLocalizer<AppResources>, HtmlLoc<AppResources>>()
@@ -252,21 +216,14 @@ namespace Template.WebApp.Setup
                     return factory.Create(Constants.Configuration.Resources.AppResources, PresentationAssembly.AssemblyFullName);
                 });
 
-            services
-                .AddTransient<IUnitOfWork, UnitOfWork>()
-                .AddTransient<ISampleItemRepository, SampleItemRepository>()
-                .AddTransient<ISampleItemQueryRepository, SampleItemQueryRepository>()
-                .AddTransient<ISampleListRepository, SampleListRepository>()
-                .AddTransient<ISampleListQueryRepository, SampleListQueryRepository>();
-
             return this;
         }
 
-        public AppBuilder ConfigureResources()
+        public IAppBuilder AddResources()
         {
-            var appSettings = configuration.Get<AppSettings>();
+            var appSettings = Configuration.Get<AppSettings>();
 
-            services
+            Services
                 .AddLocalization(options => options.ResourcesPath = "Resources")
                 .Configure<RequestLocalizationOptions>(options =>
                 {
@@ -285,40 +242,23 @@ namespace Template.WebApp.Setup
             return this;
         }
 
-        public AppBuilder ConfigureCache()
-        {
-            services.AddMemoryCache();
-
-            return this;
-        }
-
-        public AppBuilder ConfigureMediatr()
-        {
-            services.AddMediatR(configuration =>
-                    configuration.RegisterServicesFromAssembly(ApplicationFeatures.Assembly))
-                .AddTransient(typeof(IPipelineBehavior<,>), typeof(LogginBehavior<,>))
-                .AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
-
-            return this;
-        }
-
-        public AppBuilder ConfigureMapster()
+        public IAppBuilder AddMapster()
         {
             TypeAdapterConfig.GlobalSettings.Scan(new[] { PresentationAssembly.Assembly, ApplicationAssembly.Assembly });
 
             return this;
         }
 
-        public AppBuilder ConfigureHelthChecks()
+        public IAppBuilder AddHelthChecks()
         {
-            var appSettings = configuration.Get<AppSettings>();
+            var appSettings = Configuration.Get<AppSettings>();
 
             if (appSettings.HealthChecks.Enabled)
             {
-                services.AddSingleton<LatencyHealthCheck>();
+                Services.AddSingleton<LatencyHealthCheck>();
                 //services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(redisSettings.ConnectionString));
 
-                services.AddHealthChecks()
+                Services.AddHealthChecks()
                         //.AddCheck<LatencyHealthCheck>("LatencyHealthCheck", tags: new[] { "mvc" })
                         //.AddCheck<RedisHelthCheck>("Redis")
                         .AddCheck("MvcApp", () =>
@@ -329,7 +269,8 @@ namespace Template.WebApp.Setup
                             new[] { "database", "sql server" }
                 );
 
-                services.AddHealthChecksUI().AddSqlServerStorage(appSettings.ConnectionStrings.DefaultConnection);
+                Services.AddHealthChecksUI().AddPostgreSqlStorage(appSettings.ConnectionStrings.DefaultConnection);
+                //Services.AddHealthChecksUI().AddSqlServerStorage(appSettings.ConnectionStrings.DefaultConnection);
             }
             return this;
         }

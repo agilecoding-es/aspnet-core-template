@@ -53,18 +53,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
+		<!--<PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />-->
 		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.5" />
-		<PackageReference Include="AspNetCore.HealthChecks.UI.SqlServer.Storage" Version="6.0.5" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.PostgreSQL.Storage" Version="6.0.4" />
+		<!--<PackageReference Include="AspNetCore.HealthChecks.UI.SqlServer.Storage" Version="6.0.5" />-->
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.19" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.16" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
+		<!--<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />-->
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.16" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.16" />
@@ -76,6 +77,8 @@
 		<PackageReference Include="NLog.Database" Version="5.2.2" />
 		<PackageReference Include="NLog.Extensions.Logging" Version="5.3.2" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.2" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -86,8 +89,8 @@
 		<ProjectReference Include="..\Template.Infrastructure.Mails.AzureCommunicationService\Template.Infrastructure.Mails.AzureCommunicationService.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure.Mails.Smtp\Template.Infrastructure.Mails.Smtp.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
-		<ProjectReference Include="..\Template.Persistence.Identity.SqlServer\Template.Persistence.Identity.SqlServer.csproj" />
-		<ProjectReference Include="..\Template.Persistence.SqlServer\Template.Persistence.SqlServer.csproj" />
+		<ProjectReference Include="..\Template.Persistence.Identity.PostgreSql\Template.Persistence.Identity.PostgreSql.csproj" />
+		<ProjectReference Include="..\Template.Persistence.PostgreSql\Template.Persistence.PostgreSql.csproj" />
 		<ProjectReference Include="..\Template.Security\Template.Security.csproj" />
 	</ItemGroup>
 

@@ -7,9 +7,14 @@
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>Template.WebApp</DockerServiceName>
-    <DockerComposeProjectName>templateapp</DockerComposeProjectName>
+    <DockerComposeProjectName>template</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose - Copy.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.postgresql.yml" />
+    <None Include="docker-compose.sqlserver.yml" />
     <None Include="docker-compose.unittests.yml" />
     <None Include="docker-compose.integrationtests.yml" />
     <None Include="docker-compose.override.yml">

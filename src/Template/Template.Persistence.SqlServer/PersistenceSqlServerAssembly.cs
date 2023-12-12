@@ -2,7 +2,7 @@
 
 namespace Template.Persistence.SqlServer
 {
-    public sealed class PersistenceAssembly : AssemblyBasicInfo<PersistenceAssembly>
+    public sealed class PersistenceSqlServerAssembly : AssemblyBasicInfo<PersistenceSqlServerAssembly>
     {
     }
 }

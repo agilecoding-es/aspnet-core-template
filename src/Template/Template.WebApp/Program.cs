@@ -7,9 +7,9 @@ using System.Security.Cryptography.X509Certificates;
 using Template.Configuration;
 using Template.WebApp.Middlewares;
 using Template.WebApp.Setup;
-using Template.Persistence.SqlServer.Database;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using Template.Persistence.PosgreSql.Database;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 try
@@ -21,54 +21,21 @@ try
     logger.Info("Starting App");
     logger.Info("************");
 
-    if (builder.Environment.IsProduction())
-    {
-        builder.Services.Configure<ForwardedHeadersOptions>(options =>
-        {
-            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-        });
-        builder.Services.AddCertificateForwarding(options =>
-        {
-            options.CertificateHeader = "X-SSL-CERTIFICATE";
-            options.HeaderConverter = (headerValue) =>
-            {
-                //// Conversion logic to create an X509Certificate2.
-                //var clientCertificate = ConversionLogic.CreateAnX509Certificate2();
-                //return clientCertificate;
-                try
-                {
-                    // Convierte el valor del encabezado a un arreglo de bytes
-                    byte[] certificateBytes = Convert.FromBase64String(headerValue);
+    CertificateConfiguration(builder);
 
-                    // Crea un objeto X509Certificate2 a partir del arreglo de bytes
-                    X509Certificate2 clientCertificate = new X509Certificate2(certificateBytes);
-
-                    // Devuelve el objeto X509Certificate2
-                    return clientCertificate;
-                }
-                catch (Exception ex)
-                {
-                    // Manejar cualquier excepción que pueda ocurrir durante la conversión
-                    Console.WriteLine($"Error al convertir el certificado: {ex.Message}");
-                    return null; // O maneja de otra manera, según tus requisitos
-                }
-            };
-        });
-    }
     builder.Services.AddHttpLogging(options =>
     {
         options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders;
     });
 
-
+    logger.Info("App configuration \t | start ...");
     var app = builder.DefaultServicesConfiguration().Build();
+    logger.Info("App configuration \t | finished");
 
-    logger.Info("App Initialization \t | Initializing app ...");
-    logger.Info("- Applying migrations ");
-    logger.Info("- Configuring roles ");
-    logger.Info("- Configuring superadmin ");
-    await app.InitializeAsync<Context>(builder.Configuration);
-    logger.Info("App Initialization \t | App initialized!");
+
+    logger.Info("App Initialization \t | start ...");
+    await app.DefaultInitialization();
+    logger.Info("App Initialization \t | finished");
 
     var settings = app.Configuration.Get<AppSettings>();
 
@@ -172,4 +139,42 @@ finally
 {
     // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
     LogManager.Shutdown();
+}
+
+void CertificateConfiguration(WebApplicationBuilder builder)
+{
+    if (builder.Environment.IsProduction())
+    {
+        builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
+        builder.Services.AddCertificateForwarding(options =>
+        {
+            options.CertificateHeader = "X-SSL-CERTIFICATE";
+            options.HeaderConverter = (headerValue) =>
+            {
+                //// Conversion logic to create an X509Certificate2.
+                //var clientCertificate = ConversionLogic.CreateAnX509Certificate2();
+                //return clientCertificate;
+                try
+                {
+                    // Convierte el valor del encabezado a un arreglo de bytes
+                    byte[] certificateBytes = Convert.FromBase64String(headerValue);
+
+                    // Crea un objeto X509Certificate2 a partir del arreglo de bytes
+                    X509Certificate2 clientCertificate = new X509Certificate2(certificateBytes);
+
+                    // Devuelve el objeto X509Certificate2
+                    return clientCertificate;
+                }
+                catch (Exception ex)
+                {
+                    // Manejar cualquier excepción que pueda ocurrir durante la conversión
+                    Console.WriteLine($"Error al convertir el certificado: {ex.Message}");
+                    return null; // O maneja de otra manera, según tus requisitos
+                }
+            };
+        });
+    }
 }

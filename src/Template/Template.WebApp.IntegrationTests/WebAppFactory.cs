@@ -17,7 +17,8 @@ using Template.Common;
 using Template.Common.Extensions;
 using Template.Configuration;
 using Template.WebApp.IntegrationTests.Queries;
-using Template.Persistence.SqlServer.Database;
+using Template.Configuration.Setup;
+using Template.Persistence.PosgreSql.Database;
 
 namespace Template.WebApp.IntegrationTests
 {
@@ -149,7 +150,7 @@ namespace Template.WebApp.IntegrationTests
                 .AddCookie(Constants.Configuration.Cookies.AuthCookieName)
                 .AddTestServer();
 
-                services.AddDbContext<Context>(options => options.UseSqlServer(this.ConnectionStringName));
+                services.AddPostgreSql(ConnectionStringName);
 
                 ConfigureTestDependencies(services);
                 ConfigureMocks(services);
@@ -174,7 +175,8 @@ namespace Template.WebApp.IntegrationTests
                         Connection,
                         new RespawnerOptions()
                         {
-                            DbAdapter = DbAdapter.SqlServer,
+                            //DbAdapter = DbAdapter.SqlServer,
+                            DbAdapter = DbAdapter.Postgres,
                             SchemasToExclude = new string[]
                             {
                                 Context.DbSchema.log.ToString()

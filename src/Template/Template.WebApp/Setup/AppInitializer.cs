@@ -3,110 +3,104 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Template.Application.Features.Identity;
 using Template.Configuration;
+using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;
 
 namespace Template.WebApp.Setup
 {
-    public static class AppInitializer
+    public class AppInitializer : IAppInitializer
     {
-        public static async Task<WebApplication> InitializeAsync<TContext>(this WebApplication app, ConfigurationManager configuration)
-            where TContext : DbContext
-        {
-            await ApplyMigrations<TContext>(app, configuration);
-            await ConfigureRolesAsync(app, configuration);
-            await ConfigureSuperadminAsync(app, configuration);
+        public WebApplication App { get; }
 
-            return app;
+        public AppInitializer(WebApplication app)
+        {
+            this.App = app;
         }
 
-        private static async Task ApplyMigrations<TContext>(WebApplication app, ConfigurationManager configuration)
-            where TContext : DbContext
+        public async Task<IAppInitializer> ConfigureRolesAsync()
         {
-            using (var scope = app.Services.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<TContext>();
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<TContext>>();
 
+            using (var scope = App.Services.CreateScope())
+            {
+                var settings = scope.ServiceProvider.GetRequiredService<AppSettings>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager>();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<RoleManager>>();
                 try
                 {
-                    logger.LogInformation($"[Database] Applying migrations for context: {typeof(TContext).Name}");
 
-                    await db.Database.MigrateAsync();
-
-                    logger.LogInformation($"[Database] Migrations applied for context: {typeof(TContext).Name}");
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, $"An error occurred while applying migrations for context: {typeof(TContext).Name}");
-                }
-            }
-        }
-
-        private static async Task ConfigureRolesAsync(WebApplication app, ConfigurationManager configuration)
-        {
-            AppSettings settings = configuration.Get<AppSettings>();
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager>();
-
-                var rolesType = typeof(Roles);
-                var roleFields = rolesType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-                foreach (var roleField in roleFields)
-                {
-                    if (roleField.FieldType == typeof(string) && roleField.IsLiteral)
+                    var rolesType = typeof(Roles);
+                    var roleFields = rolesType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+                    foreach (var roleField in roleFields)
                     {
-                        var value = roleField.GetValue(null)?.ToString();
-
-                        if (!string.IsNullOrEmpty(value) && !value.Contains(","))
+                        if (roleField.FieldType == typeof(string) && roleField.IsLiteral)
                         {
-                            Role role = Activator.CreateInstance<Role>();
-                            role.Name = value.ToString();
+                            var value = roleField.GetValue(null)?.ToString();
 
-                            if (!(await roleManager.RoleExistsAsync(role.Name)))
-                                await roleManager.CreateAsync(role);
+                            if (!string.IsNullOrEmpty(value) && !value.Contains(","))
+                            {
+                                Role role = Activator.CreateInstance<Role>();
+                                role.Name = value.ToString();
+
+                                if (!(await roleManager.RoleExistsAsync(role.Name)))
+                                    await roleManager.CreateAsync(role);
+                            }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, $"An error occurred while configuring roles.");
+                }
             }
+
+            return this;
         }
 
-        private static async Task ConfigureSuperadminAsync(WebApplication app, ConfigurationManager configuration)
+        public async Task<IAppInitializer> ConfigureSuperadminAsync()
         {
-            AppSettings settings = configuration.Get<AppSettings>();
-
-            using (var scope = app.Services.CreateScope())
+            using (var scope = App.Services.CreateScope())
             {
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager>();
-                var userStore = scope.ServiceProvider.GetRequiredService<IUserStore<User>>();
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager>();
-                var roleStore = scope.ServiceProvider.GetRequiredService<IRoleStore<Role>>();
+                var settings = scope.ServiceProvider.GetRequiredService<AppSettings>();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<RoleManager>>();
 
-                var existingSA = await userManager.FindByNameAsync("sa");
-                if (existingSA == null)
+                try
                 {
-                    User user = Activator.CreateInstance<User>();
-                    user.LockoutEnabled = false;
-                    user.EmailConfirmed = true;
-                    var emailStore = (IUserEmailStore<User>)userStore;
-                    await userStore.SetUserNameAsync(user, $"sa", CancellationToken.None);
-                    await emailStore.SetEmailAsync(user, "malonejv@gmail.com", CancellationToken.None);
+                    var userManager = scope.ServiceProvider.GetRequiredService<UserManager>();
+                    var userStore = scope.ServiceProvider.GetRequiredService<IUserStore<User>>();
+                    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager>();
+                    var roleStore = scope.ServiceProvider.GetRequiredService<IRoleStore<Role>>();
 
-                    await userManager.CreateAsync(user, settings.SuperadminPass);
-                    await userManager.AddToRoleAsync(user, Roles.Superadmin);
+                    var existingSA = await userManager.FindByNameAsync("sa");
+                    if (existingSA == null)
+                    {
+                        User user = Activator.CreateInstance<User>();
+                        user.LockoutEnabled = false;
+                        user.EmailConfirmed = true;
+                        var emailStore = (IUserEmailStore<User>)userStore;
+                        await userStore.SetUserNameAsync(user, $"sa", CancellationToken.None);
+                        await emailStore.SetEmailAsync(user, "malonejv@gmail.com", CancellationToken.None);
+
+                        await userManager.CreateAsync(user, settings.SuperadminPass);
+                        await userManager.AddToRoleAsync(user, Roles.Superadmin);
+                    }
+                    else
+                    {
+                        existingSA.LockoutEnd = null;
+                        existingSA.LockoutEnabled = false;
+                        existingSA.EmailConfirmed = true;
+                        existingSA.Email = "malonejv@gmail.com";
+
+                        await userManager.UpdateAsync(existingSA);
+                        await userManager.AddToRoleAsync(existingSA, Roles.Superadmin);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    existingSA.LockoutEnd = null;
-                    existingSA.LockoutEnabled = false;
-                    existingSA.EmailConfirmed = true;
-                    existingSA.Email = "malonejv@gmail.com";
-
-                    await userManager.UpdateAsync(existingSA);
-                    await userManager.AddToRoleAsync(existingSA, Roles.Superadmin);
+                    logger.LogError(ex, $"An error occurred while configuring superadmin user.");
                 }
             }
+            return this;
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Template.Application.Features.Sample.Contracts;
 using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Sample;
-using Template.Persistence.SqlServer.Database;
+using Template.Persistence.PosgreSql.Database;
 
 namespace Template.WebApp.IntegrationTests.Fixtures
 {
