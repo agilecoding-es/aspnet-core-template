@@ -11,9 +11,9 @@ namespace Template.Persistence.PosgreSql.Respositories.Sample
         #region Query Constants
 
         const string SampleItemsQuery =
-            $@"SELECT i.Id, i.Description, i.ListId
-                 FROM sample.SampleItems i (nolock)
-               WHERE i.ListId = @SampleListId";
+            $@"select i.id as {nameof(SampleItemDto.Id)}, i.description as {nameof(SampleItemDto.Description)}, i.list_id as {nameof(SampleItemDto.ListId)}
+                 from sample.sampleitems i 
+               where i.list_id = @SampleListId";
 
         #endregion
 

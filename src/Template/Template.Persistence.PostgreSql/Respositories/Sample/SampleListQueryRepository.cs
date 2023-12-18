@@ -11,21 +11,21 @@ namespace Template.Persistence.PosgreSql.Respositories.Sample
         #region Query Constants
 
         const string SampleListQuery =
-            $@"SELECT l.Id, l.Name, l.UserId
-                 FROM sample.SampleLists l (nolock)
-               WHERE l.Id = @SampleListId";
+            $@"select l.id as {nameof(SampleListWithItemsDto.Id)}, l.name as {nameof(SampleListWithItemsDto.Name)}, l.user_id as {nameof(SampleListWithItemsDto.UserId)}
+                 from sample.samplelists l 
+               where l.id = @SampleListId";
 
         const string SampleListWithItemsCountByUserQuery =
-            $@"SELECT l.Id, l.Name, COUNT(i.Id) ItemsCount
-                 FROM sample.SampleLists l (nolock) 
-            LEFT JOIN sample.SampleItems i (nolock) ON l.Id = i.ListId
-               WHERE l.UserId = @UserId
-            GROUP BY l.Id, l.Name";
+            $@"select l.id as {nameof(SampleListWithItemsCountDto.Id)}, l.name as {nameof(SampleListWithItemsCountDto.Name)}, count(i.id) as {nameof(SampleListWithItemsCountDto.ItemsCount)}
+                 from sample.samplelists l  
+            left join sample.sampleitems i  on l.id = i.list_id
+               where l.user_id = @UserId
+            group by l.id, l.name";
 
         const string SampleItemByListIdQuery =
-            $@"SELECT i.Id, i.Description, i.ListId
-                 FROM sample.SampleItems i (nolock)
-                WHERE i.ListId = @SampleListId";
+            $@"select i.id as {nameof(SampleItemDto.Id)}, i.description as {nameof(SampleItemDto.Description)}, i.list_id as {nameof(SampleItemDto.ListId)}
+                 from sample.sampleitems i 
+                where i.list_id = @SampleListId";
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace Template.Persistence.PosgreSql.Respositories.Sample
             parameters.Add("@SampleListId", sampleListId);
 
             SampleListWithItemsDto result = null;
-
+            try { 
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -51,7 +51,10 @@ namespace Template.Persistence.PosgreSql.Respositories.Sample
                     result.Items = (await connection.QueryAsync<SampleItemDto>(SampleItemByListIdQuery, parameters)).AsList();
                 }
             }
+            }catch (Exception ex)
+            {
 
+            }
             return result;
         }
 

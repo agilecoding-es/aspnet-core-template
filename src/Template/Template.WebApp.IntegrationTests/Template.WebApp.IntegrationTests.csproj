@@ -58,6 +58,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Template.Application.Features\Template.Application.Features.csproj" />
 	  <ProjectReference Include="..\Template.Persistence.PostgreSql\Template.Persistence.PostgreSql.csproj" />
+	  <ProjectReference Include="..\Template.Persistence.SqlServer\Template.Persistence.SqlServer.csproj" />
 	  <ProjectReference Include="..\Template.WebApp\Template.WebApp.csproj" />
 	</ItemGroup>
 

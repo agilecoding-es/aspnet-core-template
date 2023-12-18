@@ -1,14 +1,15 @@
 version: '3.4'
 
 services:
-  template.WebApp.integrationtests:
+  template.webapp.integrationtests:
     container_name: temp.webapp.int-tests
     environment: 
-      "ASPNETCORE_URLS": "https://0.0.0.0:443;http://0.0.0.0:80"
+      # "ASPNETCORE_URLS": "https://0.0.0.0:443;http://0.0.0.0:80"
+      "ASPNETCORE_URLS": "https://+:443;http://+:80"
       "ASPNETCORE_HTTP_PORT": "8000"
       "ASPNETCORE_HTTPS_PORT": "8001"
-      "ConnectionStrings__DefaultConnection": "Server=temp.sql.int-tests;Database=TemplateAppIntegrationTests;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
-      "ConnectionStrings__AppConnection": "Server=temp.sql.int-tests;Database=TemplateApp;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
+      "ConnectionStrings__DefaultConnection": "Server=temp.postgres.int-test;Port=5432;Database=TemplateAppIntegrationTests;User Id=postgres;Password=sa!Password-123;"
+      "ConnectionStrings__AppConnection": "Server=temp.postgres.int-test;Port=5432;Database=TemplateApp;User Id=postgres;Password=sa!Password-123;"
       "HealthChecksUI__HealthChecks__0__Uri": "https://localhost:8001/health"
       "HealthChecksUI__HealthChecks__1__Uri": "https://localhost:8001/health/databases"
     build:
@@ -19,7 +20,7 @@ services:
       - template.redis
     entrypoint: 
       [
-        "/src/wait-for-it.sh", "temp.sql.int-tests:1433", "-t", "15", "--",
+        "/src/wait-for-it.sh", "temp.postgres.int-tests:5432", "-t", "15", "--",
         "dotnet", "test", "/src/Template.WebApp.IntegrationTests/Template.WebApp.IntegrationTests.csproj", "--filter", "Category!=ExcludedFromBuild", "--logger", "trx", "--results-directory", "/var/temp", "-v", "d"
       ]
     volumes:
@@ -32,12 +33,18 @@ services:
       - "8002:6379"
   
   template.sql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: temp.sql.int-tests
-    ports:
-      - "8003:1433"
-    environment: 
-      "ACCEPT_EULA": "Y"
-      "SA_PASSWORD": "sa!Password-123"
+     image: postgres:latest
+     container_name: temp.postgres.int-test
+     ports:
+       - "9003:5432"
+     environment:
+       POSTGRES_USER: "postgres"
+       POSTGRES_PASSWORD: "sa!Password-123"
+       POSTGRES_DB: "TemplateApp"
+     healthcheck:
+       test: ["CMD-SHELL", "pg_isready -U postgres"]
+       interval: 10s
+       timeout: 10s
+       retries: 5
 
 

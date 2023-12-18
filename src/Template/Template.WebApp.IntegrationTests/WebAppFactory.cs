@@ -3,7 +3,6 @@ using Acheve.TestHost;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,12 +12,14 @@ using Microsoft.Extensions.Options;
 using Respawn;
 using Respawn.Graph;
 using System.Data.Common;
+using Template.Application.Features.Logging.Contracts;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Configuration;
-using Template.WebApp.IntegrationTests.Queries;
+using Template.Configuration.Factories;
 using Template.Configuration.Setup;
-using Template.Persistence.PosgreSql.Database;
+using Template.Persistence.PostgreSql.Database;
+using Template.Persistence.SqlServer.Database;
 
 namespace Template.WebApp.IntegrationTests
 {
@@ -28,14 +29,14 @@ namespace Template.WebApp.IntegrationTests
 
         #region Static
 
-        private static Dictionary<string, WebAppFactory> factory = new Dictionary<string, WebAppFactory>();
+        private static Dictionary<string, WebAppFactory> factories = new Dictionary<string, WebAppFactory>();
 
         public static WebAppFactory GetFactoryInstance(string connectionStringName = Constants.Configuration.ConnectionString.DefaultConnection)
         {
-            if (factory.IsNullOrEmpty() || !factory.Any(f => f.Key == connectionStringName))
-                factory.Add(connectionStringName, Create(connectionStringName).GetAwaiter().GetResult());
+            if (factories.IsNullOrEmpty() || !factories.Any(f => f.Key == connectionStringName))
+                factories.Add(connectionStringName, Create(connectionStringName).GetAwaiter().GetResult());
 
-            return factory.First(f => f.Key == connectionStringName).Value;
+            return factories.First(f => f.Key == connectionStringName).Value;
         }
 
         internal static class FactoryConfiguration
@@ -48,17 +49,19 @@ namespace Template.WebApp.IntegrationTests
                     return instance.Configuration.GetConnectionString(instance.ConnectionStringName);
                 }
             }
+            public static DbConnection Connection => GetFactoryInstance().Connection;
 
             public static AppSettings Settings => GetFactoryInstance().Services.GetService<IOptions<AppSettings>>().Value;
         }
 
         public static async Task<WebAppFactory> Create(string connectionStringName = null)
         {
-            var csName = !string.IsNullOrWhiteSpace(connectionStringName) ? connectionStringName : Constants.Configuration.ConnectionString.DefaultConnection;
+            connectionStringName = !string.IsNullOrWhiteSpace(connectionStringName) ? connectionStringName : Constants.Configuration.ConnectionString.DefaultConnection;
 
             var factory = new WebAppFactory();
-            factory.ConnectionStringName = csName;
-            factory.Connection = new SqlConnection(factory.Configuration.GetConnectionString(csName));
+
+            factory.ConnectionStringName = connectionStringName;
+            factory.Connection = factory.DbFactory.CreateConnection(factory.Configuration.GetConnectionString(connectionStringName));
 
             var logger = factory.Services.GetRequiredService<ILogger<Program>>();
             logger.LogInformation("Factory created");
@@ -69,6 +72,17 @@ namespace Template.WebApp.IntegrationTests
             return factory;
         }
 
+        public void CreateDbFactory()
+        {
+            var db = Configuration.Get<Db>() ?? throw new ArgumentNullException(nameof(Db));
+
+            if (db.Provider == Constants.Configuration.DatabaseProvider.SqlServerProvider)
+                DbFactory = new SqlServerFactory();
+            else
+                DbFactory = new PostgreSqlFactory();
+        }
+
+
         public static void ResetDatabase(WebAppFactory instance = null)
         {
             if (IsNotLocalDb())
@@ -76,17 +90,18 @@ namespace Template.WebApp.IntegrationTests
 
             if (instance != null)
             {
-                instance.Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+                instance.Respawner.ResetAsync(FactoryConfiguration.Connection).GetAwaiter().GetResult();
             }
             else
             {
-                GetFactoryInstance().Respawner.ResetAsync(FactoryConfiguration.ConnectionString).GetAwaiter().GetResult();
+                GetFactoryInstance().Respawner.ResetAsync(FactoryConfiguration.Connection).GetAwaiter().GetResult();
             }
         }
 
-        public static int GetExceptionsCount() => ExceptionsQueries
-                                                    .CreateConnection(FactoryConfiguration.ConnectionString)
-                                                    .GetExceptionsCountAsync().GetAwaiter().GetResult();
+        public static int GetExceptionsCount() => GetFactoryInstance()
+                                                    .Services
+                                                    .GetRequiredService<IExceptionQueryRepository>()
+                                                    .GetExceptionsCountAsync(CancellationToken.None).GetAwaiter().GetResult();
 
         private static bool IsNotLocalDb() =>
            !FactoryConfiguration.ConnectionString.Contains("localhost") &&
@@ -101,6 +116,7 @@ namespace Template.WebApp.IntegrationTests
 
         private IConfiguration Configuration = default!;
         private string ConnectionStringName = default!;
+        private IDbFactory DbFactory = default!;
         private DbConnection Connection = default!;
         private Respawner Respawner = default!;
 
@@ -111,6 +127,8 @@ namespace Template.WebApp.IntegrationTests
                                 .AddJsonFile("appsettings.integrationtests.json")
                                 .AddEnvironmentVariables()
                                 .Build();
+
+            CreateDbFactory();
         }
 
         public RequestBuilder CreateRequest(string path) => Server.CreateRequest(path);
@@ -179,7 +197,7 @@ namespace Template.WebApp.IntegrationTests
                             DbAdapter = DbAdapter.Postgres,
                             SchemasToExclude = new string[]
                             {
-                                Context.DbSchema.log.ToString()
+                                DbSchema.log.ToString()
                             },
                             TablesToIgnore = new Table[]
                             {

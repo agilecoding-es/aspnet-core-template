@@ -2,9 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Template.Application.Contracts;
+using Template.Application.Features.Logging.Contracts;
 using Template.Application.Features.Sample.Contracts;
 using Template.Persistence.SqlServer;
 using Template.Persistence.SqlServer.Database;
+using Template.Persistence.SqlServer.Respositories.Logging;
 using Template.Persistence.SqlServer.Respositories.Sample;
 
 namespace Template.Configuration.Setup
@@ -23,6 +25,7 @@ namespace Template.Configuration.Setup
 
             appBuilder.Services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
+                .AddTransient<IExceptionQueryRepository, ExceptionQueryRepository>()
                 .AddTransient<ISampleItemRepository, SampleItemRepository>()
                 .AddTransient<ISampleItemQueryRepository, SampleItemQueryRepository>()
                 .AddTransient<ISampleListRepository, SampleListRepository>()
@@ -40,6 +43,7 @@ namespace Template.Configuration.Setup
 
             services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
+                .AddTransient<IExceptionQueryRepository, ExceptionQueryRepository>()
                 .AddTransient<ISampleItemRepository, SampleItemRepository>()
                 .AddTransient<ISampleItemQueryRepository, SampleItemQueryRepository>()
                 .AddTransient<ISampleListRepository, SampleListRepository>()

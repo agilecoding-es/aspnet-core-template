@@ -17,7 +17,7 @@ namespace Template.Persistence.PosgreSql.Database
             var connectionString = configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection);
 
             var optionsBuilder = new DbContextOptionsBuilder<Context>();
-            optionsBuilder.UseNpgsql(connectionString);
+            optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
 
             return new Context(optionsBuilder.Options);
         }

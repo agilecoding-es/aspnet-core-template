@@ -1,11 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Domain.Entities.Sample;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Template.Common;
 using Template.Domain.Entities.Logging;
 
 namespace Template.Persistence.SqlServer.Database.EntityConfiguration.Logging
@@ -14,7 +9,7 @@ namespace Template.Persistence.SqlServer.Database.EntityConfiguration.Logging
     {
         public void Configure(EntityTypeBuilder<ExceptionLog> builder)
         {
-            builder.ToTable("Exceptions", Context.DbSchema.log.ToString());
+            builder.ToTable("Exceptions", DbSchema.log.ToString());
 
             builder.HasKey(b => b.Id);
 

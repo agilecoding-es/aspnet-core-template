@@ -234,8 +234,8 @@ Global
 		{991F1822-85AD-49E6-946E-CC44A6643966} = {234CCBE2-212B-4369-BAC0-257EC013D34C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_EnableXlifSync = False
-		RESX_SortFileContentOnSave = True
 		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
+		RESX_SortFileContentOnSave = True
+		RESX_EnableXlifSync = False
 	EndGlobalSection
 EndGlobal

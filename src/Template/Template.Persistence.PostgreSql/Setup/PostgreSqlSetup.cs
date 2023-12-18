@@ -2,9 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Template.Application.Contracts;
+using Template.Application.Features.Logging.Contracts;
 using Template.Application.Features.Sample.Contracts;
 using Template.Persistence.PosgreSql;
 using Template.Persistence.PosgreSql.Database;
+using Template.Persistence.PosgreSql.Respositories.Logging;
 using Template.Persistence.PosgreSql.Respositories.Sample;
 
 namespace Template.Configuration.Setup
@@ -13,7 +15,8 @@ namespace Template.Configuration.Setup
     {
         public static IAppBuilder AddPostgreSql(this IAppBuilder appBuilder, string connectionString)
         {
-            appBuilder.Services.AddDbContext<Context>(options => options.UseNpgsql(connectionString));
+            appBuilder.Services.AddDbContext<Context>(options => options.UseNpgsql(connectionString)
+                                                                                                     .UseSnakeCaseNamingConvention());
 
             if (appBuilder.Environment.IsDevelopment())
             {
@@ -22,6 +25,7 @@ namespace Template.Configuration.Setup
 
             appBuilder.Services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
+                .AddTransient<IExceptionQueryRepository, ExceptionQueryRepository>()
                 .AddTransient<ISampleItemRepository, SampleItemRepository>()
                 .AddTransient<ISampleItemQueryRepository, SampleItemQueryRepository>()
                 .AddTransient<ISampleListRepository, SampleListRepository>()
@@ -36,10 +40,14 @@ namespace Template.Configuration.Setup
     {
         public static IServiceCollection AddPostgreSql(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<Context>(options => options.UseNpgsql(connectionString));
+            services.AddDbContext<Context>(
+                options => options.UseNpgsql(connectionString)
+                                                               .UseSnakeCaseNamingConvention()
+                );
 
             services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
+                .AddTransient<IExceptionQueryRepository, ExceptionQueryRepository>()
                 .AddTransient<ISampleItemRepository, SampleItemRepository>()
                 .AddTransient<ISampleItemQueryRepository, SampleItemQueryRepository>()
                 .AddTransient<ISampleListRepository, SampleListRepository>()

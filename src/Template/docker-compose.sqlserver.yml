@@ -1,29 +1,6 @@
 version: '3.4'
 
 services:
-  template.WebApp:
-    image: ghcr.io/3panas/template-webapp:latest
-    container_name: temp.webapp
-    build:
-      context: .
-      dockerfile: Template.WebApp/Dockerfile
-    depends_on:
-      - template.sql
-      - template.redis
-    ports:
-      - "9000:80"
-      - "9001:443"
-    environment: 
-     "ConnectionStrings__DefaultConnection": "Server=temp.postgres;Port=5432;Database=TemplateApp;User Id=postgres;Password=sa!Password-123;"
-     "HealthChecksUI__HealthChecks__0__Uri": "http://localhost/health"
-     "HealthChecksUI__HealthChecks__1__Uri": "http://localhost/health/databases"
-
-  template.redis:
-    image: redis:alpine
-    container_name: temp.redis
-    ports:
-      - "9002:6379"
-  
   template.sql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: temp.sql
@@ -32,20 +9,3 @@ services:
     environment: 
       "ACCEPT_EULA": "Y"
       "SA_PASSWORD": "sa!Password-123"
-      
-  template.sql:
-    image: postgres:latest
-    container_name: temp.postgres
-    ports:
-      - "9003:5432"
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "sa!Password-123"
-      POSTGRES_DB: "TemplateApp"
-    volumes:
-      - $PWD/pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 10s
-      retries: 5

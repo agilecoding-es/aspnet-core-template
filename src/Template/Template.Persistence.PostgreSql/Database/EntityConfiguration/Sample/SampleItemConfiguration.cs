@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Template.Common;
 using Template.Domain.Entities.Sample;
 
 namespace Template.Persistence.PosgreSql.Database.EntityConfiguration.Sample
@@ -8,7 +9,7 @@ namespace Template.Persistence.PosgreSql.Database.EntityConfiguration.Sample
     {
         public void Configure(EntityTypeBuilder<SampleItem> builder)
         {
-            builder.ToTable("SampleItems", Context.DbSchema.sample.ToString());
+            builder.ToTable("SampleItems".ToLower(), DbSchema.sample.ToString());
 
             builder.HasKey(x => x.Id);
 

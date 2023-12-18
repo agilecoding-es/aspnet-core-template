@@ -9,6 +9,8 @@ namespace Template.Configuration
     {
         public ConnectionStrings ConnectionStrings { get; set; }
 
+        public Db Database { get; set; }
+
         public AuthenticationProviders AuthenticationProviders { get; set; }
 
         public Mailsettings Mailsettings { get; set; }
@@ -37,6 +39,11 @@ namespace Template.Configuration
         public string DefaultConnection { get; set; }
         public string AzureCommunicationServiceConnection { get; set; }
 
+    }
+
+    public class Db
+    {
+        public string Provider { get; set; }
     }
 
     public class AuthenticationProviders

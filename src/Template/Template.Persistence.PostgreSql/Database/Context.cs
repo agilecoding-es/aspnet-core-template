@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Reflection.Emit;
+using Template.Common.Extensions;
 using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Sample;
 
@@ -7,12 +10,6 @@ namespace Template.Persistence.PosgreSql.Database
 {
     public class Context : IdentityDbContext<User, Role, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
-        public enum DbSchema
-        {
-            auth,
-            sample,
-            log
-        }
 
         public DbSet<SampleList> SampleLists { get; set; }
         public DbSet<SampleItem> SampleItems { get; set; }

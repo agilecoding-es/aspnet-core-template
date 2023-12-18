@@ -39,5 +39,5 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run Unit Tests
-      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.WebApp.integrationtests
+      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.webapp.integrationtests
       continue-on-error: false
