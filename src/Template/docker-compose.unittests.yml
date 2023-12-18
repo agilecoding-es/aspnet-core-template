@@ -2,7 +2,6 @@ version: '3.4'
 
 services:
   template.webapp.unittests:
-    image: ${DOCKER_REGISTRY-}templateWebAppunittests
     container_name: webapp.unit-tests
     build:
       context: .
