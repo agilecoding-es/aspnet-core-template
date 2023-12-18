@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding;
+@using Template.Common;
+@using Template.Configuration;
+@model (ModelStateDictionary ModelState, ErrorType ErrorType);
+
+@if (Model.ModelState != null && !Model.ModelState.IsValid)
+{
+    <div class="validation-summary-errors">
+        @if (Model.ErrorType == ErrorType.All | Model.ErrorType == ErrorType.Generics)
+        {
+            @foreach (var modelError in Model.ModelState.Where(kv => kv.Key == Constants.KeyErrors.GenericError.Value).SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    @*<h4 class="alert-heading">ERROR</h4>*@
+                    <span>@modelError.ErrorMessage</span>
+                </div>
+            }
+        }
+        @if ((Model.ErrorType == ErrorType.All | Model.ErrorType == ErrorType.Validations) && Model.ModelState.Any(kv => kv.Key == Constants.KeyErrors.ValidationError.Value))
+        {
+            <ul>
+                @foreach (var modelError in Model.ModelState.Where(kv => kv.Key == Constants.KeyErrors.ValidationError.Value).SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                {
+                    <li>@modelError.ErrorMessage</li>
+                }
+            </ul>
+        }
+    </div>
+
+}

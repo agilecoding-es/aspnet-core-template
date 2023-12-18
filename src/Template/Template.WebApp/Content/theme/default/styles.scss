@@ -1,0 +1,48 @@
+﻿@import "views/views.scss";
+
+body {
+    color: $black;
+}
+
+a {
+    text-decoration: none;
+
+    &:hover {
+        color: $primary;
+        text-decoration: underline;
+    }
+}
+
+a.btn, a.nav-link, a.dropdown-item {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.btn {
+    text-transform: none;
+}
+
+hr.silver {
+    border-color: #BCBFC1;
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1400px) {
+}
+
+@media print {
+}

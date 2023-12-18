@@ -1,33 +1,27 @@
 version: '3.4'
 
 services:
-  template.mvcwebapp:
+  template.webapp:
     image: ghcr.io/3panas/template-webapp:latest
-    container_name: webapp
+    container_name: temp.webapp
     build:
       context: .
-      dockerfile: Template.MvcWebApp/Dockerfile
+      dockerfile: Template.WebApp/Dockerfile
     depends_on:
-      - template.sql
+      # - template.sql
       - template.redis
     ports:
       - "9000:80"
       - "9001:443"
     environment: 
-     "ConnectionStrings__DefaultConnection": "Server=sql;Database=TemplateApp;User Id=sa;Password=sa!Password-123;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;"
-     "ASPNETCORE_HTTPS_PORT": "9001"
+     "ConnectionStrings__DefaultConnection": "Server=temp.postgres;Port=5432;Database=TemplateApp;User Id=postgres;Password=sa!Password-123;"
+     "HealthChecksUI__HealthChecks__0__Uri": "http://localhost/health"
+     "HealthChecksUI__HealthChecks__1__Uri": "http://localhost/health/databases"
 
   template.redis:
     image: redis:alpine
-    container_name: redis
+    container_name: temp.redis
     ports:
       - "9002:6379"
+
   
-  template.sql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sql
-    ports:
-      - "9003:1433"
-    environment: 
-      "ACCEPT_EULA": "Y"
-      "SA_PASSWORD": "sa!Password-123"

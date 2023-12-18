@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Template.Common.Extensions
 {
@@ -61,7 +56,7 @@ namespace Template.Common.Extensions
         public static Enum FromDescription(this Enum value, string description)
         {
             Type type = value.GetType();
-            
+
             Array values = Enum.GetValues(type);
 
             foreach (Enum e in values)

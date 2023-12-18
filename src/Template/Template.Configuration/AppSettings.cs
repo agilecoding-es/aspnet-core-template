@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Template.Configuration
 {
     public class AppSettings
     {
         public ConnectionStrings ConnectionStrings { get; set; }
+
+        public Db Database { get; set; }
 
         public AuthenticationProviders AuthenticationProviders { get; set; }
 
@@ -43,6 +39,11 @@ namespace Template.Configuration
         public string DefaultConnection { get; set; }
         public string AzureCommunicationServiceConnection { get; set; }
 
+    }
+
+    public class Db
+    {
+        public string Provider { get; set; }
     }
 
     public class AuthenticationProviders

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Template.Domain.Entities.Abastractions;
-using Template.Domain.Exceptions;
 
 namespace Template.Domain.Entities.Sample
 {

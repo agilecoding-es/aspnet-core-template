@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Domain.Entities.Shared;
-
-namespace Template.Application.Errors
+﻿namespace Template.Application.Errors
 {
     public static class ValidationErrors
     {
