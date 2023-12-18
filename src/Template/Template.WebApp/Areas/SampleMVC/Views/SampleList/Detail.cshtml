@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@using Template.WebApp.Areas.SampleMvc.Models.SampleList;
+@model SampleListViewModel
+@inject IHtmlLocalizer Localizer;
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+@section SectionBar{
+    <partial name="_SectionBar" model='"Detail"' />
+}
+<div>
+    @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<br />
+<hr class="silver" />
+<a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">@Localizer["Shared_Buttons_Update"].Value</a>

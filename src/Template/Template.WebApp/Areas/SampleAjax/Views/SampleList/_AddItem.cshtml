@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@model Template.WebApp.Areas.SampleAjax.Models.SampleList.SampleItemViewModel
+@inject IHtmlLocalizer Localizer;
+
+<form name="AddItemForm" style="position: relative;">
+    <div id="AddItemValidations" asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="ListId" value="@Model.ListId" />
+   
+    <div class="input-group has-validation mb-3">
+        <div class="form-floating">
+            <input asp-for="Description" value="@Model.Description" class="form-control" placeholder="@Html.DisplayTextFor(m=>m.Description)" aria-describedby="btnAddItem" />
+            <label asp-for="Description" class="form-label"></label>
+        </div>
+        <button id="btnAddItem" type="submit" class="btn btn-primary">@Localizer["Shared_Buttons_AddItem"].Value</button>
+        <span asp-validation-for="Description" class="invalid-feedback text-dark-red"></span>
+    </div>
+    <hr class="silver" />
+</form>

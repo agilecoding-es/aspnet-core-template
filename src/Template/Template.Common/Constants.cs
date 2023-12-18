@@ -8,7 +8,12 @@
             {
                 public const string DefaultConnection = "DefaultConnection";
                 public const string AppConnection = "AppConnection";
+            }
 
+            public static class DatabaseProvider
+            {
+                public const string SqlServerProvider = "SqlServer";
+                public const string PostgreSqlProvider = "PostgreSql";
             }
 
             public static class Resources

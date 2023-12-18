@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Domain.Entities.Abastractions;
-using Template.Domain.Exceptions;
+﻿using Template.Domain.Entities.Abastractions;
 
 namespace Template.Domain.Entities.Extensions
 {

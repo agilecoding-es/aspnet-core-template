@@ -1,0 +1,66 @@
+﻿@model EditRoleViewModel
+
+@inject IStringLocalizer Localizer;
+
+@{
+    var title = @Localizer["Administration_Roles_Edit_Title", Model.RoleName].Value;
+    ViewData["Title"] = title;
+}
+
+@section SectionBar{
+    <partial name="_SectionBar" model="@title" />
+}
+<form method="post">
+    <div class="row">
+        <div class="col-12">
+            @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
+        </div>
+@*
+        <div class="col-4">
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <div class="d-flex align-items-start flex-column flex-grow-1">
+
+                <div class="form-group w-100">
+                    <label asp-for="RoleName" class="control-label"></label>
+                    <input asp-for="RoleName" value="@Model.RoleName" class="form-control" disabled />
+
+                    <span asp-validation-for="RoleName" class="text-dark-red"></span>
+                </div>
+                <div class="w-100">
+                    <hr class="silver" />
+                    <a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"].Value</a>
+                    <input type="submit" value="@Localizer["Shared_Buttons_Update"].Value" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>*@
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>@Localizer["Administration_Roles_Edit_UsersSection"]</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.Users.Any())
+                    {
+                        @foreach (var user in Model.Users)
+                        {
+                            <h5 class="card-title">@user</h5>
+                        }
+                    }
+                    else
+                    {
+                        <h5 class="card-title">@Localizer["Administration_Roles_Edit_UsersSection_Empty"]</h5>
+                    }
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-primary" asp-action="UsersInRole" asp-route-id="@Model.Id">@Localizer["Administration_Roles_Edit_AddOrRemoveUsersButton"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

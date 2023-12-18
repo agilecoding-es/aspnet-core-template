@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@model UserClaimsViewModel;
+
+@inject IHtmlLocalizer Localizer;
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>@Localizer["Administration_User_ManageClaims_Title"]</h2>
+        </div>
+        <div class="card-body">
+            <input type="hidden" asp-for="@Model.UserId" />
+            @for (int i = 0; i < Model.Claims.Count; i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model.Claims[i].ClaimType" />
+                    <input asp-for="@Model.Claims[i].IsSelected" class="form-check-input" />
+                    <label asp-for="@Model.Claims[i].IsSelected" class="form-check-label">@Model.Claims[i].ClaimType</label>
+                </div>
+            }
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">@Localizer["Shared_Buttons_Update"]</button>
+            <a asp-action="Edit" asp-route-id="@Model.UserId" class="btn btn-outline-primary">@Localizer["Shared_Buttons_Cancel"]</a>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@using Template.WebApp.Areas.SampleMvc.Models.SampleList;
+@model DeleteSampleListViewModel
+@inject IHtmlLocalizer Localizer;
+
+@{
+    var title = @Localizer["Sample_SampleList_Delete_Title"].Value;
+    ViewData["Title"] = title;
+}
+
+@section SectionBar{
+    <partial name="_SectionBar" model="@title" />
+}
+<h6> @(!Model.HasItems ? Localizer["Sample_SampleList_Delete_Description"].Value : Localizer["Sample_SampleList_DeleteWithItems_Description"].Value)</h6>
+<div>
+    <div class="card col-8">
+        <div class="card-body position-relative">
+            <dl class="row">
+                <dt class="col-sm-12">
+                    @Html.DisplayNameFor(model => model.ListName)
+                </dt>
+                <dd class="col-sm-12">
+                    @Html.DisplayFor(model => model.ListName)
+                </dd>
+            </dl>
+            @if (Model.HasItems)
+            {
+                <dl class="row">
+                    <dt class="col-sm-12">
+                        @Html.DisplayNameFor(model => model.ItemsCount)
+                    </dt>
+                    <dd class="col-sm-12">
+                        @Html.DisplayFor(model => model.ItemsCount)
+                    </dd>
+                </dl>
+            }
+        </div>
+    </div>
+    <br />
+    @*<partial name="_ResponseMessage" model="ViewData.ModelState" />*@
+    <hr class="silver"/>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ListId" value="@Model.ListId" />
+        <input type="hidden" asp-for="ListName" value="@Model.ListName" />
+        <input type="hidden" asp-for="ItemsCount" value="@Model.ItemsCount" />
+        <input type="hidden" asp-for="HasItems" value="@Model.HasItems" />
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Shared_Buttons_Close"].Value</button>
+        <button type="submit" class="js_DeleteButton btn btn-danger">@Localizer["Shared_Buttons_Delete"].Value</button>
+    </form>
+</div>

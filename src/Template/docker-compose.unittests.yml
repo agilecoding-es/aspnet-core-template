@@ -1,27 +1,24 @@
 version: '3.4'
 
 services:
-  template.mvcwebapp.unittests:
-    image: ${DOCKER_REGISTRY-}templatemvcwebappunittests
+  template.webapp.unittests:
     container_name: webapp.unit-tests
     build:
       context: .
-      dockerfile: Template.MvcWebApp.UnitTests/Dockerfile
+      dockerfile: Template.WebApp.UnitTests/Dockerfile
     volumes:
      - /opt/vsts/work/_temp:/var/temp
-    depends_on:
-      - template.application.unittests
      
-  template.application.unittests:
-    image: ${DOCKER_REGISTRY-}templateapplicationunittests
-    container_name: application.unit-tests
-    build:
-      context: .
-      dockerfile: Template.Application.UnitTests/Dockerfile
-    volumes:
-     - /opt/vsts/work/_temp:/var/temp
-    #depends_on:
-    #  - template.mailsender.unittests
+  # template.application.unittests:
+  #   image: ${DOCKER_REGISTRY-}templateapplicationunittests
+  #   container_name: application.unit-tests
+  #   build:
+  #     context: .
+  #     dockerfile: Template.Application.UnitTests/Dockerfile
+  #   volumes:
+  #    - /opt/vsts/work/_temp:/var/temp
+  #   #depends_on:
+  #   #  - template.mailsender.unittests
   
   #template.mailsender.unittests:
   #  image: ${DOCKER_REGISTRY-}templatemailsenderunittests

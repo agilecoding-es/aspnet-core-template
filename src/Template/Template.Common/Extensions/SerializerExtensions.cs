@@ -14,7 +14,7 @@ namespace Template.Common.Extensions
         public static T Deserialize<T>(this string obj)
         {
             if (string.IsNullOrEmpty(obj)) return default;
-            
+
             return JsonConvert.DeserializeObject<T>(obj);
         }
     }

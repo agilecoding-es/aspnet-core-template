@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Template.Common.Extensions
 {
@@ -12,7 +7,7 @@ namespace Template.Common.Extensions
     {
         public static string GetDisplayName<T>(this T someClass)
         {
-            var displayName = typeof(T) .GetCustomAttributes(typeof(DisplayNameAttribute), true)
+            var displayName = typeof(T).GetCustomAttributes(typeof(DisplayNameAttribute), true)
                                                          .FirstOrDefault() as DisplayNameAttribute;
 
             if (displayName != null)

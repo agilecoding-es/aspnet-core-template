@@ -27,7 +27,7 @@ namespace Template.Infrastructure.Mails.Smtp
                 var smtpClient = new SmtpClient(mailSettings.Host, mailSettings.Port)
                 {
                     EnableSsl = mailSettings.EnableSSL,
-                    UseDefaultCredentials= false,
+                    UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(mailSettings.UserName, mailSettings.Password)
                 };
                 logger.LogInformation($"Mail Username: {mailSettings.UserName}");

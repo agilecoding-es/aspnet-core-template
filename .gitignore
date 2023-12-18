@@ -360,6 +360,6 @@ MigrationBackup/
 /src/content/dist
 /artifact
 
-# Proyecto Templete.MvcWebApp
+# Proyecto Templete.WebApp
 #-----------------------------------------
-src/Template/Template.MvcWebApp/wwwroot/**/*
+src/Template/Template.WebApp/wwwroot/**/*

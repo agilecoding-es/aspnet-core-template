@@ -3,7 +3,7 @@
 Creo los proyectos principales:
 
 * Carpeta "Presentation":
-    * Proyecto Template.MvcWebApp
+    * Proyecto Template.WebApp
 
 - Carpeta "Application":
     - Proyecto Template.Application
@@ -25,7 +25,7 @@ Agrego referencias entre proyectos.
 
 # Configuración de proyectos
 
-Creo el proyecto web `Template.MvcWebApp`, utilizo el template:
+Creo el proyecto web `Template.WebApp`, utilizo el template:
 
 ![Template de proyecto web](/assets/01.TemplateProyectoWeb.png "Template de proyecto web")
 
@@ -45,7 +45,7 @@ La clase `PersistenceAssembly` es solo una clase dummy para poder configurar el 
 builder.ApplyConfigurationsFromAssembly(typeof(PersistenceAssembly).Assembly);
 ```
 
-En el proyecto web `Template.MvcWebApp` modifico el Connection String para crear una base de datos con el nombre que quiera indicarle.
+En el proyecto web `Template.WebApp` modifico el Connection String para crear una base de datos con el nombre que quiera indicarle.
 
 ```json
 {

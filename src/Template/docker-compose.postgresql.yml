@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  template.sql:
+    image: postgres:latest
+    container_name: temp.postgres
+    ports:
+      - "9003:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "sa!Password-123"
+      POSTGRES_DB: "TemplateApp"
+    volumes:
+      - /pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
