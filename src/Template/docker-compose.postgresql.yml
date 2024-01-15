@@ -1,9 +1,9 @@
 version: '3.4'
 
 services:
-  template.sql:
+  template.db:
     image: postgres:latest
-    container_name: temp.postgres
+    container_name: temp.db
     ports:
       - "9003:5432"
     environment:
@@ -11,9 +11,12 @@ services:
       POSTGRES_PASSWORD: "sa!Password-123"
       POSTGRES_DB: "TemplateApp"
     volumes:
-      - /pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 10s
       retries: 5
+
+volumes:
+   pgdata:

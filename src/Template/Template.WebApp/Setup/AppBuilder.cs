@@ -35,6 +35,7 @@ using Template.Security.Authorization.Requirements;
 using Template.WebApp.Localization;
 using Template.WebApp.Resources;
 using Template.WebApp.Services.Rendering;
+using static Template.Common.Constants.Configuration;
 using LatencyHealthCheck = Template.WebApp.HealthChecks.LatencyHealthCheck;
 
 namespace Template.WebApp.Setup
@@ -255,22 +256,26 @@ namespace Template.WebApp.Setup
 
             if (appSettings.HealthChecks.Enabled)
             {
-                Services.AddSingleton<LatencyHealthCheck>();
+                //Services.AddSingleton<LatencyHealthCheck>();
                 //services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(redisSettings.ConnectionString));
 
                 Services.AddHealthChecks()
                         //.AddCheck<LatencyHealthCheck>("LatencyHealthCheck", tags: new[] { "mvc" })
                         //.AddCheck<RedisHelthCheck>("Redis")
-                        .AddCheck("MvcApp", () =>
+                        .AddCheck("UI", () =>
                             HealthCheckResult.Healthy("App is working as expected."),
-                            new[] { "mvc" }
+                            new[] { "UI" }
                         )
-                        .AddDbContextCheck<Context>("Database", tags:
-                            new[] { "database", "sql server" }
-                );
+                        .AddNpgSql(appSettings.ConnectionStrings.DefaultConnection, tags: new[] { "database"});
 
-                Services.AddHealthChecksUI().AddPostgreSqlStorage(appSettings.ConnectionStrings.DefaultConnection);
-                //Services.AddHealthChecksUI().AddSqlServerStorage(appSettings.ConnectionStrings.DefaultConnection);
+                //TODO: Prabar health check UI webhooks
+                //Services.AddHealthChecksUI(options =>
+                //{
+                //    options.AddWebhookNotification("email",
+                //        uri: "http://localhost:5008/api/noti/email",
+                //        payload: "{ \"message\": \"Webhook report for [[LIVENESS]]: [[FAILURE]] - Description: [[DESCRIPTIONS]]\"}",
+                //        restorePayload: "{ \"message\": \"[[LIVENESS]] is back to life\"}");
+                //});
             }
             return this;
         }

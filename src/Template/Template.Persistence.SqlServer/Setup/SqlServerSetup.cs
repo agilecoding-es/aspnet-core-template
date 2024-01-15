@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Template.Application.Contracts;
 using Template.Application.Features.Logging.Contracts;
@@ -13,15 +15,17 @@ namespace Template.Configuration.Setup
 {
     public static class IAppBuilderExtensionsSqlServerSetup
     {
-        public static IAppBuilder AddSqlServer(this IAppBuilder appBuilder, string connectionString)
+        public static IAppBuilder AddSqlServer(this IAppBuilder appBuilder, string connectionString, bool healthChecksEnabed = true)
         {
-            //services.AddDbContextFactory<Context>(options => options.UseSqlServer(connectionString), lifetime: ServiceLifetime.Scoped);
+            var settings = appBuilder.Configuration.Get<AppSettings>();
+
             appBuilder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
+            if (settings.HealthChecks.Enabled)
+                appBuilder.Services.AddHealthChecksUI().AddSqlServerStorage(settings.ConnectionStrings.HealthChecksConnection);
+
             if (appBuilder.Environment.IsDevelopment())
-            {
                 appBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();
-            }
 
             appBuilder.Services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
@@ -34,6 +38,7 @@ namespace Template.Configuration.Setup
             return appBuilder;
         }
     }
+
     public static class IServiceCollectionExtensionsSqlServerSetup
     {
         public static IServiceCollection AddSqlServer(this IServiceCollection services, string connectionString)

@@ -37,6 +37,7 @@ namespace Template.Configuration
     public class ConnectionStrings
     {
         public string DefaultConnection { get; set; }
+        public string HealthChecksConnection { get; set; }
         public string AzureCommunicationServiceConnection { get; set; }
 
     }

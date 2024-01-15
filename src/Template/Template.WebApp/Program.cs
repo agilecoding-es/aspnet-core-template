@@ -112,6 +112,7 @@ try
 
         app.MapHealthChecks("/health", new HealthCheckOptions()
         {
+            Predicate = registration => registration.Tags.Contains("UI"),
             ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
         });
         app.MapHealthChecks("/health/databases", new HealthCheckOptions()

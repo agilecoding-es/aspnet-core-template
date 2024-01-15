@@ -1,5 +1,7 @@
 version: '3.4'
 
+include:
+  - path: docker-compose.postgresql.yml # template.db
 services:
   template.webapp:
     image: ghcr.io/3panas/template-webapp:latest
@@ -8,13 +10,13 @@ services:
       context: .
       dockerfile: Template.WebApp/Dockerfile
     depends_on:
-      # - template.sql
+      - template.db
       - template.redis
     ports:
       - "9000:80"
       - "9001:443"
     environment: 
-     "ConnectionStrings__DefaultConnection": "Server=temp.postgres;Port=5432;Database=TemplateApp;User Id=postgres;Password=sa!Password-123;"
+     "ConnectionStrings__DefaultConnection": "Server=temp.db;Port=5432;Database=TemplateApp;User Id=postgres;Password=sa!Password-123;"
      "HealthChecksUI__HealthChecks__0__Uri": "http://localhost/health"
      "HealthChecksUI__HealthChecks__1__Uri": "http://localhost/health/databases"
 

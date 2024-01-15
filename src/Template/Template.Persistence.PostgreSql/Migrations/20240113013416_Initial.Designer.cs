@@ -12,7 +12,7 @@ using Template.Persistence.PosgreSql.Database;
 namespace Template.Persistence.PostgreSql.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20231217231706_Initial")]
+    [Migration("20240113013416_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

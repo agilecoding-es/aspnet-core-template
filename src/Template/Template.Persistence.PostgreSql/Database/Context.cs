@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using Template.Common.Extensions;
 using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Sample;
+using static Template.Common.Constants.Configuration;
 
 namespace Template.Persistence.PosgreSql.Database
 {

@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
+using Npgsql;
 using Template.Application.Contracts;
 using Template.Application.Features.Logging.Contracts;
 using Template.Application.Features.Sample.Contracts;
@@ -15,13 +18,17 @@ namespace Template.Configuration.Setup
     {
         public static IAppBuilder AddPostgreSql(this IAppBuilder appBuilder, string connectionString)
         {
-            appBuilder.Services.AddDbContext<Context>(options => options.UseNpgsql(connectionString)
-                                                                                                     .UseSnakeCaseNamingConvention());
+            var settings = appBuilder.Configuration.Get<AppSettings>();
+
+            appBuilder.Services.AddDbContext<Context>(
+                options => options.UseNpgsql(connectionString)
+                                                               .UseSnakeCaseNamingConvention());
+
+            if (settings.HealthChecks.Enabled)
+                appBuilder.Services.AddHealthChecksUI().AddPostgreSqlStorage(settings.ConnectionStrings.HealthChecksConnection);
 
             if (appBuilder.Environment.IsDevelopment())
-            {
                 appBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();
-            }
 
             appBuilder.Services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
@@ -35,15 +42,13 @@ namespace Template.Configuration.Setup
         }
     }
 
-
     public static class IServiceCollectionExtensionsPostgreSqlSetup
     {
         public static IServiceCollection AddPostgreSql(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<Context>(
                 options => options.UseNpgsql(connectionString)
-                                                               .UseSnakeCaseNamingConvention()
-                );
+                                                               .UseSnakeCaseNamingConvention());
 
             services
                 .AddTransient<IUnitOfWork, UnitOfWork>()
@@ -55,5 +60,7 @@ namespace Template.Configuration.Setup
 
             return services;
         }
+
+
     }
 }

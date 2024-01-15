@@ -6,6 +6,7 @@ using Template.Configuration.Setup;
 using Template.Infrastructure.Mails.AzureCommunicationService;
 using Template.Infrastructure.Mails.Smtp;
 using Template.Infrastructure.Mails;
+using Template.Configuration;
 
 namespace Template.WebApp.Setup
 {
