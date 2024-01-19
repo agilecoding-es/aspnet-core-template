@@ -35,7 +35,7 @@ WORKDIR /web
 COPY Template.WebApp/package.json .
 RUN npm install
 COPY Template.WebApp .
-RUN if [ "${ASPNETCORE_ENVIRONMENT}" = "Development" ]; then npm run build; else gulp default; fi
+RUN if [ "${ASPNETCORE_ENVIRONMENT}" = "Production" ]; then npm run build; else gulp default; fi
 
 
 # *****************************************************************************************

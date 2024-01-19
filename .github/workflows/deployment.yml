@@ -50,7 +50,6 @@ jobs:
 
       - name: Build and publish
         run: |
-            export ASPNETCORE_ENVIRONMENT=Production
             dotnet build --configuration Release --no-restore ${{env.WEBAPPPATH}}
             dotnet publish -c Release --no-build -o ${{env.DOTNET_ROOT}}/publish ${{env.WEBAPPPATH}}
 
