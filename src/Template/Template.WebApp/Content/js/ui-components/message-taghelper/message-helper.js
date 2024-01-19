@@ -64,7 +64,7 @@ function addMessageItem(message, delay) {
     var [img, alt] = getMessagesImage(message.MessageType);
 
     var image = document.createElement("img");
-    image.setAttribute("src", `/Content/images/uicomponents/message-taghelper/${img}.svg`);
+    image.setAttribute("src", `/Content/images/ui-components/message-taghelper/${img}.svg`);
     image.setAttribute("alt", alt);
     image.setAttribute("role", "img");
     image.setAttribute("aria-label", `${messageType}:`);

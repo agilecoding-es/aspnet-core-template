@@ -120,7 +120,7 @@ namespace Template.WebApp.TagHelpers
                 var (img, alt) = GetMessagesImage(message.MessageType);
 
                 var image = new TagBuilder("img");
-                image.Attributes.Add("src", $"/Content/images/uicomponents/message-taghelper/{img}.svg");
+                image.Attributes.Add("src", $"/Content/images/ui-components/message-taghelper/{img}.svg");
                 image.Attributes.Add("alt", alt);
                 image.Attributes.Add("role", "img");
                 image.Attributes.Add("aria-label", $"{messageType}:");
