@@ -50,6 +50,7 @@ jobs:
 
       - name: Build and publish
         run: |
+            export ASPNETCORE_ENVIRONMENT=Production
             dotnet build --configuration Release --no-restore ${{env.WEBAPPPATH}}
             dotnet publish -c Release --no-build -o ${{env.DOTNET_ROOT}}/publish ${{env.WEBAPPPATH}}
 
@@ -65,7 +66,7 @@ jobs:
     if: ${{ github.event.workflow_run.event == 'push' && startsWith(github.event.workflow_run.head_branch, 'release/') }}
     needs: build
     environment:
-      name: 'Production'
+      name: 'Staging'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -104,7 +105,8 @@ jobs:
       
       - name: Build App Docker image
         run: |
-               docker build -f "${{env.WEBAPPPATH}}/Dockerfile" --force-rm --tag ghcr.io/3panas/template-webapp:latest "${{env.SOLUTIONPATH}}"
+               export ASPNETCORE_ENVIRONMENT=Production
+               docker build -f "${{env.WEBAPPPATH}}/Dockerfile" --force-rm --tag ghcr.io/3panas/template-webapp:latest --build-arg ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT} "${{env.SOLUTIONPATH}}"
                docker push ghcr.io/3panas/template-webapp:latest
 
 
