@@ -34,12 +34,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Template.WebApp</title>
     <environment include="Development">
-        <link rel="stylesheet" href="~/content/theme/site.css" />
+        <link rel="stylesheet" href="~/Content/theme/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="~/content/theme/site.min.css" />
+        <link rel="stylesheet" href="~/Content/theme/site.min.css" />
     </environment>
-    <link rel="stylesheet" href="~/content/vendors/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/Content/vendors/bootstrap-icons/font/bootstrap-icons.min.css" />
 </head>
 <body>
     <header>
@@ -95,7 +95,7 @@
                                 {
                                     <li>
                                         <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="@language.Value" asp-route-returnUrl="@returnUrl">
-                                            <img width="27" height="19" src="~/content/images/flags/@(language.Value).svg" alt="@language.Text">
+                                            <img width="27" height="19" src="~/Content/images/flags/@(language.Value).svg" alt="@language.Text">
                                             <span class="c-md ms-4 text-capitalize">@language.Text</span>
                                         </a>
                                     </li>
@@ -124,15 +124,15 @@
     </footer>
 
     <environment include="Development">
-        <script src="~/content/vendors/jquery.bundle.js"></script>
-        <script src="~/content/vendors/bootstrap.bundle.js"></script>
-        <script src="~/content/js/uicomponents/message-taghelper/message-taghelper.bundle.js"></script>
-        <script src="~/content/vendors/references.js"></script>
+        <script src="~/Content/vendors/jquery.bundle.js"></script>
+        <script src="~/Content/vendors/bootstrap.bundle.js"></script>
+        <script src="~/Content/js/ui-components/message-taghelper/message-taghelper.bundle.js"></script>
+        <script src="~/Content/vendors/references.js"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/content/vendors/jquery.bundle.min.js"></script>
-        <script src="~/content/vendors/bootstrap.bundle.min.js"></script>
-        <script src="~/content/js/uicomponents/message-taghelper/message-taghelper.bundle.min.js"></script>
+        <script src="~/Content/vendors/jquery.bundle.min.js"></script>
+        <script src="~/Content/vendors/bootstrap.bundle.min.js"></script>
+        <script src="~/Content/js/ui-components/message-taghelper/message-taghelper.bundle.min.js"></script>
     </environment>
 
     @await RenderSectionAsync("scripts", required: false)

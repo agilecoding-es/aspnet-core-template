@@ -52,7 +52,7 @@ function theme_scss() {
         .pipe(mode.production(cssmin()))
         .pipe(mode.development(sourcemaps.write(".")))
         .pipe(mode.production(rename({ suffix: '.min' })))
-        .pipe(dest('./wwwroot/content/theme/'));
+        .pipe(dest('./wwwroot/Content/theme/'));
     //.pipe(browserSync.stream());
 }
 
@@ -77,7 +77,7 @@ function images_copy() {
             path.dirname = path.dirname.toLowerCase();
             path.basename = path.basename.toLowerCase();
         }))
-        .pipe(dest('wwwroot/content/images'))
+        .pipe(dest('wwwroot/Content/images'))
     //.pipe(browserSync.stream());
 }
 
@@ -85,7 +85,7 @@ const vendors = series(vendors_folders, vendors_modules_js);
 
 function vendors_folders() {
     return src('./Content/vendors/**/*')
-        .pipe(dest('./wwwroot/content/vendors/'));
+        .pipe(dest('./wwwroot/Content/vendors/'));
 }
 
 function vendors_modules_js(done) {
@@ -108,7 +108,7 @@ function vendors_modules_js(done) {
                 path.extname = ".bundle.js";
             }))
             .pipe(mode.production(rename({ suffix: '.min' })))
-            .pipe(dest('./wwwroot/content/vendors/'));
+            .pipe(dest('./wwwroot/Content/vendors/'));
     });
 
     if (tasks.length == 0) return done();
@@ -120,7 +120,7 @@ function vendors_modules_js(done) {
 const js = series(shared_js, areas_js);
 
 function shared_js(done) {
-    return glob('./content/js/**/*.js', function (err, files) {
+    return glob('./Content/js/**/*.js', function (err, files) {
         if (err) done(err);
 
         var tasks = files.map(function (entry) {
@@ -144,7 +144,17 @@ function shared_js(done) {
                 .pipe(buffer())
                 .pipe(mode.production(uglify()))
                 .pipe(rename(function (path) {
-                    path.dirname = path.dirname.toLowerCase();
+                    const parts = path.dirname.split('\\');
+
+                    // Minimizar cada parte excepto la primera letra de "Content"
+                    const minimizedParts = parts.map((part, index) => {
+                        return index === 0
+                            ? part.charAt(0).toUpperCase() + part.slice(1)
+                            : part.toLowerCase();
+                    });
+
+                    // Reconstruir el path y asignarlo de nuevo
+                    path.dirname = minimizedParts.join('\\');
                     path.basename = path.basename.toLowerCase();
                     path.extname = ".bundle.js";
                 }))
@@ -184,12 +194,11 @@ function areas_js(done) {
                         const parts = file.dirname.split(path.sep);
                         const newParts = parts.filter(part => part !== 'Content' && part !== 'js');
                         const newDirname = newParts.join(path.sep).toLowerCase();
-
                         file.dirname = newDirname;
                         file.extname = ".bundle.js";
                     }))
                 .pipe(mode.production(rename({ suffix: '.min' })))
-                .pipe(dest('./wwwroot/content/js'));
+                .pipe(dest('./wwwroot/Content/js'));
         });
         es.merge(tasks).on('end', done);
     });
@@ -198,7 +207,7 @@ function areas_js(done) {
 const ts = series(shared_ts, areas_ts);
 
 function shared_ts(done) {
-    return glob('./content/ts/**/*.ts', function (err, files) {
+    return glob('./Content/ts/**/*.ts', function (err, files) {
         if (err) done(err);
 
         var tasks = files.map(function (entry) {
@@ -264,12 +273,12 @@ function areas_ts(done) {
                         const parts = file.dirname.split(path.sep);
                         const newParts = parts.filter(part => part !== 'Content' && part !== 'ts');
                         const newDirname = newParts.join(path.sep).toLowerCase();
-
+                        console.log(newDirname);
                         file.dirname = newDirname;
                         file.extname = ".bundle.js";
                     }))
                 .pipe(mode.production(rename({ suffix: '.min' })))
-                .pipe(dest('./wwwroot/content/js'));
+                .pipe(dest('./wwwroot/Content/js'));
         });
         es.merge(tasks).on('end', done);
     })
@@ -317,4 +326,4 @@ const dev = series(build, keep_watching);
 exports.dev = dev;
 exports.default = build;
 exports.images = images;
-exports.prueba = series(clean_up, vendors_modules_js);
+exports.prueba = series(clean_up, theme_scss);

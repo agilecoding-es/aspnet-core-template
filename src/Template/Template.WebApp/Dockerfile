@@ -24,6 +24,9 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+ARG ASPNETCORE_ENVIRONMENT
+ENV ASPNETCORE_ENVIRONMENT ${ASPNETCORE_ENVIRONMENT:-Production}
+
 # *****************************************************************************************
 # Etapa de construcción de la parte web
 FROM base AS web-build
@@ -32,7 +35,8 @@ WORKDIR /web
 COPY Template.WebApp/package.json .
 RUN npm install
 COPY Template.WebApp .
-RUN npm run build
+RUN if [ "${ASPNETCORE_ENVIRONMENT}" = "Development" ]; then npm run build; else gulp default; fi
+
 
 # *****************************************************************************************
 # Etapa de construcción de la aplicación .NET

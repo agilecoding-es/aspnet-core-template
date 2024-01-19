@@ -357,7 +357,7 @@ MigrationBackup/
 #-----------------------------------------
 .env
 *.env
-/src/content/dist
+/src/Content/dist
 /artifact
 
 # Proyecto Templete.WebApp
