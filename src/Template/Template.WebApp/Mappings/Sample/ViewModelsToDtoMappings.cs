@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using Template.Application.Features.Sample.Contracts.DTOs;
+using Template.Application.Features.SampleContext.Contracts.DTOs;
 using Template.WebApp.Areas.SampleMvc.Models.SampleList;
 
 namespace Template.WebApp.Mappings.Sample

@@ -13,23 +13,23 @@ namespace Template.Configuration.Setup
         public static IAppBuilder AddSettings(this IAppBuilder appBuilder)
         {
             appBuilder.Services.Configure<AppSettings>(appBuilder.Configuration)
-                    .Configure<Mailsettings>(options =>
+                    .Configure<IntegratedMailOptions>(options =>
                     {
-                        appBuilder.Configuration.GetSection(nameof(Mailsettings)).Bind(options);
+                        appBuilder.Configuration.GetSection(nameof(IntegratedMailOptions)).Bind(options);
                     })
-                    .Configure<LogMiddleware>(options =>
+                    .Configure<LoggingOptions>(options =>
                     {
-                        appBuilder.Configuration.GetSection(nameof(LogMiddleware)).Bind(options);
+                        appBuilder.Configuration.GetSection(nameof(LoggingOptions)).Bind(options);
                     });
 
 
             var appSettings = appBuilder.Configuration.Get<AppSettings>();
             appBuilder.Services.AddSingleton(appSettings);
             
-            var mailSettings = appBuilder.Configuration.Get<Mailsettings>();
+            var mailSettings = appBuilder.Configuration.Get<IntegratedMailOptions>();
             appBuilder.Services.AddSingleton(mailSettings);
 
-            var logMiddlewareSettings = appBuilder.Configuration.Get<LogMiddleware>();
+            var logMiddlewareSettings = appBuilder.Configuration.Get<LoggingOptions>();
             appBuilder.Services.AddSingleton(logMiddlewareSettings);
 
             return appBuilder;

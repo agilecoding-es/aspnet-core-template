@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Domain.Entities.Identity;

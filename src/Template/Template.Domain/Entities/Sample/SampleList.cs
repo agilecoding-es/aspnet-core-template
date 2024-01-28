@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Template.Domain.DomainEvents.Sample;
 using Template.Domain.Entities.Abastractions;
 using Template.Domain.Entities.Extensions;
 using Template.Domain.Entities.Identity;
@@ -16,9 +17,11 @@ namespace Template.Domain.Entities.Sample
         public SampleList(int id) : base(id) { }
 
         public string Name { get; private set; }
+
         public List<SampleItem> Items { get; private set; } = new List<SampleItem>();
 
         public string UserId { get; private set; }
+        
         public User User { get; private set; }
 
 
@@ -33,9 +36,12 @@ namespace Template.Domain.Entities.Sample
             return sampleList;
         }
 
-        public void UpdateName(string name)
+        public void UpdateName(string newName)
         {
-            Name = name;
+            var oldName = Name;
+            Name = newName;
+
+            AddDomainEvent(new SampleListNameUpdatedDomainEvent(UserId,Id, oldName, newName));
         }
 
         public void Add(SampleItem item)

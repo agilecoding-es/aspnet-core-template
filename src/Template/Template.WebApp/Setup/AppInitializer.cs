@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext;
 using Template.Configuration;
 using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;

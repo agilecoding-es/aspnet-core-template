@@ -1,8 +1,13 @@
-﻿namespace Template.Domain.Entities.Abastractions
+﻿using System.Collections.ObjectModel;
+using Template.Domain.DomainEvents.Abstractions;
+
+namespace Template.Domain.Entities.Abastractions
 {
-    public abstract class Entity<T> : IEquatable<Entity<T>>
+    public abstract class Entity<T> : IEquatable<Entity<T>>, IEntity
         where T : IEquatable<T>
     {
+        private readonly List<IDomainEvent> domainEvents = new();
+
         public Entity()
         {
         }
@@ -13,6 +18,8 @@
         }
 
         public T Id { get; protected init; }
+
+        public ReadOnlyCollection<IDomainEvent> DomainEvents => domainEvents.AsReadOnly();
 
         public static bool operator ==(Entity<T> left, Entity<T> right)
         {
@@ -50,6 +57,18 @@
         }
 
         public virtual void Update(Entity<T> newValues) { }
+
+        protected void AddDomainEvent(IDomainEvent domainEvent)
+        {
+            domainEvents.Add(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            domainEvents.Clear();
+        }
+
+        void IEntity.AddDomainEvent(IDomainEvent domainEvent) => domainEvents.Add(domainEvent);
     }
 
 }

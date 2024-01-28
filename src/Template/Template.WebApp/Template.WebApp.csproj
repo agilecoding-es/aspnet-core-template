@@ -87,6 +87,7 @@
 		<ProjectReference Include="..\Template.Application\Template.Application.csproj" />
 		<ProjectReference Include="..\Template.Common\Template.Common.csproj" />
 		<ProjectReference Include="..\Template.Configuration\Template.Configuration.csproj" />
+		<ProjectReference Include="..\Template.ExternalServices.MailService.Listmonk\Template.ExternalServices.MailService.Listmonk.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure.Mails.AzureCommunicationService\Template.Infrastructure.Mails.AzureCommunicationService.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure.Mails.Smtp\Template.Infrastructure.Mails.Smtp.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />

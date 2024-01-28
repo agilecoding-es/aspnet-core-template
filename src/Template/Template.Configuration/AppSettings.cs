@@ -5,27 +5,29 @@ using System.Text.RegularExpressions;
 
 namespace Template.Configuration
 {
+    
     public class AppSettings
     {
         public ConnectionStrings ConnectionStrings { get; set; }
 
-        public Db Database { get; set; }
+        public DbOptions Database { get; set; }
 
-        public AuthenticationProviders AuthenticationProviders { get; set; }
+        public AuthenticationProvidersOptions AuthenticationProviders { get; set; }
 
-        public Mailsettings Mailsettings { get; set; }
+        public IntegratedMailOptions Mailsettings { get; set; }
 
-        public HealthChecks HealthChecks { get; set; }
+        public HealthChecksOptions HealthChecks { get; set; }
 
-        public LogMiddleware LogMiddleware { get; set; }
+        public LoggingOptions Logging { get; set; }
 
-        public SupportedCultures SupportedCultures { get; set; }
+        public ErrorsOptions Errors { get; set; }
 
-        public Errors Errors { get; set; }
+        public MessagesOptions Messages { get; set; }
+        public ExternalServicesOptions ExternalServices { get; set; }
 
-        public Messages Messages { get; set; }
+        public SupportedCulturesOptions SupportedCultures { get; set; }
 
-        public Samples Samples { get; set; }
+        public SamplesOptions Samples { get; set; }
 
         public string ApplicationName { get; set; }
 
@@ -42,18 +44,19 @@ namespace Template.Configuration
 
     }
 
-    public class Db
-    {
-        public string Provider { get; set; }
-    }
 
-    public class AuthenticationProviders
+    public class AuthenticationProvidersOptions
     {
         public GoogleOptions Google { get; set; }
         public MicrosoftAccountOptions Microsoft { get; set; }
     }
 
-    public class Mailsettings
+    public class DbOptions
+    {
+        public string Provider { get; set; }
+    }
+
+    public class IntegratedMailOptions
     {
         public string Host { get; set; }
         public int Port { get; set; }
@@ -64,7 +67,7 @@ namespace Template.Configuration
         public string DisplayName { get; set; }
     }
 
-    public class HealthChecks
+    public class HealthChecksOptions
     {
         public bool Enabled { get; set; }
         public LatencyHealthCheck LatencyHealthCheck { get; set; }
@@ -76,13 +79,37 @@ namespace Template.Configuration
         public int DegradedLatency { get; set; }
     }
 
-    public class LogMiddleware
+    public class LoggingOptions
     {
         public bool Enabled { get; set; }
         public bool Rethrow { get; set; }
     }
 
-    public class SupportedCultures
+    public class ErrorsOptions
+    {
+        public bool ShowRequestId { get; set; }
+    }
+
+    public class MessagesOptions
+    {
+        public bool TreatValidationsAsWarnings { get; set; }
+    }
+
+    public class ExternalServicesOptions
+    {
+        public ExternalMailservice MailService { get; set; }
+    }
+
+    public class ExternalMailservice
+    {
+        public bool Enabled { get; set; }
+        public string ServiceName { get; set; }
+        public string Url { get; set; }
+        public string User { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class SupportedCulturesOptions
     {
         public List<Culture> Cultures { get; set; }
 
@@ -180,17 +207,7 @@ namespace Template.Configuration
         }
     }
 
-    public class Errors
-    {
-        public bool ShowRequestId { get; set; }
-    }
-
-    public class Messages
-    {
-        public bool TreatValidationsAsWarnings { get; set; }
-    }
-
-    public class Samples
+    public class SamplesOptions
     {
         public bool ShowSampleMVC { get; set; }
         public bool ShowSampleAjax { get; set; }

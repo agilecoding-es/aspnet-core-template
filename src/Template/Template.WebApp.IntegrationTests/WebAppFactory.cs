@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 using Respawn;
 using Respawn.Graph;
 using System.Data.Common;
-using Template.Application.Features.Logging.Contracts;
+using Template.Application.Features.LoggingContext.Contracts;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Configuration;
@@ -74,7 +74,7 @@ namespace Template.WebApp.IntegrationTests
 
         public void CreateDbFactory()
         {
-            var db = Configuration.Get<Db>() ?? throw new ArgumentNullException(nameof(Db));
+            var db = Configuration.Get<DbOptions>() ?? throw new ArgumentNullException(nameof(DbOptions));
 
             if (db.Provider == Constants.Configuration.DatabaseProvider.SqlServerProvider)
                 DbFactory = new SqlServerFactory();

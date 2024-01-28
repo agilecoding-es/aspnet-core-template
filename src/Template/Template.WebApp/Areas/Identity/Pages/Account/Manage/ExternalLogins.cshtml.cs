@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Localization;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext;
 using Template.Domain.Entities.Identity;
 
 namespace Template.WebApp.Areas.Identity.Pages.Account.Manage

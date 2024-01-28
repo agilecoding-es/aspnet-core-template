@@ -14,8 +14,7 @@ namespace Template.Configuration.Setup
     {
         public static IAppBuilder AddAzureEmail(this IAppBuilder appBuilder)
         {
-            appBuilder.Services.AddTransient<IEmailSender, AzureEmailAdapter>();
-            appBuilder.Services.AddTransient<IEmailClient, AzureEmailAdapter>();
+            appBuilder.Services.AddTransient<IEmailClient, AzureEmailClient>();
 
             return appBuilder;
         }

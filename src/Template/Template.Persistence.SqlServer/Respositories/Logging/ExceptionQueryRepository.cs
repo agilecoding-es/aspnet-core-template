@@ -1,8 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using Template.Application.Features.Logging.Contracts;
-using Template.Application.Features.Sample.Contracts.DTOs;
+using Template.Application.Features.LoggingContext.Contracts;
+using Template.Application.Features.SampleContext.Contracts.DTOs;
 
 namespace Template.Persistence.SqlServer.Respositories.Logging
 {

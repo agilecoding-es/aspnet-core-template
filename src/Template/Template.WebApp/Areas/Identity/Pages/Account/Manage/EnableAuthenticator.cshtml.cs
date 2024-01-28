@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;
 using System.Text.Encodings.Web;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 

@@ -17,7 +17,7 @@ namespace Template.Configuration.Setup
     {
         public static IAppBuilder AddSmtpEmail(this IAppBuilder appBuilder)
         {
-            var mailSettings = appBuilder.Configuration.Get<Mailsettings>();
+            var mailSettings = appBuilder.Configuration.Get<IntegratedMailOptions>();
 
             appBuilder.Services
                 .AddTransient(provider => new SmtpClient(mailSettings.Host, mailSettings.Port)
@@ -26,8 +26,7 @@ namespace Template.Configuration.Setup
                     EnableSsl = mailSettings.EnableSSL
                 });
 
-            appBuilder.Services.AddTransient<IEmailSender, SmtpEmailAdapter>();
-            appBuilder.Services.AddTransient<IEmailClient, SmtpEmailAdapter>();
+            appBuilder.Services.AddTransient<IEmailClient, SmtpEmailClient>();
 
             return appBuilder;
         }

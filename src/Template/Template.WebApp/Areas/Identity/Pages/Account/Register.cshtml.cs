@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext;
 using Template.Common;
 using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;

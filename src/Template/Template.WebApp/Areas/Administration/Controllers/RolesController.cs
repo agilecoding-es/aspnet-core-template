@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.EntityFrameworkCore;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext;
 using Template.Common;
 using Template.Domain.Entities.Identity;
 using Template.WebApp.Areas.Administration.Models;
