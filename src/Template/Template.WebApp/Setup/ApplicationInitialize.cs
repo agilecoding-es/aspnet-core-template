@@ -13,8 +13,7 @@ namespace Template.WebApp.Setup
             await Task.WhenAll(new Task[]{
                 appInitializer.ApplyMigrations(),
                 appInitializer.ConfigureRolesAsync(),
-                appInitializer.ConfigureSuperadminAsync(),
-                appInitializer.ApplyMigrationsOnHealthCheckContext()
+                appInitializer.ConfigureSuperadminAsync()
             });
 
             return appInitializer;

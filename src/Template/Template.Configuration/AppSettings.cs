@@ -79,7 +79,6 @@ namespace Template.Configuration
         public const string Key = "HealthChecks";
 
         public bool Enabled { get; set; }
-        public bool PersistData { get; set; } = false;
         public LatencyHealthCheck LatencyHealthCheck { get; set; }
     }
 

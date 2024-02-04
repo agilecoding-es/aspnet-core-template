@@ -104,29 +104,5 @@ namespace Template.WebApp.Setup
             }
             return this;
         }
-
-        public async Task<IAppInitializer> ApplyMigrationsOnHealthCheckContext()
-        {
-            using (var scope = App.Services.CreateScope())
-            {
-                var settings = scope.ServiceProvider.GetRequiredService<AppSettings>();
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<RoleManager>>();
-
-                try
-                {
-
-                    if (settings.HealthChecks.Enabled && settings.HealthChecks.PersistData)
-                    {
-                        var healthChecksDb = scope.ServiceProvider.GetRequiredService<HealthChecksDb>();
-                        healthChecksDb.Database.Migrate();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, $"An error occurred while configuring superadmin user.");
-                }
-            }
-            return this;
-        }
     }
 }
