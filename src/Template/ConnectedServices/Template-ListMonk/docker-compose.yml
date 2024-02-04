@@ -36,14 +36,11 @@ services:
     <<: *db-defaults
     container_name: listmonk_db
     volumes:
-      - type: volume
-        source: listmonk-data
-        target: /var/lib/postgresql/data
+      - listmonk-data:/var/lib/postgresql/data
 
   app:
     <<: *app-defaults
     container_name: listmonk_app
-    command: [sh, -c, "yes | ./listmonk --install --config config.toml && ./listmonk --config config.toml"]
     depends_on:
       - db
     volumes:

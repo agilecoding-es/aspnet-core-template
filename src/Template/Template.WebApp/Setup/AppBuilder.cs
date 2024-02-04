@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using HealthChecks.UI.Core.Data;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,16 +17,16 @@ using Template.Application;
 using Template.Application.Behaviours;
 using Template.Application.Contracts;
 using Template.Application.Features;
-using Template.Application.Features.IdentityContext;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Application.Features.SampleContext.Contracts;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Configuration;
 using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;
-using Template.Infrastructure.Mails;
-using Template.Infrastructure.Mails.AzureCommunicationService;
-using Template.Infrastructure.Mails.Smtp;
+using Template.Infrastructure.EmailService;
+using Template.Infrastructure.EmailService.AzureCommunicationService;
+using Template.Infrastructure.EmailService.Smtp;
 using Template.Persistence.Identity.PosgreSql;
 using Template.Persistence.PosgreSql;
 using Template.Persistence.PosgreSql.Database;
@@ -56,11 +57,11 @@ namespace Template.WebApp.Setup
         public ConfigurationManager Configuration { get; }
         public IWebHostEnvironment Environment { get; }
 
-        public IAppBuilder AddSettings(Action<IServiceCollection, ConfigurationManager> builder)
+        public IAppBuilder AddSettings(Action<IServiceCollection, ConfigurationManager> options)
         {
-            _ = builder ?? throw new ArgumentNullException(nameof(builder));
+            _ = options ?? throw new ArgumentNullException(nameof(options));
 
-            builder.Invoke(Services, Configuration);
+            options.Invoke(Services, Configuration);
 
             return this;
         }
@@ -267,6 +268,10 @@ namespace Template.WebApp.Setup
                             new[] { "UI" }
                         )
                         .AddNpgSql(appSettings.ConnectionStrings.DefaultConnection, tags: new[] { "database"});
+
+
+                if (appSettings.HealthChecks.PersistData)
+                    Services.AddHealthChecksUI().AddPostgreSqlStorage(appSettings.ConnectionStrings.HealthChecksConnection);
 
                 //TODO: Prabar health check UI webhooks
                 //Services.AddHealthChecksUI(options =>

@@ -4,14 +4,14 @@ namespace Template.WebApp.Middlewares
 {
     public static class MiddlewareExtensions
     {
-        public static IApplicationBuilder UseLogExceptions(this IApplicationBuilder applicationBuilder, Action<LoggingOptions> configure = null)
+        public static IApplicationBuilder UseLogExceptions(this IApplicationBuilder applicationBuilder, Action<LoggingExceptionsOptions> configure = null)
         {
             if (configure != null)
             {
-                var options = new LoggingOptions();
-                configure(options);
+                var loggingExceptionsSettings = new LoggingExceptionsOptions();
+                configure(loggingExceptionsSettings);
 
-                return applicationBuilder.UseMiddleware<LogExceptionMiddleware>(options);
+                return applicationBuilder.UseMiddleware<LogExceptionMiddleware>(loggingExceptionsSettings);
             }
             else
             {

@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
-using Template.Application.Features.IdentityContext;
 using Template.Application.Features.SampleContext.Contracts;
 using Template.Domain.Entities.Identity;
 using Template.WebApp.IntegrationTests.Attributes;
 using Template.WebApp.IntegrationTests.Extensions;
 using Template.WebApp.IntegrationTests.Fixtures;
 using Template.Security.Authorization;
+using Template.Application.Features.IdentityContext.Services;
 
 namespace Template.WebApp.IntegrationTests.Scenarios.Areas.SampleMVC
 {

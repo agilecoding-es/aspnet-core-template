@@ -15,7 +15,7 @@ namespace Template.Application.Features.SampleContext.Lists.Events
 
         public async Task Handle(SampleListNameUpdatedDomainEvent notification, CancellationToken cancellationToken)
         {
-            await mediator.Send(new SendListUpdatedUserMail.Command(notification.UserId, notification.ListId, notification.OldName, notification.NewName), cancellationToken);
+            await mediator.Send(new SendListUpdatedUserEmail.Command(notification.UserId, notification.ListId, notification.OldName, notification.NewName), cancellationToken);
         }
     }
 }

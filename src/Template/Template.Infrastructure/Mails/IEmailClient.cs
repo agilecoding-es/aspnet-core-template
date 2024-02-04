@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace Template.Infrastructure.Mails
+namespace Template.Infrastructure.EmailService
 {
     public interface IEmailClient
     {
-        Task SendEmailAsync(string email, string subject, string plainTextMessage, string htmlMessage = null, CancellationToken cancellationToken = default);
+        Task SendEmailAsync(string subject, string email, string displayName = null, string plainTextMessage = null, string htmlMessage = null, CancellationToken cancellationToken = default);
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Template.Application.Features.IdentityContext;
+using Template.Application.Features.IdentityContext.Services;
 
 namespace Template.WebApp.Areas.Identity.Pages.Account
 {

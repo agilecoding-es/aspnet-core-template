@@ -22,7 +22,7 @@ namespace Template.WebApp.Setup
                 CreateAppBuilder(builder)
                 .AddSettings()
                 .AddPostgreSql(connectionString)
-                .AddListmonkMailService()
+                .AddListmonkEmailService()
                 .AddIdentity()
                 .AddPresentation()
                 .AddApplicationFeatures()

@@ -51,10 +51,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Security", "Templa
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{71B4B880-E5EE-4B08-8A02-F09B099B2770}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Mails.AzureCommunicationService", "Template.Infrastructure.Mails.AzureCommunicationService\Template.Infrastructure.Mails.AzureCommunicationService.csproj", "{8FBE6D80-1388-48AC-BB86-5DF80CA51DF7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Mails.Smtp", "Template.Infrastructure.Mails.Smtp\Template.Infrastructure.Mails.Smtp.csproj", "{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{58AD5A6D-9097-4058-ACB0-20670F8EA311}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\.github\workflows\deployment.yml = ..\..\.github\workflows\deployment.yml
@@ -95,9 +91,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlServer", "SqlServer", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostgreSql", "PostgreSql", "{991F1822-85AD-49E6-946E-CC44A6643966}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.ExternalServices", "Template.ExternalServices\Template.ExternalServices.csproj", "{CA4E880C-B122-4C9A-A6F8-12DD95E1DECE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.ExternalServices", "Template.ExternalServices\Template.ExternalServices.csproj", "{CA4E880C-B122-4C9A-A6F8-12DD95E1DECE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.ExternalServices.MailService.Listmonk", "Template.ExternalServices.MailService.Listmonk\Template.ExternalServices.MailService.Listmonk.csproj", "{73B1680A-B3B1-48DE-A233-96C2ED019CC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.EmailService.Smtp", "Template.Infrastructure.EmailService.Smtp\Template.Infrastructure.EmailService.Smtp.csproj", "{5B6C8841-E262-43B9-AB2C-127BDE786903}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.EmailService.AzureCommunicationService", "Template.Infrastructure.EmailService.AzureCommunicationService\Template.Infrastructure.EmailService.AzureCommunicationService.csproj", "{019CA46E-93BB-4D8A-846C-B55856F39B03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.ExternalServices.EmailService.Listmonk", "Template.ExternalServices.EmailService.Listmonk\Template.ExternalServices.EmailService.Listmonk.csproj", "{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,14 +133,6 @@ Global
 		{71B4B880-E5EE-4B08-8A02-F09B099B2770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71B4B880-E5EE-4B08-8A02-F09B099B2770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71B4B880-E5EE-4B08-8A02-F09B099B2770}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8FBE6D80-1388-48AC-BB86-5DF80CA51DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FBE6D80-1388-48AC-BB86-5DF80CA51DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FBE6D80-1388-48AC-BB86-5DF80CA51DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FBE6D80-1388-48AC-BB86-5DF80CA51DF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{38B68D62-0507-47F1-B999-F24663D1A714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{38B68D62-0507-47F1-B999-F24663D1A714}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38B68D62-0507-47F1-B999-F24663D1A714}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -177,10 +169,18 @@ Global
 		{CA4E880C-B122-4C9A-A6F8-12DD95E1DECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA4E880C-B122-4C9A-A6F8-12DD95E1DECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA4E880C-B122-4C9A-A6F8-12DD95E1DECE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73B1680A-B3B1-48DE-A233-96C2ED019CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73B1680A-B3B1-48DE-A233-96C2ED019CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73B1680A-B3B1-48DE-A233-96C2ED019CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73B1680A-B3B1-48DE-A233-96C2ED019CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6C8841-E262-43B9-AB2C-127BDE786903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6C8841-E262-43B9-AB2C-127BDE786903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6C8841-E262-43B9-AB2C-127BDE786903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6C8841-E262-43B9-AB2C-127BDE786903}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019CA46E-93BB-4D8A-846C-B55856F39B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019CA46E-93BB-4D8A-846C-B55856F39B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019CA46E-93BB-4D8A-846C-B55856F39B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019CA46E-93BB-4D8A-846C-B55856F39B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -195,8 +195,6 @@ Global
 		{C819DCAE-087C-4A0E-90A8-55919F63E581} = {D0C4D9BB-161A-4911-BF95-B1123D434E42}
 		{5C07E9D6-8FF5-497E-9FA3-B3CAE3249CA0} = {D0C4D9BB-161A-4911-BF95-B1123D434E42}
 		{34E78E88-BA47-4076-81E3-1719F2A19F50} = {73419D24-21AD-42CE-AE65-873CB54C1A55}
-		{8FBE6D80-1388-48AC-BB86-5DF80CA51DF7} = {E912A677-6CD4-4302-ADFD-543074E98913}
-		{13F5BED7-4C38-47FE-AE6F-88B7B6E785A0} = {E912A677-6CD4-4302-ADFD-543074E98913}
 		{58AD5A6D-9097-4058-ACB0-20670F8EA311} = {92F1EDB1-05E3-4698-A942-7107070F939C}
 		{38B68D62-0507-47F1-B999-F24663D1A714} = {EB6D69ED-0B57-4B99-A28A-ACCB1A0CCEBE}
 		{D17B3FF9-D121-4B9D-8F93-EC9B565BD4B4} = {4FAD61CD-FD90-4881-96AB-BA693C805359}
@@ -214,11 +212,13 @@ Global
 		{4FAD61CD-FD90-4881-96AB-BA693C805359} = {234CCBE2-212B-4369-BAC0-257EC013D34C}
 		{991F1822-85AD-49E6-946E-CC44A6643966} = {234CCBE2-212B-4369-BAC0-257EC013D34C}
 		{CA4E880C-B122-4C9A-A6F8-12DD95E1DECE} = {EC12B712-D0E5-410A-98D9-2AD96B3E8BC5}
-		{73B1680A-B3B1-48DE-A233-96C2ED019CC0} = {EC12B712-D0E5-410A-98D9-2AD96B3E8BC5}
+		{5B6C8841-E262-43B9-AB2C-127BDE786903} = {E912A677-6CD4-4302-ADFD-543074E98913}
+		{019CA46E-93BB-4D8A-846C-B55856F39B03} = {E912A677-6CD4-4302-ADFD-543074E98913}
+		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B} = {EC12B712-D0E5-410A-98D9-2AD96B3E8BC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
-		RESX_SortFileContentOnSave = True
 		RESX_EnableXlifSync = False
+		RESX_SortFileContentOnSave = True
+		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
 	EndGlobalSection
 EndGlobal

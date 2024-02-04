@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Template.Application.Features.IdentityContext;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;

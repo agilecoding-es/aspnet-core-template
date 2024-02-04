@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using HealthChecks.UI.Core.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Template.Application.Features.IdentityContext;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Configuration;
 using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Template.WebApp.Setup
 {
@@ -93,6 +95,30 @@ namespace Template.WebApp.Setup
 
                         await userManager.UpdateAsync(existingSA);
                         await userManager.AddToRoleAsync(existingSA, Roles.Superadmin);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, $"An error occurred while configuring superadmin user.");
+                }
+            }
+            return this;
+        }
+
+        public async Task<IAppInitializer> ApplyMigrationsOnHealthCheckContext()
+        {
+            using (var scope = App.Services.CreateScope())
+            {
+                var settings = scope.ServiceProvider.GetRequiredService<AppSettings>();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<RoleManager>>();
+
+                try
+                {
+
+                    if (settings.HealthChecks.Enabled && settings.HealthChecks.PersistData)
+                    {
+                        var healthChecksDb = scope.ServiceProvider.GetRequiredService<HealthChecksDb>();
+                        healthChecksDb.Database.Migrate();
                     }
                 }
                 catch (Exception ex)

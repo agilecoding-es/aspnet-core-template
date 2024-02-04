@@ -5,6 +5,7 @@
 @using Template.Application.Features.IdentityContext;
 @using Template.Security.Authorization;
 @using Template.WebApp.Extensions;
+@using Template.Application.Features.IdentityContext.Services;
 
 @inject SignInManager SignInManager
 @inject UserManager UserManager
@@ -59,7 +60,7 @@
 
     <footer class="footer bg-blue-3 border-top text-white text-center">
         <div class="container">
-            &copy; 2023 - Template.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white">@Localizer["Layout_Footer_Privacy"]</a>
+            &copy; 2024 - Template.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white">@Localizer["Layout_Footer_Privacy"]</a>
         </div>
     </footer>
 

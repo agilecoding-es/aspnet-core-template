@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Template.Configuration
 {
-    
+
     public class AppSettings
     {
         public ConnectionStrings ConnectionStrings { get; set; }
@@ -14,16 +14,17 @@ namespace Template.Configuration
 
         public AuthenticationProvidersOptions AuthenticationProviders { get; set; }
 
-        public IntegratedMailOptions Mailsettings { get; set; }
+        public MailSettingsOptions MailSettings { get; set; }
 
         public HealthChecksOptions HealthChecks { get; set; }
 
-        public LoggingOptions Logging { get; set; }
+        public LoggingExceptionsOptions LoggingExceptions { get; set; }
 
         public ErrorsOptions Errors { get; set; }
 
         public MessagesOptions Messages { get; set; }
-        public ExternalServicesOptions ExternalServices { get; set; }
+
+        public ExternalEmailServiceOptions ExternalEmailService { get; set; }
 
         public SupportedCulturesOptions SupportedCultures { get; set; }
 
@@ -47,17 +48,23 @@ namespace Template.Configuration
 
     public class AuthenticationProvidersOptions
     {
+        public const string Key = "AuthenticationProviders";
+
         public GoogleOptions Google { get; set; }
         public MicrosoftAccountOptions Microsoft { get; set; }
     }
 
     public class DbOptions
     {
+        public const string Key = "Db";
+
         public string Provider { get; set; }
     }
 
-    public class IntegratedMailOptions
+    public class MailSettingsOptions
     {
+        public const string Key = "MailSettings";
+
         public string Host { get; set; }
         public int Port { get; set; }
         public bool EnableSSL { get; set; }
@@ -69,7 +76,10 @@ namespace Template.Configuration
 
     public class HealthChecksOptions
     {
+        public const string Key = "HealthChecks";
+
         public bool Enabled { get; set; }
+        public bool PersistData { get; set; } = false;
         public LatencyHealthCheck LatencyHealthCheck { get; set; }
     }
 
@@ -79,29 +89,32 @@ namespace Template.Configuration
         public int DegradedLatency { get; set; }
     }
 
-    public class LoggingOptions
+    public class LoggingExceptionsOptions
     {
+        public const string Key = "LoggingExceptions";
+
         public bool Enabled { get; set; }
         public bool Rethrow { get; set; }
     }
 
     public class ErrorsOptions
     {
+        public const string Key = "Errors";
+
         public bool ShowRequestId { get; set; }
     }
 
     public class MessagesOptions
     {
+        public const string Key = "Messages";
+
         public bool TreatValidationsAsWarnings { get; set; }
     }
 
-    public class ExternalServicesOptions
+    public class ExternalEmailServiceOptions
     {
-        public ExternalMailservice MailService { get; set; }
-    }
+        public const string Key = "ExternalEmailService";
 
-    public class ExternalMailservice
-    {
         public bool Enabled { get; set; }
         public string ServiceName { get; set; }
         public string Url { get; set; }
@@ -111,6 +124,8 @@ namespace Template.Configuration
 
     public class SupportedCulturesOptions
     {
+        public const string Key = "SupportedCultures";
+
         public List<Culture> Cultures { get; set; }
 
         public string DefaultCulture { get; set; }
@@ -209,6 +224,8 @@ namespace Template.Configuration
 
     public class SamplesOptions
     {
+        public const string Key = "Samples";
+
         public bool ShowSampleMVC { get; set; }
         public bool ShowSampleAjax { get; set; }
     }

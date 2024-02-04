@@ -24,9 +24,6 @@ namespace Template.Configuration.Setup
                 options => options.UseNpgsql(connectionString)
                                                                .UseSnakeCaseNamingConvention());
 
-            if (settings.HealthChecks.Enabled)
-                appBuilder.Services.AddHealthChecksUI().AddPostgreSqlStorage(settings.ConnectionStrings.HealthChecksConnection);
-
             if (appBuilder.Environment.IsDevelopment())
                 appBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

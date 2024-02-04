@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using System.Security.Claims;
-using Template.Application.Features.IdentityContext;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Application.Features.SampleContext.Contracts.DTOs;
 using Template.Application.Features.SampleContext.Items.Command;
 using Template.Application.Features.SampleContext.Items.Query;

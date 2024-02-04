@@ -9,36 +9,28 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using Template.Application.Features.IdentityContext;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Domain.Entities.Identity;
 using Template.WebApp.Areas.Administration.Models;
 using Template.Security.Authorization;
 using Template.Security.DataProtection;
+using Template.Application.Features.IdentityContext.Services;
 
 namespace Template.WebApp.Areas.Administration.Controllers
 {
     [Authorize(Roles = RoleGroup.SuperadminAndAdminRoles)]
     public class UsersController : BaseAdministrationController
     {
-        private readonly IMediator mediator;
-        private readonly UserManager userManager;
-        private readonly RoleManager roleManager;
         private readonly IAuthorizationService authorizationService;
-        private readonly IHtmlLocalizer localizer;
         private readonly IEmailSender emailSender;
         private readonly IDataProtector protector;
 
         public UsersController(IMediator mediator, UserManager userManager, RoleManager roleManager, IAuthorizationService authorizationService, IHtmlLocalizer localizer, IEmailSender emailSender, IDataProtectionProvider dataProtectionProvider) : base(mediator, userManager, roleManager, localizer)
         {
-            this.mediator = mediator;
-            this.userManager = userManager;
-            this.roleManager = roleManager;
             this.authorizationService = authorizationService;
-            this.localizer = localizer;
             this.emailSender = emailSender;
-            //TODO: Encrypt routvalues
+            //TODO: Encrypt routevalues
             this.protector = dataProtectionProvider.CreateProtector(ProtectionPurpose.RoleIdRouteValue);
         }
 
@@ -129,7 +121,6 @@ namespace Template.WebApp.Areas.Administration.Controllers
 
             if (user == null)
             {
-                //TODO: Crear constante y revisar modelo de manejo de errores
                 ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
             else
@@ -143,7 +134,6 @@ namespace Template.WebApp.Areas.Administration.Controllers
 
                 foreach (var error in result.Errors)
                 {
-                    //TODO: Revisar modelo de manejo de errores
                     ModelState.AddModelError(Constants.KeyErrors.ValidationError, error.Description);
                 }
             }
@@ -154,15 +144,10 @@ namespace Template.WebApp.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetPassword(string id)
         {
-            //TODO: Agregar confirmación antes de eliminar un usuario
-            //TODO: Agregar clases para soft delete a las entidades
-            //TODO: Agregar auditoria a las entidades
-
             User user = await userManager.FindByIdAsync(id);
 
             if (user == null)
             {
-                //TODO: Crear constante y revisar modelo de manejo de errores
                 ModelState.AddModelError(Constants.KeyErrors.ValidationError, "User not found");
             }
             else
@@ -200,7 +185,8 @@ namespace Template.WebApp.Areas.Administration.Controllers
             }
 
             var model = new List<UserRolesViewModel>();
-            foreach (var role in roleManager.Roles)
+            var roles = roleManager.Roles.ToList();
+            foreach (var role in roles)
             {
                 model.Add(new UserRolesViewModel()
                 {

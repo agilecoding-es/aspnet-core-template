@@ -23,6 +23,7 @@
   </ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="EmailTemplateContext\" />
 	  <Folder Include="UserContext\Command\" />
 	  <Folder Include="UserContext\Contracts\" />
 	  <Folder Include="UserContext\Events\" />

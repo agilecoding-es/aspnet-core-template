@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Template.Application.Behaviours;
 using Template.Application.Features;
-using Template.Application.Features.IdentityContext;
+using Template.Application.Features.IdentityContext.Services;
 
 namespace Template.Configuration.Setup
 {

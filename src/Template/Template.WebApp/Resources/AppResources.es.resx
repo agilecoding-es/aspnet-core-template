@@ -311,7 +311,7 @@
     <value>Registrarse como nuevo usuario</value>
   </data>
   <data name="Identity_Account_Login_ReserndConfirmation" xml:space="preserve">
-    <value>Reenviar correo electrónico de confirmación</value>
+    <value>Restablecer contraseña</value>
   </data>
   <data name="Identity_Account_Login_Submit" xml:space="preserve">
     <value>Iniciar sesión</value>
