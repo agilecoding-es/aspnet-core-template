@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.Razor;
-using NLog.Web;
+﻿using NLog.Web;
 using Template.Common;
 using Template.Configuration.Setup;
-using Template.Infrastructure.Mails.AzureCommunicationService;
-using Template.Infrastructure.Mails.Smtp;
-using Template.Infrastructure.Mails;
-using Template.Configuration;
 
 namespace Template.WebApp.Setup
 {
@@ -28,6 +22,7 @@ namespace Template.WebApp.Setup
                 CreateAppBuilder(builder)
                 .AddSettings()
                 .AddPostgreSql(connectionString)
+                .AddListmonkEmailService()
                 .AddIdentity()
                 .AddPresentation()
                 .AddApplicationFeatures()

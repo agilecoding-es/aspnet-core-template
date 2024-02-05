@@ -6,21 +6,21 @@ namespace Template.WebApp.Middlewares
     public class LogExceptionMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly LogMiddleware options;
+        private readonly LoggingExceptionsOptions loggingExceptionsSettings;
         private readonly ILogger<LogExceptionMiddleware> logger;
 
-        public LogExceptionMiddleware(RequestDelegate next, IOptions<LogMiddleware> options, ILogger<LogExceptionMiddleware> logger)
+        public LogExceptionMiddleware(RequestDelegate next, IOptions<LoggingExceptionsOptions> options, ILogger<LogExceptionMiddleware> logger)
         {
             this.next = next ?? throw new ArgumentNullException(nameof(next));
-            this.options = options.Value ?? throw new ArgumentNullException(nameof(options));
+            this.loggingExceptionsSettings = options.Value ?? throw new ArgumentNullException(nameof(options));
             this.logger = logger ?? throw new ArgumentNullException(nameof(next));
         }
 
-        public LogExceptionMiddleware(RequestDelegate next, LogMiddleware options, ILogger<LogExceptionMiddleware> logger)
+        public LogExceptionMiddleware(RequestDelegate next, LoggingExceptionsOptions loggingExceptionsSettings, ILogger<LogExceptionMiddleware> logger)
         {
             this.next = next ?? throw new ArgumentNullException(nameof(next));
-            this.options = options ?? throw new ArgumentNullException(nameof(options));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(next));
+            this.loggingExceptionsSettings = loggingExceptionsSettings ?? throw new ArgumentNullException(nameof(loggingExceptionsSettings));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -31,10 +31,10 @@ namespace Template.WebApp.Middlewares
             }
             catch (Exception ex)
             {
-                if (options.Enabled || !options.Rethrow)
+                if (loggingExceptionsSettings.Enabled || !loggingExceptionsSettings.Rethrow)
                     logger.LogError(ex, ex.Message);
 
-                if (options.Rethrow)
+                if (loggingExceptionsSettings.Rethrow)
                     throw;
             }
         }

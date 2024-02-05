@@ -549,7 +549,7 @@ namespace Template.WebApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resend email confirmation.
+        ///   Looks up a localized string similar to Reset password.
         /// </summary>
         internal static string Identity_Account_Login_ReserndConfirmation {
             get {

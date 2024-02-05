@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using HealthChecks.UI.Core.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Configuration;
 using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Template.WebApp.Setup
 {

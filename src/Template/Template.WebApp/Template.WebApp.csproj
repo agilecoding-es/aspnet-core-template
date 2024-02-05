@@ -58,7 +58,6 @@
 		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.5" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
 		<PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.5" />
-		<PackageReference Include="AspNetCore.HealthChecks.UI.PostgreSQL.Storage" Version="6.0.4" />
 		<!--<PackageReference Include="AspNetCore.HealthChecks.UI.SqlServer.Storage" Version="6.0.5" />-->
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.16" />
@@ -87,8 +86,10 @@
 		<ProjectReference Include="..\Template.Application\Template.Application.csproj" />
 		<ProjectReference Include="..\Template.Common\Template.Common.csproj" />
 		<ProjectReference Include="..\Template.Configuration\Template.Configuration.csproj" />
-		<ProjectReference Include="..\Template.Infrastructure.Mails.AzureCommunicationService\Template.Infrastructure.Mails.AzureCommunicationService.csproj" />
-		<ProjectReference Include="..\Template.Infrastructure.Mails.Smtp\Template.Infrastructure.Mails.Smtp.csproj" />
+		<ProjectReference Include="..\Template.ExternalServices.EmailService.Listmonk\Template.ExternalServices.EmailService.Listmonk.csproj" />
+		<ProjectReference Include="..\Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj" />
+		<ProjectReference Include="..\Template.Infrastructure.EmailService.AzureCommunicationService\Template.Infrastructure.EmailService.AzureCommunicationService.csproj" />
+		<ProjectReference Include="..\Template.Infrastructure.EmailService.Smtp\Template.Infrastructure.EmailService.Smtp.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
 		<ProjectReference Include="..\Template.Persistence.Identity.PostgreSql\Template.Persistence.Identity.PostgreSql.csproj" />
 		<ProjectReference Include="..\Template.Persistence.PostgreSql\Template.Persistence.PostgreSql.csproj" />
@@ -131,6 +132,10 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Areas\Administration\Content\js\views\users\" />
 	</ItemGroup>
 
 </Project>

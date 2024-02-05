@@ -1,8 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
-using Template.Application.Features.Sample.Contracts;
-using Template.Application.Features.Sample.Contracts.DTOs;
+using Template.Application.Features.SampleContext.Contracts;
+using Template.Application.Features.SampleContext.Contracts.DTOs;
 
 namespace Template.Persistence.PosgreSql.Respositories.Sample
 {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Domain.Entities.Identity;
 
 namespace Template.WebApp.Areas.Identity.Pages.Account.Manage

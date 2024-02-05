@@ -18,6 +18,16 @@
     <ProjectReference Include="..\Template.Application\Template.Application.csproj" />
     <ProjectReference Include="..\Template.Common\Template.Common.csproj" />
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
+    <ProjectReference Include="..\Template.ExternalServices\Template.ExternalServices.csproj" />
+    <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="EmailTemplateContext\" />
+	  <Folder Include="UserContext\Command\" />
+	  <Folder Include="UserContext\Contracts\" />
+	  <Folder Include="UserContext\Events\" />
+	  <Folder Include="UserContext\Query\" />
+	</ItemGroup>
 
 </Project>

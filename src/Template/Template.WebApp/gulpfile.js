@@ -323,6 +323,15 @@ const build = series(
 
 const dev = series(build, keep_watching);
 
+
+exports.cleanup = clean_up;
+exports.vendors = vendors;
+exports.theme = theme;
+exports.images = images;
+exports.ts = ts;
+exports.js = js;
+exports.settings = settings;
+
 exports.dev = dev;
 exports.default = build;
 exports.images = images;

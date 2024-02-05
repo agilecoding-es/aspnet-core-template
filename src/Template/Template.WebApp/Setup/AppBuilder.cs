@@ -1,42 +1,26 @@
 ﻿using Mapster;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
-using System.Net;
-using System.Net.Mail;
-using System.Reflection.PortableExecutable;
 using Template.Application;
-using Template.Application.Behaviours;
-using Template.Application.Contracts;
-using Template.Application.Features;
-using Template.Application.Features.Identity;
-using Template.Application.Features.Sample.Contracts;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Common;
 using Template.Common.Extensions;
 using Template.Configuration;
 using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;
-using Template.Infrastructure.Mails;
-using Template.Infrastructure.Mails.AzureCommunicationService;
-using Template.Infrastructure.Mails.Smtp;
 using Template.Persistence.Identity.PosgreSql;
-using Template.Persistence.PosgreSql;
 using Template.Persistence.PosgreSql.Database;
-using Template.Persistence.PosgreSql.Respositories.Sample;
 using Template.Security.Authorization;
 using Template.Security.Authorization.Requirements;
 using Template.WebApp.Localization;
 using Template.WebApp.Resources;
 using Template.WebApp.Services.Rendering;
-using static Template.Common.Constants.Configuration;
-using LatencyHealthCheck = Template.WebApp.HealthChecks.LatencyHealthCheck;
 
 namespace Template.WebApp.Setup
 {
@@ -56,11 +40,11 @@ namespace Template.WebApp.Setup
         public ConfigurationManager Configuration { get; }
         public IWebHostEnvironment Environment { get; }
 
-        public IAppBuilder AddSettings(Action<IServiceCollection, ConfigurationManager> builder)
+        public IAppBuilder AddSettings(Action<IServiceCollection, ConfigurationManager> options)
         {
-            _ = builder ?? throw new ArgumentNullException(nameof(builder));
+            _ = options ?? throw new ArgumentNullException(nameof(options));
 
-            builder.Invoke(Services, Configuration);
+            options.Invoke(Services, Configuration);
 
             return this;
         }
@@ -266,7 +250,10 @@ namespace Template.WebApp.Setup
                             HealthCheckResult.Healthy("App is working as expected."),
                             new[] { "UI" }
                         )
-                        .AddNpgSql(appSettings.ConnectionStrings.DefaultConnection, tags: new[] { "database"});
+                        .AddNpgSql(appSettings.ConnectionStrings.DefaultConnection, tags: new[] { "database" });
+
+
+                Services.AddHealthChecksUI().AddInMemoryStorage();
 
                 //TODO: Prabar health check UI webhooks
                 //Services.AddHealthChecksUI(options =>

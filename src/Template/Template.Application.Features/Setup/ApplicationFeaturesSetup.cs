@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Template.Application.Behaviours;
 using Template.Application.Features;
+using Template.Application.Features.IdentityContext.Services;
 
 namespace Template.Configuration.Setup
 {
@@ -20,6 +22,8 @@ namespace Template.Configuration.Setup
                     configuration.RegisterServicesFromAssembly(ApplicationFeaturesAssembly.Assembly))
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(LogginBehavior<,>))
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+
+            appBuilder.Services.AddTransient<IEmailSender, AuthEmailSender>();
 
             return appBuilder;
 
