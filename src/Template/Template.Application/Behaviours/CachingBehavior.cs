@@ -8,7 +8,7 @@ using Template.Infrastructure.Caching.Service;
 namespace Template.Application.Behaviours
 {
     public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        //where TRequest : IRequest, ICacheable
+    //where TRequest : IRequest, ICacheable
     {
         //TODO: Reemplazar por Redis
         private readonly ICacheService cache;
@@ -42,10 +42,12 @@ namespace Template.Application.Behaviours
             }
 
             response = await next();
-            
-            logger.LogInformation($"[{DateTime.UtcNow}] Returning value from persistence and saving to cache service with key - {cacheableRequest.CacheKey}");
-            await cache.SetAsync($"-{cacheableRequest.CacheKey}", response, cancellationToken);
 
+            if (response is Result result && result.IsSuccess)
+            {
+                logger.LogInformation($"[{DateTime.UtcNow}] Returning value from persistence and saving to cache service with key - {cacheableRequest.CacheKey}");
+                await cache.SetAsync($"-{cacheableRequest.CacheKey}", response, cancellationToken);
+            }
             return response;
         }
     }

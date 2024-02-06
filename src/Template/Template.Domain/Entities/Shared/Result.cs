@@ -3,18 +3,34 @@ using System.Text.Json.Serialization;
 
 namespace Template.Domain.Entities.Shared
 {
-    public class Result
+    public interface IResult
+    {
+        bool IsSuccess { get; }
+        bool IsFailure { get; }
+    }
+
+    public interface IFailure
+    {
+        Exception Exception { get; }
+    }
+
+    public interface IHasValue<T>
+    {
+        T Value { get; }
+    }
+
+    public class Result : IResult
     {
         public Result() { }
 
-        public bool IsSuccess => true;
+        public virtual bool IsSuccess => true;
         public bool IsFailure => !IsSuccess;
 
         public static Result Success() => new();
         public static Failure Failure(Exception exception) => new(exception);
     }
 
-    public class Failure : Result
+    public class Failure : Result, IFailure
     {
         public Failure() { }
 
@@ -23,39 +39,26 @@ namespace Template.Domain.Entities.Shared
             Exception = exception;
         }
 
-        public new bool IsSuccess => false;
+        public override bool IsSuccess => false;
 
         public Exception Exception { get; }
     }
 
-    public abstract class ResultWithValue<T> : Result
-    {
-        public ResultWithValue() { }
-
-        protected internal ResultWithValue(T value) : base()
-        {
-            Value = value;
-        }
-
-        [JsonInclude]
-        public virtual T Value { get; protected init; }
-
-        public Exception Exception { get; protected set; }
-
-    }
-
-    public class Result<T> : ResultWithValue<T>
+    public class Result<T> : Result, IHasValue<T>
     {
         public Result() { }
 
-        protected internal Result(T value) : base(value) { }
+        protected internal Result(T value) : base() { }
+
+        [JsonInclude]
+        public virtual T Value { get; protected init; }
 
         public static Result<T> Success(T value) => new(value);
         public static new Failure<T> Failure(Exception exception) => new(exception);
 
     }
 
-    public class Failure<T> : Result<T>
+    public class Failure<T> : Result<T>, IFailure
     {
         public Failure() { }
 
@@ -67,7 +70,8 @@ namespace Template.Domain.Entities.Shared
         [JsonIgnore]
         public override sealed T Value => throw new InvalidOperationException("The value of a failure result can not be accessed.");
 
-        public new bool IsSuccess => false;
+        public override bool IsSuccess => false;
 
+        public Exception Exception { get; }
     }
 }

@@ -21,7 +21,8 @@ namespace Template.WebApp.Controllers
         public void HandleFailureResult(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
-            var failure = result as Failure;
+            var failure = result as IFailure;
+
 
             ResponseMessageViewModel responseMessage = null;
             if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
@@ -76,7 +77,8 @@ namespace Template.WebApp.Controllers
         public dynamic GetFailureMessageResponse(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
-            var failure = result as Failure;
+            var failure = result as IFailure;
+
 
             ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
 
