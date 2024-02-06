@@ -14,8 +14,6 @@ namespace Template.Configuration
 
         public AuthenticationProvidersOptions AuthenticationProviders { get; set; }
 
-        public MailSettingsOptions MailSettings { get; set; }
-
         public HealthChecksOptions HealthChecks { get; set; }
 
         public LoggingExceptionsOptions LoggingExceptions { get; set; }
@@ -40,8 +38,6 @@ namespace Template.Configuration
     public class ConnectionStrings
     {
         public string DefaultConnection { get; set; }
-        public string HealthChecksConnection { get; set; }
-        public string AzureCommunicationServiceConnection { get; set; }
 
     }
 
@@ -59,19 +55,6 @@ namespace Template.Configuration
         public const string Key = "Db";
 
         public string Provider { get; set; }
-    }
-
-    public class MailSettingsOptions
-    {
-        public const string Key = "MailSettings";
-
-        public string Host { get; set; }
-        public int Port { get; set; }
-        public bool EnableSSL { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string FromEmail { get; set; }
-        public string DisplayName { get; set; }
     }
 
     public class HealthChecksOptions

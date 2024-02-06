@@ -4,19 +4,18 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;
-using Template.Common.Extensions;
-using Template.Configuration;
+using Template.Infrastructure.EmailService.Smtp.Settings;
 
 namespace Template.Infrastructure.EmailService.Smtp
 {
     public class SmtpEmailClient : IEmailClient
     {
-        protected readonly MailSettingsOptions mailSettings;
+        protected readonly MailSettingOptions mailSettings;
         private readonly IWebHostEnvironment environment;
         private readonly ILogger logger;
 
         // Get our parameterized configuration
-        public SmtpEmailClient(IOptions<MailSettingsOptions> mailSettings, IWebHostEnvironment environment, ILogger<SmtpEmailClient> logger)
+        public SmtpEmailClient(IOptions<MailSettingOptions> mailSettings, IWebHostEnvironment environment, ILogger<SmtpEmailClient> logger)
         {
             this.mailSettings = mailSettings?.Value ?? throw new ArgumentNullException(nameof(mailSettings));
             this.environment = environment ?? throw new ArgumentNullException(nameof(environment));

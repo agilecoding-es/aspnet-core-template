@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Infrastructure.EmailService.Smtp;
-using Template.Infrastructure.EmailService;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net.Mail;
-using Microsoft.Extensions.Configuration;
 using System.Net;
+using System.Net.Mail;
+using Template.Infrastructure.EmailService;
+using Template.Infrastructure.EmailService.Smtp;
+using Template.Infrastructure.EmailService.Smtp.Settings;
 
 namespace Template.Configuration.Setup
 {
@@ -17,15 +12,15 @@ namespace Template.Configuration.Setup
     {
         public static IAppBuilder AddSmtpEmail(this IAppBuilder appBuilder)
         {
-            var mailSettings = appBuilder.Configuration.Get<MailSettingsOptions>();
-
             appBuilder.Services
-                .AddTransient(provider => new SmtpClient(mailSettings.Host, mailSettings.Port)
-                {
-                    Credentials = new NetworkCredential(mailSettings.UserName, mailSettings.Password),
-                    EnableSsl = mailSettings.EnableSSL
-                });
+                        .Configure<MailSettingOptions>(options =>
+                        {
+                            appBuilder.Configuration.GetSection(MailSettingOptions.Key).Bind(options);
+                        });
 
+
+            var mailSettings = appBuilder.Configuration.GetSection(MailSettingOptions.Key).Get<MailSettingOptions>();
+            appBuilder.Services.AddSingleton(mailSettings);
             appBuilder.Services.AddTransient<IEmailClient, SmtpEmailClient>();
 
             return appBuilder;

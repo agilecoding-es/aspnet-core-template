@@ -1,39 +1,50 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Template.Application.Abastractions;
+using System.Drawing;
+using Template.Domain.Entities.Shared;
+using Template.Infrastructure.Caching.Abastractions;
+using Template.Infrastructure.Caching.Service;
 
 namespace Template.Application.Behaviours
 {
     public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest, ICacheable
+        //where TRequest : IRequest, ICacheable
     {
         //TODO: Reemplazar por Redis
-        private readonly IMemoryCache _cache;
-        private readonly ILogger _logger;
+        private readonly ICacheService cache;
+        private readonly ILogger logger;
 
-        public CachingBehavior(IMemoryCache cache, ILogger<CachingBehavior<TRequest, TResponse>> logger)
+        public CachingBehavior(ICacheService cache, ILogger<CachingBehavior<TRequest, TResponse>> logger)
         {
-            _cache = cache;
-            _logger = logger;
+            this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            var requestName = request.GetType().Name;
-
-            _logger.LogInformation($"[{DateTime.UtcNow}] Caching request - {requestName}");
-
-            TResponse response;
-            if (_cache.TryGetValue(request.CacheKey, out response))
+            var cacheableRequest = request as ICacheable;
+            if (cacheableRequest is null)
             {
-                _logger.LogInformation($"[{DateTime.UtcNow}] Returning value from cache key - {request.CacheKey}");
+                return await next();
+            }
+
+            var requestName = cacheableRequest.GetType().Name;
+
+            logger.LogInformation($"[{DateTime.UtcNow}] Caching request - {requestName}");
+
+            TResponse response = await cache.GetAsync<TResponse>($"-{cacheableRequest.CacheKey}", cancellationToken);
+
+            if (!EqualityComparer<TResponse>.Default.Equals(response, default))
+            {
+                logger.LogInformation($"[{DateTime.UtcNow}] Returning value from cache key - {cacheableRequest.CacheKey}");
 
                 return response;
             }
 
             response = await next();
-            _cache.Set(request.CacheKey, response);
+            
+            logger.LogInformation($"[{DateTime.UtcNow}] Returning value from persistence and saving to cache service with key - {cacheableRequest.CacheKey}");
+            await cache.SetAsync($"-{cacheableRequest.CacheKey}", response, cancellationToken);
 
             return response;
         }

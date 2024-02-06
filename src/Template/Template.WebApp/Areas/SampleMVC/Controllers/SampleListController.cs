@@ -6,7 +6,6 @@ using System.Security.Claims;
 using Template.Application.Features.IdentityContext.Services;
 using Template.Application.Features.SampleContext.Contracts.DTOs;
 using Template.Application.Features.SampleContext.Items.Command;
-using Template.Application.Features.SampleContext.Lists;
 using Template.Application.Features.SampleContext.Lists.Command;
 using Template.Application.Features.SampleContext.Lists.Query;
 using Template.Domain.Entities.Shared;

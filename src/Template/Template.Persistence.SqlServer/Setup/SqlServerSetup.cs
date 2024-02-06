@@ -21,9 +21,6 @@ namespace Template.Configuration.Setup
 
             appBuilder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
-            if (settings.HealthChecks.Enabled)
-                appBuilder.Services.AddHealthChecksUI().AddSqlServerStorage(settings.ConnectionStrings.HealthChecksConnection);
-
             if (appBuilder.Environment.IsDevelopment())
                 appBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

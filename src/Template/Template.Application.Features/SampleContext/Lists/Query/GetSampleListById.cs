@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Template.Application.Abastractions;
 using Template.Application.Errors;
 using Template.Application.Exceptions;
 using Template.Application.Features.SampleContext.Contracts;
@@ -8,6 +7,7 @@ using Template.Application.Features.SampleContext.Contracts.DTOs;
 using Template.Common.Extensions;
 using Template.Domain.Entities.Sample;
 using Template.Domain.Entities.Shared;
+using Template.Infrastructure.Caching.Abastractions;
 
 namespace Template.Application.Features.SampleContext.Lists.Query
 {
@@ -15,7 +15,7 @@ namespace Template.Application.Features.SampleContext.Lists.Query
     {
         public sealed record Query(int ListId, bool NoTracking = false) : IRequest<Result<SampleListWithItemsDto>>, ICacheable
         {
-            public string CacheKey => $"GetSampleListById-{ListId}";
+            public string CacheKey => $"GetSampleListById[{ListId}]";
         }
 
         public class Handler : IRequestHandler<Query, Result<SampleListWithItemsDto>>

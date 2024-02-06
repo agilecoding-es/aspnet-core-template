@@ -90,6 +90,7 @@
 		<ProjectReference Include="..\Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure.EmailService.AzureCommunicationService\Template.Infrastructure.EmailService.AzureCommunicationService.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure.EmailService.Smtp\Template.Infrastructure.EmailService.Smtp.csproj" />
+		<ProjectReference Include="..\Template.Infrastructure.Caching.Redis\Template.Infrastructure.Caching.Redis.csproj" />
 		<ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
 		<ProjectReference Include="..\Template.Persistence.Identity.PostgreSql\Template.Persistence.Identity.PostgreSql.csproj" />
 		<ProjectReference Include="..\Template.Persistence.PostgreSql\Template.Persistence.PostgreSql.csproj" />

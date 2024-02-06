@@ -1,19 +1,18 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
-using System.Xml.Linq;
-using Template.Configuration;
 using Template.ExternalServices.EmailService.DTOs;
+using Template.Infrastructure.EmailService.Smtp.Settings;
 
 namespace Template.ExternalServices.EmailService.Listmonk
 {
     public class ListmonkService : IEmailService
     {
-        private readonly MailSettingsOptions mailSettings;
+        private readonly MailSettingOptions mailSettings;
         private readonly IHttpClientFactory httpClientFactory;
         private readonly ILogger logger;
 
-        public ListmonkService(MailSettingsOptions mailSettings, IHttpClientFactory httpClientFactory, ILogger<ListmonkService> logger)
+        public ListmonkService(MailSettingOptions mailSettings, IHttpClientFactory httpClientFactory, ILogger<ListmonkService> logger)
         {
             this.mailSettings = mailSettings ?? throw new ArgumentNullException(nameof(mailSettings));
             this.httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));

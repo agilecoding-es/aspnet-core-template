@@ -99,6 +99,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Ema
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.ExternalServices.EmailService.Listmonk", "Template.ExternalServices.EmailService.Listmonk\Template.ExternalServices.EmailService.Listmonk.csproj", "{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Caching", "Caching", "{7B9C4040-A138-4034-B9CD-22DA9BB93F37}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Caching.Redis", "Template.Infrastructure.Caching.Redis\Template.Infrastructure.Caching.Redis.csproj", "{CB2512DE-B3B1-4E35-B19F-9C2AC590659E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Caching", "Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj", "{AFA71408-5029-4D06-9974-315A9E06B7A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +187,14 @@ Global
 		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB2512DE-B3B1-4E35-B19F-9C2AC590659E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB2512DE-B3B1-4E35-B19F-9C2AC590659E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB2512DE-B3B1-4E35-B19F-9C2AC590659E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB2512DE-B3B1-4E35-B19F-9C2AC590659E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA71408-5029-4D06-9974-315A9E06B7A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA71408-5029-4D06-9974-315A9E06B7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA71408-5029-4D06-9974-315A9E06B7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA71408-5029-4D06-9974-315A9E06B7A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -215,10 +229,13 @@ Global
 		{5B6C8841-E262-43B9-AB2C-127BDE786903} = {E912A677-6CD4-4302-ADFD-543074E98913}
 		{019CA46E-93BB-4D8A-846C-B55856F39B03} = {E912A677-6CD4-4302-ADFD-543074E98913}
 		{F412AFAD-50B9-45F4-9F1F-DC79C666CC2B} = {EC12B712-D0E5-410A-98D9-2AD96B3E8BC5}
+		{7B9C4040-A138-4034-B9CD-22DA9BB93F37} = {3B322308-A8AC-4F0E-BCB1-78D2339F5385}
+		{CB2512DE-B3B1-4E35-B19F-9C2AC590659E} = {7B9C4040-A138-4034-B9CD-22DA9BB93F37}
+		{AFA71408-5029-4D06-9974-315A9E06B7A3} = {7B9C4040-A138-4034-B9CD-22DA9BB93F37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_EnableXlifSync = False
-		RESX_SortFileContentOnSave = True
 		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
+		RESX_SortFileContentOnSave = True
+		RESX_EnableXlifSync = False
 	EndGlobalSection
 EndGlobal

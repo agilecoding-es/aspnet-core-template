@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Abastractions
+﻿namespace Template.Infrastructure.Caching.Abastractions
 {
     public interface ICacheable
     {

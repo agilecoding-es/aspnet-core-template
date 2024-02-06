@@ -21,6 +21,7 @@ namespace Template.WebApp.Controllers
         public void HandleFailureResult(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
+            var failure = result as Failure;
 
             ResponseMessageViewModel responseMessage = null;
             if (TempData[TempDataKey.MESSAGE_RESPONSE] == null)
@@ -28,14 +29,14 @@ namespace Template.WebApp.Controllers
             else
                 responseMessage = (TempData[TempDataKey.MESSAGE_RESPONSE] as string).Deserialize<ResponseMessageViewModel>();
 
-            if (!(result.Exception is ValidationException || result.Exception is DomainException))
+            if (!(failure.Exception is ValidationException || failure.Exception is DomainException))
             {
                 responseMessage.AddErrorMessage(localizer.GetString("Shared_Message_ErrorOccured"));
             }
             else
             {
                 //ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
-                responseMessage.AddValidationMessage(result.Exception.Message);
+                responseMessage.AddValidationMessage(failure.Exception.Message);
             }
 
             TempData[TempDataKey.MESSAGE_RESPONSE] = responseMessage.Serialize();
@@ -75,17 +76,18 @@ namespace Template.WebApp.Controllers
         public dynamic GetFailureMessageResponse(Result result, string elementId = null)
         {
             _ = result ?? throw new ArgumentNullException(nameof(result));
+            var failure = result as Failure;
 
             ResponseMessageViewModel responseMessage = ResponseMessageViewModel.Create(elementId);
 
-            if (!(result.Exception is ValidationException || result.Exception is DomainException))
+            if (!(failure.Exception is ValidationException || failure.Exception is DomainException))
             {
                 responseMessage.AddErrorMessage(localizer.GetString("Shared_Message_ErrorOccured"));
             }
             else
             {
                 //ModelState.AddModelError(Constants.KeyErrors.ValidationError, result.Exception.Message);
-                responseMessage.AddValidationMessage(result.Exception.Message);
+                responseMessage.AddValidationMessage(failure.Exception.Message);
             }
 
             return new { success = false, content = responseMessage.Serialize() };

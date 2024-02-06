@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Communication.Email" Version="1.0.1" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Template.Configuration\Template.Configuration.csproj" />
-    <ProjectReference Include="..\Template.Infrastructure.EmailService.Smtp\Template.Infrastructure.EmailService.Smtp.csproj" />
-    <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

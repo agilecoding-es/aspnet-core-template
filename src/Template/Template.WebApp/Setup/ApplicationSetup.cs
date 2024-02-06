@@ -22,11 +22,13 @@ namespace Template.WebApp.Setup
                 CreateAppBuilder(builder)
                 .AddSettings()
                 .AddPostgreSql(connectionString)
+                .AddRedisCacheService()
                 .AddListmonkEmailService()
                 .AddIdentity()
                 .AddPresentation()
                 .AddApplicationFeatures()
-                .AddHelthChecks();
+                .AddRedisCacheService()
+                .AddHealthChecks();
 
             if (builder.Environment.IsStaging())
             {
