@@ -36,11 +36,11 @@ services:
      image: postgres:latest
      container_name: temp.postgres.int-test
      ports:
-       - "9003:5432"
+       - "8003:5432"
      environment:
        POSTGRES_USER: "postgres"
        POSTGRES_PASSWORD: "sa!Password-123"
-       POSTGRES_DB: "TemplateApp"
+       POSTGRES_DB: "TemplateAppIntegrationTests"
      healthcheck:
        test: ["CMD-SHELL", "pg_isready -U postgres"]
        interval: 10s
