@@ -48,7 +48,10 @@ namespace Template.Domain.Entities.Shared
     {
         public Result() { }
 
-        protected internal Result(T value) : base() { }
+        protected internal Result(T value) : base()
+        {
+            Value = value;
+        }
 
         [JsonInclude]
         public virtual T Value { get; protected init; }
