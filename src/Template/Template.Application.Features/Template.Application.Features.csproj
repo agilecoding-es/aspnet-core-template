@@ -6,9 +6,18 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="EmailTemplateContext\**" />
+    <Compile Remove="UserContext\**" />
+    <EmbeddedResource Remove="EmailTemplateContext\**" />
+    <EmbeddedResource Remove="UserContext\**" />
+    <None Remove="EmailTemplateContext\**" />
+    <None Remove="UserContext\**" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Mapster" Version="7.3.0" />
-		<PackageReference Include="MediatR" Version="12.0.1" />
+		<PackageReference Include="MediatR" Version="12.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
 
@@ -18,6 +27,9 @@
     <ProjectReference Include="..\Template.Application\Template.Application.csproj" />
     <ProjectReference Include="..\Template.Common\Template.Common.csproj" />
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
+    <ProjectReference Include="..\Template.ExternalServices\Template.ExternalServices.csproj" />
+    <ProjectReference Include="..\Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj" />
+    <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

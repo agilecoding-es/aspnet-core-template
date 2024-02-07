@@ -1,4 +1,4 @@
-﻿using Template.Application.Features.Sample.Contracts;
+﻿using Template.Application.Features.SampleContext.Contracts;
 using Template.Domain.Entities.Sample;
 using Template.Persistence.PosgreSql.Database;
 

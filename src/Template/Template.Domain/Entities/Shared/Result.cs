@@ -1,49 +1,80 @@
-﻿namespace Template.Domain.Entities.Shared
+﻿using System;
+using System.Text.Json.Serialization;
+
+namespace Template.Domain.Entities.Shared
 {
-    public class Result
+    public interface IResult
     {
-        protected internal Result(bool isSucess, Exception? exception)
-        {
-            if (isSucess && exception != null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            if (!isSucess && exception == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            IsSuccess = isSucess;
-            Exception = exception;
-
-        }
-
-        public bool IsSuccess { get; }
-        public bool IsFailure => !IsSuccess;
-
-        public Exception? Exception { get; }
-
-        public static Result Success() => new(true, null);
-        public static Result Failure(Exception exception) => new(false, exception);
+        bool IsSuccess { get; }
+        bool IsFailure { get; }
     }
 
-    public class Result<TValue> : Result
+    public interface IFailure
     {
-        private readonly TValue? value;
+        Exception Exception { get; }
+    }
 
-        protected internal Result(TValue? value, bool isSucess, Exception? exception) : base(isSucess, exception)
+    public interface IHasValue<T>
+    {
+        T Value { get; }
+    }
+
+    public class Result : IResult
+    {
+        public Result() { }
+
+        public virtual bool IsSuccess => true;
+        public bool IsFailure => !IsSuccess;
+
+        public static Result Success() => new();
+        public static Failure Failure(Exception exception) => new(exception);
+    }
+
+    public class Failure : Result, IFailure
+    {
+        public Failure() { }
+
+        protected internal Failure(Exception exception) : base()
         {
-            this.value = value;
+            Exception = exception;
         }
 
-        public TValue Value => IsSuccess ? value : throw new InvalidOperationException("The value of a failure result can not be accessed.");
+        public override bool IsSuccess => false;
 
-        public static implicit operator Result<TValue>(TValue? value) => new Result<TValue>(value, true, null);
+        public Exception Exception { get; }
+    }
 
-        public static Result<TValue> Success(TValue value) => new(value, true, null);
-        public static new Result<TValue> Success() => new(default, true, null);
-        public static Result<TValue> Failure<TException>(TException exception) where TException : Exception
-            => new(default, false, exception);
+    public class Result<T> : Result, IHasValue<T>
+    {
+        public Result() { }
+
+        protected internal Result(T value) : base()
+        {
+            Value = value;
+        }
+
+        [JsonInclude]
+        public virtual T Value { get; protected init; }
+
+        public static Result<T> Success(T value) => new(value);
+        public static new Failure<T> Failure(Exception exception) => new(exception);
+
+    }
+
+    public class Failure<T> : Result<T>, IFailure
+    {
+        public Failure() { }
+
+        protected internal Failure(Exception exception) : base(default)
+        {
+            Exception = exception;
+        }
+
+        [JsonIgnore]
+        public override sealed T Value => throw new InvalidOperationException("The value of a failure result can not be accessed.");
+
+        public override bool IsSuccess => false;
+
+        public Exception Exception { get; }
     }
 }

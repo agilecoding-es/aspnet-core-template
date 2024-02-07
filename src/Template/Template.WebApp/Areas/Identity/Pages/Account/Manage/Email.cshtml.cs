@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Domain.Entities.Identity;
 
 namespace Template.WebApp.Areas.Identity.Pages.Account.Manage

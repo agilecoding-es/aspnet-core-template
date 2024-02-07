@@ -30,7 +30,7 @@
 }
 <form method="post">
     <div class="row">
-        <div class="col-4">
+        <div class="col-5">
             <div asp-messages="All" hiding-delay="15" class="message-absolute position-absolute top-0 end-0"></div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
             <div class="d-flex align-items-start flex-column flex-grow-1">
@@ -47,12 +47,12 @@
                 <div class="w-100">
                     <hr class="silver" />
                     <a class="btn btn-outline-light-blue-2 me-2" asp-action="Index">@Localizer["Shared_Buttons_BackToList"]</a>
-
                     <input type="submit" value="@Localizer["Shared_Buttons_Update"]" class="btn btn-primary" />
+                    <button id="resendConfirmation" data-userid="@Model.Id" class="btn btn-outline-warning">@Localizer["Identity_Account_Login_ReserndConfirmation"]</button>
                 </div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-7">
             <div class="card">
                 <div class="card-header">
                     <h3>@Localizer["Administration_User_Edit_RolesSection"]</h3>
@@ -110,4 +110,10 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <environment include="Development">
+        <script type="text/javascript" src="~/Content/js/areas/administration/views/users/edit.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script type="text/javascript" src="~/Content/js/areas/administration/views/users/edit.bundle.min.js"></script>
+    </environment>
 }

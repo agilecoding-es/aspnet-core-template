@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using Template.Application.Features.Identity;
+using Template.Application.Features.IdentityContext.Services;
 using Template.Common;
 using Template.Domain.Entities.Identity;
 using Template.Security.Authorization;
@@ -22,7 +22,6 @@ namespace Template.WebApp.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IdentityOptions _identityOptions;
 
         public RegisterModel(
             UserManager userManager,

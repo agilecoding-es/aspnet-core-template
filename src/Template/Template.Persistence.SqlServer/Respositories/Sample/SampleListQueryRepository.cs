@@ -1,8 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using Template.Application.Features.Sample.Contracts;
-using Template.Application.Features.Sample.Contracts.DTOs;
+using Template.Application.Features.SampleContext.Contracts;
+using Template.Application.Features.SampleContext.Contracts.DTOs;
 
 namespace Template.Persistence.SqlServer.Respositories.Sample
 {

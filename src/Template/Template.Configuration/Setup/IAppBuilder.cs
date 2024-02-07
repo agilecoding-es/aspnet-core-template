@@ -16,7 +16,7 @@ namespace Template.Configuration.Setup
         ConfigurationManager Configuration { get; }
         IWebHostEnvironment Environment { get; }
 
-        IAppBuilder AddSettings(Action<IServiceCollection, ConfigurationManager> builder);
+        IAppBuilder AddSettings(Action<IServiceCollection, ConfigurationManager> options);
         IAppBuilder AddPresentation();
         IAppBuilder AddIdentity();
         IAppBuilder AddAuthentication();
@@ -24,7 +24,7 @@ namespace Template.Configuration.Setup
         IAppBuilder AddDependencies();
         IAppBuilder AddResources();
         IAppBuilder AddMapster();
-        IAppBuilder AddHelthChecks();
+        IAppBuilder AddHealthChecks();
 
         WebApplication Build();
     }

@@ -12,10 +12,10 @@ namespace Template.Infrastructure.Mails.Smtp
         private readonly ILogger logger;
 
         // Get our parameterized configuration
-        public SmtpEmailAdapter(IOptions<Mailsettings> mailSettings, ILogger<SmtpEmailAdapter> logger)
+        public SmtpEmailAdapter(Mailsettings mailSettings, ILogger<SmtpEmailAdapter> logger)
         {
-            this.mailSettings = mailSettings.Value;
-            this.logger = logger;
+            this.mailSettings = mailSettings ?? throw new ArgumentNullException(nameof(mailSettings));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         // Use our configuration to send the email by using SmtpClient
@@ -48,8 +48,7 @@ namespace Template.Infrastructure.Mails.Smtp
             }
             catch
             {
-                //TODO: Agregar Logging
-                throw;
+                logger.LogError("An error occurred while sending the email.");
             }
         }
 

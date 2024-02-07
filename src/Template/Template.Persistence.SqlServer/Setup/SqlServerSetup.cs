@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Template.Application.Contracts;
-using Template.Application.Features.Logging.Contracts;
-using Template.Application.Features.Sample.Contracts;
+using Template.Application.Features.LoggingContext.Contracts;
+using Template.Application.Features.SampleContext.Contracts;
 using Template.Persistence.SqlServer;
 using Template.Persistence.SqlServer.Database;
 using Template.Persistence.SqlServer.Respositories.Logging;
@@ -20,9 +20,6 @@ namespace Template.Configuration.Setup
             var settings = appBuilder.Configuration.Get<AppSettings>();
 
             appBuilder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
-
-            if (settings.HealthChecks.Enabled)
-                appBuilder.Services.AddHealthChecksUI().AddSqlServerStorage(settings.ConnectionStrings.HealthChecksConnection);
 
             if (appBuilder.Environment.IsDevelopment())
                 appBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();

@@ -12,25 +12,16 @@ namespace Template.Configuration.Setup
     {
         public static IAppBuilder AddSettings(this IAppBuilder appBuilder)
         {
-            appBuilder.Services.Configure<AppSettings>(appBuilder.Configuration)
-                    .Configure<Mailsettings>(options =>
-                    {
-                        appBuilder.Configuration.GetSection(nameof(Mailsettings)).Bind(options);
-                    })
-                    .Configure<LogMiddleware>(options =>
-                    {
-                        appBuilder.Configuration.GetSection(nameof(LogMiddleware)).Bind(options);
-                    });
+            appBuilder.Services
+                        .Configure<AppSettings>(appBuilder.Configuration)
+                        .Configure<LoggingExceptionsOptions>(options =>
+                        {
+                            appBuilder.Configuration.GetSection(LoggingExceptionsOptions.Key).Bind(options);
+                        });
 
 
-            var appSettings = appBuilder.Configuration.Get<AppSettings>();
-            appBuilder.Services.AddSingleton(appSettings);
-            
-            var mailSettings = appBuilder.Configuration.Get<Mailsettings>();
-            appBuilder.Services.AddSingleton(mailSettings);
-
-            var logMiddlewareSettings = appBuilder.Configuration.Get<LogMiddleware>();
-            appBuilder.Services.AddSingleton(logMiddlewareSettings);
+            appBuilder.Services.AddSingleton(appBuilder.Configuration.Get<AppSettings>());
+            appBuilder.Services.AddSingleton(appBuilder.Configuration.GetSection(LoggingExceptionsOptions.Key).Get<LoggingExceptionsOptions>());
 
             return appBuilder;
         }
