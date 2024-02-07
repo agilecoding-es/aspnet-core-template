@@ -1,5 +1,5 @@
 # *****************************************************************************************
-# Etapa de configuraci髇 base
+# Etapa de configuraci贸n base
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 # ----------------------------------------------------------------------------------------
     
@@ -23,7 +23,7 @@ ARG ASPNETCORE_ENVIRONMENT
 ENV ASPNETCORE_ENVIRONMENT ${ASPNETCORE_ENVIRONMENT:-Production}
 
 # *****************************************************************************************
-# Etapa de construcci髇 de la parte web
+# Etapa de construcci贸n de la parte web
 FROM base AS web-build
 # ----------------------------------------------------------------------------------------
 WORKDIR /web
@@ -34,7 +34,7 @@ RUN if [ "${ASPNETCORE_ENVIRONMENT}" = "Production" ]; then npm run build; else 
 
 
 # *****************************************************************************************
-# Etapa de construcci髇 de la aplicaci髇 .NET
+# Etapa de construcci贸n de la aplicaci贸n .NET
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 # ----------------------------------------------------------------------------------------
 WORKDIR /src
@@ -54,7 +54,7 @@ COPY ["Template.Persistence.Identity.SqlServer/Template.Persistence.Identity.Sql
 COPY ["Template.Persistence.PostgreSql/Template.Persistence.PostgreSql.csproj", "Template.Persistence.PostgreSql/"]
 COPY ["Template.Persistence.Identity.PostgreSql/Template.Persistence.Identity.PostgreSql.csproj", "Template.Persistence.Identity.PostgreSql/"]
 COPY ["Template.ExternalServices/Template.ExternalServices.csproj", "Template.ExternalServices/"]
-COPY ["Template.ExternalServices/Template.ExternalServices.EmailService.Listmonk.csproj", "Template.ExternalServices.EmailService.Listmonk/"]
+COPY ["Template.ExternalServices.EmailService.Listmonk/Template.ExternalServices.EmailService.Listmonk.csproj", "Template.ExternalServices.EmailService.Listmonk/"]
 COPY ["Template.Security/Template.Security.csproj", "Template.Security/"]
 RUN dotnet restore "Template.WebApp/Template.WebApp.csproj"
 
@@ -69,7 +69,7 @@ RUN dotnet build "Template.WebApp.csproj" -c Release -o /app/build
 
 
 # *****************************************************************************************
-# Etapa de publicaci髇
+# Etapa de publicaci贸n
 FROM build AS publish
 # ----------------------------------------------------------------------------------------
 RUN dotnet publish "Template.WebApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
