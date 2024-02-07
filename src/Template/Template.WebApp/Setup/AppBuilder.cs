@@ -234,7 +234,9 @@ namespace Template.WebApp.Setup
             return this;
         }
 
-        public IAppBuilder AddHelthChecks()
+
+        //TODO: Crear proyecto de healthcheck y separar la configuracion, heredar la configuracion para cada componente (bd, redis, etc)
+        public IAppBuilder AddHealthChecks()
         {
             var appSettings = Configuration.Get<AppSettings>();
 
@@ -255,7 +257,7 @@ namespace Template.WebApp.Setup
 
                 Services.AddHealthChecksUI().AddInMemoryStorage();
 
-                //TODO: Prabar health check UI webhooks
+                //TODO: Probar health check UI webhooks
                 //Services.AddHealthChecksUI(options =>
                 //{
                 //    options.AddWebhookNotification("email",

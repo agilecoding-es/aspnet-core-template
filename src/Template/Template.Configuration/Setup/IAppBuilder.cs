@@ -24,7 +24,7 @@ namespace Template.Configuration.Setup
         IAppBuilder AddDependencies();
         IAppBuilder AddResources();
         IAppBuilder AddMapster();
-        IAppBuilder AddHelthChecks();
+        IAppBuilder AddHealthChecks();
 
         WebApplication Build();
     }

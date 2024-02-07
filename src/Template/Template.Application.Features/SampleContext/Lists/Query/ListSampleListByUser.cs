@@ -1,18 +1,18 @@
 ﻿using MediatR;
-using Template.Application.Abastractions;
 using Template.Application.Features.SampleContext.Contracts;
 using Template.Application.Features.SampleContext.Contracts.DTOs;
 using Template.Common.Extensions;
 using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Shared;
+using Template.Infrastructure.Caching.Abastractions;
 
-namespace Template.Application.Features.SampleContext.Lists
+namespace Template.Application.Features.SampleContext.Lists.Query
 {
     public static class ListSampleListByUser
     {
         public sealed record Query(User User) : IRequest<Result<List<SampleListWithItemsCountDto>>>, ICacheable
         {
-            public string CacheKey => $"ListSampleListByUser-{User.Id}";
+            public string CacheKey => $"ListSampleListByUser[{User.Id}]";
         }
 
         public class Handler : IRequestHandler<Query, Result<List<SampleListWithItemsCountDto>>>

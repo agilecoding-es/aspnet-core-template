@@ -24,7 +24,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Run Unit Tests
+    - name: Run Tests
       run: docker compose -f ./src/Template/docker-compose.unittests.yml up
       continue-on-error: false
       
@@ -38,6 +38,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Run Unit Tests
-      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.webapp.integrationtests
+    - name: Run Tests
+      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.webapp.integrationtests --build
       continue-on-error: false
