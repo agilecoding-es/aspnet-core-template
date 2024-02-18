@@ -17,12 +17,17 @@ namespace Template.Configuration.Setup
                         .Configure<LoggingExceptionsOptions>(options =>
                         {
                             appBuilder.Configuration.GetSection(LoggingExceptionsOptions.Key).Bind(options);
+                        })
+                        .Configure<MessageBrokerServiceOptions>(options =>
+                        {
+                            appBuilder.Configuration.GetSection(MessageBrokerServiceOptions.Key).Bind(options);
                         });
 
 
             appBuilder.Services.AddSingleton(appBuilder.Configuration.Get<AppSettings>());
             appBuilder.Services.AddSingleton(appBuilder.Configuration.GetSection(LoggingExceptionsOptions.Key).Get<LoggingExceptionsOptions>());
 
+            appBuilder.Services.AddSingleton(appBuilder.Configuration.GetSection(MessageBrokerServiceOptions.Key).Get<MessageBrokerServiceOptions>());
             return appBuilder;
         }
     }

@@ -13,14 +13,14 @@ namespace Template.Configuration.Setup
         public static IAppBuilder AddSmtpEmail(this IAppBuilder appBuilder)
         {
             appBuilder.Services
-                        .Configure<MailSettingOptions>(options =>
+                        .Configure<EmailServiceOptions>(options =>
                         {
-                            appBuilder.Configuration.GetSection(MailSettingOptions.Key).Bind(options);
+                            appBuilder.Configuration.GetSection(EmailServiceOptions.Key).Bind(options);
                         });
 
 
-            var mailSettings = appBuilder.Configuration.GetSection(MailSettingOptions.Key).Get<MailSettingOptions>();
-            appBuilder.Services.AddSingleton(mailSettings);
+            var emailServiceOptions = appBuilder.Configuration.GetSection(EmailServiceOptions.Key).Get<EmailServiceOptions>();
+            appBuilder.Services.AddSingleton(emailServiceOptions);
             appBuilder.Services.AddTransient<IEmailClient, SmtpEmailClient>();
 
             return appBuilder;

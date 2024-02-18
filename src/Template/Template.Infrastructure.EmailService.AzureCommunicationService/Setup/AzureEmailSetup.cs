@@ -17,14 +17,14 @@ namespace Template.Configuration.Setup
         public static IAppBuilder AddAzureEmail(this IAppBuilder appBuilder)
         {
             appBuilder.Services
-                    .Configure<AzureMailSettingOptions>(options =>
+                    .Configure<AzureEmailServiceOptions>(options =>
                     {
-                        appBuilder.Configuration.GetSection(nameof(AzureMailSettingOptions)).Bind(options);
+                        appBuilder.Configuration.GetSection(nameof(AzureEmailServiceOptions)).Bind(options);
                     });
 
 
-            var mailSettings = appBuilder.Configuration.Get<AzureMailSettingOptions>();
-            appBuilder.Services.AddSingleton(mailSettings);
+            var azureEmailServiceOptions = appBuilder.Configuration.Get<AzureEmailServiceOptions>();
+            appBuilder.Services.AddSingleton(azureEmailServiceOptions);
 
             appBuilder.Services.AddTransient<IEmailClient, AzureEmailClient>();
 

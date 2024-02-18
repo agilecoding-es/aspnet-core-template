@@ -9,20 +9,20 @@ namespace Template.WebApp.UnitTests.Localization
 {
     public class CultureHelperTests
     {
-        private Mock<IOptions<AppSettings>> appSettingsOptions;
+        private Mock<IOptions<AppSettings>> settings;
         private Mock<IOptions<RequestLocalizationOptions>> localizationOptions;
 
 
         public CultureHelperTests()
         {
-            appSettingsOptions = new Mock<IOptions<AppSettings>>();
+            settings = new Mock<IOptions<AppSettings>>();
             localizationOptions = new Mock<IOptions<RequestLocalizationOptions>>();
         }
 
         [Fact]
         public void GetCulture_WhenConfigured_ReturnsCultureInfo()
         {
-            appSettingsOptions.Setup(s => s.Value).Returns(new AppSettings());
+            settings.Setup(s => s.Value).Returns(new AppSettings());
             localizationOptions.Setup(s => s.Value).Returns(new RequestLocalizationOptions() { SupportedCultures = GetConfiguredCultures() });
 
             var requestCulture = "es-ES";
@@ -38,7 +38,7 @@ namespace Template.WebApp.UnitTests.Localization
         [Fact]
         public void GetCulture_WhenNotConfigured_ReturnsNull()
         {
-            appSettingsOptions.Setup(s => s.Value).Returns(new AppSettings());
+            settings.Setup(s => s.Value).Returns(new AppSettings());
             localizationOptions.Setup(s => s.Value).Returns(new RequestLocalizationOptions() { SupportedCultures = GetConfiguredCultures() });
 
             var requestCulture = "es-AR";
@@ -49,7 +49,7 @@ namespace Template.WebApp.UnitTests.Localization
             Assert.Null(culture);
         }
 
-        private CultureHelper InitializeCultureHelper() => new CultureHelper(appSettingsOptions.Object, localizationOptions.Object);
+        private CultureHelper InitializeCultureHelper() => new CultureHelper(settings.Object, localizationOptions.Object);
 
         private IList<CultureInfo> GetConfiguredCultures() => new[] {
             new CultureInfo("en-US"),

@@ -914,7 +914,7 @@ namespace Template.WebApp.Resources {
         ///                &lt;a href=&quot;https://go.microsoft.com/fwlink/?Linkid=825073&quot;&gt;iOS&lt;/a&gt; or
         ///                Google Authenticator for
         ///                &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;amp;hl=en&quot;&gt;Android&lt;/a&gt; and
-        ///                &lt;a href=&quot;https://itunes.apple.com/us/app/google-authenticator/id38849760 [rest of string was truncated]&quot;;.
+        ///                &lt;a href=&quot;https://itunes.apple.com/us/app/google-authenticator/id388 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Identity_Account_Manage_EnableAuthenticator_Step1 {
             get {
@@ -1050,7 +1050,7 @@ namespace Template.WebApp.Resources {
         ///    &lt;p&gt;
         ///        Generating new recovery codes does not change the keys used in authenticator apps. If you wish to change the key
         ///        used in an authenticator app you should &lt;a asp-page=&quot;./ResetAuthenticator&quot;&gt;reset your authenticator keys.&lt;/a&gt;
-        ///    &lt;/p&gt;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Identity_Account_Manage_GenerateRecoveryCodes_Description {
             get {

@@ -4,7 +4,7 @@ using Template.Application.Errors;
 using Template.Application.Exceptions;
 using Template.Application.Features.SampleContext.Contracts;
 using Template.Application.Features.SampleContext.Contracts.DTOs;
-using Template.Common.Extensions;
+using Template.Common.FunctionalExtensions;
 using Template.Domain.Entities.Sample;
 using Template.Domain.Entities.Shared;
 using Template.Infrastructure.Caching.Abastractions;

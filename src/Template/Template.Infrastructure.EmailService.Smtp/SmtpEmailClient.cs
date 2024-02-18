@@ -10,14 +10,14 @@ namespace Template.Infrastructure.EmailService.Smtp
 {
     public class SmtpEmailClient : IEmailClient
     {
-        protected readonly MailSettingOptions mailSettings;
+        protected readonly EmailServiceOptions emailServiceOptions;
         private readonly IWebHostEnvironment environment;
         private readonly ILogger logger;
 
         // Get our parameterized configuration
-        public SmtpEmailClient(IOptions<MailSettingOptions> mailSettings, IWebHostEnvironment environment, ILogger<SmtpEmailClient> logger)
+        public SmtpEmailClient(IOptions<EmailServiceOptions> emailServiceOptions, IWebHostEnvironment environment, ILogger<SmtpEmailClient> logger)
         {
-            this.mailSettings = mailSettings?.Value ?? throw new ArgumentNullException(nameof(mailSettings));
+            this.emailServiceOptions = emailServiceOptions?.Value ?? throw new ArgumentNullException(nameof(emailServiceOptions));
             this.environment = environment ?? throw new ArgumentNullException(nameof(environment));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -27,27 +27,27 @@ namespace Template.Infrastructure.EmailService.Smtp
         {
             try
             {
-                logger.LogInformation($"Mail Host: {mailSettings.Host}");
+                logger.LogInformation($"Mail Host: {emailServiceOptions.Host}");
                 SmtpClient smtpClient = null;
                 if (environment.IsDevelopment())
                 {
-                    smtpClient = new SmtpClient(mailSettings.Host, mailSettings.Port)
+                    smtpClient = new SmtpClient(emailServiceOptions.Host, emailServiceOptions.Port)
                     {
-                        EnableSsl = mailSettings.EnableSSL
+                        EnableSsl = emailServiceOptions.EnableSSL
                     };
                 }
                 else
                 {
-                    smtpClient = new SmtpClient(mailSettings.Host, mailSettings.Port)
+                    smtpClient = new SmtpClient(emailServiceOptions.Host, emailServiceOptions.Port)
                     {
-                        EnableSsl = mailSettings.EnableSSL,
+                        EnableSsl = emailServiceOptions.EnableSSL,
                         UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential(mailSettings.UserName, mailSettings.Password)
+                        Credentials = new NetworkCredential(emailServiceOptions.UserName, emailServiceOptions.Password)
                     };
                 }
-                logger.LogInformation($"Mail Username: {mailSettings.UserName}");
+                logger.LogInformation($"Mail Username: {emailServiceOptions.UserName}");
                 var emailMessage = new MailMessage(
-                    new MailAddress(mailSettings.FromEmail, mailSettings.DisplayName),
+                    new MailAddress(emailServiceOptions.FromEmail, emailServiceOptions.DisplayName),
                     new MailAddress(email, displayName)
                     );
                 emailMessage.Subject = subject;

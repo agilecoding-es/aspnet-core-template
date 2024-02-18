@@ -15,7 +15,7 @@ namespace Template.Application.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            var requestName = request!.GetType().Name;
+            var requestName = request.GetType().Namespace.Replace("Template.Application.Features.", string.Empty);
 
             _logger.LogInformation($"[{DateTime.UtcNow}] Start request - {requestName}");
             var timer = Stopwatch.StartNew();

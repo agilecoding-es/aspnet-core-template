@@ -34,5 +34,15 @@
             public const string GenericError = "GenericError";
             public const string ValidationError = "ValidationError";
         }
+
+        public static class InternalErrors
+        {
+            public static class Entity
+            {
+                public const string DomainEvent_CannotBeNull = "DomainEvent cannot be null.";
+                public const string DomainEvent_ShouldBeOfType = "DomainEvent should of type IDomainEvent or IAsyncDomainEvent.";
+
+            }
+        }
     }
 }

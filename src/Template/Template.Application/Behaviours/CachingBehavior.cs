@@ -8,9 +8,7 @@ using Template.Infrastructure.Caching.Service;
 namespace Template.Application.Behaviours
 {
     public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    //where TRequest : IRequest, ICacheable
     {
-        //TODO: Reemplazar por Redis
         private readonly ICacheService cache;
         private readonly ILogger logger;
 

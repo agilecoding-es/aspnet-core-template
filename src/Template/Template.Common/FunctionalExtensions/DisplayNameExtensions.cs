@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace Template.Common.Extensions
+namespace Template.Common.FunctionalExtensions
 {
-    public static class TypeExtensions
+    public static class DisplayNameExtensions
     {
         public static string GetDisplayName<T>(this T someClass)
         {

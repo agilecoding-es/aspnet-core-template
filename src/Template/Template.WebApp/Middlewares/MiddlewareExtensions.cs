@@ -8,10 +8,10 @@ namespace Template.WebApp.Middlewares
         {
             if (configure != null)
             {
-                var loggingExceptionsSettings = new LoggingExceptionsOptions();
-                configure(loggingExceptionsSettings);
+                var loggingExceptionsOptions = new LoggingExceptionsOptions();
+                configure(loggingExceptionsOptions);
 
-                return applicationBuilder.UseMiddleware<LogExceptionMiddleware>(loggingExceptionsSettings);
+                return applicationBuilder.UseMiddleware<LogExceptionMiddleware>(loggingExceptionsOptions);
             }
             else
             {

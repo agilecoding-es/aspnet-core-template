@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Template.Application.Features.IdentityContext.Command;
 using Template.Application.Features.IdentityContext.Services;
-using Template.Common.Extensions;
+using Template.Common.FunctionalExtensions;
 using Template.Configuration;
 using Template.Domain.Entities.Identity;
 using Template.ExternalServices.EmailService;

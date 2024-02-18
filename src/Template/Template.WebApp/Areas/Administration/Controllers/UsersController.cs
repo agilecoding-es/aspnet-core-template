@@ -10,12 +10,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using Template.Common;
-using Template.Common.Extensions;
 using Template.Domain.Entities.Identity;
 using Template.WebApp.Areas.Administration.Models;
 using Template.Security.Authorization;
 using Template.Security.DataProtection;
 using Template.Application.Features.IdentityContext.Services;
+using Template.Common.TypesExtensions;
 
 namespace Template.WebApp.Areas.Administration.Controllers
 {

@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Npgsql;
 using Template.Application.Contracts;
 using Template.Application.Features.LoggingContext.Contracts;
 using Template.Application.Features.SampleContext.Contracts;
+using Template.Persistence.Database.Interceptors;
 using Template.Persistence.PosgreSql;
 using Template.Persistence.PosgreSql.Database;
 using Template.Persistence.PosgreSql.Respositories.Logging;
@@ -20,9 +21,13 @@ namespace Template.Configuration.Setup
         {
             var settings = appBuilder.Configuration.Get<AppSettings>();
 
-            appBuilder.Services.AddDbContext<Context>(
-                options => options.UseNpgsql(connectionString)
-                                                               .UseSnakeCaseNamingConvention());
+            appBuilder.Services.AddDbContext<Context>((sp, options) =>
+                                              options.UseNpgsql(connectionString)
+                                                     .AddInterceptors(new[]
+                                                     {
+                                                         new PublishDomainEventsInterceptor(sp.GetRequiredService<IPublisher>(), sp.GetRequiredService<IPublishEndpoint>())
+                                                     })
+                                                     .UseSnakeCaseNamingConvention());
 
             if (appBuilder.Environment.IsDevelopment())
                 appBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();
