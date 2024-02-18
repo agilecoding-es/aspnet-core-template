@@ -9,12 +9,10 @@ namespace Template.Persistence.Database.Interceptors
     public class PublishDomainEventsInterceptor : SaveChangesInterceptor
     {
         private readonly IPublisher publisher;
-        private readonly IPublishEndpoint bus;
 
-        public PublishDomainEventsInterceptor(IPublisher publisher, IPublishEndpoint bus)
+        public PublishDomainEventsInterceptor(IPublisher publisher)
         {
             this.publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
-            this.bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
         public override async ValueTask<int> SavedChangesAsync(

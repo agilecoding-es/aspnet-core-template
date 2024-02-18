@@ -1,13 +1,7 @@
-﻿using MassTransit;
-using MassTransit.Configuration;
-using NLog.Web;
-using Template.Application.Contracts.EventBus;
+﻿using NLog.Web;
 using Template.Application.Features;
-using Template.Application.Features.SampleContext.Lists.Events;
 using Template.Common;
-using Template.Configuration;
 using Template.Configuration.Setup;
-using Template.Infrastructure.MessageBroker.MassTransit;
 
 namespace Template.WebApp.Setup
 {
@@ -28,36 +22,14 @@ namespace Template.WebApp.Setup
             var appBuilder =
                 CreateAppBuilder(builder)
                 .AddSettings()
-                .AddRedisCacheService()
-                .AddListmonkEmailService()
                 .AddIdentity()
                 .AddPresentation()
                 .AddApplicationFeatures()
                 .AddPostgreSql(connectionString)
-                .AddHealthChecks()
-                .AddService(services =>
-                {
-                    services.AddMassTransit(busConfigurator =>
-                    {
-                        busConfigurator.SetKebabCaseEndpointNameFormatter();
-                        busConfigurator.AddConsumers(ApplicationFeaturesAssembly.Assembly);
-                        busConfigurator.UsingRabbitMq((context, configurator) =>
-                            {
-                                MessageBrokerServiceOptions options = context.GetRequiredService<MessageBrokerServiceOptions>();
-                                configurator.Host(new Uri(options.Host), h =>
-                                {
-                                    h.Username(options.Username);
-                                    h.Password(options.Password);
-                                });
-                                configurator.ConfigureEndpoints(context);
-                            });
-                        //busConfigurator.UsingInMemory((context, configurator) =>
-                        //{
-                        //    configurator.ConfigureEndpoints(context);
-                        //});
-                    });
-                    services.AddTransient<IEventBus, EventBus>();
-                });
+                .AddRedisCacheService()
+                .AddMassTransitWithRabbitMQ(ApplicationFeaturesAssembly.Assembly)
+                .AddListmonkEmailService()
+                .AddHealthChecks();
 
             if (builder.Environment.IsStaging())
             {

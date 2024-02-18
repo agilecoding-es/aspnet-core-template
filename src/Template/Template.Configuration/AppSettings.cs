@@ -211,18 +211,4 @@ namespace Template.Configuration
         public bool ShowSampleMVC { get; set; }
         public bool ShowSampleAjax { get; set; }
     }
-
-    public class MessageBrokerServiceOptions
-    {
-        public const string Key = "MessageBrokerService";
-
-        public bool Enabled { get; set; }
-        public string Host => $"amqp://{Hostname}:{Port}";
-        public string Hostname { get; set; }
-        public int? Port { get; set; } = 5672;
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Exchange { get; set; }
-        public string Queue { get; set; }
-    }
 }

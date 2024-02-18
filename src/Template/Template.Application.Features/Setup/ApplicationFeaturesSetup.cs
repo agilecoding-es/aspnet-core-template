@@ -14,9 +14,8 @@ namespace Template.Configuration.Setup
             appBuilder.Services
                 .AddMemoryCache()
                 .AddMediatR(configuration =>
-                    configuration.RegisterServicesFromAssembly(ApplicationFeaturesAssembly.Assembly))
-                .AddTransient(typeof(IPipelineBehavior<,>), typeof(LogginBehavior<,>))
-                .AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+                    configuration.RegisterServicesFromAssembly(ApplicationFeaturesAssembly.Assembly));
+            appBuilder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
             appBuilder.Services.AddTransient<IEmailSender, AuthEmailSender>();
 

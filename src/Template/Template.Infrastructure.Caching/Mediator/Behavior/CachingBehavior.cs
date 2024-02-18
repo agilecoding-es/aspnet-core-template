@@ -5,7 +5,7 @@ using Template.Domain.Entities.Shared;
 using Template.Infrastructure.Caching.Abastractions;
 using Template.Infrastructure.Caching.Service;
 
-namespace Template.Application.Behaviours
+namespace Template.Infrastructure.Caching.Mediator.Behavior
 {
     public class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
@@ -30,7 +30,7 @@ namespace Template.Application.Behaviours
 
             logger.LogInformation($"[{DateTime.UtcNow}] Caching request - {requestName}");
 
-            TResponse response = await cache.GetAsync<TResponse>($"-{cacheableRequest.CacheKey}", cancellationToken);
+            var response = await cache.GetAsync<TResponse>($"-{cacheableRequest.CacheKey}", cancellationToken);
 
             if (!EqualityComparer<TResponse>.Default.Equals(response, default))
             {

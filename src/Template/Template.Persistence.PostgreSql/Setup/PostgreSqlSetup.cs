@@ -25,7 +25,7 @@ namespace Template.Configuration.Setup
                                               options.UseNpgsql(connectionString)
                                                      .AddInterceptors(new[]
                                                      {
-                                                         new PublishDomainEventsInterceptor(sp.GetRequiredService<IPublisher>(), sp.GetRequiredService<IPublishEndpoint>())
+                                                         new PublishDomainEventsInterceptor(sp.GetRequiredService<IPublisher>())
                                                      })
                                                      .UseSnakeCaseNamingConvention());
 

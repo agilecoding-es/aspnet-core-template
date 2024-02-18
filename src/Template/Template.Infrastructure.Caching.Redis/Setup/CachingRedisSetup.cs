@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
+using Template.Infrastructure.Caching.Mediator.Behavior;
 using Template.Infrastructure.Caching.Redis.Service;
 using Template.Infrastructure.Caching.Redis.Settings;
 using Template.Infrastructure.Caching.Service;
@@ -35,6 +37,8 @@ namespace Template.Configuration.Setup
                 options.ConfigurationOptions = config;
 
             });
+
+            appBuilder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
             return appBuilder;
         }

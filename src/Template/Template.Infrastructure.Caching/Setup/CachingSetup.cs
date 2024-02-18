@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using MediatR;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Template.Infrastructure.Caching.Mediator.Behavior;
 using Template.Infrastructure.Caching.Service;
 using Template.Infrastructure.Caching.Settings;
 
@@ -27,6 +29,8 @@ namespace Template.Configuration.Setup
                 options.ExpirationScanFrequency = TimeSpan.FromMinutes(cacheServiceOptions?.ExpirationScanFrequencyInMinutes ?? 10);
                 options.SizeLimit = cacheServiceOptions?.SizeLimit ?? 1024;
             });
+
+            appBuilder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
             return appBuilder;
         }
