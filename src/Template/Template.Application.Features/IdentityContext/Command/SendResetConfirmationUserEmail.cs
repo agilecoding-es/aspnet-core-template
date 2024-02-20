@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 using Template.Application.Features.IdentityContext.Services;
-using Template.Common.Extensions;
+using Template.Common.TypesExtensions;
 using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Sample;
 using Template.Domain.Entities.Shared;

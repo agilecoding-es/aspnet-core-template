@@ -8,13 +8,13 @@ namespace Template.ExternalServices.EmailService.Listmonk
 {
     public class ListmonkService : IEmailService
     {
-        private readonly MailSettingOptions mailSettings;
+        private readonly EmailServiceOptions emailServiceOptions;
         private readonly IHttpClientFactory httpClientFactory;
         private readonly ILogger logger;
 
-        public ListmonkService(MailSettingOptions mailSettings, IHttpClientFactory httpClientFactory, ILogger<ListmonkService> logger)
+        public ListmonkService(EmailServiceOptions emailServiceOptions, IHttpClientFactory httpClientFactory, ILogger<ListmonkService> logger)
         {
-            this.mailSettings = mailSettings ?? throw new ArgumentNullException(nameof(mailSettings));
+            this.emailServiceOptions = emailServiceOptions ?? throw new ArgumentNullException(nameof(emailServiceOptions));
             this.httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -108,7 +108,7 @@ namespace Template.ExternalServices.EmailService.Listmonk
             {
                 var json = JsonSerializer.Serialize(new TransactionalMessageDto<TData>
                 {
-                    FromEmail = mailSettings.FromEmail,
+                    FromEmail = emailServiceOptions.FromEmail,
                     SubscriberEmail = recipient,
                     TemplateId = templateId,
                     Data = data,

@@ -8,12 +8,12 @@ namespace Template.Infrastructure.EmailService.AzureCommunicationService
 {
     public class AzureEmailClient : IEmailClient
     {
-        protected readonly AzureMailSettingOptions mailSettings;
+        protected readonly AzureEmailServiceOptions emailServiceOptions;
         private readonly ILogger<AzureEmailClient> logger;
 
-        public AzureEmailClient(AzureMailSettingOptions mailSettings, ILogger<AzureEmailClient> logger)
+        public AzureEmailClient(AzureEmailServiceOptions emailServiceOptions, ILogger<AzureEmailClient> logger)
         {
-            this.mailSettings = mailSettings ?? throw new ArgumentNullException(nameof(mailSettings));
+            this.emailServiceOptions = emailServiceOptions ?? throw new ArgumentNullException(nameof(emailServiceOptions));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -21,14 +21,14 @@ namespace Template.Infrastructure.EmailService.AzureCommunicationService
         {
             try
             {
-                var emailClient = new EmailClient(mailSettings.AzureCommunicationServiceConnection);
+                var emailClient = new EmailClient(emailServiceOptions.AzureCommunicationServiceConnection);
                 EmailContent emailContent = new EmailContent(subject);
                 emailContent.PlainText = plainTextMessage;
                 emailContent.Html = htmlMessage;
 
                 List<EmailAddress> emailAddresses = new List<EmailAddress>() { new EmailAddress(email, displayName) };
                 EmailRecipients emailRecipients = new EmailRecipients(emailAddresses);
-                EmailMessage emailMessage = new EmailMessage(mailSettings.FromEmail, emailRecipients, emailContent);
+                EmailMessage emailMessage = new EmailMessage(emailServiceOptions.FromEmail, emailRecipients, emailContent);
 
                 var sendOperation = await emailClient.SendAsync(
                     WaitUntil.Completed,

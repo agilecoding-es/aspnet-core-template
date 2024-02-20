@@ -2,7 +2,7 @@
 
 namespace Template.Infrastructure.EmailService.AzureCommunicationService.Settings
 {
-    public class AzureMailSettingOptions : MailSettingOptions
+    public class AzureEmailServiceOptions : EmailServiceOptions
     {
         public string AzureCommunicationServiceConnection { get; set; }
     }

@@ -1,10 +1,8 @@
-﻿using Template.Infrastructure.Caching.Settings;
-
-namespace Template.Infrastructure.Caching.Redis.Settings
+﻿namespace Template.Infrastructure.Caching.Redis.Settings
 {
-    public class RedisServiceSettingOptions 
+    public class RedisCacheServiceOptions 
     {
-        public const string Key = "RedisSettings";
+        public const string Key = "RedisCacheService";
 
         public bool Enabled { get; set; }
         public string ConnectionString { get; set; }

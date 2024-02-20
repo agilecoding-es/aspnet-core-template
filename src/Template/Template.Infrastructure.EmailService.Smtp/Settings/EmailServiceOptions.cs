@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Template.Infrastructure.EmailService.Smtp.Settings
 {
-    public class MailSettingOptions
+    public class EmailServiceOptions
     {
-        public const string Key = "MailSettings";
+        public const string Key = "EmailService";
 
         public string Host { get; set; }
         public int Port { get; set; }

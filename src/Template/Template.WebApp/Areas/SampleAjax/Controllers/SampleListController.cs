@@ -9,7 +9,7 @@ using Template.Application.Features.SampleContext.Items.Command;
 using Template.Application.Features.SampleContext.Items.Query;
 using Template.Application.Features.SampleContext.Lists.Command;
 using Template.Application.Features.SampleContext.Lists.Query;
-using Template.Common.Extensions;
+using Template.Common.TypesExtensions;
 using Template.Domain.Entities.Shared;
 using Template.WebApp.Areas.SampleAjax.Models.SampleList;
 using Template.WebApp.Services.Rendering;

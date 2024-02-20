@@ -1,4 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using Template.Common;
+using Template.Common.Assertions;
+using Template.Common.Exceptions;
+using Template.Common.TypesExtensions;
 using Template.Domain.DomainEvents.Abstractions;
 
 namespace Template.Domain.Entities.Abastractions
@@ -58,8 +62,11 @@ namespace Template.Domain.Entities.Abastractions
 
         public virtual void Update(Entity<T> newValues) { }
 
-        protected void AddDomainEvent(IDomainEvent domainEvent)
+        public void AddDomainEvent(IDomainEvent domainEvent)
         {
+            Assertion<InternalException>.This(domainEvent).IsNotNull(Constants.InternalErrors.Entity.DomainEvent_CannotBeNull);
+            Assertion<InternalException>.This(domainEvent).IsOfType<IDomainEvent>(Constants.InternalErrors.Entity.DomainEvent_ShouldBeOfType);
+
             domainEvents.Add(domainEvent);
         }
 
@@ -67,8 +74,6 @@ namespace Template.Domain.Entities.Abastractions
         {
             domainEvents.Clear();
         }
-
-        void IEntity.AddDomainEvent(IDomainEvent domainEvent) => domainEvents.Add(domainEvent);
     }
 
 }

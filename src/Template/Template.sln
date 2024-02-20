@@ -105,6 +105,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Cac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Caching", "Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj", "{AFA71408-5029-4D06-9974-315A9E06B7A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Persistence", "Template.Persistence\Template.Persistence.csproj", "{48C6CAD6-1A96-4D48-9A2C-CA5890F41230}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Common.UnitTests", "Template.Common.UnitTests\Template.Common.UnitTests.csproj", "{1F32E70E-59CC-491D-B81B-0A30CCD6F441}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBroker", "MessageBroker", "{4878A337-E6E1-4F9C-ADC1-CBD04C3ECB6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Infrastructure.MessageBroker.MassTransit", "Template.Infrastructure.MessageBroker.MassTransit\Template.Infrastructure.MessageBroker.MassTransit.csproj", "{FBC3EFED-CC63-46CE-8A61-C03EC36FEC52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -195,6 +203,18 @@ Global
 		{AFA71408-5029-4D06-9974-315A9E06B7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFA71408-5029-4D06-9974-315A9E06B7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFA71408-5029-4D06-9974-315A9E06B7A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48C6CAD6-1A96-4D48-9A2C-CA5890F41230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C6CAD6-1A96-4D48-9A2C-CA5890F41230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C6CAD6-1A96-4D48-9A2C-CA5890F41230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C6CAD6-1A96-4D48-9A2C-CA5890F41230}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F32E70E-59CC-491D-B81B-0A30CCD6F441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F32E70E-59CC-491D-B81B-0A30CCD6F441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F32E70E-59CC-491D-B81B-0A30CCD6F441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F32E70E-59CC-491D-B81B-0A30CCD6F441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC3EFED-CC63-46CE-8A61-C03EC36FEC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC3EFED-CC63-46CE-8A61-C03EC36FEC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC3EFED-CC63-46CE-8A61-C03EC36FEC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC3EFED-CC63-46CE-8A61-C03EC36FEC52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,10 +252,14 @@ Global
 		{7B9C4040-A138-4034-B9CD-22DA9BB93F37} = {3B322308-A8AC-4F0E-BCB1-78D2339F5385}
 		{CB2512DE-B3B1-4E35-B19F-9C2AC590659E} = {7B9C4040-A138-4034-B9CD-22DA9BB93F37}
 		{AFA71408-5029-4D06-9974-315A9E06B7A3} = {7B9C4040-A138-4034-B9CD-22DA9BB93F37}
+		{48C6CAD6-1A96-4D48-9A2C-CA5890F41230} = {234CCBE2-212B-4369-BAC0-257EC013D34C}
+		{1F32E70E-59CC-491D-B81B-0A30CCD6F441} = {13993C41-14B7-41A6-9E8E-11BACBC7C5A0}
+		{4878A337-E6E1-4F9C-ADC1-CBD04C3ECB6C} = {3B322308-A8AC-4F0E-BCB1-78D2339F5385}
+		{FBC3EFED-CC63-46CE-8A61-C03EC36FEC52} = {4878A337-E6E1-4F9C-ADC1-CBD04C3ECB6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
-		RESX_SortFileContentOnSave = True
 		RESX_EnableXlifSync = False
+		RESX_SortFileContentOnSave = True
+		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
 	EndGlobalSection
 EndGlobal

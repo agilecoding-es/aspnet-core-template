@@ -1,4 +1,5 @@
 ﻿using NLog.Web;
+using Template.Application.Features;
 using Template.Common;
 using Template.Configuration.Setup;
 
@@ -21,13 +22,13 @@ namespace Template.WebApp.Setup
             var appBuilder =
                 CreateAppBuilder(builder)
                 .AddSettings()
-                .AddPostgreSql(connectionString)
-                .AddRedisCacheService()
-                .AddListmonkEmailService()
                 .AddIdentity()
                 .AddPresentation()
                 .AddApplicationFeatures()
+                .AddPostgreSql(connectionString)
                 .AddRedisCacheService()
+                .AddMassTransitWithRabbitMQ(ApplicationFeaturesAssembly.Assembly)
+                .AddListmonkEmailService()
                 .AddHealthChecks();
 
             if (builder.Environment.IsStaging())
