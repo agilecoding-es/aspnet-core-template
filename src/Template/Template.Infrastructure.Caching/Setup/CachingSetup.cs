@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using MediatR;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Template.Infrastructure.Caching.Mediator.Behavior;
 using Template.Infrastructure.Caching.Service;
 using Template.Infrastructure.Caching.Settings;
 
@@ -11,22 +13,24 @@ namespace Template.Configuration.Setup
         public static IAppBuilder AddCacheService(this IAppBuilder appBuilder)
         {
             appBuilder.Services
-                    .Configure<CacheServiceSettingOptions>(options =>
+                    .Configure<CacheServiceOptions>(options =>
                     {
-                        appBuilder.Configuration.GetSection(CacheServiceSettingOptions.Key).Bind(options);
+                        appBuilder.Configuration.GetSection(CacheServiceOptions.Key).Bind(options);
                     });
 
-            var cacheSettings = appBuilder.Configuration.GetSection(CacheServiceSettingOptions.Key).Get<CacheServiceSettingOptions>();
-            appBuilder.Services.AddSingleton(cacheSettings);
+            var cacheServiceOptions = appBuilder.Configuration.GetSection(CacheServiceOptions.Key).Get<CacheServiceOptions>();
+            appBuilder.Services.AddSingleton(cacheServiceOptions);
 
             appBuilder.Services.AddTransient<ICacheService, MemoryCacheService>();
             appBuilder.Services.AddTransient<IMemoryCacheService, MemoryCacheService>();
 
             appBuilder.Services.AddMemoryCache(options =>
             {
-                options.ExpirationScanFrequency = TimeSpan.FromMinutes(cacheSettings?.ExpirationScanFrequencyInMinutes ?? 10);
-                options.SizeLimit = cacheSettings?.SizeLimit ?? 1024;
+                options.ExpirationScanFrequency = TimeSpan.FromMinutes(cacheServiceOptions?.ExpirationScanFrequencyInMinutes ?? 10);
+                options.SizeLimit = cacheServiceOptions?.SizeLimit ?? 1024;
             });
+
+            appBuilder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
             return appBuilder;
         }

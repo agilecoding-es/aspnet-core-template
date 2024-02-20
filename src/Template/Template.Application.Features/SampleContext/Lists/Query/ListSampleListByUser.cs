@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Template.Application.Features.SampleContext.Contracts;
 using Template.Application.Features.SampleContext.Contracts.DTOs;
-using Template.Common.Extensions;
+using Template.Common.TypesExtensions;
 using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Shared;
 using Template.Infrastructure.Caching.Abastractions;

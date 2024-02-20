@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Template.Application.Exceptions;
-using Template.Common.Extensions;
+using Template.Common.FunctionalExtensions;
 using Template.Domain.Entities.Shared;
 using Template.Domain.Exceptions;
 using Template.WebApp.Common;

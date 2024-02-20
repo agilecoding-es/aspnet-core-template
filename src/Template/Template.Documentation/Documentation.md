@@ -143,7 +143,7 @@ Para habilitar la generación de códigos QR, seguir esta guía:
 Establecer las variables en `appsettings.json`:
 
 ```json
-"MailSettings": {
+"EmailService": {
     "Host": "127.0.0.1",
     "Port": 25,
     "EnableSSL": false,

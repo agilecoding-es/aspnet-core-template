@@ -29,4 +29,20 @@ services:
     ports:
       - "9002:6379"
 
-  
+  template.mq:
+    image: rabbitmq:3.12.12-management
+    container_name: temp.mq
+    ports:
+          - "9004:15672"
+          - "9005:5672"
+    hostname: template-mq
+    volumes:
+        - rabbitmq-data:/var/lib/rabbitmq
+        - rabbitmq-log:/var/log/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+
+volumes:
+  rabbitmq-data:
+  rabbitmq-log:

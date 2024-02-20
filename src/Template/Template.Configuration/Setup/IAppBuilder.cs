@@ -25,6 +25,7 @@ namespace Template.Configuration.Setup
         IAppBuilder AddResources();
         IAppBuilder AddMapster();
         IAppBuilder AddHealthChecks();
+        IAppBuilder AddService(Action<IServiceCollection> options);
 
         WebApplication Build();
     }

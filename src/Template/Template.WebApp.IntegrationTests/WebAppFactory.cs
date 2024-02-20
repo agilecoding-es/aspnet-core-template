@@ -14,7 +14,7 @@ using Respawn.Graph;
 using System.Data.Common;
 using Template.Application.Features.LoggingContext.Contracts;
 using Template.Common;
-using Template.Common.Extensions;
+using Template.Common.TypesExtensions;
 using Template.Configuration;
 using Template.Configuration.Factories;
 using Template.Configuration.Setup;

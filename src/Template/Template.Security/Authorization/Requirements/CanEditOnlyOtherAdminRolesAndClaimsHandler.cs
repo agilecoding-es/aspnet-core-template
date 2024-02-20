@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Template.Common.Extensions;
+using Template.Common.TypesExtensions;
 using ClaimTypes = System.Security.Claims.ClaimTypes;
 
 namespace Template.Security.Authorization.Requirements

@@ -1,8 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Template.Common.Extensions
+namespace Template.Common.TypesExtensions
 {
-    public static class IEnumerableExtensions
+    public static class CollectionExtensions
     {
         public static bool IsNullOrEmpty(this IEnumerable enumerable)
         {

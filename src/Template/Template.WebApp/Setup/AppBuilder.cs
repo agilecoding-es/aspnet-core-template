@@ -10,7 +10,7 @@ using System.Globalization;
 using Template.Application;
 using Template.Application.Features.IdentityContext.Services;
 using Template.Common;
-using Template.Common.Extensions;
+using Template.Common.TypesExtensions;
 using Template.Configuration;
 using Template.Configuration.Setup;
 using Template.Domain.Entities.Identity;
@@ -88,8 +88,8 @@ namespace Template.WebApp.Setup
 
         public IAppBuilder AddAuthentication()
         {
-            var appSettings = Configuration.Get<AppSettings>();
-            var authProviders = appSettings.AuthenticationProviders;
+            var settings = Configuration.Get<AppSettings>();
+            var authProviders = settings.AuthenticationProviders;
             Services
                 .Configure<IdentityOptions>(options =>
                 {
@@ -206,7 +206,7 @@ namespace Template.WebApp.Setup
 
         public IAppBuilder AddResources()
         {
-            var appSettings = Configuration.Get<AppSettings>();
+            var settings = Configuration.Get<AppSettings>();
 
             Services
                 .AddLocalization(options => options.ResourcesPath = "Resources")
@@ -216,9 +216,9 @@ namespace Template.WebApp.Setup
                     {
                         CookieName = Constants.Configuration.Cookies.CultureCookieName
                     };
-                    var supportedCultures = appSettings.SupportedCultures.GetSupportedCultures().Select(c => new CultureInfo(c)).ToList();
+                    var supportedCultures = settings.SupportedCultures.GetSupportedCultures().Select(c => new CultureInfo(c)).ToList();
 
-                    options.DefaultRequestCulture = new RequestCulture(appSettings.SupportedCultures.DefaultCulture);
+                    options.DefaultRequestCulture = new RequestCulture(settings.SupportedCultures.DefaultCulture);
                     options.SupportedCultures = supportedCultures;
                     options.SupportedUICultures = supportedCultures;
                     options.RequestCultureProviders.Insert(0, cookieProvider);
@@ -234,13 +234,18 @@ namespace Template.WebApp.Setup
             return this;
         }
 
+        public IAppBuilder AddService( Action<IServiceCollection> options) { 
+            options.Invoke(Services);
+
+            return this;
+        }
 
         //TODO: Crear proyecto de healthcheck y separar la configuracion, heredar la configuracion para cada componente (bd, redis, etc)
         public IAppBuilder AddHealthChecks()
         {
-            var appSettings = Configuration.Get<AppSettings>();
+            var settings = Configuration.Get<AppSettings>();
 
-            if (appSettings.HealthChecks.Enabled)
+            if (settings.HealthChecks.Enabled)
             {
                 //Services.AddSingleton<LatencyHealthCheck>();
                 //services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(redisSettings.ConnectionString));
@@ -252,7 +257,7 @@ namespace Template.WebApp.Setup
                             HealthCheckResult.Healthy("App is working as expected."),
                             new[] { "UI" }
                         )
-                        .AddNpgSql(appSettings.ConnectionStrings.DefaultConnection, tags: new[] { "database" });
+                        .AddNpgSql(settings.ConnectionStrings.DefaultConnection, tags: new[] { "database" });
 
 
                 Services.AddHealthChecksUI().AddInMemoryStorage();
