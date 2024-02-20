@@ -10,7 +10,7 @@ services:
       "ASPNETCORE_HTTPS_PORT": "8001"
       "ConnectionStrings__DefaultConnection": "Server=temp.postgres.int-test;Port=5432;Database=TemplateAppIntegrationTests;User Id=postgres;Password=sa!Password-123;"
       "ConnectionStrings__AppConnection": "Server=temp.postgres.int-test;Port=5432;Database=TemplateApp;User Id=postgres;Password=sa!Password-123;"
-      "RedisSettings__ConnectionString": "temp.redis.int-tests:6379"
+      "RedisCacheService__ConnectionString": "temp.redis.int-tests:6379"
       "HealthChecksUI__HealthChecks__0__Uri": "https://localhost:8001/health"
       "HealthChecksUI__HealthChecks__1__Uri": "https://localhost:8001/health/databases"
     build:
@@ -47,5 +47,19 @@ services:
        interval: 10s
        timeout: 10s
        retries: 5
+  
+  template.mq:
+    image: rabbitmq:3.12.12-management
+    container_name: temp.mq.int-test
+    ports:
+          - "8004:15672"
+          - "8005:5672"
+    hostname: template-mq
+    volumes:
+        - rabbitmq-data:/var/lib/rabbitmq
+        - rabbitmq-log:/var/log/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
 
 
