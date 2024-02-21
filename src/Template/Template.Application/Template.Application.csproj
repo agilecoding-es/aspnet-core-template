@@ -26,7 +26,6 @@
     <ProjectReference Include="..\Template.Common\Template.Common.csproj" />
     <ProjectReference Include="..\Template.Configuration\Template.Configuration.csproj" />
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
-    <ProjectReference Include="..\Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj" />
   </ItemGroup>
 
 </Project>

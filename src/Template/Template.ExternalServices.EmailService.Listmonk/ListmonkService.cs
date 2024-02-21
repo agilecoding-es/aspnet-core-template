@@ -58,7 +58,7 @@ namespace Template.ExternalServices.EmailService.Listmonk
                     response.EnsureSuccessStatusCode();
 
                     var content = await response.Content.ReadAsStringAsync();
-                    
+
                     JsonDocument jsonDocument = JsonDocument.Parse(content);
                     JsonElement root = jsonDocument.RootElement.GetProperty("data");
                     string json = root.GetRawText();
@@ -120,6 +120,7 @@ namespace Template.ExternalServices.EmailService.Listmonk
                 using (var httpClient = httpClientFactory.CreateClient(typeof(ListmonkService).FullName))
                 {
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    logger.LogInformation($"EmailService | Calling listmonk API - uri: {uri} - data: {json}");
                     var response = await httpClient.PostAsync(uri, content);
 
                     return response.IsSuccessStatusCode;
@@ -127,9 +128,9 @@ namespace Template.ExternalServices.EmailService.Listmonk
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"Error sending email {templateId.ToString()} | Exception Message: {ex.Message}");
+                logger.LogError(ex, $"Error sending email | templateId{templateId} - Exception Message: {ex.Message}");
             }
-            
+
             return false;
         }
     }

@@ -1,11 +1,11 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using Template.Infrastructure.Caching.Mediator.Behavior;
-using Template.Infrastructure.Caching.Redis.Service;
-using Template.Infrastructure.Caching.Redis.Settings;
-using Template.Infrastructure.Caching.Service;
+using Template.Infrastructure.Caching;
+using Template.Infrastructure.Caching.Redis;
+using Template.Infrastructure.Caching.Redis.Mediator.Behavior;
 
 namespace Template.Configuration.Setup
 {
@@ -14,31 +14,30 @@ namespace Template.Configuration.Setup
         public static IAppBuilder AddRedisCacheService(this IAppBuilder appBuilder)
         {
             appBuilder.Services
-                    .Configure<RedisCacheServiceOptions>(options =>
+                    .Configure<RedisCacheOptions>(options =>
                     {
-                        appBuilder.Configuration.GetSection(RedisCacheServiceOptions.Key).Bind(options);
+                        appBuilder.Configuration.GetSection(RedisCacheConstants.RedisCacheOptionsKey).Bind(options);
                     });
 
-            var redisServiceOptions = appBuilder.Configuration.GetSection(RedisCacheServiceOptions.Key).Get<RedisCacheServiceOptions>();
+            var redisCacheOptions = appBuilder.Configuration.GetSection(RedisCacheConstants.RedisCacheOptionsKey).Get<RedisCacheOptions>();
 
-            appBuilder.Services.AddSingleton(redisServiceOptions);
+            appBuilder.Services.AddSingleton(redisCacheOptions);
 
-            appBuilder.Services.AddTransient<ICacheService, RedisCacheService>();
-            appBuilder.Services.AddTransient<IRedisCacheService, RedisCacheService>();
 
-            var config = ConfigurationOptions.Parse(redisServiceOptions.ConnectionString);
-            config.ConnectRetry = redisServiceOptions.ConnectRetry;
+
+            var config = ConfigurationOptions.Parse(redisCacheOptions.Configuration);
+            config.ConnectRetry = redisCacheOptions.ConfigurationOptions.ConnectRetry;
             config.AbortOnConnectFail = false;
 
             appBuilder.Services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = redisServiceOptions.ConnectionString;
-                options.InstanceName = redisServiceOptions.InstanceName;
+                options.Configuration = redisCacheOptions.Configuration;
+                options.InstanceName = redisCacheOptions.InstanceName;
                 options.ConfigurationOptions = config;
-
             });
 
-            appBuilder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+            appBuilder.Services.AddTransient<ICacheService, CacheService>();
+            appBuilder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RedisCachingBehavior<,>));
 
             return appBuilder;
         }

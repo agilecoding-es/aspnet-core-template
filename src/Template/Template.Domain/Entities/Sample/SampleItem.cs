@@ -10,12 +10,14 @@ namespace Template.Domain.Entities.Sample
 
         public int ListId { get; private set; }
         public string Description { get; private set; }
+        public bool IsDeleted { get; private set; }
 
         public static SampleItem Create(string description)
         {
             var sampleList = new SampleItem()
             {
-                Description = description
+                Description = description,
+                IsDeleted = false
             };
 
             return sampleList;
@@ -23,7 +25,7 @@ namespace Template.Domain.Entities.Sample
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            IsDeleted = true;
         }
     }
 }
