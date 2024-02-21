@@ -24,10 +24,10 @@ namespace Template.Application.Features.SampleContext.Items.Command
             {
                 try
                 {
-                    var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListId, cancellationToken);
+                    var sampleList = await sampleListRepository.GetWithItemsAndUserAsync(request.SampleListId, cancellationToken);
 
                     var sampleItem = sampleList.Items.FirstOrDefault(x => x.Id == request.SampleItemId);
-                    sampleList.Items.Remove(sampleItem);
+                    sampleList.Remove(sampleItem);
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 

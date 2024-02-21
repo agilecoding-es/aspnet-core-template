@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Template.Application.Behaviours
 {
@@ -15,13 +16,17 @@ namespace Template.Application.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            var requestName = request.GetType().Namespace.Replace("Template.Application.Features.", string.Empty);
+            var requestType = request.GetType();
+            var assemblyName = requestType.Assembly.GetName().Name;
+            var re = new Regex($@"{assemblyName.Replace(".",@"\.")}\.(\w+(?:\.\w+)+)(?:\+\w+)?");
+
+            var requestName = re.Match(request.GetType().FullName).Groups[1]?.Value ?? requestType.FullName;
 
             _logger.LogInformation($"[{DateTime.UtcNow}] Start request - {requestName}");
             var timer = Stopwatch.StartNew();
             var response = await next();
             timer.Stop();
-            _logger.LogInformation($"[{DateTime.UtcNow}] Request finish - {requestName} | {timer.ElapsedMilliseconds}");
+            _logger.LogInformation($"[{DateTime.UtcNow}] Request finish - {requestName} | Elapsed ms:{timer.ElapsedMilliseconds}");
 
             return response;
         }

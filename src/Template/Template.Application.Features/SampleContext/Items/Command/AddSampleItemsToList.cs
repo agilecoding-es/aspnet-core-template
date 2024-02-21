@@ -26,7 +26,7 @@ namespace Template.Application.Features.SampleContext.Items.Command
             {
                 try
                 {
-                    var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListId, cancellationToken);
+                    var sampleList = await sampleListRepository.GetWithItemsAndUserAsync(request.SampleListId, cancellationToken);
 
 
                     var newItems = new List<SampleItem>();
@@ -35,7 +35,7 @@ namespace Template.Application.Features.SampleContext.Items.Command
                         var newItem = SampleItem.Create(item.Description);
                         newItems.Add(newItem);
                     }
-                    sampleList.Items.AddRange(newItems);
+                    sampleList.AddRange(newItems);
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -1,39 +1,49 @@
-﻿using System.ComponentModel;
-using Template.Domain.DomainEvents.Sample;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using Template.Common.Assertions;
 using Template.Domain.Entities.Abastractions;
 using Template.Domain.Entities.Extensions;
 using Template.Domain.Entities.Identity;
+using Template.Domain.Entities.Sample.Events;
+using Template.Domain.Errors;
 using Template.Domain.Exceptions;
+using static Template.Domain.Errors.DomainErrors;
 
 namespace Template.Domain.Entities.Sample
 {
     [DisplayName("List")]
-    public class SampleList : Entity<int>
+    public class SampleList : Entity<int>, ISoftDelete
     {
+        private readonly List<SampleItem> items = new();
         public SampleList() : base()
         {
         }
 
-        public SampleList(int id) : base(id) { }
+        protected SampleList(User user, string name)
+        {
+            User = user;
+            Name = name;
+         
+            AddDomainEvent(new SampleListCreatedDomainEvent(User, Name));
+        }
 
         public string Name { get; private set; }
 
-        public List<SampleItem> Items { get; private set; } = new List<SampleItem>();
+        public IEnumerable<SampleItem> Items => items.AsReadOnly();
 
         public string UserId { get; private set; }
-        
+
         public User User { get; private set; }
 
+        public bool IsDeleted { get; private set; }
 
-        public static SampleList Create(User user, string name)
+        public static SampleList Create(User user, string name) => new SampleList(user,name);
+
+        public void Delete()
         {
-            var sampleList = new SampleList()
-            {
-                UserId = user.Id,
-                Name = name
-            };
+            IsDeleted = true;
 
-            return sampleList;
+            AddDomainEvent(new SampleListDeletedDomainEvent(User, Id));
         }
 
         public void UpdateName(string newName)
@@ -41,22 +51,35 @@ namespace Template.Domain.Entities.Sample
             var oldName = Name;
             Name = newName;
 
-            AddDomainEvent(new SampleListNameUpdatedDomainEvent(UserId,Id, oldName, newName));
+            AddDomainEvent(new SampleListNameUpdatedDomainEvent(UserId, Id, oldName, newName));
         }
 
         public void Add(SampleItem item)
         {
-            Items.Add(item);
+            items.Add(item);
+
+            AddDomainEvent(new SampleListItemAddedDomainEvent(User, Id, item));
+        }
+
+        public void AddRange(List<SampleItem> newItems)
+        {
+            items.AddRange(newItems);
+
+            AddDomainEvent(new SampleListItemsAddedDomainEvent(User, Id, newItems));
         }
 
         public void Remove(SampleItem item)
         {
-            Items.Remove(item);
+            items.Remove(item);
+
+            AddDomainEvent(new SampleListItemRemovedDomainEvent(User, Id, item));
         }
 
         public void Clear()
         {
-            Items.Clear();
+            items.Clear();
+
+            AddDomainEvent(new SampleListItemsClearedDomainEvent(User, Id));
         }
 
         public bool Contains(SampleItem item)
@@ -67,19 +90,13 @@ namespace Template.Domain.Entities.Sample
         public void UpdateItems(List<SampleItem> items)
         {
             //TODO: Traducir error
-            if (items == null)
-                throw new DomainException("Cannot update Items with a null List of Items");
+            Assertion<DomainException>.This(items).IsNotNull("Cannot update Items with a null List of Items");
 
-            Items = Items ?? new List<SampleItem>();
-            Items.RecreateList<int, SampleItem>(items);
+            this.items.RecreateList<int, SampleItem>(items);
 
-            Items.UpdateList<int, SampleItem>(items);
+            this.items.UpdateList<int, SampleItem>(items);
 
         }
 
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

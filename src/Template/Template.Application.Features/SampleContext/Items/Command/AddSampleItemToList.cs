@@ -26,10 +26,10 @@ namespace Template.Application.Features.SampleContext.Items.Command
             {
                 try
                 {
-                    var sampleList = await sampleListRepository.GetWithItemsAsync(request.SampleListId, cancellationToken);
+                    var sampleList = await sampleListRepository.GetWithItemsAndUserAsync(request.SampleListId, cancellationToken);
 
                     var newItem = SampleItem.Create(request.Item.Description);
-                    sampleList.Items.Add(newItem);
+                    sampleList.Add(newItem);
 
                     await unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -1,13 +1,9 @@
-﻿using MassTransit;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Template.Application.Contracts;
 using Template.Application.Errors;
 using Template.Application.Exceptions;
 using Template.Application.Features.SampleContext.Contracts;
-using Template.Domain.DomainEvents.Abstractions;
-using Template.Domain.DomainEvents.Sample;
-using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Shared;
 
 namespace Template.Application.Features.SampleContext.Lists.Command

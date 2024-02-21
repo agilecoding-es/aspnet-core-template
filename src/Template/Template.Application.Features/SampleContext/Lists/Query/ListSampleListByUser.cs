@@ -4,7 +4,7 @@ using Template.Application.Features.SampleContext.Contracts.DTOs;
 using Template.Common.TypesExtensions;
 using Template.Domain.Entities.Identity;
 using Template.Domain.Entities.Shared;
-using Template.Infrastructure.Caching.Abastractions;
+using Template.Infrastructure.Caching.Redis.Abastractions;
 
 namespace Template.Application.Features.SampleContext.Lists.Query
 {

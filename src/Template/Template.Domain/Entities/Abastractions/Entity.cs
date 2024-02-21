@@ -3,7 +3,7 @@ using Template.Common;
 using Template.Common.Assertions;
 using Template.Common.Exceptions;
 using Template.Common.TypesExtensions;
-using Template.Domain.DomainEvents.Abstractions;
+using Template.Domain.Events.Abstractions;
 
 namespace Template.Domain.Entities.Abastractions
 {
@@ -14,11 +14,6 @@ namespace Template.Domain.Entities.Abastractions
 
         public Entity()
         {
-        }
-
-        public Entity(T id)
-        {
-            Id = id;
         }
 
         public T Id { get; protected init; }

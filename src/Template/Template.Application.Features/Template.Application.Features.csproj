@@ -29,7 +29,7 @@
     <ProjectReference Include="..\Template.Common\Template.Common.csproj" />
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
     <ProjectReference Include="..\Template.ExternalServices\Template.ExternalServices.csproj" />
-    <ProjectReference Include="..\Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj" />
+    <ProjectReference Include="..\Template.Infrastructure.Caching.Redis\Template.Infrastructure.Caching.Redis.csproj" />
     <ProjectReference Include="..\Template.Infrastructure\Template.Infrastructure.csproj" />
   </ItemGroup>
 
