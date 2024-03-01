@@ -25,9 +25,15 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run Tests
-      run: docker compose -f ./src/Template/docker-compose.unittests.yml up
+      run: docker compose -f ./src/Template/docker-compose.unittests.yml up --exit-code-from template.webapp.unittests
       continue-on-error: false
       
+    - name: Publish Code Coverage Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: code-coverage-report
+        path: ./src/Template/coverage-report
+
 
   integration-tests:
     name: Intragration Tests
@@ -39,5 +45,5 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run Tests
-      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.webapp.integrationtests --build
+      run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.webapp.integrationtests  --build
       continue-on-error: false
