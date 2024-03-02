@@ -5,7 +5,7 @@
 [![Deployment](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml/badge.svg)](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml)
 
 
-Ver [![DocumentaciÛn](https://img.shields.io/badge/Documentation)](/src/Template/Template.Documentation/Documentation.md "DocumentaciÛn")
+Ver [Documentaci√≥n](/src/Template/Template.Documentation/Documentation.md "Documentaci√≥n")
 
 Una clonado el proyecto Template, se debe ejecutar el script para renombrado de proyectos y archivos.
 
@@ -13,7 +13,7 @@ El script se encuentra en la carpeta principal del repositorio y se llama `renam
 
 ```Powershell
 
-# Importar el mÛdulo
+# Importar el m√≥dulo
 
 Import-Module .\rename-project.ps1
 
@@ -21,12 +21,12 @@ Import-Module .\rename-project.ps1
 
 Rename-Project [-OldName "Template"] -NewName "NombreProyecto"
 
-# Si se quiere descargar el mÛdulo
+# Si se quiere descargar el m√≥dulo
 # Remove-Module rename-project
 
 ```
 
-Adem·s habr· que modificar los puertos en los archivos docker-compose.
+Adem√°s habr√° que modificar los puertos en los archivos docker-compose.
 
 Para verificar los puertos en uso en PowerShell
 
