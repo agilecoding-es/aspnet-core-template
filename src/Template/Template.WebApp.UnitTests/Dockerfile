@@ -25,12 +25,8 @@ RUN dotnet build "Template.WebApp.UnitTests.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Template.WebApp.UnitTests.csproj" -c Release -o /app/publish /p:UseAppHost=false
-FROM publish AS test
+
+FROM build AS test
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-RUN dotnet test --logger trx && \
-    dotnet tool install -g dotnet-reportgenerator-globaltool && \
-    reportgenerator -reports:$(find . -name test_results.trx) -reporttypes:HTML -targetdir:/coverage-report
-
 ENTRYPOINT ["dotnet", "test", "Template.WebApp.UnitTests.dll"]
