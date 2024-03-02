@@ -5,7 +5,9 @@
 [![Deployment](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml/badge.svg)](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml)
 
 
-Ver [Documentación](/src/Template/Template.Documentation/Documentation.md "Documentación")
+Ver [![Documentación](https://img.shields.io/badge/Documentation)](/src/Template/Template.Documentation/Documentation.md "Documentación")
+
+Una clonado el proyecto Template, se debe ejecutar el script para renombrado de proyectos y archivos.
 
 El script se encuentra en la carpeta principal del repositorio y se llama `rename-project.ps1`
 
