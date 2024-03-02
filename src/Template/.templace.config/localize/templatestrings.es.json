@@ -1,0 +1,5 @@
+{
+  "author": "Javier López Malone",
+  "symbols/TargetFramework/description": "Versión de .NET Framework para el proyecto.",
+  "symbols/EnableAspNetIdentity/description": "Habilita el soporte de MS Asp.Net Identity."
+}
