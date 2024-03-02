@@ -8,6 +8,7 @@ services:
       dockerfile: Template.WebApp.UnitTests/Dockerfile
     volumes:
      - /opt/vsts/work/_temp:/var/temp
+     - ./coverage-report:/coverage-report
      
   # template.application.unittests:
   #   image: ${DOCKER_REGISTRY-}templateapplicationunittests
