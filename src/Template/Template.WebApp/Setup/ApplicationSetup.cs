@@ -22,7 +22,9 @@ namespace Template.WebApp.Setup
             var appBuilder =
                 CreateAppBuilder(builder)
                 .AddSettings()
+#if (EnableAspNetIdentity)
                 .AddIdentity()
+#endif
                 .AddPresentation()
                 .AddApplicationFeatures()
                 .AddPostgreSql(connectionString)
