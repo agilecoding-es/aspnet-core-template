@@ -2,16 +2,17 @@ version: '3.4'
 
 services:
   template.webapp.unittests:
-    container_name: webapp.unit-tests
+    container_name: temp.webapp.unit-tests
     build:
       context: .
       dockerfile: Template.WebApp.UnitTests/Dockerfile
     volumes:
      - /opt/vsts/work/_temp:/var/temp
+     - ./coverage-report:/coverage-report
      
   # template.application.unittests:
   #   image: ${DOCKER_REGISTRY-}templateapplicationunittests
-  #   container_name: application.unit-tests
+  #   container_name: temp.application.unit-tests
   #   build:
   #     context: .
   #     dockerfile: Template.Application.UnitTests/Dockerfile
@@ -22,7 +23,7 @@ services:
   
   #template.mailsender.unittests:
   #  image: ${DOCKER_REGISTRY-}templatemailsenderunittests
-  #  container_name: mailsender.unit-tests
+  #  container_name: temp.mailsender.unit-tests
   #  build:
   #    context: .
   #    dockerfile: Template.MailSender.UnitTests/Dockerfile

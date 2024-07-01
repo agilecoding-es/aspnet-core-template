@@ -113,7 +113,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Mes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Caching.Memory", "Template.Infrastructure.Caching.Memory\Template.Infrastructure.Caching.Memory.csproj", "{C13E8FDD-FBA4-44AB-8119-4CFA0C2CB8D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Infrastructure.Caching", "Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj", "{7596B862-FA18-4D3E-B732-E8DDC9F6B4D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Caching", "Template.Infrastructure.Caching\Template.Infrastructure.Caching.csproj", "{7596B862-FA18-4D3E-B732-E8DDC9F6B4D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{12C15405-96D3-4852-B6DD-E9AA44E588C0}"
+	ProjectSection(SolutionItems) = preProject
+		.templace.config\template.json = .templace.config\template.json
+		.templace.config\localize\templatestrings.es.json = .templace.config\localize\templatestrings.es.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -263,10 +269,11 @@ Global
 		{FBC3EFED-CC63-46CE-8A61-C03EC36FEC52} = {4878A337-E6E1-4F9C-ADC1-CBD04C3ECB6C}
 		{C13E8FDD-FBA4-44AB-8119-4CFA0C2CB8D2} = {7B9C4040-A138-4034-B9CD-22DA9BB93F37}
 		{7596B862-FA18-4D3E-B732-E8DDC9F6B4D1} = {7B9C4040-A138-4034-B9CD-22DA9BB93F37}
+		{12C15405-96D3-4852-B6DD-E9AA44E588C0} = {92F1EDB1-05E3-4698-A942-7107070F939C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
-		RESX_SortFileContentOnSave = True
 		RESX_EnableXlifSync = False
+		RESX_SortFileContentOnSave = True
+		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
 	EndGlobalSection
 EndGlobal
