@@ -5,7 +5,7 @@
 [![Deployment](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml/badge.svg)](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml)
 
 
-Ver ![Static Badge](https://img.shields.io/badge/Documentaci%C3%B3n-blue?link=%2Fsrc%2FTemplate%2FTemplate.Documentation%2FDocumentation.md)
+Ver [![Static Badge](https://img.shields.io/badge/Documentaci%C3%B3n-blue)](https://github.com/3panas/aspnet-core-template/blob/master/src/Template/Template.Documentation/Documentation.md)
 
 
 Una vez clonado el proyecto Template, se debe ejecutar el script para renombrado de proyectos y archivos.
