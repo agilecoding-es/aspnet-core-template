@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json.schemastore.org/template.json",
+  "author": "Javier Lopez Malone",
+  "classifications": [ "Web", "MVC" ],
+  "identity": "Template.WebApp",
+  "name": "Template.WebApp",
+  "shortName": "tempwebapp",
+  "sourceName": "Template",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true,
+  "symbols": {
+    //"TargetFramework": {
+    //  "type": "parameter",
+    //  "description": "The target framework for the project.",
+    //  "datatype": "choice",
+    //  "choices": [
+    //    { "choice": "net6.0" },
+    //    { "choice": "net8.0" }
+    //  ],
+    //  "defaultValue": "net6.0",
+    //  "replaces": "{TargetFramewok}"
+    //},
+    "Authors": {
+      "type": "parameter",
+      "description": "The author's name.",
+      "datatype": "string",
+      "defaultValue": "Javier Lopez Malone",
+      "replaces": "{Authors}"
+    },
+    "EnableAspNetIdentity": {
+      "type": "parameter",
+      "description": "Enable MS Asp.Net Identity support.",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "IncludeDevAppSettings": {
+      "type": "parameter",
+      "description": "Adds appsettings.Development.json.",
+      "datatype": "bool",
+      "defaultValue": "true"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!IncludeDevAppSettings)",
+          "exclude": [ "Template.WebApp/appsettings.Development.json" ]
+        }
+      ]
+    }
+  ],
+  "defaultName": "WebApplication",
+  "postActions": [
+    {
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    }
+  ]
+}
