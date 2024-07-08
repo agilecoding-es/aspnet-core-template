@@ -1,12 +1,6 @@
 # Plantilla de proyecto aspnet-core-template
 
-[![Unit & Integration Tests](https://github.com/3panas/aspnet-core-template/actions/workflows/tests.yml/badge.svg)](https://github.com/3panas/aspnet-core-template/actions/workflows/tests.yml)
-
-[![Deployment](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml/badge.svg)](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml)
-
-
-Ver [![Static Badge](https://img.shields.io/badge/Documentaci%C3%B3n-blue)](https://github.com/3panas/aspnet-core-template/blob/master/src/Template/Template.Documentation/Documentation.md)
-
+[![Unit & Integration Tests](https://github.com/3panas/aspnet-core-template/actions/workflows/tests.yml/badge.svg)](https://github.com/3panas/aspnet-core-template/actions/workflows/tests.yml) [![Deployment](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml/badge.svg)](https://github.com/3panas/aspnet-core-template/actions/workflows/deployment.yml) [![Ver - Documentaci%C3%B3n](https://img.shields.io/badge/Ver-Documentaci%C3%B3n-blue?style=flat&logo=markdown)](https://github.com/3panas/aspnet-core-template/blob/master/src/Template/Template.Documentation/Documentation.md)
 
 Una vez clonado el proyecto Template, se debe ejecutar el script para renombrado de proyectos y archivos.
 
