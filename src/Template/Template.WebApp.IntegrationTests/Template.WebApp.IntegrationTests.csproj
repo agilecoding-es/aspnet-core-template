@@ -7,7 +7,7 @@
 
 		<IsPackable>false</IsPackable>
 
-		<UserSecretsId>0600d282-8d05-4815-aaef-a3b2f7f2ce45</UserSecretsId>
+		<UserSecretsId>AgileCoding--aspnet-Template.WebApp.IntegrationTests</UserSecretsId>
 
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>

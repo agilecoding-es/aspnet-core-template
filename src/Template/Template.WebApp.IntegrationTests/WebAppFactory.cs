@@ -125,6 +125,7 @@ namespace Template.WebApp.IntegrationTests
             Configuration = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
                                 .AddJsonFile("appsettings.integrationtests.json")
+                                .AddUserSecrets<WebAppFactory>()
                                 .AddEnvironmentVariables()
                                 .Build();
 

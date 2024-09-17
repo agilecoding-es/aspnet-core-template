@@ -1,6 +1,7 @@
 ﻿using NLog.Web;
 using Template.Application.Features;
 using Template.Common;
+using Template.Configuration;
 using Template.Configuration.Setup;
 
 namespace Template.WebApp.Setup
@@ -9,22 +10,40 @@ namespace Template.WebApp.Setup
     {
         public static IAppBuilder CreateAppBuilder(this WebApplicationBuilder builder) => new AppBuilder(builder);
 
-        public static IAppBuilder DefaultServicesConfiguration(this WebApplicationBuilder builder)
+        public static IAppBuilder DefaultServicesConfiguration(this WebApplicationBuilder webApplicationBuilder)
         {
             // NLog: Setup NLog for Dependency injection
-            builder.Logging.ClearProviders();
-            builder.Host.UseNLog();
+            webApplicationBuilder.Logging.ClearProviders();
+            webApplicationBuilder.Host.UseNLog();
 
-            builder.Configuration.AddEnvironmentVariables();
+            webApplicationBuilder.Configuration.AddEnvironmentVariables();
 
-            var connectionString = builder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
+            var connectionString = webApplicationBuilder.Configuration.GetConnectionString(Constants.Configuration.ConnectionString.DefaultConnection) ?? throw new InvalidOperationException($"Connection string '{Constants.Configuration.ConnectionString.DefaultConnection}' not found.");
 
-            var appBuilder =
-                CreateAppBuilder(builder)
-                .AddSettings()
+            var builder =
+                CreateAppBuilder(webApplicationBuilder)
+                .ConfigureSettings();
+
+#if (UseTemplateConfiguration)
+
 #if (EnableAspNetIdentity)
-                .AddIdentity()
+            bool enableAspNetIdentity = true
+#else
+            bool enableAspNetIdentity = false;
 #endif
+            var templateConfiguration = new TemplateConfiguration(enableAspNetIdentity);
+#else
+            var templateSettings = builder.ConfigureSetting<TemplateOptions>(TemplateOptions.Key);
+            var templateConfiguration = new TemplateConfiguration(templateSettings.EnableAspNetIdentity);
+#endif
+
+            if (templateConfiguration.EnableAspNetIdentity)
+            {
+                builder
+                    .AddIdentity();
+            }
+
+            builder
                 .AddPresentation()
                 .AddApplicationFeatures()
                 .AddPostgreSql(connectionString)
@@ -33,16 +52,16 @@ namespace Template.WebApp.Setup
                 .AddListmonkEmailService()
                 .AddHealthChecks();
 
-            if (builder.Environment.IsStaging())
+            if (webApplicationBuilder.Environment.IsStaging())
             {
-                appBuilder.AddAzureEmail();
+                builder.AddAzureEmail();
             }
             else
             {
-                appBuilder.AddSmtpEmail();
+                builder.AddSmtpEmail();
             }
 
-            return appBuilder;
+            return builder;
         }
 
     }
