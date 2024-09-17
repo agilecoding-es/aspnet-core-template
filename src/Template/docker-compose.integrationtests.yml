@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   template.webapp.integrationtests:
     container_name: temp.webapp.int-tests

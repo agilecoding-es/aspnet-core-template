@@ -22,14 +22,20 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Run Tests
       run: docker compose -f ./src/Template/docker-compose.unittests.yml up --exit-code-from template.webapp.unittests
       continue-on-error: false
       
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: /opt/vsts/work/_temp/*.trx
+
     - name: Publish Code Coverage Report
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report
         path: ./src/Template/coverage-report
@@ -42,7 +48,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Run Tests
       run: docker compose -f ./src/Template/docker-compose.integrationtests.yml up --abort-on-container-exit --exit-code-from template.webapp.integrationtests  --build
