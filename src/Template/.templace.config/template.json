@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/template.json",
+  "author": "Javier Lopez Malone",
+  "classifications": [ "Web", "MVC" ],
+  "identity": "Template.WebApp",
+  "name": "Template.WebApp",
+  "shortName": "tempwebapp",
+  "sourceName": "Template",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true,
+  "symbols": {
+    "UseTemplateConfiguration": {
+      "type": "computed",
+      "value": "true"
+    },
+    "EnableAspNetIdentity": {
+      "type": "parameter",
+      "description": "Enable MS Asp.Net Identity support.",
+      "datatype": "bool",
+      "defaultValue": "true"
+    },
+    "IncludeDevAppSettings": {
+      "type": "parameter",
+      "description": "Adds appsettings.Development.json.",
+      "datatype": "bool",
+      "defaultValue": "true"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!IncludeDevAppSettings)",
+          "exclude": [ "appsettings.Development.json" ]]
+        }
+      ]
+    }
+  ]
+}

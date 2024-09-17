@@ -117,8 +117,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure.Cac
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{12C15405-96D3-4852-B6DD-E9AA44E588C0}"
 	ProjectSection(SolutionItems) = preProject
-		.template.config\template.json = .template.config\template.json
-		.template.config\localize\templatestrings.es.json = .template.config\localize\templatestrings.es.json
+		.templace.config\template.json = .templace.config\template.json
+		.templace.config\localize\templatestrings.es.json = .templace.config\localize\templatestrings.es.json
 	EndProjectSection
 EndProject
 Global
@@ -272,8 +272,8 @@ Global
 		{12C15405-96D3-4852-B6DD-E9AA44E588C0} = {92F1EDB1-05E3-4698-A942-7107070F939C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
-		RESX_SortFileContentOnSave = True
 		RESX_EnableXlifSync = False
+		RESX_SortFileContentOnSave = True
+		SolutionGuid = {FE8F77F3-F983-424E-8D38-D5665293BD9E}
 	EndGlobalSection
 EndGlobal

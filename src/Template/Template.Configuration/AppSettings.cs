@@ -41,7 +41,6 @@ namespace Template.Configuration
 
     }
 
-
     public class AuthenticationProvidersOptions
     {
         public const string Key = "AuthenticationProviders";
@@ -210,5 +209,12 @@ namespace Template.Configuration
 
         public bool ShowSampleMVC { get; set; }
         public bool ShowSampleAjax { get; set; }
+    }
+
+    public class TemplateOptions
+    {
+        public const string Key = "Template";
+
+        public bool EnableAspNetIdentity { get; set; } = true;
     }
 }

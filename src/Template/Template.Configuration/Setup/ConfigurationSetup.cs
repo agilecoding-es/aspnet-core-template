@@ -1,24 +1,38 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Template.Configuration.Setup
 {
     public static class ConfigurationSetup
     {
-        public static IAppBuilder AddSettings(this IAppBuilder appBuilder)
+        public static IAppBuilder ConfigureSettings(this IAppBuilder builder)
         {
-            appBuilder.Services
-                        .Configure<AppSettings>(appBuilder.Configuration)
+            builder.Services
+                        .Configure<AppSettings>(builder.Configuration)
                         .Configure<LoggingExceptionsOptions>(options =>
                         {
-                            appBuilder.Configuration.GetSection(LoggingExceptionsOptions.Key).Bind(options);
+                            builder.Configuration.GetSection(LoggingExceptionsOptions.Key).Bind(options);
                         });
 
 
-            appBuilder.Services.AddSingleton(appBuilder.Configuration.Get<AppSettings>());
-            appBuilder.Services.AddSingleton(appBuilder.Configuration.GetSection(LoggingExceptionsOptions.Key).Get<LoggingExceptionsOptions>());
+            builder.Services.AddSingleton(builder.Configuration.Get<AppSettings>());
+            builder.Services.AddSingleton(builder.Configuration.GetSection(LoggingExceptionsOptions.Key).Get<LoggingExceptionsOptions>());
 
-            return appBuilder;
+            return builder;
+        }
+
+        public static T ConfigureSetting<T>(this IAppBuilder builder, string key) where T : class
+        {
+            builder.Services.Configure<T>( options =>
+            {
+                builder.Configuration.GetSection(key).Bind(options);
+            });
+
+            var instance = builder.Configuration.Get<T>();
+            builder.Services.AddSingleton(typeof(T), instance);
+
+            return instance;
         }
     }
 }
