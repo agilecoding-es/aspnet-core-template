@@ -54,7 +54,7 @@ jobs:
             dotnet publish -c Release --no-build -o ${{env.DOTNET_ROOT}}/publish ${{env.WEBAPPPATH}}
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: DemoWeb
           path: ${{env.DOTNET_ROOT}}/publish
@@ -70,7 +70,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: DemoWeb
 
@@ -137,7 +137,7 @@ jobs:
   #      run: mkdir DemoWeb
 
   #    - name: Download artifact from build job
-  #      uses: actions/download-artifact@v3
+  #      uses: actions/download-artifact@v4
   #      with:
   #        name: DemoWeb
 

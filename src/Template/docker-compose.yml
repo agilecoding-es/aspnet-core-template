@@ -1,5 +1,3 @@
-version: '3.4'
-
 include:
   - path: docker-compose.postgresql.yml # template.db
 services:

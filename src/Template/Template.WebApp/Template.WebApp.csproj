@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>{TargetFramewok}</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 		<UserSecretsId>aspnet-Template.WebApp-52390d4a-e4a6-4a64-8c89-a5ba6d0e83cf</UserSecretsId>
