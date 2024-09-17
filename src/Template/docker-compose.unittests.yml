@@ -1,9 +1,9 @@
 services:
-  template.webapp.unittests:
-    container_name: temp.webapp.unit-tests
+  template.common.unittests:
+    container_name: temp.common.unit-tests
     build:
       context: .
-      dockerfile: Template.WebApp.UnitTests/Dockerfile
+      dockerfile: Template.Common.UnitTests/Dockerfile
     volumes:
      - /opt/vsts/work/_temp:/var/temp
      - ./coverage-report:/coverage-report
