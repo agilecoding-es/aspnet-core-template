@@ -12,5 +12,5 @@ WORKDIR "/src/Template.Common.UnitTests"
 RUN dotnet build "Template.Common.UnitTests.csproj" -c Release -o /app/build
 
 FROM build AS test
-WORKDIR /src
-ENTRYPOINT ["dotnet", "test", "--logger:trx",  "--collect:Code Coverage"]
+WORKDIR /src/Template.Common.UnitTests
+ENTRYPOINT ["dotnet", "test", "--logger:trx", "--results-directory:/var/temp", "--collect:Code Coverage"]
