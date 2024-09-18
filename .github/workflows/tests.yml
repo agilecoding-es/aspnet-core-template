@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: /opt/vsts/work/_temp/*.trx
+        path: ./src/Template.Common.UnitTests/TestResults/*.trx
 
     - name: Publish Code Coverage Report
       uses: actions/upload-artifact@v4

@@ -11,10 +11,6 @@ COPY . .
 WORKDIR "/src/Template.Common.UnitTests"
 RUN dotnet build "Template.Common.UnitTests.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "Template.Common.UnitTests.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
 FROM build AS test
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "test", "Template.Common.UnitTests.dll"]
+WORKDIR /src
+ENTRYPOINT ["dotnet", "test", "--logger:trx",  "--collect:Code Coverage"]
