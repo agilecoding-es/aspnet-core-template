@@ -13,4 +13,4 @@ RUN dotnet build "Template.Common.UnitTests.csproj" -c Release -o /app/build
 
 FROM build AS test
 WORKDIR /src/Template.Common.UnitTests
-ENTRYPOINT ["dotnet", "test", "--logger:trx", "--results-directory:/var/temp", "--collect:Code Coverage"]
+ENTRYPOINT ["dotnet", "test", "--logger:trx", "--collect:XPlat Code Coverage", "--results-directory:/var/temp"]
