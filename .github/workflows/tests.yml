@@ -32,13 +32,13 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: ./src/Template.Common.UnitTests/TestResults/*.trx
+        path: /opt/vsts/work/_temp/*.trx
 
     - name: Publish Code Coverage Report
       uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report
-        path: /var/temp/coverage.cobertura.xml
+        path: /opt/vsts/work/_temp/coverage.cobertura.xml
 
 
   integration-tests:

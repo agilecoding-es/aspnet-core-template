@@ -7,7 +7,7 @@ services:
     volumes:
      - /opt/vsts/work/_temp:/var/temp
      - ./coverage-report:/coverage-report
-    command: dotnet test --logger trx --results-directory /var/temp --collect:"XPlat Code Coverage" /p:CoverletOutputFormat=cobertura
+    # command: dotnet test --logger trx --results-directory /var/temp --collect:"XPlat Code Coverage" /p:CoverletOutputFormat=cobertura
      
   # template.application.unittests:
   #   image: ${DOCKER_REGISTRY-}templateapplicationunittests

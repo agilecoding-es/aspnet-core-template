@@ -15,5 +15,3 @@ FROM build AS test
 WORKDIR "/src/Template.Common.UnitTests"
 ENTRYPOINT dotnet test Template.Common.UnitTests.csproj --collect:"XPlat Code Coverage" --results-directory /var/temp --logger trx
 reportgenerator -reports:/var/temp/coverage.cobertura.xml -targetdir:/var/temp/coverlet/reports
-
-#ENTRYPOINT ["dotnet", "test", "--logger:trx", "--collect:XPlat Code Coverage", "--results-directory:/var/temp"]
