@@ -5,12 +5,13 @@ WORKDIR /src
 COPY ["Template.Common.UnitTests/Template.Common.UnitTests.csproj", "Template.Common.UnitTests/"]
 COPY ["Template.Common/Template.Common.csproj", "Template.Common/"]
 COPY ["Template.Configuration/Template.Configuration.csproj", "Template.Configuration/"]
-COPY entrypoint.sh /entrypoint.sh
+COPY ["Template.Common.UnitTests/entrypoint.sh", "Template.Common.UnitTests/entrypoint.sh"]
+
 RUN dotnet restore "Template.Common.UnitTests/Template.Common.UnitTests.csproj"
 COPY . .
 WORKDIR "/src/Template.Common.UnitTests"
 RUN dotnet build "Template.Common.UnitTests.csproj" -c Release -o /app/build
 
 FROM build AS test
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+RUN chmod +x /src/Template.Common.UnitTests/entrypoint.sh
+ENTRYPOINT ["/src/Template.Common.UnitTests/entrypoint.sh"]
