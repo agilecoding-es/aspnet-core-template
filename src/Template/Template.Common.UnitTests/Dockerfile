@@ -12,8 +12,11 @@ COPY . .
 WORKDIR "/src/Template.Common.UnitTests"
 RUN dotnet build "Template.Common.UnitTests.csproj" -c Release -o /app/build
 
+# Instalar ReportGenerator
+RUN dotnet tool install --global dotnet-reportgenerator-globaltool
+ENV PATH="$PATH:/root/.dotnet/tools"
+
 FROM build AS test
 WORKDIR "/src/Template.Common.UnitTests"
 RUN chmod +x entrypoint.sh
-RUN ls -l
 ENTRYPOINT ["./entrypoint.sh"]
