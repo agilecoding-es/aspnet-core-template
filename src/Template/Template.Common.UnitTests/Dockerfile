@@ -15,4 +15,5 @@ RUN dotnet build "Template.Common.UnitTests.csproj" -c Release -o /app/build
 FROM build AS test
 WORKDIR "/src/Template.Common.UnitTests"
 RUN chmod +x entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+RUN ls -l
+ENTRYPOINT ["./entrypoint.sh"]
