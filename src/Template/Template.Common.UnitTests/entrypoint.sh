@@ -3,6 +3,10 @@ set -e
 
 dotnet test Template.Common.UnitTests.csproj --collect:"XPlat Code Coverage" --results-directory /var/temp --logger trx
 
-ls -l /var/temp
+COVERAGE_FILE=$(find /var/temp -name "coverage.cobertura.xml")
 
-reportgenerator -reports:/var/temp/coverage.cobertura.xml -targetdir:/var/temp/coverlet/reports
+if [ -f "$COVERAGE_FILE" ]; then
+    reportgenerator -reports:"$COVERAGE_FILE" -targetdir:/var/temp/coverlet/reports
+else
+    echo "Error: El archivo de cobertura no fue encontrado."
+fi
