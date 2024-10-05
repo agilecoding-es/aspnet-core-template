@@ -11,4 +11,4 @@ else
     echo "Error: El archivo de cobertura no fue encontrado."
 fi
 
-ls -l /var/temp/coverlet/reports
+ls -lR /var/temp
