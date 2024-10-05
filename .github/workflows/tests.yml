@@ -38,7 +38,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report
-        path: /opt/vsts/work/_temp/**/coverage.cobertura.xml
+        path: /opt/vsts/work/_temp/coverlet/reports/*
 
 
   integration-tests:
