@@ -32,7 +32,7 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v2.16.1
       if: always()
       with:
-        trx_files: **/Template.Common.UnitTests/test-results/*.trx
+        trx_files: "**/Template.Common.UnitTests/test-results/*.trx"
         
     - name: Combine Coverage Reports # This is because one report is produced per project, and we want one result for all of them.
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
