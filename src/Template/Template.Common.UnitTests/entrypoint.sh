@@ -3,6 +3,9 @@ set -e
 
 dotnet test Template.Common.UnitTests.csproj --collect:"XPlat Code Coverage" --results-directory /var/temp --logger trx
 
+mkdir -p ./test-results
+cp /var/temp/*.trx ./test-results
+
 COVERAGE_FILE=$(find /var/temp -name "coverage.cobertura.xml")
 
 if [ -f "$COVERAGE_FILE" ]; then
@@ -10,7 +13,3 @@ if [ -f "$COVERAGE_FILE" ]; then
 else
     echo "Error: El archivo de cobertura no fue encontrado."
 fi
-
-chmod -R 777 /var/temp
-echo "Listing all files in /var/temp:"
-ls -lR /var/temp
