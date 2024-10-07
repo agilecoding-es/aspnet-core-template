@@ -11,5 +11,6 @@ else
     echo "Error: El archivo de cobertura no fue encontrado."
 fi
 
+chmod -R 777 /var/temp
 echo "Listing all files in /var/temp:"
-ls -R /var/temp
+ls -lR /var/temp
