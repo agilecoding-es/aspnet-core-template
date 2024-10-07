@@ -10,3 +10,6 @@ if [ -f "$COVERAGE_FILE" ]; then
 else
     echo "Error: El archivo de cobertura no fue encontrado."
 fi
+
+echo "Listing all files in /var/temp:"
+ls -R /var/temp
