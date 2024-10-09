@@ -6,6 +6,8 @@ dotnet test Template.Common.UnitTests.csproj --collect:"XPlat Code Coverage" --r
 mkdir -p ./test-results
 cp /var/temp/*.trx ./test-results
 
+ls -l ./
+
 COVERAGE_FILE=$(find /var/temp -name "coverage.cobertura.xml")
 
 if [ -f "$COVERAGE_FILE" ]; then
